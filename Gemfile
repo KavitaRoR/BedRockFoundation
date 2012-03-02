@@ -5,10 +5,8 @@ gem 'mysql2'
 gem 'taps'
 gem 'geokit-rails3'
 gem 'devise'
-gem 'mongrel', '1.2.0.pre2'
 
 group :development do
-  gem 'mongrel', '1.2.0.pre2'
   gem 'heroku'
 end
 
