@@ -5,14 +5,3 @@ development:
   username: root
   password: 
 
-test:
-  adapter: sqlite3
-  database: db/test.sqlite
-  pool: 5
-  timeout: 5000
-
-production:
-  adapter: sqlite3
-  database: db/production.sqlite
-  pool: 5
-  timeout: 5000

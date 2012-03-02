@@ -7,7 +7,6 @@ gem 'devise'
 
 group :development do
   gem 'heroku'
-  # gem 'mysql2'
 end
 
 # Gems used only for assets and not required
@@ -18,9 +17,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :test do
-  # gem 'sqlite3'
-end
 
 group :production do
   gem 'pg'
