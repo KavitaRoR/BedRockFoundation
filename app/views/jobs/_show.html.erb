@@ -1,0 +1,167 @@
+<span style="float:right">
+
+<%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
+<h2>Print this Job Estimate</h2>
+<p><%= button_to "Print this estimate", print_job_url(@job) %></p>
+</span>
+<%= simple_format @job.description %>
+
+<table>
+	<thead>
+	<tr>
+		<th>Item</th>
+		<th>Quantity</th>
+		<th>Cost</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td><b>Pad Size</b></td>
+		<td><%= @job.width rescue "" %> x <%= @job.length rescue "" %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Square Footage</td>
+		<td><%= @job.pad_job.square_footage %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Cubic Footage</td>
+		<td><%= @job.pad_job.cubic_footage %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Perimeter</td>
+		<td><%= @job.pad_job.perimeter %> ft</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Off-level amount</td>
+		<td><%= @job.off_level_amount_in_inches %> inches
+			<br /><%= @job.pad_job.my_depth %> feet
+		</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Rows of Boards (on slope)</td>
+		<td><%= (@job.pad_job.board_rows) %> rows</td>
+		<td></td>
+	</tr>
+	
+	<tr>
+		<td>Boards</td>
+		<td><%= @job.pad_job.board_quantity_in_feet %> ft</td>
+		<td><%= money_from_cents @job.pad_job.board_cost %></td>
+	</tr>
+	
+	<% if @job.economy_or_elite == "Elite" %>
+	<tr>
+		<td>Trex Additional</td>
+		<td><%= @job.pad_job.perimeter %> ft</td>
+		<td><%= money_from_cents @job.pad_job.trex_additional_cost %></td>
+	</tr>
+	<% end %>
+	<tr>
+		<td>Weed Fabric</td>
+		<td><%= '%.2f' % @job.pad_job.weed_fabric_per_foot.to_s %> per ft</td>
+		<td><%= money_from_cents @job.pad_job.weed_fabric_cost %></td>
+	</tr>
+	<tr>
+		<td>Rebar</td>
+		<td><%= @job.pad_job.rebar_quantity %></td>
+		<td><%= money_from_cents @job.pad_job.rebar_cost %></td>
+	</tr>
+	<tr class="endsection">
+		<td>Rock</td>
+		<td><%= @job.pad_job.rock_tonage %> tons</td>
+		<td><%= money_from_cents @job.pad_job.rock_cost %></td>
+	</tr>
+	
+	<tr>
+		<td>Truck Gas Cost</td>
+		<td><%= @job.pad_job.round_trip_distance %> miles</td>
+		<td><%= money_from_cents @job.pad_job.truck_gas_cost %></td>
+	</tr>
+	<tr>
+		<td>Truck Maintenace Cost</td>
+		<td><%= @job.pad_job.round_trip_distance %> miles</td>
+		<td><%= money_from_cents @job.pad_job.truck_maintenance_cost %></td>
+	</tr>
+	<tr class="endsection">
+		<td>Driving Labor</td>
+		<td><%= @job.pad_job.round_trip_distance %> miles</td>
+		<td><%= money_from_cents @job.pad_job.driving_labor_cost %></td>
+	</tr>
+
+	<tr>
+		<td>Working Labor</td>
+		<td><%= @job.pad_job.working_labor_hours %> hours</td>
+		<td><%= money_from_cents @job.pad_job.working_labor_cost %></td>
+	</tr>
+	<tr>
+		<td>Materials</td>
+		<td></td>
+		<td><%= money_from_cents @job.pad_job.total_material_cost %></td>
+	</tr>
+	<tr class="endsection">
+		<td>Total Cost</td>
+		<td></td>
+		<td><%= money_from_cents @job.pad_job.total_cost %></td>
+	</tr>
+	
+	<tr>
+		<td>Material Markup</td>
+		<td></td>
+		<td><%= money_from_cents @job.pad_job.total_material_markup %></td>
+	</tr>
+	<tr class="endsection">
+		<td>Labor Markup</td>
+		<td></td>
+		<td><%= money_from_cents @job.pad_job.total_labor_markup %></td>
+	</tr>
+	
+	<tr>
+		<td><b>Base Price</b></td>
+		<td></td>
+		<td><%= money_from_cents @job.pad_job.total_price %></td>
+	</tr>
+	
+	<tr>
+		<td><b>Additional Price Added</b></td>
+		<td></td>
+		<td><%= money_from_cents(@job.additional_price.to_f * 100) %></td>
+	</tr>
+	<tr>
+		<td><b>DISCOUNT</b></td>
+		<td></td>
+		<td><%= money_from_cents(@job.discount * 100) %></td>
+	</tr>
+	<tr>
+		<td><b>FINAL PRICE</b></td>
+		<td></td>
+		<td><%= money_from_cents(@job.price_in_cents) %></td>
+	</tr>
+	</tbody>
+</table>
+ 
+<h2>Communication History</h2>
+
+<% for update in @job.statuses.reverse %>
+	<div class="status_update">
+		<h3>On <%= update.created_at.strftime("%m/%d") %> <b><%= update.creator.name %></b> wrote:
+		<span>Referencing: <%= link_to update.job.referencing, edit_job_path(update.job) %></span>
+		</h3>
+		<%= simple_format update.notes %>
+		<p class="small">Assigned to: <b><%= update.assignee.name rescue "" %></b>
+			<span>Next Action: <b><%= update.next_action.name rescue "None" %></b></span>	
+		</p>
+	</div>
+<% end %>
+
+
+<h2 style="margin-top:50px;">Remove this <%= @job.estimate_or_contract.downcase %> from the system</h2>
+<p>This will remove all history and status from the database, please be sure you want to do this as it could have other repercussions.</p>
+<%= button_to "Destroy", @job, :confirm => 'Are you sure?', :method => :delete %>
+<br /><br />
+</div>
+	

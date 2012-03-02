@@ -1,0 +1,10 @@
+<% title "Edit Status" %>
+
+<%= render :partial => 'form' %>
+
+<% content_for :subnav do %>
+  <li class="action"><%= link_to "Cancel Editing", @status %></li>
+  <li class="action"><%= link_to "View All", statuses_path %></li>
+
+<% end %>
+

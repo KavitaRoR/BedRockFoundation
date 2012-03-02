@@ -1,0 +1,22 @@
+<% form_for @foundation do |f| %>
+  <% if @foundation.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@foundation.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+	      <ul>
+	      <% @foundation.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+<dl>
+  <dt><%= f.label :kind %></dt>
+	<dd><%= f.text_field :kind, :class => "string" %></dd>
+	<dt><%= f.label :position, "(order)" %></dt>
+	<dd><%= f.text_field :position, :class => "string" %></dd>
+  
+</dl>
+<p><%= f.submit "Save" %> or <%= f.submit "Save &amp; add another" %></p>
+<% end %>

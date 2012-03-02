@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<title>Abundant Life Login Page</title>
+        <link rel="stylesheet" href="/stylesheets/style_all.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/stylesheets/style2.css" type="text/css" media="screen" />
+        
+        <!--[if IE 6]>
+        <script src="/javascripts/ie6pngfix.js"></script>
+        <script>
+          DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+        </script>
+        <![endif]--> 
+        
+        <script type='text/javascript' src='/javascripts/jquery.js'></script>
+        <script type='text/javascript' src='/javascripts/jquery-ui.js'></script>
+        <script type='text/javascript' src='/javascripts/jquery.wysiwyg.js'></script>
+        <script type='text/javascript' src='/javascripts/custom.js'></script>
+    </head>
+    
+    <body>
+			<div id="head">
+      	<h1 class="logo">
+          	<a href="/">Abundant Life Scheduling System</a>
+          </h1>
+          
+          <div class="head_memberinfo">
+          	<div class="head_memberinfo_logo">
+              </div>
+          </div><!--end head_memberinfo-->
+      </div><!--end head-->
+
+			<div id="bg_wrapper">
+				<div id="main">
+					<div id="content" style="background-color:'#fff'">
+						<h1>Abundant Life Login Page</h1>
+						<% if flash[:error] %>
+							<div class="login_message message error">
+								<p>Wrong Username or password.</p>
+							</div>
+						<% end %>
+						<h2><%= @title %></h2>
+						<div>
+							<%= yield %>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</body>
+</html>

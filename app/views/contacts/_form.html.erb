@@ -1,0 +1,45 @@
+<% form_for @contact do |f| %>
+  <% if @contact.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+	      <ul>
+	      <% @contact.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+<dl>
+	<dt>Status: </dt>
+	<dd><%= f.select :contact_status_id, ContactStatus.all.collect {|cs| [ cs.status_name, cs.id ] } %></dd>
+  <dt><%= f.label :company %></dt>
+	<dd><%= f.text_field :company, :class => "string" %></dd>
+  <dt><%= f.label :first_name %></dt>
+	<dd><%= f.text_field :first_name, :class => "string" %></dd>
+  <dt><%= f.label :last_name %></dt>
+	<dd><%= f.text_field :last_name, :class => "string" %></dd>
+  <dt><%= f.label :phone %></dt>
+	<dd><%= f.text_field :phone, :class => "string" %></dd>
+  <dt><%= f.label :phone_alt, "Cell Phone" %></dt>
+	<dd><%= f.text_field :phone_alt, :class => "string" %></dd>
+  <dt><%= f.label :phone_work, "Work Phone" %></dt>
+	<dd><%= f.text_field :phone_work, :class => "string" %></dd>
+  <dt><%= f.label :address_1 %></dt>
+	<dd><%= f.text_field :address_1, :class => "string" %></dd>
+  <dt><%= f.label :address_2 %></dt>
+	<dd><%= f.text_field :address_2, :class => "string" %></dd>
+  <dt><%= f.label :city %></dt>
+	<dd><%= f.text_field :city, :class => "string" %></dd>
+  <dt><%= f.label :province, "State" %></dt>
+	<dd><%= f.text_field :province, :class => "string" %></dd>
+  <dt><%= f.label :zip %></dt>
+	<dd><%= f.text_field :zip, :class => "integer" %></dd>
+  <dt><%= f.label :email %></dt>
+	<dd><%= f.text_field :email, :class => "string" %></dd>
+  <dt><%= f.label :campaign_id, "How did the customer learn about Abundant Life?" %></dt>
+	<dd><%= f.select :campaign_id, Campaign.all.collect{|c| [c.name, c.id]}, :include_blank => "Other" %></dd>
+</dl>
+<p><%= f.submit "Save" %></p>
+<% end %>

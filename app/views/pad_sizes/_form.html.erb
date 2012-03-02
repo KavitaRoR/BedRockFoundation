@@ -1,0 +1,30 @@
+<% form_for @pad_size do |f| %>
+  <% if @pad_size.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@pad_size.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+	      <ul>
+	      <% @pad_size.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+<dl>
+  <dt><%= f.label :length %></dt>
+	<dd><%= f.text_field :length, :class => "integer" %></dd>
+  <dt><%= f.label :width %></dt>
+	<dd><%= f.text_field :width, :class => "integer" %></dd>
+  <dt><%= f.label :price_in_cents %></dt>
+	<dd><%= f.text_field :price_in_cents, :class => "integer" %></dd>
+  <dt><%= f.label :material_cost_in_cents %></dt>
+	<dd><%= f.text_field :material_cost_in_cents, :class => "integer" %></dd>
+  <dt><%= f.label :labor_cost_in_cents %></dt>
+	<dd><%= f.text_field :labor_cost_in_cents, :class => "integer" %></dd>
+	<dt><%= f.label :position, "(order)" %></dt>
+	<dd><%= f.text_field :position, :class => "string" %></dd>
+  
+</dl>
+<p><%= f.submit "Save" %> or <%= f.submit "Save &amp; add another" %></p>
+<% end %>

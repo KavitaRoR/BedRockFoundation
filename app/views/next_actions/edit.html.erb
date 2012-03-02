@@ -1,0 +1,10 @@
+<% title "Edit Next Action" %>
+
+<%= render :partial => 'form' %>
+
+<% content_for :subnav do %>
+  <li class="action"><%= link_to "Cancel Editing", @next_action %></li>
+  <li class="action"><%= link_to "View All", next_actions_path %></li>
+
+<% end %>
+

@@ -1,0 +1,24 @@
+<% title "Pad Variables" %>
+<h1>Listing rock_pad_variables</h1>
+
+<table class="table_liquid" cellspacing="0">
+  <tr>
+    <th>Key</th>
+		<th>Description</th>
+    <th>Value</th>
+		<th>Actions</th>
+  </tr>
+
+<% @rock_pad_variables.each do |rock_pad_variable| %>
+  <tr>
+    <td><%=h rock_pad_variable.key %></td>
+		<td><%=h rock_pad_variable.description %></td>
+    <td><%=h rock_pad_variable.value %></td>
+    <td><%= link_to 'Edit', edit_rock_pad_variable_path(rock_pad_variable) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New rock_pad_variable', new_rock_pad_variable_path %>

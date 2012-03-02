@@ -1,0 +1,50 @@
+<% title "Pad Jobs" %>
+
+Search: <input name="filter" id="filter-box" value="" maxlength="30" size="30" type="text">  
+<img id="filter-clear-button" src="/images/silk/cross.png" />
+
+<%= render :partial => 'shared/pager' unless @pad_jobs.empty? %>
+<br class="clear" />
+<table class="tablesorter">
+	<thead>
+  <tr>
+    <th>Job</th>
+    <th>Foundation</th>
+    <th>Pad Size</th>
+    <th>Door Placement</th>
+    <th>Off Level Amount In Inches</th>
+  </tr>
+	</thead>
+	<tbody>
+  <% for pad_job in @pad_jobs %>
+    <tr>
+      <td><%=h pad_job.job %></td>
+      <td><%=h pad_job.foundation %></td>
+      <td><%=h pad_job.pad_size %></td>
+      <td><%=h pad_job.door_placement %></td>
+      <td><%=h pad_job.off_level_amount_in_inches %></td>
+      <td><%= link_to "Show", pad_job %></td>
+      <td><%= link_to "Edit", edit_pad_job_path(pad_job) %></td>
+      <td><%= link_to "Destroy", pad_job, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+	</tbody>
+</table>
+
+<% content_for :subnav do %>
+<li class="action positive"><%= link_to "+ Add a new Pad Job", new_pad_job_path %></li>
+<% end %>
+
+
+<% content_for :right_column do %>
+	<div class="hint">
+      <h3>Hint</h3>
+      <p>This is a hint.</p>
+    </div>
+	<div class="list">
+	  <h3>List Items</h3>
+	  <ul>
+	      <li><a href="#">link</a> <span class="date">date</span></li>
+	  </ul>
+	</div>
+<% end %>

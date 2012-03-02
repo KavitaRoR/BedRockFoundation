@@ -1,0 +1,82 @@
+<% form_for @job do |f| %>
+  <% if @job.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+	      <ul>
+	      <% @job.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+<dl>
+  <dt><%= f.label :description %></dt>
+	<dd><%= f.text_area :description, :class => "text" %></dd>
+  <dt><%= f.label :foundation_id %></dt>
+	<dd><%= f.select :foundation_id, Foundation.all.collect{|fo| [fo.kind, fo.id]} %></dd>
+  <!-- <dt><%= f.label :pad_size_id %></dt> -->
+	<!-- <dd><%= f.select :pad_size_id, PadSize.all.collect{|p| [p.size, p.id]} %></dd> -->
+  <dt><%= f.label :width %></dt>
+	<dd><%= f.text_field :width, :class => "integer" %></dd>
+  <dt><%= f.label :length %></dt>
+	<dd><%= f.text_field :length, :class => "integer" %></dd>
+  <dt><%= f.label :border_sixbysix, "Use 6x6 timbers around the border?" %></dt>
+	<dd><%= f.check_box :border_sixbysix %></dd>
+  <dt><%= f.label :door_placement %></dt>
+	<dd><%= f.text_field :door_placement, :class => "string" %></dd>
+  <dt><%= f.label :off_level_amount_in_inches %></dt>  
+	<dd><%= f.text_field :off_level_amount_in_inches, :class => "integer" %></dd>
+  <!-- <dt><%= f.label :price_in_cents %></dt>
+	<dd><%= f.text_field :price_in_cents, :class => "integer" %></dd>
+  <dt><%= f.label :material_cost_in_cents %></dt>
+	<dd><%= f.text_field :material_cost_in_cents, :class => "integer" %></dd>
+  <dt><%= f.label :labor_cost_in_cents %></dt>
+	<dd><%= f.text_field :labor_cost_in_cents, :class => "integer" %></dd> -->
+  <dt><%= f.label :accessible_with_machine %></dt>
+	<dd><%= f.text_field :accessible_with_machine, :class => "string" %></dd>
+  <dt><%= f.label :additional_fill_dirt %></dt>
+	<dd><%= f.text_field :additional_fill_dirt, :class => "string" %></dd>
+  <dt><%= f.label :build_up_timbers %></dt>
+	<dd><%= f.text_field :build_up_timbers, :class => "string" %></dd>
+  <dt><%= f.label :timber_wall %></dt>
+	<dd><%= f.text_field :timber_wall, :class => "string" %></dd>
+  <dt><%= f.label :economy_or_elite, "Standard, Elite or Economy" %></dt>
+	<% @job.economy_or_elite = "Standard" if @job.economy_or_elite.nil? || @job.economy_or_elite.empty? %>
+	<dd><%= f.select :economy_or_elite, ["Economy", "Standard", "Elite"] %></dd>
+
+  <!-- <dt><%= f.label :shed_company %></dt>
+	<dd><%= f.text_field :shed_company, :class => "string" %></dd> -->
+  <dt><%= f.label :additional_price %></dt>
+	<dd><%= f.text_field :additional_price, :class => "integer" %></dd>
+  <dt><%= f.label :discount %></dt>
+	<dd><%= f.text_field :discount, :class => "string" %></dd>
+
+<hr />
+	<h3>Job site address</h3>
+	<p>Leave this empty if the customer address is the same</p>
+  <dt><%= f.label :address_1 %></dt>
+	<dd><%= f.text_field :address_1, :class => "string" %></dd>
+  <dt><%= f.label :address_2 %></dt>
+	<dd><%= f.text_field :address_2, :class => "string" %></dd>
+  <dt><%= f.label :city %></dt>
+	<dd><%= f.text_field :city, :class => "string" %></dd>
+  <dt><%= f.label :province, "State" %></dt>
+	<dd><%= f.text_field :province, :class => "string" %></dd>
+  <dt><%= f.label :zip %></dt>
+	<dd><%= f.text_field :zip, :class => "integer" %></dd>
+	<%= f.hidden_field(:contact_id, :value => (params[:for] || @contact.id)) rescue "" %>
+  <dt><%= f.label :location_id, "Office Location for Invoice" %></dt>
+	<dd><%= f.select :location_id, Location.find(:all, :order => "abbreviation ASC").map{|l| [l.name, l.id] } %></dd>
+	
+	
+	<hr />
+		<h3>Job Crew and Rig</h3>
+	  <dt><%= f.label :crew_name %></dt>
+		<dd><%= f.text_field :crew_name, :class => "string" %></dd>
+	  <dt><%= f.label :rig_name, "Rig #" %></dt>
+		<dd><%= f.text_field :rig_name, :class => "string" %></dd>
+</dl>
+<p><%= f.submit "Save" %></p>
+<% end %>

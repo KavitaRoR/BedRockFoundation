@@ -1,0 +1,48 @@
+<h2>Print this Job Estimate</h2>
+<span style="float:right">
+
+<h2>Edit this Estimate</h2>
+<%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
+</span>
+
+<div id="flash_contract">
+	</div>
+
+	
+	<%
+	flashvars = "	{ 
+		contact_name: '#{ escape_javascript @job.contact.first_name } #{ escape_javascript @job.contact.last_name }',
+		contact_address: '#{ escape_javascript @job.contact.address_1 }',
+		contact_address2: '#{ escape_javascript @job.contact.city }, #{ escape_javascript @job.contact.province}   #{@job.contact.zip}',
+		contact_phone_home: '#{ @job.contact.phone }',
+		contact_phone_cell: '#{ @job.contact.phone_alt }',
+		contact_phone_work: '#{ @job.contact.phone_work }',
+		contact_email: '#{ @job.contact.email }',
+		job_location_abbr: '#{ @job.location.abbreviation rescue 'ERR' }',
+		job_location_phone: '#{ @job.location.phone rescue '- no location assigned' }',
+		job_quality: '#{ @job.economy_or_elite.downcase rescue "standard" }',
+		job_quality_alt: '#{ escape_javascript @job.description }',
+		job_extras: '#{ escape_javascript(@job.extras.join('\n')) }',
+		job_price: '#{money_from_cents @job.price_in_cents}',
+		additional_price: '#{money_from_cents(@job.additional_price * 100)}',
+		job_total_price: '#{money_from_cents(@job.price_in_cents + ((@job.additional_price || 0) * 100))}',
+		job_width: '#{@job.width}',
+		job_length: '#{@job.length}',
+		job_inches: '#{@job.off_level_amount_in_inches}',
+		job_kind: '#{@job.economy_or_elite}',
+		foundation_kind: '#{@job.foundation.kind rescue ''} Foundation',
+		job_date: '#{ @job.updated_at.strftime('%m/%d/%Y') || '' }'
+	} "
+	%>
+
+<% content_for :js_bottom do %>
+		<script type="text/javascript" charset="utf-8">
+		jQuery('#flash_contract').flash({
+		    src: '/flash/contract.swf',
+		    width: 612,
+		    height: 783,
+				flashvars: <%= flashvars %>
+		})
+		</script>
+<% end %>
+

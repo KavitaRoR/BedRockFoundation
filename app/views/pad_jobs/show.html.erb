@@ -1,0 +1,31 @@
+<% title "Pad Job" %>
+
+<p>
+  <strong>Job:</strong>
+  <%=h @pad_job.job %>
+</p>
+<p>
+  <strong>Foundation:</strong>
+  <%=h @pad_job.foundation %>
+</p>
+<p>
+  <strong>Pad Size:</strong>
+  <%=h @pad_job.pad_size %>
+</p>
+<p>
+  <strong>Door Placement:</strong>
+  <%=h @pad_job.door_placement %>
+</p>
+<p>
+  <strong>Off Level Amount In Inches:</strong>
+  <%=h @pad_job.off_level_amount_in_inches %>
+</p>
+
+
+<% content_for :subnav do %>
+	
+  <li class="action"><%= link_to "Edit", edit_pad_job_path(@pad_job) %></li>
+  <li class="action negative"><%= link_to "Destroy", @pad_job, :confirm => 'Are you sure?', :method => :delete %></li>
+  <li class="action"><%= link_to "View All", pad_jobs_path %></li>
+<% end %>
+

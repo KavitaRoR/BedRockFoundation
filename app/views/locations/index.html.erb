@@ -1,0 +1,30 @@
+<h1>Listing locations</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Abbreviation</th>
+    <th>Controls</th>
+  </tr>
+
+<% @locations.each do |location| %>
+  <tr>
+    <td><%=h location.name %></td>
+    <td><%=h location.phone %></td>
+    <td><%=h location.abbreviation %></td>
+    <td><%= link_to 'Show', location %>
+    | <%= link_to 'Edit', edit_location_path(location) %>
+    | <%= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<h2>Create a new Location</h2>
+<a class="dashboard_button button7" href="/locations/new">
+    <span class="dashboard_button_heading">+ Location</span>
+    <span>Add a new phone number for the invoices</span>
+</a><!--end dashboard_button-->
+

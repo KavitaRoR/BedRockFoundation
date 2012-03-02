@@ -1,0 +1,17 @@
+
+<div class="jquery_tab">
+
+    <div class="content_block">
+        <h2 class="jquery_tab_title"><%= @campaign.name %></h2>	
+				<p>
+				  <strong>Started On:</strong>
+				  <%=h @campaign.started_on %>
+					<br />
+				  <strong>Cost:</strong>
+				  <%= money_from_cents @campaign.cost_in_cents %>
+				</p>
+
+
+
+		</div>
+</div>

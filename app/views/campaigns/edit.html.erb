@@ -1,0 +1,14 @@
+<div class="jquery_tab">
+
+    <div class="content_block">
+        <h2 class="jquery_tab_title">Editing Campaign: <%=h @campaign.name %></h2>
+<%= render :partial => 'form' %>
+
+<% content_for :subnav do %>
+  <li class="action"><%= link_to "Cancel Editing", @campaign %></li>
+  <li class="action"><%= link_to "View All", campaigns_path %></li>
+
+<% end %>
+	</div>
+</div>
+

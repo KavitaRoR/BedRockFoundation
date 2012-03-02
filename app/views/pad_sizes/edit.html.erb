@@ -1,0 +1,10 @@
+<% title "Edit Pad Size" %>
+
+<%= render :partial => 'form' %>
+
+<% content_for :subnav do %>
+  <li class="action"><%= link_to "Cancel Editing", @pad_size %></li>
+  <li class="action"><%= link_to "View All", pad_sizes_path %></li>
+
+<% end %>
+

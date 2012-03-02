@@ -1,0 +1,36 @@
+<div class="jquery_tab">
+
+    <div class="content_block">
+        <h2 class="jquery_tab_title">All Campaigns</h2>
+
+
+<table class="table_liquid" cellspacing="0">
+	<thead>
+  <tr>
+    <th class="nobg">Name</th>
+    <th>Started On</th>
+    <th>Cost</th>
+    <th>Revenue Generated</th>
+    <th>Controls</th>
+  </tr>
+	</thead>
+	<tbody>
+  <% for campaign in @campaigns %>
+    <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
+      <th class="spec"><%=h campaign.name %></th>
+      <td><%=h campaign.started_on %></td>
+      <td><%=h money_from_cents campaign.cost_in_cents %></td>
+      <td class="profitable_cell <%= campaign.profitable? %>"><%=h money_from_cents campaign.revenue_in_cents %></td>
+      <td><%= link_to "Show", campaign %> | <%= link_to "Edit", edit_campaign_path(campaign) %> | <%= link_to "Destroy", campaign, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+	</tbody>
+</table>
+
+<a class="dashboard_button button3" href="/campaigns/new">
+    <span class="dashboard_button_heading">+ Campaign</span>
+    <span>Add a new Campaign</span>
+</a><!--end dashboard_button-->
+
+</div>
+</div>

@@ -1,0 +1,15 @@
+<% title "Foundation" %>
+
+<p>
+  <strong>Kind:</strong>
+  <%=h @foundation.kind %>
+</p>
+
+
+<% content_for :subnav do %>
+	
+  <li class="action"><%= link_to "Edit", edit_foundation_path(@foundation) %></li>
+  <li class="action negative"><%= link_to "Destroy", @foundation, :confirm => 'Are you sure?', :method => :delete %></li>
+  <li class="action"><%= link_to "View All", foundations_path %></li>
+<% end %>
+

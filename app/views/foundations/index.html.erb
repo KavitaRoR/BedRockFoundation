@@ -1,0 +1,28 @@
+<% title "Foundations" %>
+
+<br class="clear" />
+<table class="table_liquid" cellspacing="0">
+	<thead>
+  <tr>
+    <th class="nobg">Kind</th>
+    <th>Actions</th>
+  </tr>
+	</thead>
+	<tbody>
+  <% for foundation in @foundations %>
+	  <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
+	    <th class="spec"><%=h foundation.kind %></th>
+      <td><%= link_to "Show", foundation %>
+      | <%= link_to "Edit", edit_foundation_path(foundation) %>
+      | <%= link_to "Destroy", foundation, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+	</tbody>
+</table>
+
+
+<h2>Create a new Foundation type</h2>
+<a class="dashboard_button button6" href="/foundations/new">
+    <span class="dashboard_button_heading">+ Foundation</span>
+    <span>Add a new possible foundation type</span>
+</a><!--end dashboard_button-->

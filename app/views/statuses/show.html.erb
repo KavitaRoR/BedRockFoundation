@@ -1,0 +1,31 @@
+<% title "Status" %>
+
+<p>
+  <strong>Job:</strong>
+  <%=h @status.job %>
+</p>
+<p>
+  <strong>Next Action:</strong>
+  <%=h @status.next_action %>
+</p>
+<p>
+  <strong>Notes:</strong>
+  <%=h @status.notes %>
+</p>
+<p>
+  <strong>Asssgned By:</strong>
+  <%=h @status.assigned_by %>
+</p>
+<p>
+  <strong>Assigned To:</strong>
+  <%=h @status.assigned_to %>
+</p>
+
+
+<% content_for :subnav do %>
+	
+  <li class="action"><%= link_to "Edit", edit_status_path(@status) %></li>
+  <li class="action negative"><%= link_to "Destroy", @status, :confirm => 'Are you sure?', :method => :delete %></li>
+  <li class="action"><%= link_to "View All", statuses_path %></li>
+<% end %>
+

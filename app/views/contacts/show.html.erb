@@ -1,0 +1,63 @@
+<div class="jquery_tab">
+	<div class="content_block">
+		<h2 class="jquery_tab_title">Name: <%= @contact.name %></h2>
+		<p>
+			<b>Status: </b><%=h @contact.status.status_name %><br />
+		  <b>Company: </b> <%= @contact.company + "<br />" if !@contact.company.blank? %><br />
+			<b>Full Name: </b> <%=h @contact.first_name %> <%=h @contact.last_name %><br />
+			<b>Address: </b> <%= @contact.address_1 + (!@contact.address_2.blank? ? ("<br />" + @contact.address_2) : "") %> <%=h @contact.city %>, <%=h @contact.province %> <%=h @contact.zip %><br />
+			<b>Phone Number: </b> <%=h @contact.phone %><br />
+			<b>Alternate Number: </b> <%=h @contact.phone_alt %><br />
+		  <b>Campaign:</b> <%= link_to(@contact.campaign.name, @contact.campaign) rescue "Other" %>
+		</p>
+
+		<% if @contact.jobs.empty? %>
+			<h2>This person doesn't have any estimates yet</h2>
+			<a class="dashboard_button button2" href="/jobs/new?for=<%= @contact.id %>">
+				<span class="dashboard_button_heading">+ Estimate</span>
+				<span>Create an estimate for <%= @contact.name %>.</span>
+			</a>
+		<% end %>
+
+		<h2>Communication History</h2>
+
+		<% for update in @contact.statuses.sort{|a,b| b.updated_at <=> a.updated_at} %>
+			<div class="status_update">
+				<h3>On <%= update.created_at.strftime("%m/%d") %> <b><%= update.creator.name %></b> wrote:
+					<span>Referencing: <%= link_to update.job.referencing, edit_job_path(update.job) rescue "" %></span>
+				</h3>
+				<%= simple_format update.notes %>
+				<p class="small">Assigned to: <b><%= update.assignee.name rescue "" %></b>
+					<span>Next Action: <b><%= update.next_action.name rescue "None" %></b><b><%= update.followup_date.nil? ? "" : " on #{update.followup_date.strftime("%m/%d/%Y at %I:%m %p")}" %></b></span>	
+				</p>
+			</div>
+		<% end %>
+	</div>
+</div>
+
+<div class="jquery_tab">
+	<div class="content_block">
+    <h2 class="jquery_tab_title">Comm. Form</h2>
+		<% @status = Status.new(:contact_id => @contact.id) %>
+		<% @jobs = @contact.jobs.by_recent %>
+		<%= render :partial => "statuses/form" %>
+	</div>
+</div>
+
+<% for @job in @contact.jobs %>
+
+<div class="jquery_tab">
+	<div class="content_block">
+    <h2 class="jquery_tab_title"><%= @job.referencing %></h2>
+		<%= render :partial => "jobs/show" %>
+</div>
+
+<% end %>
+
+<div class="jquery_tab">
+	<div class="content_block">
+    <h2 class="jquery_tab_title">+ Add an Estimate</h2>
+		<% @job = Job.new %>
+		<%= render :partial => "jobs/form" %>
+	</div>
+</div>

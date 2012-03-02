@@ -1,0 +1,37 @@
+<% title "Pad Sizes" %>
+
+<br class="clear" />
+<table class="table_liquid" cellspacing="0">
+	<thead>
+  <tr>
+    <th class="nobg">Size</th>
+    <th>Length</th>
+    <th>Width</th>
+    <th>Price</th>
+    <th>Material Cost</th>
+    <th>Labor Cost</th>
+    <th>Actions</th>
+  </tr>
+	</thead>
+	<tbody>
+  <% for pad_size in @pad_sizes %>
+	  <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
+	    <th class="spec"><%=h pad_size.size %></th>
+      <td><%=h pad_size.length %></td>
+      <td><%=h pad_size.width %></td>
+      <td><%= money_from_cents pad_size.price_in_cents %></td>
+      <td><%= money_from_cents pad_size.material_cost_in_cents %></td>
+      <td><%= money_from_cents pad_size.labor_cost_in_cents %></td>
+      <td><%= link_to "Show", pad_size %>
+      | <%= link_to "Edit", edit_pad_size_path(pad_size) %>
+      | <%= link_to "Destroy", pad_size, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+	</tbody>
+</table>
+
+<h2>Create a new Pad Size</h2>
+<a class="dashboard_button button6" href="/pad_sizes/new">
+    <span class="dashboard_button_heading">+ Pad Size</span>
+    <span>Add a new possible pad size</span>
+</a><!--end dashboard_button-->

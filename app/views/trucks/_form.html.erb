@@ -1,0 +1,23 @@
+<% form_for @truck do |f| %>
+  <% if @truck.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@truck.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+	      <ul>
+	      <% @truck.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+<dl>
+  <dt><%= f.label :name %></dt>
+	<dd><%= f.text_field :name, :class => "string" %></dd>
+  <dt><%= f.label :phone %></dt>
+	<dd><%= f.text_field :phone, :class => "string" %></dd>
+  <dt><%= f.label :color %></dt>
+	<dd><%= f.text_field :color, :class => "string" %></dd>
+</dl>
+<p><%= f.submit "Save" %> or <%= f.submit "Save &amp; add another" %></p>
+<% end %>

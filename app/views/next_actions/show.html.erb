@@ -1,0 +1,31 @@
+<% title "Next Action" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @next_action.name %>
+</p>
+<p>
+  <strong>Requires Phone Call:</strong>
+  <%=h @next_action.requires_phone_call %>
+</p>
+<p>
+  <strong>On Hold:</strong>
+  <%=h @next_action.on_hold %>
+</p>
+<p>
+  <strong>Requires Visit:</strong>
+  <%=h @next_action.requires_visit %>
+</p>
+<p>
+  <strong>Requires Research:</strong>
+  <%=h @next_action.requires_research %>
+</p>
+
+
+<% content_for :subnav do %>
+	
+  <li class="action"><%= link_to "Edit", edit_next_action_path(@next_action) %></li>
+  <li class="action negative"><%= link_to "Destroy", @next_action, :confirm => 'Are you sure?', :method => :delete %></li>
+  <li class="action"><%= link_to "View All", next_actions_path %></li>
+<% end %>
+

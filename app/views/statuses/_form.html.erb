@@ -1,0 +1,34 @@
+<% form_for @status do |f| %>
+  <% if @status.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@status.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+	      <ul>
+	      <% @status.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+	<%= f.hidden_field :contact_id %>
+
+<dl>
+  <dt><%= f.label :job_id %></dt>
+	<dd><%= f.select :job_id, @jobs.collect{|jo| [jo.name, jo.id]}  %></dd>
+  <dt><%= f.label :next_action_id %></dt>
+	<dd><%= f.select :next_action_id, NextAction.all.collect{|n| [n.name, n.id]} %></dd>
+	<dt><%= f.label :followup_date %></dt>
+	<dd><%= f.datetime_select :followup_date %></dd>
+  <dt><%= f.label :notes %></dt>
+	<dd><%= f.text_area :notes, :class => "text" %></dd>
+  <dt><%= f.label :assigned_to %></dt>
+	<dd><%= f.select :assigned_to, User.all.collect{|u| [u.name, u.id]} %></dd>
+</dl>
+<%= f.hidden_field :assigned_by, :value => current_user.id %>
+<p><%= f.submit "Save" %></p>
+<% end %>
+
+
+<form action="/contacts/637" method="POST">
+	
+</form>

@@ -1,0 +1,29 @@
+<% form_for @next_action do |f| %>
+  <% if @next_action.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@next_action.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+	      <ul>
+	      <% @next_action.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+<dl>
+  <dt><%= f.label :name %></dt>
+	<dd><%= f.text_field :name, :class => "string" %></dd>
+  <dt><%= f.label :requires_phone_call %></dt>
+	<dd><%= f.check_box :requires_phone_call, :class => "boolean" %></dd>
+  <dt><%= f.label :on_hold %></dt>
+	<dd><%= f.check_box :on_hold, :class => "boolean" %></dd>
+  <dt><%= f.label :requires_visit %></dt>
+	<dd><%= f.check_box :requires_visit, :class => "boolean" %></dd>
+  <dt><%= f.label :requires_research %></dt>
+	<dd><%= f.check_box :requires_research, :class => "boolean" %></dd>
+  <dt><%= f.label :position, "(order)" %></dt>
+	<dd><%= f.text_field :position, :class => "string" %></dd>
+</dl>
+<p><%= f.submit "Save" %> or <%= f.submit "Save &amp; add another" %></p>
+<% end %>

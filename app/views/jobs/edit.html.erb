@@ -1,0 +1,10 @@
+<% title "Edit Job" %>
+
+<%= render :partial => 'form' %>
+
+<% content_for :subnav do %>
+  <li class="action"><%= link_to "Cancel Editing", @job %></li>
+  <li class="action"><%= link_to "View All", jobs_path %></li>
+
+<% end %>
+

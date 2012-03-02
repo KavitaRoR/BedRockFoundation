@@ -1,0 +1,29 @@
+<h1>Available Trucks/Crews</h1>
+<br class="clear" />
+<table class="tablesorter">
+	<thead>
+  <tr>
+    <th class="nobg">Name</th>
+    <th>Phone</th>
+    <th>Color</th>
+    <th>Actions</th>
+  </tr>
+	</thead>
+	<tbody>
+  <% for truck in @trucks %>
+	  <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
+	    <th class="spec"><%=h truck.name %></th>
+      <td><%=h truck.phone %></td>
+      <td><%=h truck.color %></td>
+      <td><%= link_to "Show", truck %>
+      | <%= link_to "Edit", edit_truck_path(truck) %>
+      | <%= link_to "Destroy", truck, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+	</tbody>
+</table>
+<h2>Create a new Truck/Crew</h2>
+<a class="dashboard_button button12" href="/trucks/new">
+    <span class="dashboard_button_heading">+ New Truck</span>
+    <span>Add a new possible Truck/Crew</span>
+</a><!--end dashboard_button-->

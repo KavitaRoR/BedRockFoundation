@@ -1,0 +1,27 @@
+<% form_for @pad_job do |f| %>
+  <% if @pad_job.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@pad_job.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+	      <ul>
+	      <% @pad_job.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+<dl>
+  <dt><%= f.label :job %></dt>
+	<dd><%= f.text_field :job, :class => "references" %></dd>
+  <dt><%= f.label :foundation %></dt>
+	<dd><%= f.text_field :foundation, :class => "references" %></dd>
+  <dt><%= f.label :pad_size %></dt>
+	<dd><%= f.text_field :pad_size, :class => "references" %></dd>
+  <dt><%= f.label :door_placement %></dt>
+	<dd><%= f.text_field :door_placement, :class => "string" %></dd>
+  <dt><%= f.label :off_level_amount_in_inches %></dt>
+	<dd><%= f.text_field :off_level_amount_in_inches, :class => "integer" %></dd>
+</dl>
+<p><%= f.submit "Save" %> or <%= f.submit "Save &amp; add another" %></p>
+<% end %>

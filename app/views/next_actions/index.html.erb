@@ -1,0 +1,36 @@
+<% title "Next Actions" %>
+
+<br class="clear" />
+<table class="table_liquid" cellspacing="0">
+	<thead>
+  <tr>
+    <th class="nobg">Name</th>
+    <th>Requires Phone Call</th>
+    <th>On Hold</th>
+    <th>Requires Visit</th>
+    <th>Requires Research</th>
+    <th>Actions</th>
+
+  </tr>
+	</thead>
+	<tbody>
+  <% for next_action in @next_actions %>
+	  <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
+	    <th class="spec"><%=h next_action.name %></th>
+      <td><%=h next_action.requires_phone_call %></td>
+      <td><%=h next_action.on_hold %></td>
+      <td><%=h next_action.requires_visit %></td>
+      <td><%=h next_action.requires_research %></td>
+      <td><%= link_to "Show", next_action %>
+      | <%= link_to "Edit", edit_next_action_path(next_action) %>
+      | <%= link_to "Destroy", next_action, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+	</tbody>
+</table>
+
+<h2>Create a new Next-Action</h2>
+<a class="dashboard_button button6" href="/next_actions/new">
+    <span class="dashboard_button_heading">+ New Action</span>
+    <span>Add a new possible next-action</span>
+</a><!--end dashboard_button-->

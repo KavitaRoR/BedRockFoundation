@@ -1,0 +1,31 @@
+<% title "Pad Size" %>
+
+<p>
+  <strong>Length:</strong>
+  <%=h @pad_size.length %>
+</p>
+<p>
+  <strong>Width:</strong>
+  <%=h @pad_size.width %>
+</p>
+<p>
+  <strong>Price In Cents:</strong>
+  <%=h @pad_size.price_in_cents %>
+</p>
+<p>
+  <strong>Material Cost In Cents:</strong>
+  <%=h @pad_size.material_cost_in_cents %>
+</p>
+<p>
+  <strong>Labor Cost In Cents:</strong>
+  <%=h @pad_size.labor_cost_in_cents %>
+</p>
+
+
+<% content_for :subnav do %>
+	
+  <li class="action"><%= link_to "Edit", edit_pad_size_path(@pad_size) %></li>
+  <li class="action negative"><%= link_to "Destroy", @pad_size, :confirm => 'Are you sure?', :method => :delete %></li>
+  <li class="action"><%= link_to "View All", pad_sizes_path %></li>
+<% end %>
+

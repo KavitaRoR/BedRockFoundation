@@ -1,0 +1,48 @@
+<h1> Jobs </h1>
+<br class="clear" />
+<table class="table_liquid" cellspacing="0">
+	<thead>
+  <tr>
+    <th class="nobg">Description</th>
+    <th>Current Scheduled At</th>
+    <th>Price In Cents</th>
+    <th>Foundation</th>
+    <th>Pad Size</th>
+    <th>Customer</th>
+    <th>Actions</th>
+  </tr>
+	</thead>
+	<tbody>
+  <% for job in @jobs %>
+	  <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
+	    <th class="spec"><%=h job.description %></th>
+      <td><%=h job.current_scheduled_at %></td>
+      <td><%=h job.price_in_cents %></td>
+      <td><%=h job.foundation.kind %></td>
+      <td><%=h job.pad_size.size rescue "none" %></td>
+      <td><%=h job.contact.name rescue "" %></td>
+      <td><%= link_to "Show", job %>
+      | <%= link_to "Edit", edit_job_path(job) %>
+      | <%= link_to "Destroy", job, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+	</tbody>
+</table>
+
+<% content_for :subnav do %>
+<li class="action positive"><%= link_to "+ Add a new Job", new_job_path %></li>
+<% end %>
+
+
+<% content_for :right_column do %>
+	<div class="hint">
+      <h3>Hint</h3>
+      <p>This is a hint.</p>
+    </div>
+	<div class="list">
+	  <h3>List Items</h3>
+	  <ul>
+	      <li><a href="#">link</a> <span class="date">date</span></li>
+	  </ul>
+	</div>
+<% end %>

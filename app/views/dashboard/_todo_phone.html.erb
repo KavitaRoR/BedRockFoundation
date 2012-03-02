@@ -1,0 +1,23 @@
+<table class="table_liquid" cellspacing="0">
+    <caption></caption>
+      <tr>
+        <th class="nobg">Phone calls</th>
+        <th>Phone</th>
+        <th>Phone-alt</th>
+        <th>Referencing</th>
+        <th>Notes</th>
+        <th>View</th>
+        <th>Done?</th>
+      </tr>
+	  <% @todos.select{|t| t.next_action && t.job && t.contact && t.next_action.requires_phone_call && t.done != true }.each do |todo| %>
+	    <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
+	      <th class="spec"><%=h todo.job.contact.name %></th>
+        <td><%=h todo.job.contact.phone %></td>
+        <td><%=h todo.job.contact.phone_alt %></td>
+        <td><%=h todo.job.referencing %></td>
+        <td><%=h todo.notes  rescue "" %></td>
+        <td><%= link_to "View", todo.job.contact %></td>
+        <td><%= link_to image_tag("24_tick.png"), "/dashboard/clear_todo/#{todo.id}" %></td>
+      </tr> 
+   <% end %>
+</table>

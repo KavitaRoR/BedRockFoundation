@@ -1,0 +1,2 @@
+module RockPadVariablesHelper
+end

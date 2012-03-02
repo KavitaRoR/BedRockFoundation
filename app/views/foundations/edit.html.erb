@@ -1,0 +1,10 @@
+<% title "Edit Foundation" %>
+
+<%= render :partial => 'form' %>
+
+<% content_for :subnav do %>
+  <li class="action"><%= link_to "Cancel Editing", @foundation %></li>
+  <li class="action"><%= link_to "View All", foundations_path %></li>
+
+<% end %>
+

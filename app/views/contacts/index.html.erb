@@ -1,0 +1,54 @@
+<div class="jquery_tab">
+
+    <div class="content_block">
+        <h2 class="jquery_tab_title"><%= @page_title %></h2>
+
+
+<table class="table_liquid" cellspacing="0">
+	<thead>
+  <tr style="text-align:'center';">
+    <th>Name</th>
+		<th>Status</th>
+    <th>Phone</th>
+    <th>Address</th>
+    <th>Campaign</th>
+    <th>Actions</th>
+
+  </tr>
+	</thead>
+	<tbody>
+  <% for contact in @contacts %>
+    <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
+      <th class="spec"><%= link_to contact.name, contact %></th>
+			<td><%= contact.status.status_name %></td>
+      <td><%=h contact.phone %></td>
+      <td><%=h contact.address_oneline %><br />
+			<% if contact.distance %>
+				<b>Distance: </b><%=h contact.distance %> mi. <%= link_to "Map it", "http://maps.google.com/maps?f=d&source=s_d&saddr=461+Old+Wilmington+Rd,+Coatesville,+PA+19320&daddr=" + CGI.escape(contact.address_oneline) + "&hl=en&gl=us&mra=ls&ie=UTF8&z=8"%>
+			<% else %>
+				No distance available.  Please check the address first.
+			<% end 	%>
+			</td>
+      <td><%=h contact.campaign.name rescue "Other" %></td>
+      <td style="width:'auto"><%= link_to "Show", contact %>
+      | <%= link_to "Edit", edit_contact_path(contact) %>
+      | <%= link_to "Destroy", contact, :confirm => 'Are you sure?', :method => :delete %><br />
+			<a href='/contacts/contact_active/<%= contact.id %>'>Set Active</a>
+			| <a href='/contacts/contact_dead/<%= contact.id %>'>Sold!</a>
+			| <a href='/contacts/contact_dead/<%= contact.id %>'>Set Dead</a>
+			</td>
+    </tr>
+  <% end %>
+	</tbody>
+</table>
+
+<h2>Create a new Contact</h2>
+<a class="dashboard_button button7" href="/contacts/new">
+    <span class="dashboard_button_heading">+ New Lead</span>
+    <span>Enter in a person's information</span>
+</a><!--end dashboard_button-->
+
+
+		</div>
+
+</div>

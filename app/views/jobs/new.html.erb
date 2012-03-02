@@ -1,0 +1,21 @@
+<% title "New Job" %>
+
+<%= render :partial => 'form' %>
+
+<% content_for :subnav do %>
+<li class="action"><%= link_to "Back to List", jobs_path %></li>
+<% end %>
+
+
+<% content_for :right_column do %>
+	<div class="hint">
+      <h3>Hint</h3>
+      <p>This is a hint.</p>
+    </div>
+	<div class="list">
+	  <h3>List Items</h3>
+	  <ul>
+	      <li><a href="#">link</a> <span class="date">date</span></li>
+	  </ul>
+	</div>
+<% end %>

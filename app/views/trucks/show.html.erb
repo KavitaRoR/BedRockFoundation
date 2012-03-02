@@ -1,0 +1,23 @@
+<% title "Truck" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @truck.name %>
+</p>
+<p>
+  <strong>Phone:</strong>
+  <%=h @truck.phone %>
+</p>
+<p>
+  <strong>Color:</strong>
+  <%=h @truck.color %>
+</p>
+
+
+<% content_for :subnav do %>
+	
+  <li class="action"><%= link_to "Edit", edit_truck_path(@truck) %></li>
+  <li class="action negative"><%= link_to "Destroy", @truck, :confirm => 'Are you sure?', :method => :delete %></li>
+  <li class="action"><%= link_to "View All", trucks_path %></li>
+<% end %>
+
