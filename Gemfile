@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.2'
-gem 'taps'
 gem 'geokit-rails3'
 gem 'devise'
 
