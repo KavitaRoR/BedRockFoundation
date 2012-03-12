@@ -56,13 +56,13 @@ class ContactsController < ApplicationController
         cs_arr.push(cs.id)
       end
     end
-    @contacts = Contact.find(:all, :conditions => ["contact_status_id IN (?)", cs_arr ])
+    @contacts = Contact.find(:all, :conditions => ["contact_status_id IN (?)", cs_arr ], :order => "created_at DESC")
     render :template => 'contacts/index'
   end
   
   def dead_contacts
     @page_title = "Dead Contacts"
-    @contacts = Contact.find(:all, :conditions => {:contact_status_id => ContactStatus.find_by_status_name("Dead").id })
+    @contacts = Contact.find(:all, :conditions => {:contact_status_id => ContactStatus.find_by_status_name("Dead").id }, :order => "created_at DESC")
     render :template => 'contacts/index'
   end
   
