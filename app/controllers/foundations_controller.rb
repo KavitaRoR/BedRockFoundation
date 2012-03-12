@@ -1,5 +1,5 @@
 class FoundationsController < ApplicationController
-  
+  before_filter :authenticate_user!
   def index
     @foundations = Foundation.find(:all)
     session[:look] = 'index'

@@ -1,4 +1,4 @@
-<% form_for @pad_size do |f| %>
+<%= form_for @pad_size do |f| %>
   <% if @pad_size.errors.any? %>
 	    <div id="error_explanation">
 	      <h2><%= pluralize(@pad_size.errors.count, "error") %> prohibited this post from being saved:</h2>

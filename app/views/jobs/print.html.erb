@@ -1,38 +1,40 @@
 <h2>Print this Job Estimate</h2>
 <span style="float:right">
 
-<h2>Edit this Estimate</h2>
-<%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
+<h2>Estimate:</h2>
+<%= link_to "(edit estimate details)", edit_job_path(@job) %><br />
+<% if @job.contact && @job.contact.email %>
+	<%= link_to "(email to customer)", "/estimates/email/#{@job.id}/#{@type}" %>
+<% end %>
+
 </span>
 
 <div id="flash_contract">
-	</div>
+</div>
 
-	
-	<%
-	flashvars = "	{ 
-		contact_name: '#{ escape_javascript @job.contact.first_name } #{ escape_javascript @job.contact.last_name }',
-		contact_address: '#{ escape_javascript @job.contact.address_1 }',
-		contact_address2: '#{ escape_javascript @job.contact.city }, #{ escape_javascript @job.contact.province}   #{@job.contact.zip}',
-		contact_phone_home: '#{ @job.contact.phone }',
-		contact_phone_cell: '#{ @job.contact.phone_alt }',
-		contact_phone_work: '#{ @job.contact.phone_work }',
-		contact_email: '#{ @job.contact.email }',
-		job_location_abbr: '#{ @job.location.abbreviation rescue 'ERR' }',
-		job_location_phone: '#{ @job.location.phone rescue '- no location assigned' }',
-		job_quality: '#{ @job.economy_or_elite.downcase rescue "standard" }',
-		job_quality_alt: '#{ escape_javascript @job.description }',
-		job_extras: '#{ escape_javascript(@job.extras.join('\n')) }',
-		job_price: '#{money_from_cents @job.price_in_cents}',
-		additional_price: '#{money_from_cents(@job.additional_price * 100)}',
-		job_total_price: '#{money_from_cents(@job.price_in_cents + ((@job.additional_price || 0) * 100))}',
-		job_width: '#{@job.width}',
-		job_length: '#{@job.length}',
-		job_inches: '#{@job.off_level_amount_in_inches}',
-		job_kind: '#{@job.economy_or_elite}',
-		foundation_kind: '#{@job.foundation.kind rescue ''} Foundation',
-		job_date: '#{ @job.updated_at.strftime('%m/%d/%Y') || '' }'
-	} "
+	<% flashvars =  "{ 
+			contact_name: '#{ @options_for_job[:contact_name] }',
+			contact_address: '#{ @options_for_job[:contact_address] }',
+			contact_address2: '#{ @options_for_job[:contact_address2] }',
+			contact_phone_home: '#{ @options_for_job[:contact_phone_home] }',
+			contact_phone_cell: '#{ @options_for_job[:contact_phone_cell] }',
+			contact_phone_work: '#{ @options_for_job[:contact_phone_work] }',
+			contact_email: '#{ @options_for_job[:contact_email] }',
+			job_location_abbr: '#{ @options_for_job[:job_location_abbr] }',
+			job_location_phone: '#{ @options_for_job[:job_location_phone] }',
+			job_quality: '#{ @options_for_job[:job_quality] }',
+			job_quality_alt: '#{ @options_for_job[:job_quality_alt] }',
+			job_extras: '#{ @options_for_job[:job_extras] }',
+			job_price: '#{ @options_for_job[:job_price] }',
+			additional_price: '#{ @options_for_job[:additional_price] }',
+			job_total_price: '#{ @options_for_job[:job_total_price] }',
+			job_width: '#{ @options_for_job[:job_width] }',
+			job_length: '#{ @options_for_job[:job_length] }',
+			job_inches: '#{ @options_for_job[:job_inches] }',
+			job_kind: '#{ @options_for_job[:job_kind] }',
+			foundation_kind: '#{ @options_for_job[:foundation_kind] }',
+			job_date: '#{ @options_for_job[:address2] }'
+		}"
 	%>
 
 <% content_for :js_bottom do %>

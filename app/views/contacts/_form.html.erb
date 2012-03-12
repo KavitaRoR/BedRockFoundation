@@ -1,4 +1,4 @@
-<% form_for @contact do |f| %>
+<%= form_for @contact do |f| %>
   <% if @contact.errors.any? %>
 	    <div id="error_explanation">
 	      <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -14,6 +14,8 @@
 <dl>
 	<dt>Status: </dt>
 	<dd><%= f.select :contact_status_id, ContactStatus.all.collect {|cs| [ cs.status_name, cs.id ] } %></dd>
+	<dt>Referral Company:</dt>
+	<dd><%= f.select :shed_company_id, ShedCompany.all.collect{|s| [ s.company, s.id ] }, :include_blank => true %></dd>
   <dt><%= f.label :company %></dt>
 	<dd><%= f.text_field :company, :class => "string" %></dd>
   <dt><%= f.label :first_name %></dt>

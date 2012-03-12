@@ -26,7 +26,7 @@ class RockPadCalculator
     @trex_price_per_foot = (findVar("trex_price_per_foot") * 100) || 500
     @weed_fabric_per_roll = (findVar("weed_fabric_per_roll") * 100) || 36500
     @rebar_piece = (findVar("rebar_piece") * 100) || 100
-    @kind = kind
+    @kind = kind.capitalize
   end
   
   def square_footage
@@ -92,9 +92,10 @@ class RockPadCalculator
   end
   
   def round_trip_distance
-    @distance * 2
+    puts "One Trip Distance: #{@distance rescue "none"}"
+    # @distance * 2
     # we are now 3/18/11 only charging for one-way
-    @distance
+    @distance rescue 0
   end
   
   def driving_hours
@@ -131,16 +132,18 @@ class RockPadCalculator
   def working_labor_hours
     hours = case square_footage
     when 0..199
-      findVar("hours_less_than_400") || 2
+      findVar("hours_less_than_200") || 2
     when 200..299
       findVar("hours_200_to_300") || 2.5
     when 300..399
       findVar("hours_300_to_400") || 3
-    when 400..9999999
-      findVar("hours_greater_400") || 4
+    when 400..499
+      findVar("hours_400_to_500") || 4
+    when 500..599
+      findVar("hours_500_to_600") || 5
     else
-      999
-    end    
+      0
+    end
     hours = hours / 2 if @kind == "Economy"
     hours
   end

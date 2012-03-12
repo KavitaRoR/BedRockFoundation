@@ -1,5 +1,5 @@
 class PadSizesController < ApplicationController
-  
+  before_filter :authenticate_user!
   def index
     @pad_sizes = PadSize.find(:all)
     session[:look] = 'index'

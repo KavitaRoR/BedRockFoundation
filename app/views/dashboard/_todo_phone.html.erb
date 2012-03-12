@@ -9,7 +9,7 @@
         <th>View</th>
         <th>Done?</th>
       </tr>
-	  <% @todos.select{|t| t.next_action && t.job && t.contact && t.next_action.requires_phone_call && t.done != true }.each do |todo| %>
+	  <% @todos.select{|t| t.next_action && t.contact && t.next_action.requires_phone_call && t.done != true }.each do |todo| %>
 	    <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
 	      <th class="spec"><%=h todo.job.contact.name %></th>
         <td><%=h todo.job.contact.phone %></td>

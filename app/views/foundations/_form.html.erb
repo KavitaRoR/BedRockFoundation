@@ -1,4 +1,4 @@
-<% form_for @foundation do |f| %>
+<%= form_for @foundation do |f| %>
   <% if @foundation.errors.any? %>
 	    <div id="error_explanation">
 	      <h2><%= pluralize(@foundation.errors.count, "error") %> prohibited this post from being saved:</h2>

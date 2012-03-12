@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  
+  before_filter :authenticate_user!
   def index
     @page_title = "All Contacts"
     @contacts = Contact.find(:all)

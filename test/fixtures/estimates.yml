@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  job_id: 1
+  job_type_id: 
+  flashvars: MyString
+  date_of_email_to_client: 2012-03-08 15:37:46
+
+two:
+  job_id: 1
+  job_type_id: 
+  flashvars: MyString
+  date_of_email_to_client: 2012-03-08 15:37:46

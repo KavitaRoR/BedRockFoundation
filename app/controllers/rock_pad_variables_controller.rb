@@ -1,5 +1,5 @@
 class RockPadVariablesController < ApplicationController
-  
+  before_filter :authenticate_user!
   # GET /rock_pad_variables
   # GET /rock_pad_variables.xml
   def index

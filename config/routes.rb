@@ -1,10 +1,15 @@
 Abundant::Application.routes.draw do
+  resources :shed_companies
+
   devise_for :users
   
   match '/contacts/active_contacts' => "contacts#active_contacts"
   match '/contacts/dead_contacts' => "contacts#dead_contacts"
   match '/contacts/contact_active/:id' => "contacts#contact_active"
-  match '/contacts/contact_dead/:id' => "contacts#acontact_dead"
+  match '/contacts/contact_dead/:id' => "contacts#contact_dead"
+  match '/contacts/destroy/:id' => "contacts#destroy"
+  match '/estimates/email/:id/:type' => "estimates#email_estimate"
+  match "/estimates/client_estimate/:token" => "estimates#client_estimate"
   
   resources :rock_pad_variables, :next_actions, :pad_jobs, :statuses, :foundations, :pad_sizes, :trucks, :rock_pad_variables, :jobs, :contacts, :campaigns
   

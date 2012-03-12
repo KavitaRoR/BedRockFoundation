@@ -11,20 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120302155718) do
+ActiveRecord::Schema.define(:version => 20120309172419) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
     t.date     "started_on"
     t.integer  "cost_in_cents"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contact_status", :force => true do |t|
+    t.string   "status_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "contact_statuses", :force => true do |t|
     t.string   "status_name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "contacts", :force => true do |t|
@@ -39,21 +45,38 @@ ActiveRecord::Schema.define(:version => 20120302155718) do
     t.string   "province"
     t.integer  "zip"
     t.integer  "campaign_id"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "lat"
     t.string   "lng"
     t.integer  "distance"
     t.string   "phone_work"
     t.string   "email"
     t.integer  "contact_status_id", :default => 1, :null => false
+    t.integer  "shed_company_id"
+  end
+
+  create_table "estimates", :force => true do |t|
+    t.integer  "job_id"
+    t.integer  "job_type_id"
+    t.text     "flashvars"
+    t.datetime "date_of_email_to_client"
+    t.string   "token"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "foundations", :force => true do |t|
     t.string   "kind"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+  end
+
+  create_table "job_types", :force => true do |t|
+    t.string   "kind"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "position"
   end
 
   create_table "jobs", :force => true do |t|
@@ -75,14 +98,14 @@ ActiveRecord::Schema.define(:version => 20120302155718) do
     t.string   "province"
     t.integer  "zip"
     t.integer  "contact_id"
-    t.datetime "created_at",                                                                   :null => false
-    t.datetime "updated_at",                                                                   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "lat"
     t.string   "lng"
     t.integer  "distance"
     t.integer  "width"
     t.integer  "length"
-    t.decimal  "additional_price",           :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "additional_price",           :precision => 10, :scale => 2, :default => 0.0,   :null => false
     t.decimal  "depth",                      :precision => 10, :scale => 0
     t.string   "shed_company"
     t.string   "accessible_with_machine"
@@ -91,18 +114,19 @@ ActiveRecord::Schema.define(:version => 20120302155718) do
     t.string   "timber_wall"
     t.string   "economy_or_elite"
     t.boolean  "border_sixbysix",                                           :default => false
-    t.decimal  "discount",                   :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "discount",                   :precision => 10, :scale => 2, :default => 0.0,   :null => false
     t.string   "crew_name"
     t.string   "rig_name"
     t.integer  "location_id"
+    t.integer  "job_type_id",                                               :default => 1
   end
 
   create_table "locations", :force => true do |t|
     t.string   "name"
     t.string   "phone"
     t.string   "abbreviation"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "next_actions", :force => true do |t|
@@ -111,8 +135,8 @@ ActiveRecord::Schema.define(:version => 20120302155718) do
     t.boolean  "on_hold"
     t.boolean  "requires_visit"
     t.boolean  "requires_research"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "position"
   end
 
@@ -122,8 +146,8 @@ ActiveRecord::Schema.define(:version => 20120302155718) do
     t.integer  "pad_size_id"
     t.string   "door_placement"
     t.integer  "off_level_amount_in_inches"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "pad_sizes", :force => true do |t|
@@ -132,17 +156,23 @@ ActiveRecord::Schema.define(:version => 20120302155718) do
     t.integer  "price_in_cents"
     t.integer  "material_cost_in_cents"
     t.integer  "labor_cost_in_cents"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "position"
   end
 
   create_table "rock_pad_variables", :force => true do |t|
     t.string   "key"
     t.decimal  "value",       :precision => 10, :scale => 2
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "description"
+  end
+
+  create_table "shed_companies", :force => true do |t|
+    t.string   "company"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "statuses", :force => true do |t|
@@ -151,8 +181,8 @@ ActiveRecord::Schema.define(:version => 20120302155718) do
     t.text     "notes"
     t.integer  "assigned_by"
     t.integer  "assigned_to"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "done"
     t.integer  "contact_id"
     t.datetime "followup_date"
@@ -162,8 +192,8 @@ ActiveRecord::Schema.define(:version => 20120302155718) do
     t.string   "name"
     t.string   "phone"
     t.string   "color"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

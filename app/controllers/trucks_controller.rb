@@ -1,5 +1,5 @@
 class TrucksController < ApplicationController
-  
+  before_filter :authenticate_user!
   def index
     @trucks = Truck.find(:all)
     session[:look] = 'index'

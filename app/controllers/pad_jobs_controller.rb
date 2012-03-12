@@ -1,5 +1,5 @@
 class PadJobsController < ApplicationController
-  
+  before_filter :authenticate_user!
   def index
     @pad_jobs = PadJob.find(:all)
     session[:look] = 'index'

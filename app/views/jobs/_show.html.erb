@@ -1,11 +1,46 @@
-<span style="float:right">
-
-<%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
-<h2>Print this Job Estimate</h2>
-<p><%= button_to "Print this estimate", print_job_url(@job) %></p>
-</span>
 <%= simple_format @job.description %>
-
+<div style="float:right;">
+	<%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
+	<h2>Print this Job Estimate</h2>
+	<div>
+		Print: <br />
+		<p style="padding-left:30px;">
+			<%= link_to "Economy estimate", "#{print_job_url(@job)}/?type=economy" %><br />
+			<%= link_to "Standard estimate", "#{print_job_url(@job)}/?type=standard" %><br />
+			<%= link_to "Elite estimate", "#{print_job_url(@job)}/?type=elite" %>
+		</p>	
+	</div>
+	<br />
+	<h2>Type &amp; Off-Level Amounts</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>&nbsp;</th>
+				<th id="zero">0"</th>
+				<th id="six">6"</th>
+				<th id="twelve">12"</th>
+				<th id="eighteen">18"</th>
+				<th id="twentyfour">24"</th>
+			</tr>
+			<tr>
+				<% job_block = @job.pad_job_type_offset %>
+				<% job_block.each do |k,v| %>
+					<tr>
+						<% if @job.job_type.kind.downcase == k.to_s %>
+							<td style="color:#95BF84; font-weight:bold;"><%= k %></td>
+						<% else %>
+							<td><%= k %></td>
+						<% end %>
+						<% v.each do |j,l| %>
+								<td><%= money_from_cents(l - @job.price_in_cents) %></td>
+						<% end %>
+					</tr>
+				<% end %>
+			</tr>
+		</thead>
+	</table>
+	
+</div>
 <table>
 	<thead>
 	<tr>
@@ -164,4 +199,3 @@
 <%= button_to "Destroy", @job, :confirm => 'Are you sure?', :method => :delete %>
 <br /><br />
 </div>
-	

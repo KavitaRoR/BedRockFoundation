@@ -1,5 +1,5 @@
 class NextActionsController < ApplicationController
-  
+  before_filter :authenticate_user!
   def index
     @next_actions = NextAction.find(:all)
     session[:look] = 'index'

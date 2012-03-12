@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  
+  before_filter :authenticate_user!
   def index
     @jobs = Job.find(:all)
     session[:look] = 'index'
@@ -12,6 +12,8 @@ class JobsController < ApplicationController
 
   def print
     @job = Job.find(params[:id])
+    @options_for_job = @job.options_for_print((params[:type].capitalize rescue "Standard"))
+    @type = params[:type].capitalize
     session[:look] = 'print'
   end
   

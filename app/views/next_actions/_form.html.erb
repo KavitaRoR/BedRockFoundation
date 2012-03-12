@@ -1,4 +1,4 @@
-<% form_for @next_action do |f| %>
+<%= form_for @next_action do |f| %>
   <% if @next_action.errors.any? %>
 	    <div id="error_explanation">
 	      <h2><%= pluralize(@next_action.errors.count, "error") %> prohibited this post from being saved:</h2>

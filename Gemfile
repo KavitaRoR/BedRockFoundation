@@ -3,9 +3,11 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.2'
 gem 'geokit-rails3'
 gem 'devise'
+gem 'mail'
 
 group :development do
   gem 'heroku'
+  gem 'mysql2'
 end
 
 # Gems used only for assets and not required

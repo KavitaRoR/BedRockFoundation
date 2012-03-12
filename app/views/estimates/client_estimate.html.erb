@@ -1,0 +1,46 @@
+<h2>&nbsp;</h2>
+<p>
+	<%= @estimate.job.contact.first_name %>,<br />
+	Here is your custom estimate.  Please feel free to print it off or reference this URL later.<br />
+	If you have any questions or concerns, please feel free to call me at anytime.
+</p>
+
+<div id="flash_contract">
+</div>
+
+	<% flashvars =  "{ 
+			contact_name: '#{ @estimate.flashvars[:contact_name] }',
+			contact_address: '#{ @estimate.flashvars[:contact_address] }',
+			contact_address2: '#{ @estimate.flashvars[:contact_address2] }',
+			contact_phone_home: '#{ @estimate.flashvars[:contact_phone_home] }',
+			contact_phone_cell: '#{ @estimate.flashvars[:contact_phone_cell] }',
+			contact_phone_work: '#{ @estimate.flashvars[:contact_phone_work] }',
+			contact_email: '#{ @estimate.flashvars[:contact_email] }',
+			job_location_abbr: '#{ @estimate.flashvars[:job_location_abbr] }',
+			job_location_phone: '#{ @estimate.flashvars[:job_location_phone] }',
+			job_quality: '#{ @estimate.flashvars[:job_quality] }',
+			job_quality_alt: '#{ @estimate.flashvars[:job_quality_alt] }',
+			job_extras: '#{ @estimate.flashvars[:job_extras] }',
+			job_price: '#{ @estimate.flashvars[:job_price] }',
+			additional_price: '#{ @estimate.flashvars[:additional_price] }',
+			job_total_price: '#{ @estimate.flashvars[:job_total_price] }',
+			job_width: '#{ @estimate.flashvars[:job_width] }',
+			job_length: '#{ @estimate.flashvars[:job_length] }',
+			job_inches: '#{ @estimate.flashvars[:job_inches] }',
+			job_kind: '#{ @estimate.flashvars[:job_kind] }',
+			foundation_kind: '#{ @estimate.flashvars[:foundation_kind] }',
+			job_date: '#{ @estimate.flashvars[:address2] }'
+		}"
+	%>
+
+<% content_for :js_bottom do %>
+		<script type="text/javascript" charset="utf-8">
+		jQuery('#flash_contract').flash({
+		    src: '/flash/contract.swf',
+		    width: 612,
+		    height: 783,
+				flashvars: <%= flashvars %>
+		})
+		</script>
+<% end %>
+

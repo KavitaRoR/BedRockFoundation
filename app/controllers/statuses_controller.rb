@@ -1,5 +1,5 @@
 class StatusesController < ApplicationController
-  
+  before_filter :authenticate_user!
   def index
     @statuses = Status.find(:all)
     session[:look] = 'index'
