@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   before_filter :authenticate_user!
   def index
     @page_title = "All Contacts"
-    @contacts = Contact.find(:all)
+    @contacts = Contact.find(:all, :order => "created_at DESC")
     session[:look] = 'index'
   end
   
@@ -19,7 +19,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new(params[:contact])
     if @contact.save
       flash[:notice] = "Successfully created contact."
-      redirect_to contacts_url and return if params[:commit] == "Save"
+      redirect_to "/contacts/#{@contact.id}" and return if params[:commit] == "Save"
       redirect_to new_contact_url
     else
       render :action => 'new'
