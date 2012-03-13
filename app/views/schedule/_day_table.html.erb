@@ -1,0 +1,54 @@
+<h2> Monday March 12th, 2012</h2>
+
+<table class="table_liquid" cellspacing="0">
+    <caption></caption>
+      <tr>
+	        <th class="nobg">Crews</th>
+        <th>Crew #1</th>
+        <th>Crew #2</th>
+        <th>Crew #3</th>
+        <th>Crew #4</th>
+      </tr>
+	  <tr>
+		    <th class="non"><a href="#">&nbsp;</a></th>
+
+        <td>
+        	<%= render :partial => "job_block" %>
+        </td>
+        <td>
+        	<%= render :partial => "job_block" %>
+        </td>
+        <td>
+        	<%= render :partial => "job_block" %>
+        </td>
+        <td>
+        	<%= render :partial => "job_block" %>
+        </td>
+
+      </tr> 
+	  <tr>
+		    <th class="non"><a href="#">Show Crew Maps</a></th>
+
+        <td>
+        	<%= render :partial => "map_mini_crew" %>
+        </td>
+        <td>
+        	<%= render :partial => "map_mini_crew" %>
+        </td>
+        <td>
+        	<%= render :partial => "map_mini_crew" %>
+        </td>
+        <td>
+        	<%= render :partial => "map_mini_crew" %>
+        </td>
+
+      </tr> 
+
+      <tr>
+		    <th class="non"><a href="#">Show Daily Map</a></th>
+      	<td colspan="4">
+        	<%= render :partial => "map_day_jobs" %>
+
+      	 </td>
+      </tr>
+</table>
