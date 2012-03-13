@@ -11,7 +11,7 @@ Abundant::Application.routes.draw do
   match '/estimates/email/:id/:type' => "estimates#email_estimate"
   match "/estimates/client_estimate/:token" => "estimates#client_estimate"
   
-  resources :rock_pad_variables, :next_actions, :pad_jobs, :statuses, :foundations, :pad_sizes, :trucks, :rock_pad_variables, :jobs, :contacts, :campaigns
+  resources :rock_pad_variables, :next_actions, :pad_jobs, :statuses, :foundations, :pad_sizes, :trucks, :rock_pad_variables, :jobs, :contacts, :campaigns, :locations
   
   resources :jobs do
     member do

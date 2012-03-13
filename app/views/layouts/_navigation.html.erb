@@ -1,0 +1,38 @@
+<ul class="nav">
+	<li><a class="headitem item1" href="/">Dashboard</a>
+		<ul class="<%= "opened" if controller.controller_name == "dashboard" %>">
+			<li class="<%= "current" if controller.action_name == "index" && controller.controller_name == "dashboard" %>"><a href="/">Dash &amp; To-Do List</a></li>
+		</ul>
+	</li>
+	<li><a class="headitem item2" href="#">Campaigns</a>
+		<ul class="<%= "opened" if controller.controller_name == "campaigns" %>">
+			<li class="<%= "current" if controller.action_name == "index" && controller.controller_name == "campaigns" %>"><a href="/campaigns">Track your Campaigns</a></li>
+			<li><a href="/campaigns/new">+ Create a new Campaign</a></li>
+		</ul>                            
+	</li>
+	<li><a class="headitem item4" href="#">Leads &amp; Estimates</a>
+		<ul class="opened">
+			<li><a href="/contacts/active_contacts">New Leads</a></li>
+			<li><a href="/contacts/dead_contacts">Dead Leads</a></li>
+			<li><a href="/contacts">Customers</a></li>
+			<li><a href="/contacts/new">+ Add a new Lead</a></li>
+		</ul>
+	</li>
+	<li><a class="headitem item6" href="#">Admin</a>
+		<ul>
+			<li><a href="/next_actions">Edit Next Actions</a></li>
+			<li><a href="/foundations">Edit Foundations</a></li>
+			<li><a href="/pad_sizes">Edit Pad Sizes</a></li>
+			<li><a href="/rock_pad_variables">Edit Pad Variables</a></li>
+			<li><a href="/trucks">Edit Trucks/Crews</a></li>
+			<li><a href="/locations">Edit Locations/Phones</a></li>
+			<li><a href="/shed_companies">Edit Shed Companies</li>
+		</ul>
+	</li>
+	<li><a class="headitem item5" href="#">Schedule</a>
+		<ul>
+			<li><a href="#">Current Schedule</a></li>
+			<li><a href="#">Modify Schedule</a></li>
+		</ul>
+	</li>
+</ul><!--end subnav-->
