@@ -12,19 +12,10 @@
 				DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
 			</script>
 		<![endif]--> 
-        
-		<%= javascript_include_tag "javascripts/jquery.js", 'javascripts/jquery-ui.js', 'javascripts/jquery.wysiwyg.js', 'javascripts/jquery.flash.js', 'javascripts/custom.js' %>
-		<%= javascript_include_tag :defaults %>
+		<%= javascript_include_tag "jquery-1.7.1.min", 'javascripts/jquery-ui.js', 'javascripts/jquery.wysiwyg.js', 'javascripts/jquery.flash.js', 'javascripts/custom.js', "application", "custom", "jrails", "rails" %>
 		<%= csrf_meta_tag %>
 	</head>
 	<body>
-		<% if false %>
-			<!-- this is the content for the dialog that pops up on window start -->
-			<div id="dialog" title="Welcome to flexy admin">
-				<p>Hello admin! welcome back.<br/> You got <strong>1 new Message</strong> in your inbox</p>
-				<p>This is a messagebox, you can fill it with content of your choice ;)</p>
-			</div>
-		<% end %>
 		<div id="top">
 			<div id="head">
 				<h1 class="logo">
@@ -34,81 +25,35 @@
 				<p class="alert"><%= alert %></p>
 				
 				<div class="head_memberinfo">
-					<div class="head_memberinfo_logo">
-						<% if false %>
-							<span>1</span>
-							<%= image_tag "unreadmail.png" %>
-						<% end %>
-					</div>
-					<span class='memberinfo_span'>
-						<% if current_user %>
+					<% if current_user %>
+						<span class='memberinfo_span'>
 							Welcome <a href=""><%= current_user.name %></a>
+						</span>
+						<span>
+							<%= link_to "Logout", destroy_user_session_url, :method => :delete %>
+						</span>
 						<% else %> 
-							<a href="/login">Please Login</a>
-						<% end %>
-					</span>
-					<span class='memberinfo_span'>
-						<a href="">Settings</a>
-					</span>
-					<span>
-						<a href="logout">logout</a>
-					</span>
-					<span class='memberinfo_span2'>
-						<% if false %>
-							<a href="">1 Private Message received</a>
-						<% end %>
-					</span>
-				</div><!--end head_memberinfo-->
-			</div><!--end head-->
+						<span class="memberinfo_span">
+							<%= link_to "Login", new_user_session_url %>
+						</span>
+					<% end %>
+				</div>
+			</div>
 			<div id="bg_wrapper">
 				<div id="main">
 					<div id="content">
 						<%= yield %>
-					</div><!--end content-->
-				</div><!--end main-->
-				<div id="sidebar">
-					<ul class="nav">
-						<li><a class="headitem item1" href="/">Dashboard</a>
-							<ul class="<%= "opened" if controller.controller_name == "dashboard" %>">
-								<li class="<%= "current" if controller.action_name == "index" && controller.controller_name == "dashboard" %>"><a href="/">Dash &amp; To-Do List</a></li>
-							</ul>
-						</li>
-						<li><a class="headitem item2" href="#">Campaigns</a>
-							<ul class="<%= "opened" if controller.controller_name == "campaigns" %>">
-								<li class="<%= "current" if controller.action_name == "index" && controller.controller_name == "campaigns" %>"><a href="/campaigns">Track your Campaigns</a></li>
-								<li><a href="/campaigns/new">+ Create a new Campaign</a></li>
-							</ul>                            
-						</li>
-						<li><a class="headitem item4" href="#">Leads &amp; Estimates</a>
-							<ul class="opened">
-								<li><a href="/contacts/active_contacts">New Leads</a></li>
-								<li><a href="/contacts/dead_contacts">Dead Leads</a></li>
-								<li><a href="/contacts">Customers</a></li>
-								<li><a href="/contacts/new">+ Add a new Lead</a></li>
-							</ul>
-						</li>
-						<li><a class="headitem item6" href="#">Admin</a>
-							<ul>
-								<li><a href="/next_actions">Edit Next Actions</a></li>
-								<li><a href="/foundations">Edit Foundations</a></li>
-								<li><a href="/pad_sizes">Edit Pad Sizes</a></li>
-								<li><a href="/rock_pad_variables">Edit Pad Variables</a></li>
-								<li><a href="/trucks">Edit Trucks/Crews</a></li>
-								<li><a href="/locations">Edit Locations/Phones</a></li>
-								<li><a href="/shed_companies">Edit Shed Companies</li>
-							</ul>
-						</li>
-						<li><a class="headitem item5" href="#">Schedule</a>
-							<ul>
-								<li><a href="#">Current Schedule</a></li>
-								<li><a href="#">Modify Schedule</a></li>
-							</ul>
-						</li>
-					</ul><!--end subnav-->
-				</div><!--end sidebar-->
-			</div><!--end bg_wrapper-->
+					</div>
+				</div>
+				<% if current_user %>
+					<div id="sidebar">
+						<%= render :partial => "layouts/navigation" %>
+					</div>
+				<% end %>
+			</div>
 			<div id="footer">
-			</div><!--end footer-->
+				&nbsp;
+			</div>
 		</div><!-- end top -->
 		<%= yield :js_bottom %>
 	</body>
