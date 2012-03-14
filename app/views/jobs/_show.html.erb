@@ -1,5 +1,11 @@
 <%= simple_format @job.description %>
 <div style="float:right;">
+	<% if !@job.estimates.select{|e| e.sold? }.nil? %>
+		<div class="job-sold">
+			This job has been marked as sold!
+		</div>
+	<% end %>
+	
 	<%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
 	<h2>Print this Job Estimate</h2>
 	<div>

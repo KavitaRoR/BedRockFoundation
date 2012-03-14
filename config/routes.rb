@@ -10,6 +10,7 @@ Abundant::Application.routes.draw do
   match '/contacts/destroy/:id' => "contacts#destroy"
   match '/estimates/email/:id/:type' => "estimates#email_estimate"
   match "/estimates/client_estimate/:token" => "estimates#client_estimate"
+  match "/estimates/push_to_sold/:id/:type" => "estimates#push_to_sold"
   
   resources :rock_pad_variables, :next_actions, :pad_jobs, :statuses, :foundations, :pad_sizes, :trucks, :rock_pad_variables, :jobs, :contacts, :campaigns, :locations
   

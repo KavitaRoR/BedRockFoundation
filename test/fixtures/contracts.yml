@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  job_id: 1
+  estimate_id: 1
+  crew_id: 1
+  scheduled_date: 2012-03-13 16:02:46
+  position_in_day: 1
+
+two:
+  job_id: 1
+  estimate_id: 1
+  crew_id: 1
+  scheduled_date: 2012-03-13 16:02:46
+  position_in_day: 1

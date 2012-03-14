@@ -4,9 +4,15 @@
 <h2>Estimate:</h2>
 <%= link_to "(edit estimate details)", edit_job_path(@job) %><br />
 <% if @job.contact && @job.contact.email %>
-	<%= link_to "(email to customer)", "/estimates/email/#{@job.id}/#{@type}" %>
+	<%= link_to "(email to customer)", "/estimates/email/#{@job.id}/#{@type}" %><br />
 <% end %>
-
+<span class="sell-it">
+	<% if @estimate && @estimate.sold? %>
+		This job has been sold based on this estimate.  It is currently scheduled for <%= @estimate.contract.scheduled_date rescue " -- not scheduled" %>.
+	<% else %>
+		<%= link_to "Move to Production Schedule", "/estimates/push_to_sold/#{@job.id}/#{@type}"%>
+	<% end %>
+</span>
 </span>
 
 <div id="flash_contract">
