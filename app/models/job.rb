@@ -11,7 +11,6 @@ class Job < ActiveRecord::Base
   has_many :statuses, :dependent => :destroy
   has_many :estimates
   
-  
   after_create :create_initial_status
   before_create :geocode_address
   before_save :geocode_address

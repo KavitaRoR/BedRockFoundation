@@ -14,12 +14,7 @@ $(document).ready(function() {
 		$('#hierarchy').removeClass("hidden")
 	});
 	
-	$("table.tablesorter")  
-  .tablesorter({debug: false, widgets: ['zebra'], sortList: [[0,0], [1,0]]})  
-  .tablesorterFilter({filterContainer: $("#filter-box"),  
-                      filterClearContainer: $("#filter-clear-button"),  
-                      filterCaseSensitive: false})
-	.tablesorterPager({container: $(".pager"), positionFixed: false});
+	$("table.tablesorter").tablesorter({debug: false, widgets: ['zebra'], sortList: [[0,0], [1,0]]}).tablesorterFilter({filterContainer: $("#filter-box"), filterClearContainer: $("#filter-clear-button"), filterCaseSensitive: false}).tablesorterPager({container: $(".pager"), positionFixed: false});
 
 	$("a.button").click(function(){
 	   this.blur();

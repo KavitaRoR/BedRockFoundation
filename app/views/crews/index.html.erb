@@ -1,0 +1,33 @@
+<h1>Listing crews</h1>
+
+<table>
+  <tr>
+    <th>Crew name</th>
+    <th>Crew base address</th>
+    <th>Lat</th>
+    <th>Lng</th>
+    <th>Crew size</th>
+    <th>Velocity</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @crews.each do |crew| %>
+  <tr>
+    <td><%= crew.crew_name %></td>
+    <td><%= crew.crew_base_address %></td>
+    <td><%= crew.lat %></td>
+    <td><%= crew.lng %></td>
+    <td><%= crew.crew_size %></td>
+    <td><%= crew.velocity %></td>
+    <td><%= link_to 'Show', crew %></td>
+    <td><%= link_to 'Edit', edit_crew_path(crew) %></td>
+    <td><%= link_to 'Destroy', crew, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Crew', new_crew_path %>

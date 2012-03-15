@@ -1,7 +1,9 @@
 class DashboardController < ApplicationController
   before_filter :authenticate_user!
   
-  def navigation; render :template => false; end;
+  def navigation 
+    # render :template => false
+  end
   
   def index 
     @todos = Status.find(:all, :conditions => {:assigned_to => current_user.id}, :order => "followup_date DESC")

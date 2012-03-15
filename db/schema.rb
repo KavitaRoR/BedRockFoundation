@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120313210700) do
+ActiveRecord::Schema.define(:version => 20120315190717) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -53,10 +53,22 @@ ActiveRecord::Schema.define(:version => 20120313210700) do
   create_table "contracts", :force => true do |t|
     t.integer  "estimate_id"
     t.integer  "crew_id"
-    t.datetime "scheduled_date"
+    t.integer  "schedule_day_id"
     t.integer  "position_in_day"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "crews", :force => true do |t|
+    t.string   "crew_name"
+    t.string   "crew_base_address"
+    t.string   "lat"
+    t.string   "lng"
+    t.integer  "crew_size"
+    t.integer  "velocity"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.integer  "job_max_per_day",   :default => 3
   end
 
   create_table "estimates", :force => true do |t|
@@ -174,13 +186,7 @@ ActiveRecord::Schema.define(:version => 20120313210700) do
   end
 
   create_table "schedule_days", :force => true do |t|
-    t.string   "day_name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "shed_companies", :force => true do |t|
-    t.string   "company"
+    t.string   "day"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -204,6 +210,7 @@ ActiveRecord::Schema.define(:version => 20120313210700) do
     t.string   "color"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "crew_id"
   end
 
   create_table "users", :force => true do |t|

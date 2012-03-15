@@ -1,5 +1,6 @@
 class Estimate < ActiveRecord::Base
   belongs_to :job
+  belongs_to :contract
   
   def push_to_sold
     begin

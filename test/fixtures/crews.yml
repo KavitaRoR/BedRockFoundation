@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  crew_name: MyString
+  crew_base_address: MyString
+  lat: MyString
+  lng: MyString
+  crew_size: 1
+  velocity: 1
+
+two:
+  crew_name: MyString
+  crew_base_address: MyString
+  lat: MyString
+  lng: MyString
+  crew_size: 1
+  velocity: 1

@@ -1,4 +1,6 @@
 Abundant::Application.routes.draw do
+  resources :crews
+
   resources :shed_companies
 
   devise_for :users

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Crew name:</b>
+  <%= @crew.crew_name %>
+</p>
+
+<p>
+  <b>Crew base address:</b>
+  <%= @crew.crew_base_address %>
+</p>
+
+<p>
+  <b>Lat:</b>
+  <%= @crew.lat %>
+</p>
+
+<p>
+  <b>Lng:</b>
+  <%= @crew.lng %>
+</p>
+
+<p>
+  <b>Crew size:</b>
+  <%= @crew.crew_size %>
+</p>
+
+<p>
+  <b>Velocity:</b>
+  <%= @crew.velocity %>
+</p>
+
+
+<%= link_to 'Edit', edit_crew_path(@crew) %> |
+<%= link_to 'Back', crews_path %>

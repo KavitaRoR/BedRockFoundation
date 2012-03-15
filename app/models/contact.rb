@@ -4,7 +4,6 @@ class Contact < ActiveRecord::Base
   belongs_to :campaign
   belongs_to :contact_status
   has_many :next_actions
-  has_one :shed_company
   
   # before_validation :geocode_address, :on => [:create, :update]
   after_commit :geocode_address, :if => :persisted?

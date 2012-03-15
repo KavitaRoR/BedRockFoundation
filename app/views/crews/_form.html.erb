@@ -1,0 +1,37 @@
+<%= form_for(@crew) do |f| %>
+  <% if @crew.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@crew.errors.count, "error") %> prohibited this crew from being saved:</h2>
+
+      <ul>
+      <% @crew.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :crew_name %><br />
+    <%= f.text_field :crew_name %>
+  </div>
+  <div class="field">
+    <%= f.label :crew_base_address %><br />
+    <%= f.text_field :crew_base_address %>
+  </div>
+  <div class="field">
+    <%= f.label :crew_size %><br />
+    <%= f.number_field :crew_size %>
+  </div>
+  <!-- <div class="field">
+    <%#= f.label :velocity %><br />
+    <%#= f.number_field :velocity %>
+  </div> -->
+	<div class="field">
+		<%= f.label :job_max_per_day %><br />
+		<%= f.number_field :job_max_per_day %>
+	</div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
