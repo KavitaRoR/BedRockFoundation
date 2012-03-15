@@ -1,21 +1,26 @@
 <%= simple_format @job.description %>
-<div style="float:right;">
-	<% if !@job.estimates.select{|e| e.sold? }.nil? %>
+<div style="float:right;">     
+	<% if !@job.estimates.select{|e| e.sold? }.empty? %>
 		<div class="job-sold">
-			This job has been marked as sold!
+			This job has been marked as sold!<br />
+			<%= link_to "Click here to view the contract on the schedule", "/schedule" %>
+			<br />
+			<%= link_to "Print the original estimate", "#{print_job_url(@job)}/?type=#{@job.job_type.kind.downcase}"%>
+		</div>
+	<% else %>
+		<%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
+		<h2>Print this Job Estimate</h2>
+		<div>
+			Print: <br />
+			<p style="padding-left:30px;">
+				<%= link_to "Economy estimate", "#{print_job_url(@job)}/?type=economy" %><br />
+				<%= link_to "Standard estimate", "#{print_job_url(@job)}/?type=standard" %><br />
+				<%= link_to "Elite estimate", "#{print_job_url(@job)}/?type=elite" %>
+			</p>	
 		</div>
 	<% end %>
 	
-	<%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
-	<h2>Print this Job Estimate</h2>
-	<div>
-		Print: <br />
-		<p style="padding-left:30px;">
-			<%= link_to "Economy estimate", "#{print_job_url(@job)}/?type=economy" %><br />
-			<%= link_to "Standard estimate", "#{print_job_url(@job)}/?type=standard" %><br />
-			<%= link_to "Elite estimate", "#{print_job_url(@job)}/?type=elite" %>
-		</p>	
-	</div>
+	
 	<br />
 	<h2>Type &amp; Off-Level Amounts</h2>
 	<table>
