@@ -1,64 +1,51 @@
-<div id="day-3-12">
-	<h2> Monday March 12th, 2012</h2>
-
-	<table class="table_liquid" cellspacing="0">
-	    <caption></caption>
-	      <tr>
-	        <th>Crew #1</th>
-	        <th>Crew #2</th>
-	        <th>Crew #3</th>
-	        <th>Crew #4</th>
-	      </tr>
-		  <tr>
-
-	        <td>
-	        	<%= render :partial => "job_block" %>
-	        </td>
-	        <td>
-	        	<%= render :partial => "job_block" %>
-	        </td>
-	        <td>
-	        	<%= render :partial => "job_block" %>
-	        </td>
-	        <td>
-	        	<%= render :partial => "job_block" %>
-	        </td>
-
-	      </tr> 
-		  <tr class="crew_maps">
-
-	        <td>
-	        	<%= render :partial => "map_mini_crew" %>
-	        </td>
-	        <td>
-	        	<%= render :partial => "map_mini_crew" %>
-	        </td>
-	        <td>
-	        	<%= render :partial => "map_mini_crew" %>
-	        </td>
-	        <td>
-	        	<%= render :partial => "map_mini_crew" %>
-	        </td>
-
-	      </tr> 
-
-	      <tr class="daily_map">
-	      	<td colspan="4">
-	        	<%= render :partial => "map_day_jobs" %>
-
-	      	 </td>
-	      </tr>
-	</table>
-
-	<div class="hide_show_links">
-		<a href="#" class="show_crew_maps">Show Crew Maps</a> 
-		<a href="#" class="hide_crew_maps">Hide Crew Maps</a>
-		| 
-		<a href="#" class="show_daily_map">Show Daily Map</a>
-		<a href="#" class="hide_daily_map">Hide Daily Map</a>
-	</div>
-
+<div class="hide_show_links">
+	<a href="#" class="show_crew_maps">Show Crew Maps</a> 
+	<a href="#" class="hide_crew_maps">Hide Crew Maps</a>
+	| 
+	<a href="#" class="show_daily_map">Show Daily Map</a>
+	<a href="#" class="hide_daily_map">Hide Daily Map</a>
 </div>
+
+<%= render :partial => "map_day_jobs" %>
+
+<% @schedule_days.each do |sd| %>
+<div id="<%= sd.day %>">
+	<h2>
+		<%= Date.parse(sd.day).strftime("%A %B %d, %Y") %>
+	</h2>
+	
+	<table class="table_liquid" cellspacing="0">
+		<caption></caption>
+		<tr>
+			<% @crews.each do |c| %>
+				<th><%= c.crew_name%></th>
+			<% end %>
+		</tr>
+		<tr>
+			<% @crews.each do |c| %>
+			<td style="width:<%= 100 / @crews.count %>%">
+				<% c.contracts.select{|co| co.schedule_day_id == sd.id}.each do |co| %>
+						<a class="schedule_button" href="#">
+							<span class="schedule_button_heading">Job #<%= co.id %></span>
+							<span><%= co.estimate.job.conta	ct.name rescue ""%><br /> <%= co.estimate.job.city rescue "" %>, <%= co.estimate.job.state rescue "" %></span>
+						</a>
+						<br />
+				<% end %>
+			</td>
+			<% end %>
+		</tr>
+		<tr class="crew_maps">
+			<% @crews.each do |c| %>
+				<td>
+					<% source_string = ""%>
+					<iframe width="88%" height="150" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=lancaster+pa&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=50.244827,114.169922&amp;ie=UTF8&amp;hq=&amp;hnear=Lancaster,+Pennsylvania&amp;t=m&amp;z=13&amp;ll=40.037876,-76.305514&amp;output=embed"></iframe>
+				</td>
+			<% end %>
+		</tr>
+	</table>
+</div>
+<% end %>
+
 <script type="text/javascript" charset="utf-8">
 
 	jQuery(function() {
