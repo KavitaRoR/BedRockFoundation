@@ -9,7 +9,7 @@ class RockPadCalculator
   end
   
   def initialize(dist=30, w=0, l=0, kind="Standard", sixbysix=false, d=0.5)
-    puts "Given a #{w}×#{l} #{kind} rock pad #{dist} miles away"
+    # puts "Given a #{w}×#{l} #{kind} rock pad #{dist} miles away"
     @length = l
     @width = w
     @depth = d
@@ -92,7 +92,7 @@ class RockPadCalculator
   end
   
   def round_trip_distance
-    puts "One Trip Distance: #{@distance rescue "none"}"
+    # # puts "One Trip Distance: #{@distance rescue "none"}"
     # @distance * 2
     # we are now 3/18/11 only charging for one-way
     @distance rescue 0
@@ -100,10 +100,10 @@ class RockPadCalculator
   
   def driving_hours
     speed = findVar("speed_for_hour_calculation") rescue 50
-    puts "speed: " + speed.inspect
-    puts "round_trip_distance: " + round_trip_distance.inspect
-    puts "hours: " + (((round_trip_distance.to_f * 100) / (speed.to_f * 100))).to_s
-    puts "#{(5400.to_f/5500.to_f) }"
+    # puts "speed: " + speed.inspect
+    # puts "round_trip_distance: " + round_trip_distance.inspect
+    # puts "hours: " + (((round_trip_distance.to_f * 100) / (speed.to_f * 100))).to_s
+    # puts "#{(5400.to_f/5500.to_f) }"
     return (round_trip_distance.to_f / speed.to_f).to_f
   end
   
@@ -120,12 +120,12 @@ class RockPadCalculator
   end
   
   def driving_labor_cost
-    puts "Driving labor stuff:"
+    # puts "Driving labor stuff:"
     time_on_road = driving_hours.to_f
     number_of_laborers = @laborers.to_f
     laborer_rate = @laborer_rate.to_f
     driving_labor_cost = number_of_laborers * time_on_road * laborer_rate
-    puts "#{number_of_laborers}  *  #{time_on_road}  *  #{laborer_rate} = #{driving_labor_cost}" 
+    # puts "#{number_of_laborers}  *  #{time_on_road}  *  #{laborer_rate} = #{driving_labor_cost}" 
     return driving_labor_cost
   end
   
@@ -169,18 +169,18 @@ class RockPadCalculator
   end
   
   def total_labor_price
-    puts "labor_cost_markup:" 
-    puts findVar("labor_cost_markup")
+    # puts "labor_cost_markup:" 
+    # puts findVar("labor_cost_markup")
     markup_percentage = (findVar("labor_cost_markup")+100).to_f / 100 rescue 1.25
-    puts("markup_percentage = #{markup_percentage}")
+    # puts("markup_percentage = #{markup_percentage}")
     total_labor_cost * markup_percentage
   end
   
   def total_material_price
-    puts "material_cost_markup"
-    puts findVar("material_cost_markup")
+    # puts "material_cost_markup"
+    # puts findVar("material_cost_markup")
     markup_percentage = (findVar("material_cost_markup")+100).to_f / 100 || 1.15
-    puts("markup_percentage = #{markup_percentage}")
+    # puts("markup_percentage = #{markup_percentage}")
     total_material_cost * markup_percentage
   end
   
@@ -206,7 +206,7 @@ class RockPadCalculator
   
 end
 
-puts RockPadCalculator.new(3444, 14, 14).their_price
+# puts RockPadCalculator.new(3444, 14, 14).their_price
 
 
 

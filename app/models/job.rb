@@ -99,30 +99,36 @@ class Job < ActiveRecord::Base
   
   def options_for_print(kind="Standard")
     pad_job = RockPadCalculator.new(self.distance, self.width, self.length, kind, self.border_sixbysix, 2)
-    return { 
-  		contact_name: "#{ self.contact.first_name } #{ self.contact.last_name }",
-  		contact_address: "#{ self.contact.address_1 }",
-  		contact_address2: "#{ self.contact.city }, #{ self.contact.province}   #{self.contact.zip}",
-  		contact_phone_home: "#{ self.contact.phone }",
-  		contact_phone_cell: "#{ self.contact.phone_alt }",
-  		contact_phone_work: "#{ self.contact.phone_work }",
-  		contact_email: "#{ self.contact.email }",
-  		job_location_abbr: "#{ self.location.abbreviation rescue 'ERR' }",
-  		job_location_phone: "#{ self.location.phone rescue '- no location assigned' }",
-  		job_quality: "#{ kind }",
-  		job_quality_alt: "#{ self.description }",
-  		job_extras: "#{ self.extras.join('\n') }",
-  		job_price: "#{money_from_cents pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)}",
-  		additional_price: "#{money_from_cents(self.additional_price * 100)}",
-  		job_total_price: "#{money_from_cents(pad_job.total_price + (self.additional_price * 100) - (self.discount * 100))}",
-  		job_width: "#{self.width}",
-  		job_length: "#{self.length}",
-  		job_inches: "#{self.off_level_amount_in_inches}",
-  		job_kind: "#{kind}",
-  		foundation_kind: "#{self.foundation.kind rescue ''} Foundation",
-  		job_date: "#{ self.updated_at.strftime('%m/%d/%Y') || '' }"
-  	}
+    if self.contact
+      return { 
+    		contact_name: "#{ self.contact.first_name rescue ""} #{ self.contact.last_name rescue "" }",
+    		contact_address: "#{ self.contact.address_1 rescue "" }",
+    		contact_address2: "#{ self.contact.city rescue "" }, #{ self.contact.province rescue ""}   #{self.contact.zip rescue ""}",
+    		contact_phone_home: "#{ self.contact.phone rescue "" }",
+    		contact_phone_cell: "#{ self.contact.phone_alt rescue "" }",
+    		contact_phone_work: "#{ self.contact.phone_work rescue "" }",
+    		contact_email: "#{ self.contact.email rescue "" }",
+    		job_location_abbr: "#{ self.location.abbreviation rescue 'ERR' }",
+    		job_location_phone: "#{ self.location.phone rescue '- no location assigned' }",
+    		job_quality: "#{ kind rescue "" }",
+    		job_quality_alt: "#{ self.description rescue "" }",
+    		job_extras: "#{ self.extras.join('\n') rescue "" }",
+    		job_price: "#{money_from_cents pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)}",
+    		additional_price: "#{money_from_cents(self.additional_price * 100)}",
+    		job_total_price: "#{money_from_cents(pad_job.total_price + (self.additional_price * 100) - (self.discount * 100))}",
+    		job_width: "#{self.width}",
+    		job_length: "#{self.length}",
+    		job_inches: "#{self.off_level_amount_in_inches}",
+    		job_kind: "#{kind}",
+    		foundation_kind: "#{self.foundation.kind rescue ''} Foundation",
+    		job_date: "#{ self.updated_at.strftime('%m/%d/%Y') || '' }"
+    	}
+    else
+      return {}
+    end
   end
+  
+  
   
   protected
   
