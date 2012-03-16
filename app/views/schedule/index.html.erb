@@ -2,10 +2,10 @@
 
     <div class="content_block">
 		<!-- <h2 class="jquery_tab_title">Current Schedule</h2> -->
-		<% last_day = @contracts.last.scheduled_date + 5.days rescue Date.today + 5.day %>
-		<% ((Date.today - 2.days)..last_day).each do |day| %>
-		<h2><%= day.strftime("%F") %></h2>
-		<%= render :partial => "day_table", :locals => {:day => day} %>
+		<% last_day = @contracts.last.scheduled_date rescue Date.today + 5.day %>
+
+		<% ((Date.today - 2.days)..(Date.today + 14.days)).each do |day| %>
+			<%= render :partial => "day_table", :locals => {:day => day} %>
 		<% end %>
 
     </div>

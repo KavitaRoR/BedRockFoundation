@@ -22,7 +22,7 @@ class Job < ActiveRecord::Base
   
   def name
     return id if contact.nil?
-    return "#{contact.name} - #{pad_size.size rescue 'unknown' } ##{id}"
+    return "#{contact.name} - ##{id}"
   end
   
   def estimate_or_contract
