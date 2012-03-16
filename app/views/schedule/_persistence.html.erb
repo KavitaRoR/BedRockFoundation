@@ -11,9 +11,9 @@
 				myHtml += "</select>";
 				if ($($(ele).children('span')[1]).children('select').length == 0) {
 					$($(ele).children('span')[1]).append(myHtml);
-					
+					$($(ele).children('span')[1]).removeClass("empty").addClass("editing");
 					$(".con-select").change(function() {
-						var ele2 = $(this);
+						var ele2 = this;
 						var strArr = ($(this).parent().parent().attr("id")).split("-");
 						var crewId = strArr[1];
 						var conPos = strArr[2];
@@ -28,16 +28,19 @@
 								contract_id: conId
 							}, function(data) {
 								if (data != "false") {
+									$(ele2).parent().parent().removeClass("editing").addClass("full");
 									$($(ele2).parent().parent().children('span')[0]).text(data["conName"]);
 									$(ele2).parent().text(data["location"]);
-									$(".con-select").remove();
+
+									if ($("#qc-" + conId)) {
+										$("#qc-" + conId).remove();
+									}
 								}
 							})
 						}
+						return false;
 					})
-					
 				}
-				
 			})
 			return false;
 		})
