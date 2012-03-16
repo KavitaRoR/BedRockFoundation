@@ -13,3 +13,7 @@
 
 
 <%= render :partial => "queued_contracts" %>
+
+<%= content_for :js_bottom do %>
+	<%= render :partial => 'persistence' %>
+<% end %>
