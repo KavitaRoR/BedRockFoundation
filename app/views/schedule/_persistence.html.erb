@@ -48,5 +48,16 @@
 		$(".full").click(function() {
 			return false;
 		})
+		
+		function removeFrom() {
+			$.click(function() {
+				var conId = $(this).attr("id");
+				$.post("/schedule/remove_from_schedule", {
+					conId: conId
+				}, function() {
+					
+				})
+			})
+		}
 	})
 </script>
