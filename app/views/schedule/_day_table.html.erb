@@ -52,11 +52,23 @@
 											"map_options" => { "height" => 150, "width" => "88%", :id => "crew#{c.id}"},
 											:last_map => false ) %>
 					<% end %>
+					<% if day.beginning_of_day == Date.today.beginning_of_day %>
+					<iframe width="88%" height="150" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=lancaster+pa&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=50.244827,114.169922&amp;ie=UTF8&amp;hq=&amp;hnear=Lancaster,+Pennsylvania&amp;t=m&amp;z=13&amp;ll=40.037876,-76.305514&amp;output=embed"></iframe>
+					<% end %>
+
 				</td>
 				<% index_checker = index_checker + 1 %>
 			<% end %>
 		</tr>
+		<tr class="daily_map">
+			<td colspan="<%= @crews.count %>">
+				<% if day.beginning_of_day == Date.today.beginning_of_day %>
+					<iframe width="96%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=lancaster+pa&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=50.244827,114.169922&amp;ie=UTF8&amp;hq=&amp;hnear=Lancaster,+Pennsylvania&amp;t=m&amp;z=13&amp;ll=40.037876,-76.305514&amp;output=embed"></iframe>
+				<% end %>
+			</td>
+		</tr>
 	</table>
+	<% if day.beginning_of_day == Date.today.beginning_of_day %>
 	<div class="hide_show_links" style="margin-bottom: 50px;">
 	<a href="#" class="show_crew_maps">Show Crew Maps</a> 
 	<a href="#" class="hide_crew_maps">Hide Crew Maps</a>
@@ -64,39 +76,8 @@
 	<a href="#" class="show_daily_map">Show Daily Map</a>
 	<a href="#" class="hide_daily_map">Hide Daily Map</a>
 	</div>
+	<% end %>
 </div>
 
-<script type="text/javascript" charset="utf-8">
-
-	// jQuery(function() {
-	// 	jQuery(".crew_maps").hide();
-	// 	jQuery(".daily_map").hide();
-	// 	jQuery(".hide_crew_maps").hide();
-	// 	jQuery(".hide_daily_map").hide();
-	// 	jQuery(".show_crew_maps").click(function() {
-	// 		jQuery(this).parent().parent().find(".crew_maps").show();			
-	// 		jQuery(this).parent().find(".hide_crew_maps").show();
-	// 		jQuery(this).hide();
-	// 	});
-	// 	jQuery(".hide_crew_maps").click(function() {
-	// 		jQuery(this).parent().parent().find(".crew_maps").hide();			
-	// 		jQuery(this).parent().find(".show_crew_maps").show();
-	// 		jQuery(this).hide();
-	// 	});
-	// 	jQuery(".show_daily_map").click(function() {
-	// 		jQuery(this).parent().parent().find(".daily_map").show();			
-	// 		jQuery(this).parent().find(".hide_daily_map").show();
-	// 		jQuery(this).hide();
-	// 	});
-	// 	jQuery(".hide_daily_map").click(function() {
-	// 		jQuery(this).parent().parent().find(".daily_map").hide();
-	// 		jQuery(this).parent().find(".show_daily_map").show();
-	// 		jQuery(this).hide();
-	// 	});
 
 
-	// });
-
-</script>
-
-<!-- <iframe width="88%" height="150" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=lancaster+pa&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=50.244827,114.169922&amp;ie=UTF8&amp;hq=&amp;hnear=Lancaster,+Pennsylvania&amp;t=m&amp;z=13&amp;ll=40.037876,-76.305514&amp;output=embed"></iframe> -->

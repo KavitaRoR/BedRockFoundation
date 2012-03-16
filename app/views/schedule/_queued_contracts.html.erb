@@ -8,3 +8,35 @@
 	<% end %>
 	</div>
 </div>
+<script type="text/javascript" charset="utf-8">
+
+	jQuery(function() {
+		jQuery(".crew_maps").hide();
+		jQuery(".daily_map").hide();
+		jQuery(".hide_crew_maps").hide();
+		jQuery(".hide_daily_map").hide();
+		jQuery(".show_crew_maps").click(function() {
+			jQuery(this).parent().parent().find(".crew_maps").show();			
+			jQuery(this).parent().find(".hide_crew_maps").show();
+			jQuery(this).hide();
+		});
+		jQuery(".hide_crew_maps").click(function() {
+			jQuery(this).parent().parent().find(".crew_maps").hide();			
+			jQuery(this).parent().find(".show_crew_maps").show();
+			jQuery(this).hide();
+		});
+		jQuery(".show_daily_map").click(function() {
+			jQuery(this).parent().parent().find(".daily_map").show();			
+			jQuery(this).parent().find(".hide_daily_map").show();
+			jQuery(this).hide();
+		});
+		jQuery(".hide_daily_map").click(function() {
+			jQuery(this).parent().parent().find(".daily_map").hide();
+			jQuery(this).parent().find(".show_daily_map").show();
+			jQuery(this).hide();
+		});
+
+
+	});
+
+</script>
