@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.1.50)
 # Database: abundant3_dev
-# Generation Time: 2012-03-16 00:35:49 -0400
+# Generation Time: 2012-03-16 00:41:32 -0400
 # ************************************************************
 
 
@@ -345,6 +345,17 @@ CREATE TABLE `crews` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+LOCK TABLES `crews` WRITE;
+/*!40000 ALTER TABLE `crews` DISABLE KEYS */;
+
+INSERT INTO `crews` (`id`, `crew_name`, `crew_base_address`, `lat`, `lng`, `crew_size`, `velocity`, `created_at`, `updated_at`, `job_max_per_day`)
+VALUES
+	(1,'Alpha','Harrisonburg, VA','38.4495688','-78.8689155',3,NULL,'2012-03-16 04:40:40','2012-03-16 04:40:40',3),
+	(2,'Beta','Philadelphia, PA','39.952335','-75.163789',3,NULL,'2012-03-16 04:40:53','2012-03-16 04:40:53',3),
+	(3,'Gamma','Lancaster, PA','40.0378755','-76.3055144',2,NULL,'2012-03-16 04:41:05','2012-03-16 04:41:05',3);
+
+/*!40000 ALTER TABLE `crews` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table estimates
