@@ -9,49 +9,40 @@
 	</div>
 </div>
 
-<!-- Right Click Menu -->
-<ul id="myMenu" class="contextMenu">
-    <li class="insert"><a href="#insert">Add New</a></li>        
-    <li class="edit"><a href="#edit">Edit</a></li>                    
-    <li class="delete"><a href="#delete">Delete</a></li>            
-</ul>
+<!-- Full Slot Click Menu -->
+<div id="full_slot" class="contextMenu">
+	<h2></h2>
+	<a class="schedule_button delete" href="#">
+		<span class="schedule_button_heading">Remove from the Schedule</span>
+		<span>&nbsp;</span>
+	</a>      
+	<a class="schedule_button view" href="#">
+		<span class="schedule_button_heading">View this Contract</span>
+		<span>&nbsp;</span>
+	</a>      	  
+</div>
 
 <script type="text/javascript" charset="utf-8">
 
-
 $(document).ready(function() {
-    //Tie a menu to the right click of each row of the table with a class of customerRow
-    $(".customerRow").contextMenu({ menu: 'myMenu' }, 
-        function(action, el, pos) { contextMenuWork(action, el, pos); });
 
-    //Tie a menu the left click of each td with the class of openmenu !Important - requires modified
-    //jquery.contextMenu.js that allows for leftButton: true
-    $(".schedule_button.full").contextMenu({ menu: 'Timeslot Menu', leftButton: true }, 
-        function(action, el, pos) { contextMenuWork(action, el.parent("tr"), pos); });
-    	alert("helloo")
-    });
+	$(".full").click(function() {
+		$("#full_slot").find("h2").html($(this).find(".schedule_button_heading").html());
+		$("#full_slot").modal({
+			opacity:94,
+			overlayCss: {backgroundColor:"#fff"}
+		});
+	});
+// Opening animations
+// $(".full").modal({onOpen: function (dialog) {
+// 	dialog.overlay.fadeIn('slow', function () {
+// 		dialog.data.hide();
+// 		dialog.container.fadeIn('slow', function () {
+// 			dialog.data.slideDown('slow');
+// 		});
+// 	});
+// }});
 
-    function contextMenuWork(action, el, pos) {
-
-        switch (action) {
-            case "delete":
-                {
-                    //Popup Delete Confirmation - included in demo and in download
-                    break;
-                }
-            case "insert":
-                {
-                    //Popup Insert Dialog- included in demo and in download
-                    break;
-                }
-
-            case "edit":
-                {
-                    //Popup Edit Dialog
-                    break;
-                }
-        }
-   }
 });
 
 </script>
