@@ -5,7 +5,7 @@
 	<h3 style="color: #fff; ">Unscheduled Contracts</h3>
 	<div>
 	<% for contract in @queued_contracts %>
-		<p><%= contract.estimate.job.name %><br />
+		<p id="qc-<%= contract.id %>"><%= contract.estimate.job.name %><br />
 			<%= contract.estimate.job.city_state %>
 		</p>
 	<% end %>
