@@ -18,28 +18,28 @@
 <div id="flash_contract">
 </div>
 
-	<% flashvars =  "{ 
-			contact_name: '#{ @options_for_job[:contact_name] }',
-			contact_address: '#{ @options_for_job[:contact_address] }',
-			contact_address2: '#{ @options_for_job[:contact_address2] }',
-			contact_phone_home: '#{ @options_for_job[:contact_phone_home] }',
-			contact_phone_cell: '#{ @options_for_job[:contact_phone_cell] }',
-			contact_phone_work: '#{ @options_for_job[:contact_phone_work] }',
-			contact_email: '#{ @options_for_job[:contact_email] }',
-			job_location_abbr: '#{ @options_for_job[:job_location_abbr] }',
-			job_location_phone: '#{ @options_for_job[:job_location_phone] }',
-			job_quality: '#{ @options_for_job[:job_quality] }',
-			job_quality_alt: '#{ @options_for_job[:job_quality_alt] }',
-			job_extras: '#{ @options_for_job[:job_extras] }',
-			job_price: '#{ @options_for_job[:job_price] }',
-			additional_price: '#{ @options_for_job[:additional_price] }',
-			job_total_price: '#{ @options_for_job[:job_total_price] }',
-			job_width: '#{ @options_for_job[:job_width] }',
-			job_length: '#{ @options_for_job[:job_length] }',
-			job_inches: '#{ @options_for_job[:job_inches] }',
-			job_kind: '#{ @options_for_job[:job_kind] }',
-			foundation_kind: '#{ @options_for_job[:foundation_kind] }',
-			job_date: '#{ @options_for_job[:address2] }'
+	<%= flashvars =  "{ 
+			contact_name: '#{ escape_javascript(@options_for_job[:contact_name]) }',
+			contact_address: '#{ escape_javascript(@options_for_job[:contact_address]) }',
+			contact_address2: '#{ escape_javascript(@options_for_job[:contact_address2]) }',
+			contact_phone_home: '#{ escape_javascript(@options_for_job[:contact_phone_home]) }',
+			contact_phone_cell: '#{ escape_javascript(@options_for_job[:contact_phone_cell]) }',
+			contact_phone_work: '#{ escape_javascript(@options_for_job[:contact_phone_work]) }',
+			contact_email: '#{ escape_javascript(@options_for_job[:contact_email]) }',
+			job_location_abbr: '#{ escape_javascript(@options_for_job[:job_location_abbr]) }',
+			job_location_phone: '#{ escape_javascript(@options_for_job[:job_location_phone]) }',
+			job_quality: '#{ escape_javascript(@options_for_job[:job_quality]) }',
+			job_quality_alt: '#{ escape_javascript(@options_for_job[:job_quality_alt]) }',
+			job_extras: '#{ escape_javascript(@options_for_job[:job_extras]) }',
+			job_price: '#{ escape_javascript(@options_for_job[:job_price]) }',
+			additional_price: '#{ escape_javascript(@options_for_job[:additional_price]) }',
+			job_total_price: '#{ escape_javascript(@options_for_job[:job_total_price]) }',
+			job_width: '#{ escape_javascript(@options_for_job[:job_width]) }',
+			job_length: '#{ escape_javascript(@options_for_job[:job_length]) }',
+			job_inches: '#{ escape_javascript(@options_for_job[:job_inches]) }',
+			job_kind: '#{ escape_javascript(@options_for_job[:job_kind]) }',
+			foundation_kind: '#{ escape_javascript(@options_for_job[:foundation_kind]) }',
+			job_date: '#{ escape_javascript(@options_for_job[:address2]) }'
 		}"
 	%>
 
