@@ -1,5 +1,5 @@
-<div style="position: fixed; background: #000; top: 5px; left: 5px; padding: 30px 50px; color: #fff; z-index: 9999; width: 230px;">
-	<h3 style="color: #fff; ">Unscheduled Contracts</h3>
+<div id="queued_contracts">
+	<h3>Unscheduled Contracts</h3>
 	<div>
 	<% for contract in @queued_contracts %>
 		<p id="qc-<%= contract.id %>"><%= contract.estimate.job.name %><br />
@@ -8,3 +8,50 @@
 	<% end %>
 	</div>
 </div>
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="insert"><a href="#insert">Add New</a></li>        
+    <li class="edit"><a href="#edit">Edit</a></li>                    
+    <li class="delete"><a href="#delete">Delete</a></li>            
+</ul>
+
+<script type="text/javascript" charset="utf-8">
+
+
+$(document).ready(function() {
+    //Tie a menu to the right click of each row of the table with a class of customerRow
+    $(".customerRow").contextMenu({ menu: 'myMenu' }, 
+        function(action, el, pos) { contextMenuWork(action, el, pos); });
+
+    //Tie a menu the left click of each td with the class of openmenu !Important - requires modified
+    //jquery.contextMenu.js that allows for leftButton: true
+    $(".schedule_button.full").contextMenu({ menu: 'Timeslot Menu', leftButton: true }, 
+        function(action, el, pos) { contextMenuWork(action, el.parent("tr"), pos); });
+    	alert("helloo")
+    });
+
+    function contextMenuWork(action, el, pos) {
+
+        switch (action) {
+            case "delete":
+                {
+                    //Popup Delete Confirmation - included in demo and in download
+                    break;
+                }
+            case "insert":
+                {
+                    //Popup Insert Dialog- included in demo and in download
+                    break;
+                }
+
+            case "edit":
+                {
+                    //Popup Edit Dialog
+                    break;
+                }
+        }
+   }
+});
+
+</script>
