@@ -1,3 +1,13 @@
 <script type="text/javascript">
-	alert("hi");
+	$(document).ready(function() {
+		$(".empty").click(function() {
+			$.get("/schedule/get_queued_as_json", function(data) {
+				
+			})
+			$.get('ajax/test.html', function(data) {
+			  $('.result').html(data);
+			});
+			return false;
+		})
+	})
 </script>
