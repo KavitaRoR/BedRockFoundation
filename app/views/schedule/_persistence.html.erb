@@ -11,7 +11,7 @@
 				myHtml += "</select>";
 				if ($($(ele).children('span')[1]).children('select').length == 0) {
 					$($(ele).children('span')[1]).append(myHtml);
-					$($(ele).children('span')[1]).removeClass("empty").addClass("editing");
+					$(ele).removeClass("empty").addClass("editing");
 					$(".con-select").change(function() {
 						var ele2 = this;
 						var strArr = ($(this).parent().parent().attr("id")).split("-");
