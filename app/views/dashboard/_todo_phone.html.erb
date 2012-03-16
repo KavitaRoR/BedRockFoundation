@@ -11,12 +11,12 @@
       </tr>
 	  <% @todos.select{|t| t.next_action && t.contact && t.next_action.requires_phone_call && t.done != true }.each do |todo| %>
 	    <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
-	      <th class="spec"><%=h todo.job.contact.name %></th>
-        <td><%=h todo.job.contact.phone %></td>
-        <td><%=h todo.job.contact.phone_alt %></td>
-        <td><%=h todo.job.referencing %></td>
+	      <th class="spec"><%=h todo.job.contact.name rescue " " %></th>
+        <td><%=h todo.job.contact.phone rescue "" %></td>
+        <td><%=h todo.job.contact.phone_alt rescue "" %></td>
+        <td><%=h todo.job.referencing rescue "" %></td>
         <td><%=h todo.notes  rescue "" %></td>
-        <td><%= link_to "View", todo.job.contact %></td>
+        <td><%= link_to "View", (todo.job.contact rescue "") %></td>
         <td><%= link_to image_tag("24_tick.png"), "/dashboard/clear_todo/#{todo.id}" %></td>
       </tr> 
    <% end %>
