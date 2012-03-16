@@ -15,7 +15,7 @@
         <td><%=h todo.job.contact.phone rescue "" %></td>
         <td><%=h todo.job.contact.phone_alt rescue "" %></td>
         <td><%=h todo.job.referencing rescue "" %></td>
-        <td><%=h todo.notes  rescue "" %></td>
+        <td><%=h ((todo.notes rescue "") + " Follow-Up on: #{todo.followup_date rescue "not set" }") %></td>
         <td><%= link_to "View", (todo.job.contact rescue "") %></td>
         <td><%= link_to image_tag("24_tick.png"), "/dashboard/clear_todo/#{todo.id}" %></td>
       </tr> 

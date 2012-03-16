@@ -6,9 +6,23 @@ class DashboardController < ApplicationController
   end
   
   def index 
-    @todos = Status.find(:all, :conditions => {:assigned_to => current_user.id}, :order => "followup_date DESC")
-    logger.debug("User ID: #{current_user.id}")
-    logger.debug("ToDo count: #{@todos.count rescue @todos.length}")
+    @all_todos = Status.find(:all, :conditions => {:assigned_to => current_user.id}, :order => "followup_date DESC")
+    id_group = {}
+    @all_todos.each do |t|
+      if t.contact
+        if id_group.has_key?(t.contact.id)
+          id_group[t.contact.id] = t.id if id_group[t.contact.id] < t.id
+        else
+          id_group[t.contact.id] = t.id
+        end
+      end
+    end
+    logger.debug("Original size: #{@all_todos.count}")
+    @todos = []
+    id_group.each do |k, v|
+      @todos << Status.find(v)
+    end
+    logger.debug("Uniqued Size: #{@todos.count}")
   end
   
   def clear_todo
