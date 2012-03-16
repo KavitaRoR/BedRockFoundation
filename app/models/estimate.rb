@@ -1,7 +1,15 @@
 class Estimate < ActiveRecord::Base
   belongs_to :job
-  belongs_to :contract
+  has_one :contract
   
+  def name
+    job.name
+  end
+
+  def location
+    job.city_state
+  end
+
   def push_to_sold
     begin
       c = Contract.new

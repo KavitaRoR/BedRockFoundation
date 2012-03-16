@@ -2,9 +2,22 @@
 
     <div class="content_block">
 		<!-- <h2 class="jquery_tab_title">Current Schedule</h2> -->
-
-
-		<%= render :partial => "day_table" %>
+		<% last_day = @contracts.last.scheduled_date + 5.days rescue Date.today + 5.day %>
+		<% ((Date.today - 2.days)..last_day).each do |day| %>
+		<h2><%= day.strftime("%F") %></h2>
+		<%= render :partial => "day_table", :locals => {:day => day} %>
+		<% end %>
 
     </div>
+</div>
+
+
+<div style="position: fixed; background: #000; top: 5px; right: 5px;">
+	<ul>
+	<% for contract in @queued_contracts %>
+		<li><%= contract.estimate.job.name %><br />
+			<%= contract.estimate.job.city_state %>
+		</li>
+	<% end %>
+	</ul>
 </div>

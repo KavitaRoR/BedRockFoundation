@@ -1,17 +1,10 @@
-<div class="hide_show_links">
-	<a href="#" class="show_crew_maps">Show Crew Maps</a> 
-	<a href="#" class="hide_crew_maps">Hide Crew Maps</a>
-	| 
-	<a href="#" class="show_daily_map">Show Daily Map</a>
-	<a href="#" class="hide_daily_map">Hide Daily Map</a>
-</div>
 
-<%= render :partial => "map_day_jobs" %>
 
-<% @schedule_days.each do |sd| %>
-<div id="<%= sd.day %>">
+<%#= render :partial => "map_day_jobs" %>
+
+<div id="<%= day.to_s %>">
 	<h2>
-		<%= Date.parse(sd.day).strftime("%A %B %d, %Y") %>
+		<%#= Date.parse(sd.day).strftime("%A %B %d, %Y") %>
 	</h2>
 	
 	<table class="table_liquid" cellspacing="0">
@@ -43,38 +36,44 @@
 			<% end %>
 		</tr>
 	</table>
+	<div class="hide_show_links">
+	<a href="#" class="show_crew_maps">Show Crew Maps</a> 
+	<a href="#" class="hide_crew_maps">Hide Crew Maps</a>
+	| 
+	<a href="#" class="show_daily_map">Show Daily Map</a>
+	<a href="#" class="hide_daily_map">Hide Daily Map</a>
 </div>
-<% end %>
+</div>
 
 <script type="text/javascript" charset="utf-8">
 
-	jQuery(function() {
-		jQuery(".crew_maps").hide();
-		jQuery(".daily_map").hide();
-		jQuery(".hide_crew_maps").hide();
-		jQuery(".hide_daily_map").hide();
-		jQuery(".show_crew_maps").click(function() {
-			jQuery(this).parent().parent().find(".crew_maps").show();			
-			jQuery(this).parent().find(".hide_crew_maps").show();
-			jQuery(this).hide();
-		});
-		jQuery(".hide_crew_maps").click(function() {
-			jQuery(this).parent().parent().find(".crew_maps").hide();			
-			jQuery(this).parent().find(".show_crew_maps").show();
-			jQuery(this).hide();
-		});
-		jQuery(".show_daily_map").click(function() {
-			jQuery(this).parent().parent().find(".daily_map").show();			
-			jQuery(this).parent().find(".hide_daily_map").show();
-			jQuery(this).hide();
-		});
-		jQuery(".hide_daily_map").click(function() {
-			jQuery(this).parent().parent().find(".daily_map").hide();
-			jQuery(this).parent().find(".show_daily_map").show();
-			jQuery(this).hide();
-		});
+	// jQuery(function() {
+	// 	jQuery(".crew_maps").hide();
+	// 	jQuery(".daily_map").hide();
+	// 	jQuery(".hide_crew_maps").hide();
+	// 	jQuery(".hide_daily_map").hide();
+	// 	jQuery(".show_crew_maps").click(function() {
+	// 		jQuery(this).parent().parent().find(".crew_maps").show();			
+	// 		jQuery(this).parent().find(".hide_crew_maps").show();
+	// 		jQuery(this).hide();
+	// 	});
+	// 	jQuery(".hide_crew_maps").click(function() {
+	// 		jQuery(this).parent().parent().find(".crew_maps").hide();			
+	// 		jQuery(this).parent().find(".show_crew_maps").show();
+	// 		jQuery(this).hide();
+	// 	});
+	// 	jQuery(".show_daily_map").click(function() {
+	// 		jQuery(this).parent().parent().find(".daily_map").show();			
+	// 		jQuery(this).parent().find(".hide_daily_map").show();
+	// 		jQuery(this).hide();
+	// 	});
+	// 	jQuery(".hide_daily_map").click(function() {
+	// 		jQuery(this).parent().parent().find(".daily_map").hide();
+	// 		jQuery(this).parent().find(".show_daily_map").show();
+	// 		jQuery(this).hide();
+	// 	});
 
 
-	});
+	// });
 
 </script>
