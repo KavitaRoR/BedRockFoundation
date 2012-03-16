@@ -1,10 +1,18 @@
 class Contract < ActiveRecord::Base
   belongs_to :estimate
-  belongs_to :schedule_day
+  # belongs_to :schedule_day
   belongs_to :crew
   
   before_create :check_schedule
   
+  def name
+    self.estimate.job.name
+  end
+
+  def location
+    self.estimate.job.city_state
+  end
+
   
   protected
   

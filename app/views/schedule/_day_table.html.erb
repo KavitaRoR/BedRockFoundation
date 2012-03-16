@@ -1,17 +1,10 @@
-<div class="hide_show_links">
-	<a href="#" class="show_crew_maps">Show Crew Maps</a> 
-	<a href="#" class="hide_crew_maps">Hide Crew Maps</a>
-	| 
-	<a href="#" class="show_daily_map">Show Daily Map</a>
-	<a href="#" class="hide_daily_map">Hide Daily Map</a>
-</div>
 
-<%= render :partial => "map_day_jobs" %>
 
-<% @schedule_days.each do |sd| %>
-<div id="<%= sd.day %>">
+<%#= render :partial => "map_day_jobs" %>
+
+<div id="<%= day.to_s %>">
 	<h2>
-		<%= Date.parse(sd.day).strftime("%A %B %d, %Y") %>
+		<%#= Date.parse(sd.day).strftime("%A %B %d, %Y") %>
 	</h2>
 	
 	<table class="table_liquid" cellspacing="0">
@@ -24,7 +17,7 @@
 		<tr>
 			<% @crews.each do |c| %>
 			<td style="width:<%= 100 / @crews.count %>%">
-				<% c.contracts.select{|co| co.schedule_day_id == sd.id}.each do |co| %>
+				<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day && co.crew_id == c.id}.each do |co| %>
 						<a class="schedule_button" href="#">
 							<span class="schedule_button_heading">Job #<%= co.id %></span>
 							<span><%= co.estimate.job.conta	ct.name rescue ""%><br /> <%= co.estimate.job.city rescue "" %>, <%= co.estimate.job.province rescue "" %></span>
@@ -39,7 +32,7 @@
 			<% @crews.each do |c| %>
 				<td>
 					<% jobs = [] %>
-					<% c.contracts.select{|c| c.schedule_day_id == sd.id }.each do |z| 
+					<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day && co.crew_id == c.id }.each do |z| 
 						jobs << z.estimate.job
 					end %>
 					<% if @crews.count == index_checker %>
@@ -55,39 +48,45 @@
 			<% end %>
 		</tr>
 	</table>
+	<div class="hide_show_links" style="margin-bottom: 50px;">
+	<a href="#" class="show_crew_maps">Show Crew Maps</a> 
+	<a href="#" class="hide_crew_maps">Hide Crew Maps</a>
+	| 
+	<a href="#" class="show_daily_map">Show Daily Map</a>
+	<a href="#" class="hide_daily_map">Hide Daily Map</a>
+	</div>
 </div>
-<% end %>
 
 <script type="text/javascript" charset="utf-8">
 
-	jQuery(function() {
-		jQuery(".crew_maps").hide();
-		jQuery(".daily_map").hide();
-		jQuery(".hide_crew_maps").hide();
-		jQuery(".hide_daily_map").hide();
-		jQuery(".show_crew_maps").click(function() {
-			jQuery(this).parent().parent().find(".crew_maps").show();			
-			jQuery(this).parent().find(".hide_crew_maps").show();
-			jQuery(this).hide();
-		});
-		jQuery(".hide_crew_maps").click(function() {
-			jQuery(this).parent().parent().find(".crew_maps").hide();			
-			jQuery(this).parent().find(".show_crew_maps").show();
-			jQuery(this).hide();
-		});
-		jQuery(".show_daily_map").click(function() {
-			jQuery(this).parent().parent().find(".daily_map").show();			
-			jQuery(this).parent().find(".hide_daily_map").show();
-			jQuery(this).hide();
-		});
-		jQuery(".hide_daily_map").click(function() {
-			jQuery(this).parent().parent().find(".daily_map").hide();
-			jQuery(this).parent().find(".show_daily_map").show();
-			jQuery(this).hide();
-		});
+	// jQuery(function() {
+	// 	jQuery(".crew_maps").hide();
+	// 	jQuery(".daily_map").hide();
+	// 	jQuery(".hide_crew_maps").hide();
+	// 	jQuery(".hide_daily_map").hide();
+	// 	jQuery(".show_crew_maps").click(function() {
+	// 		jQuery(this).parent().parent().find(".crew_maps").show();			
+	// 		jQuery(this).parent().find(".hide_crew_maps").show();
+	// 		jQuery(this).hide();
+	// 	});
+	// 	jQuery(".hide_crew_maps").click(function() {
+	// 		jQuery(this).parent().parent().find(".crew_maps").hide();			
+	// 		jQuery(this).parent().find(".show_crew_maps").show();
+	// 		jQuery(this).hide();
+	// 	});
+	// 	jQuery(".show_daily_map").click(function() {
+	// 		jQuery(this).parent().parent().find(".daily_map").show();			
+	// 		jQuery(this).parent().find(".hide_daily_map").show();
+	// 		jQuery(this).hide();
+	// 	});
+	// 	jQuery(".hide_daily_map").click(function() {
+	// 		jQuery(this).parent().parent().find(".daily_map").hide();
+	// 		jQuery(this).parent().find(".show_daily_map").show();
+	// 		jQuery(this).hide();
+	// 	});
 
 
-	});
+	// });
 
 </script>
 

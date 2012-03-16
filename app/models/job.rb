@@ -52,6 +52,10 @@ class Job < ActiveRecord::Base
   def address_oneline
     [address_1,address_2,city,province,zip].reject{|f| f.blank? }.join(", ")
   end
+
+  def city_state
+    [city,province].reject{|f| f.blank? }.join(", ")
+  end
   
   def latitude
     self.lat
