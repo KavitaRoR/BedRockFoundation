@@ -12,12 +12,4 @@
 </div>
 
 
-<div style="position: fixed; background: #000; top: 5px; right: 5px; padding: 50px; color: #fff;">
-	<div>
-	<% for contract in @queued_contracts %>
-		<p><%= contract.id %><br />
-			<%= contract.estimate.job.id %>
-		</p>
-	<% end %>
-	</div>
-</div>
+<%= render :partial => "queued_contracts" %>

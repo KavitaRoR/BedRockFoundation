@@ -1,12 +1,12 @@
 
 
 
-<div style="position: fixed; background: #000; top: 5px; right: 5px; padding: 50px; color: #fff;">
-	<h3 style="color: #fff;">Unscheduled Contracts</h3>
+<div style="position: fixed; background: #000; top: 5px; right: 5px; padding: 30px 50px; color: #fff;">
+	<h3 style="color: #fff; ">Unscheduled Contracts</h3>
 	<div>
 	<% for contract in @queued_contracts %>
-		<p><%= contract.id %><br />
-			<%= contract.estimate.job.id %>
+		<p><%= contract.estimate.job.name %><br />
+			<%= contract.estimate.job.city_state %>
 		</p>
 	<% end %>
 	</div>
