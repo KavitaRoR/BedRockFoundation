@@ -1,3 +1,19 @@
+
+<!-- Full Slot Click Menu -->
+<div id="full_slot" class="contextMenu">
+	<h2></h2>
+	<a class="schedule_button delete" href="#">
+		<span class="schedule_button_heading">Remove from the Schedule</span>
+		<span>&nbsp;</span>
+	</a>      
+	<a class="schedule_button view" href="#">
+		<span class="schedule_button_heading">View this Contract</span>
+		<span>&nbsp;</span>
+	</a>      	  
+</div>
+
+
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".empty > span.schedule_button_heading").click(function() {
@@ -46,7 +62,18 @@
 		})
 		
 		$(".full").click(function() {
-			return false;
-		})
+			$("#full_slot").find("h2").html($(this).find(".schedule_button_heading").html());
+			$("#full_slot").modal({
+				opacity:94,
+				overlayCss: {backgroundColor:"#fff"}
+			});
+			window.contract_id = $(this).name;  // this doesn't WORK yet
+			$(".schedule_button.delete").click(function(){
+				window.location("/scheduling/remove/"+window_contract_id); // should be JSON
+			});
+			$(".schedule_button.view").click(function(){
+				window.location("/scheduling/view/"+window_contract_id); // assuming the controller can handle the conversion from a contract_id to the contact_id and redirect to "/contact/:id"
+			});
+		});
 	})
 </script>
