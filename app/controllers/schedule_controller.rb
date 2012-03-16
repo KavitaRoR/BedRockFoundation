@@ -9,9 +9,11 @@ class ScheduleController < ApplicationController
   end
   
   def get_queued_for_dropdown
-    @queued_contracts = Contract.where(:scheduled_date => nil)
-    
-    render @queued_contracts = Contract.where(:scheduled_date => nil).to_json
+    val = []
+    Contract.where(:scheduled_date => nil).each do |c|
+      val << [c.id, c.estimate.job.name]
+    end
+    render :json => val.to_json
   end
   
 end
