@@ -4,7 +4,7 @@
 		<!-- <h2 class="jquery_tab_title">Current Schedule</h2> -->
 		<% last_day = @contracts.last.scheduled_date rescue Date.today + 5.day %>
 
-		<% ((Date.today - 2.days)..(Date.today + 14.days)).each do |day| %>
+		<% ((Date.today)..(Date.today + 14.days)).each do |day| %>
 			<%= render :partial => "day_table", :locals => {:day => day} %>
 		<% end %>
 

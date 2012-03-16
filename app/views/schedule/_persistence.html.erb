@@ -1,7 +1,24 @@
+
+<!-- Full Slot Click Menu -->
+<div id="full_slot" class="contextMenu">
+	<h2></h2>
+	<a class="schedule_button delete" href="#">
+		<span class="schedule_button_heading">Remove from the Schedule</span>
+		<span>&nbsp;</span>
+	</a>      
+	<a class="schedule_button view" href="#">
+		<span class="schedule_button_heading">View this Contract</span>
+		<span>&nbsp;</span>
+	</a>      	  
+</div>
+
+
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".empty > span.schedule_button_heading").click(function() {
 			var ele = $(this).parent();
+			$(ele).removeClass("empty").addClass("editing");
 			$.get("/schedule/get_queued_for_dropdown", function(data) {
 				var myHtml = "<select class='con-select'><option value='' selected='selected'></option>";
 				$(data).each(function() {
@@ -11,7 +28,7 @@
 				myHtml += "</select>";
 				if ($($(ele).children('span')[1]).children('select').length == 0) {
 					$($(ele).children('span')[1]).append(myHtml);
-					$(ele).removeClass("empty").addClass("editing");
+					
 					$(".con-select").change(function() {
 						var ele2 = this;
 						var strArr = ($(this).parent().parent().attr("id")).split("-");
@@ -46,18 +63,28 @@
 		})
 		
 		$(".full").click(function() {
+			$("#full_slot").find("h2").html($(this).find(".schedule_button_heading").html());
+			$("#full_slot").modal({
+				opacity:60,
+				overlayCss: {backgroundColor:"#fff"}
+			});
+			var conId = $(this).find(".schedule_button_heading").attr("id").split("-")[1];
+			
+			$(".schedule_button.delete").click(function(){
+				$.post("/schedule/remove_assignment", { id: conId }, function(data) {
+					$("#full_slot").remove();
+					window.location.href = "/schedule";
+				})
+			});
+			
+			$(".schedule_button.view").click(function(){
+				window.location.href = ("/schedule/redirect_to_contact/"+ conId);
+			});
+			
 			return false;
 		})
 		
-		function removeFrom() {
-			$.click(function() {
-				var conId = $(this).attr("id");
-				$.post("/schedule/remove_from_schedule", {
-					conId: conId
-				}, function() {
-					
-				})
-			})
-		}
+			
 	})
 </script>
+
