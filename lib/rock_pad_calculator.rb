@@ -14,18 +14,18 @@ class RockPadCalculator
     @width = w
     @depth = d
     @distance = dist
-    @laborers = (findVar("laborers") || 2)
-    @laborer_rate = (findVar("laborer_rate") * 100) || 2000
-    @gas_cost = (findVar("gas_cost") * 100) || 400
-    @truck_cost_per_mile = (findVar("truck_cost_per_mile") * 100) || 200
-    @truck_mileage_per_gallon = findVar("truck_mileage_per_gallon") || 9
-    @board_cost_per_foot = (findVar("board_cost_per_foot") * 100) || 200
-    @board_cost_per_foot = (findVar("board_cost_per_foot_gt_16") * 100) || 400 if @width >= 16
-    @board_cost_per_foot = (findVar("board_cost_per_foot_6x6") * 100) || 500 if sixbysix
-    @rock_per_ton = (findVar("rock_per_ton") * 100) || 2000
-    @trex_price_per_foot = (findVar("trex_price_per_foot") * 100) || 500
-    @weed_fabric_per_roll = (findVar("weed_fabric_per_roll") * 100) || 36500
-    @rebar_piece = (findVar("rebar_piece") * 100) || 100
+    @laborers = (findVar("rockpad_laborers") || 2)
+    @laborer_rate = (findVar("rockpad_laborer_rate") * 100) || 2000
+    @gas_cost = (findVar("rockpad_gas_cost") * 100) || 400
+    @truck_cost_per_mile = (findVar("rockpad_truck_cost_per_mile") * 100) || 200
+    @truck_mileage_per_gallon = findVar("rockpad_truck_mileage_per_gallon") || 9
+    @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot") * 100) || 200
+    @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot_gt_16") * 100) || 400 if @width >= 16
+    @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot_6x6") * 100) || 500 if sixbysix
+    @rock_per_ton = (findVar("rockpad_rock_per_ton") * 100) || 2000
+    @trex_price_per_foot = (findVar("rockpad_trex_price_per_foot") * 100) || 500
+    @weed_fabric_per_roll = (findVar("rockpad_weed_fabric_per_roll") * 100) || 36500
+    @rebar_piece = (findVar("rockpad_rebar_piece") * 100) || 100
     @kind = kind.capitalize
   end
   
@@ -46,7 +46,7 @@ class RockPadCalculator
   end
     
   def weed_fabric_per_foot
-    @weed_fabric_per_roll / ((findVar("weed_fabric_width") || 12) * (findVar("weed_fabric_length") || 300))
+    @weed_fabric_per_roll / ((findVar("rockpad_weed_fabric_width") || 12) * (findVar("rockpad_weed_fabric_length") || 300))
   end
   
   def weed_fabric_cost
@@ -55,7 +55,7 @@ class RockPadCalculator
   end
   
   def rebar_quantity
-    (perimeter / findVar("spacing_for_rebar") || 8)
+    (perimeter / findVar("rockpad_spacing_for_rebar") || 8)
   end 
   
   def rebar_cost
@@ -83,7 +83,7 @@ class RockPadCalculator
   end
   
   def rock_tonage
-    footage_per_ton = findVar("square_footage_per_ton") rescue 36
+    footage_per_ton = findVar("rockpad_square_footage_per_ton") rescue 36
     (@length * @width / footage_per_ton)
   end
   
@@ -99,7 +99,7 @@ class RockPadCalculator
   end
   
   def driving_hours
-    speed = findVar("speed_for_hour_calculation") rescue 50
+    speed = findVar("rockpad_speed_for_hour_calculation") rescue 50
     # puts "speed: " + speed.inspect
     # puts "round_trip_distance: " + round_trip_distance.inspect
     # puts "hours: " + (((round_trip_distance.to_f * 100) / (speed.to_f * 100))).to_s
@@ -132,15 +132,19 @@ class RockPadCalculator
   def working_labor_hours
     hours = case square_footage
     when 0..199
-      findVar("hours_less_than_200") || 2
+      findVar("rockpad_hours_less_than_200") || 2
     when 200..299
-      findVar("hours_200_to_300") || 2.5
+      findVar("rockpad_hours_200_to_300") || 2.5
     when 300..399
-      findVar("hours_300_to_400") || 3
+      findVar("rockpad_hours_300_to_400") || 3
     when 400..499
-      findVar("hours_400_to_500") || 4
+      findVar("rockpad_hours_400_to_500") || 4
     when 500..599
-      findVar("hours_500_to_600") || 5
+      findVar("rockpad_hours_500_to_600") || 5
+    when 600..699
+      findVar("rockpad_hours_600_to_700") || 6
+    when 700.799
+      findVar("rockpad_hours_700_to_800") || 7
     else
       0
     end
@@ -171,7 +175,7 @@ class RockPadCalculator
   def total_labor_price
     # puts "labor_cost_markup:" 
     # puts findVar("labor_cost_markup")
-    markup_percentage = (findVar("labor_cost_markup")+100).to_f / 100 rescue 1.25
+    markup_percentage = (findVar("rockpad_labor_cost_markup")+100).to_f / 100 rescue 1.25
     # puts("markup_percentage = #{markup_percentage}")
     total_labor_cost * markup_percentage
   end
@@ -179,7 +183,7 @@ class RockPadCalculator
   def total_material_price
     # puts "material_cost_markup"
     # puts findVar("material_cost_markup")
-    markup_percentage = (findVar("material_cost_markup")+100).to_f / 100 || 1.15
+    markup_percentage = (findVar("rockpad_material_cost_markup")+100).to_f / 100 || 1.15
     # puts("markup_percentage = #{markup_percentage}")
     total_material_cost * markup_percentage
   end
@@ -193,7 +197,7 @@ class RockPadCalculator
   end
   
   def total_price
-    (total_labor_cost * (findVar("labor_cost_markup")+100) / 100 || 1.25) + (total_material_cost * (findVar("material_cost_markup")+100) / 100 || 1.15)
+    (total_labor_cost * (findVar("rockpad_labor_cost_markup")+100) / 100 || 1.25) + (total_material_cost * (findVar("rockpad_material_cost_markup")+100) / 100 || 1.15)
   end
   
   def my_cost
