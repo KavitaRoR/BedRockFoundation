@@ -21,7 +21,7 @@
 					<% con = @contracts.select{|co| (co.scheduled_date.beginning_of_day rescue false) == day.beginning_of_day && co.crew == c && co.position_in_day == it } %>
 	
 					<% if con.empty? %>
-						<a class="schedule_button" href="#">
+						<a class="schedule_button empty" href="#">
 							<span class="schedule_button_heading">Empty Slot #<%= it %></span>
 							<span>&nbsp;</span>
 						</a>
