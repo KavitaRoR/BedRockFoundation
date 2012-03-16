@@ -16,4 +16,21 @@ class ScheduleController < ApplicationController
     render :json => val.to_json
   end
   
+  def persist_assignment
+    # Parameters: {"crew_id"=>"1", "position"=>"1", "day"=>"1331697600", "contract_id"=>"3"}
+    logger.debug(params.inspect)
+    contract = Contract.find(params[:contract_id])
+    
+    if contract
+      logger.debug("update: #{contract.id} to postioin #{params[:position]}")
+      if contract.update_attributes({ crew_id: params[:crew_id], position_in_day: params[:position], scheduled_date: Time.at(params[:day].to_i) })
+        render :json => { conName: contract.name, location: contract.location }
+      else
+        render :text => false
+      end
+    else
+      render :text => false
+    end
+  end
+  
 end

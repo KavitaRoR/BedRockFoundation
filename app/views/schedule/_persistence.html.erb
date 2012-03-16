@@ -1,10 +1,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
-		$(".empty").click(function() {
-			console.log(this)
-			var ele = this;
+		$(".empty > span.schedule_button_heading").click(function() {
+			var ele = $(this).parent();
 			$.get("/schedule/get_queued_for_dropdown", function(data) {
-				var myHtml = "<select>";
+				var myHtml = "<select class='con-select'><option value='' selected='selected'></option>";
 				$(data).each(function() {
 					myHtml += "<option value='" + this[0] + "'>" + this[1] + "</option>";
 				})
@@ -12,6 +11,31 @@
 				myHtml += "</select>";
 				if ($($(ele).children('span')[1]).children('select').length == 0) {
 					$($(ele).children('span')[1]).append(myHtml);
+					
+					$(".con-select").change(function() {
+						var ele2 = $(this);
+						var strArr = ($(this).parent().parent().attr("id")).split("-");
+						var crewId = strArr[1];
+						var conPos = strArr[2];
+						var day = strArr[3];
+						var conId = $(this).val();
+
+						if (crewId != "" && conPos != "" && day != "") {
+							$.post("/schedule/persist_assignment", {
+								crew_id: crewId,
+								position: conPos,
+								day: day,
+								contract_id: conId
+							}, function(data) {
+								if (data != "false") {
+									$($(ele2).parent().parent().children('span')[0]).text(data["conName"]);
+									$(ele2).parent().text(data["location"]);
+									$(".con-select").remove();
+								}
+							})
+						}
+					})
+					
 				}
 				
 			})
