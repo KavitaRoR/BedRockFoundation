@@ -1,12 +1,24 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".empty").click(function() {
-			$.get("/schedule/get_queued_as_json", function(data) {
+			console.log(this)
+			var ele = this;
+			$.get("/schedule/get_queued_for_dropdown", function(data) {
+				var myHtml = "<select>";
+				$(data).each(function() {
+					myHtml += "<option value='" + this[0] + "'>" + this[1] + "</option>";
+				})
+				
+				myHtml += "</select>";
+				if ($($(ele).children('span')[1]).children('select').length == 0) {
+					$($(ele).children('span')[1]).append(myHtml);
+				}
 				
 			})
-			$.get('ajax/test.html', function(data) {
-			  $('.result').html(data);
-			});
+			return false;
+		})
+		
+		$(".full").click(function() {
 			return false;
 		})
 	})
