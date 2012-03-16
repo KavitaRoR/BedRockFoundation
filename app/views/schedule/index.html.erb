@@ -12,12 +12,12 @@
 </div>
 
 
-<div style="position: fixed; background: #000; top: 5px; right: 5px;">
-	<ul>
+<div style="position: fixed; background: #000; top: 5px; right: 5px; padding: 50px; color: #fff;">
+	<div>
 	<% for contract in @queued_contracts %>
-		<li><%= contract.estimate.job.name %><br />
-			<%= contract.estimate.job.city_state %>
-		</li>
+		<p><%= contract.id %><br />
+			<%= contract.estimate.job.id %>
+		</p>
 	<% end %>
-	</ul>
+	</div>
 </div>
