@@ -18,6 +18,7 @@
 	$(document).ready(function() {
 		$(".empty > span.schedule_button_heading").click(function() {
 			var ele = $(this).parent();
+			$(ele).removeClass("empty").addClass("editing");
 			$.get("/schedule/get_queued_for_dropdown", function(data) {
 				var myHtml = "<select class='con-select'><option value='' selected='selected'></option>";
 				$(data).each(function() {
@@ -27,7 +28,7 @@
 				myHtml += "</select>";
 				if ($($(ele).children('span')[1]).children('select').length == 0) {
 					$($(ele).children('span')[1]).append(myHtml);
-					$(ele).removeClass("empty").addClass("editing");
+					
 					$(".con-select").change(function() {
 						var ele2 = this;
 						var strArr = ($(this).parent().parent().attr("id")).split("-");
@@ -64,16 +65,26 @@
 		$(".full").click(function() {
 			$("#full_slot").find("h2").html($(this).find(".schedule_button_heading").html());
 			$("#full_slot").modal({
-				opacity:94,
+				opacity:60,
 				overlayCss: {backgroundColor:"#fff"}
 			});
-			window.contract_id = $(this).name;  // this doesn't WORK yet
+			var conId = $(this).find(".schedule_button_heading").attr("id").split("-")[1];
+			
 			$(".schedule_button.delete").click(function(){
-				window.location("/scheduling/remove/"+window_contract_id); // should be JSON
+				$.post("/schedule/remove_assignment", { id: conId }, function(data) {
+					$("#full_slot").remove();
+					window.location.href = "/schedule";
+				})
 			});
+			
 			$(".schedule_button.view").click(function(){
-				window.location("/scheduling/view/"+window_contract_id); // assuming the controller can handle the conversion from a contract_id to the contact_id and redirect to "/contact/:id"
+				window.location.href = ("/schedule/redirect_to_contact/"+ conId);
 			});
-		});
+			
+			return false;
+		})
+		
+			
 	})
 </script>
+

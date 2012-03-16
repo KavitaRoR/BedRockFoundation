@@ -32,5 +32,26 @@ class ScheduleController < ApplicationController
       render :text => false
     end
   end
+
+  def remove_assignment
+    contract = Contract.find(params[:id])
+    if contract
+      if contract.update_attributes({ crew_id: nil, position_in_day: nil, scheduled_date: nil })
+        render :text => true
+      else
+        render :text => false
+      end
+    else
+      render :text => false
+    end
+  end
   
+  def redirect_to_contact
+    contract = Contract.find(params[:id])
+    if contract && contract.estimate.job.contact
+      redirect_to contact_url(contract.estimate.job.contact)
+    else
+      redirect_to "/schedule", error: "The contact was not found"
+    end
+  end
 end
