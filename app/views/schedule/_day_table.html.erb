@@ -1,7 +1,4 @@
-
-
 <%#= render :partial => "map_day_jobs" %>
-
 <div id="<%= day.to_s %>">
 	<h2>
 		<%#= Date.parse(sd.day).strftime("%A %B %d, %Y") %>
@@ -20,7 +17,7 @@
 				<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day && co.crew_id == c.id}.each do |co| %>
 						<a class="schedule_button" href="#">
 							<span class="schedule_button_heading">Job #<%= co.id %></span>
-							<span><%= co.estimate.job.conta	ct.name rescue ""%><br /> <%= co.estimate.job.city rescue "" %>, <%= co.estimate.job.province rescue "" %></span>
+							<span><%= co.estimate.job.contact.name rescue "" %><br /> <%= co.estimate.job.city rescue "" %>, <%= co.estimate.job.province rescue "" %></span>
 						</a>
 						<br />
 				<% end %>
