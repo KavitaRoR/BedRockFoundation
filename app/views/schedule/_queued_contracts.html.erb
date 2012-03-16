@@ -1,5 +1,5 @@
-<div style="position: fixed; background: #000; top: 5px; left: 5px; padding: 30px 50px; color: #fff; z-index: 9999; width: 230px;">
-	<h3 style="color: #fff; ">Unscheduled Contracts</h3>
+<div id="queued_contracts">
+	<h3>Unscheduled Contracts</h3>
 	<div>
 	<% for contract in @queued_contracts %>
 		<p id="qc-<%= contract.id %>"><%= contract.estimate.job.name %><br />
@@ -8,3 +8,38 @@
 	<% end %>
 	</div>
 </div>
+
+<!-- Full Slot Click Menu -->
+<div id="full_slot" class="contextMenu">
+	<h2></h2>
+	<a class="schedule_button delete" href="#">
+		<span class="schedule_button_heading">Remove from the Schedule</span>
+		<span>&nbsp;</span>
+	</a>      
+	<a class="schedule_button view" href="#">
+		<span class="schedule_button_heading">View this Contract</span>
+		<span>&nbsp;</span>
+	</a>      	  
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+$(document).ready(function() {
+
+	$(".full").click(function() {
+		$("#full_slot").find("h2").html($(this).find(".schedule_button_heading").html());
+		$("#full_slot").modal({
+			opacity:94,
+			overlayCss: {backgroundColor:"#fff"}
+		});
+		window.contract_id = $(this).
+		$(".schedule_button.delete").click(function(){
+
+		});
+
+	});
+
+
+});
+
+</script>
