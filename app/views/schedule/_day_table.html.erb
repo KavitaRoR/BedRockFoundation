@@ -1,7 +1,7 @@
 <%#= render :partial => "map_day_jobs" %>
 <div id="<%= day.to_s %>">
 	<h2>
-		<%#= Date.parse(sd.day).strftime("%A %B %d, %Y") %>
+		<%= day.strftime("%A %B %d, %Y") %>
 	</h2>
 	
 	<table class="table_liquid" cellspacing="0">
@@ -14,12 +14,24 @@
 		<tr>
 			<% @crews.each do |c| %>
 			<td>
-				<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day && co.crew_id == c.id}.each do |co| %>
-						<a class="schedule_button" href="#">
-							<span class="schedule_button_heading">Job #<%= co.id %></span>
-							<span><%= co.estimate.job.contact.name rescue "" %><br /> <%= co.estimate.job.city rescue "" %>, <%= co.estimate.job.province rescue "" %></span>
+				<% (1..c.job_max_per_day).each do |it| %>
+					<% con = @contracts.select{|co| (co.scheduled_date.beginning_of_day rescue false) == day.beginning_of_day && co.crew == c && co.position_in_day == it } %>
+	
+					<% if con.empty? %>
+						<a class="schedule_button empty" href="#">
+							<span class="schedule_button_heading">Empty Slot #<%= it %></span>
+							<span>&nbsp;</span>
 						</a>
 						<br />
+					<% else %>
+						<% con = con.first %>
+						<a class="schedule_button full" href="#">
+							<span class="schedule_button_heading"><%= con.estimate.job.name rescue ""%></span>
+							<span><%= con.estimate.job.city_state %>
+							</span>
+						</a>
+						<br />
+					<% end %>
 				<% end %>
 			</td>
 			<% end %>
