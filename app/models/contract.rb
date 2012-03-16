@@ -3,7 +3,7 @@ class Contract < ActiveRecord::Base
   # belongs_to :schedule_day
   belongs_to :crew
   
-  before_create :check_schedule
+  # before_create :check_schedule
   
   def name
     self.estimate.job.name

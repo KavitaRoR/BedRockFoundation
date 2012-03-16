@@ -16,7 +16,7 @@
 		</tr>
 		<tr>
 			<% @crews.each do |c| %>
-			<td style="width:<%= 100 / @crews.count %>%">
+			<td>
 				<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day && co.crew_id == c.id}.each do |co| %>
 						<a class="schedule_button" href="#">
 							<span class="schedule_button_heading">Job #<%= co.id %></span>
