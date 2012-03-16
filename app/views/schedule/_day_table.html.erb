@@ -11,7 +11,7 @@
 		<caption></caption>
 		<tr>
 			<% @crews.each do |c| %>
-				<th><%= c.crew_name%></th>
+				<th><%= c.crew_name %></th>
 			<% end %>
 		</tr>
 		<tr>
@@ -20,7 +20,7 @@
 				<% c.contracts.select{|co| co.schedule_day_id == sd.id}.each do |co| %>
 						<a class="schedule_button" href="#">
 							<span class="schedule_button_heading">Job #<%= co.id %></span>
-							<span><%= co.estimate.job.conta	ct.name rescue ""%><br /> <%= co.estimate.job.city rescue "" %>, <%= co.estimate.job.state rescue "" %></span>
+							<span><%= co.estimate.job.conta	ct.name rescue ""%><br /> <%= co.estimate.job.city rescue "" %>, <%= co.estimate.job.province rescue "" %></span>
 						</a>
 						<br />
 				<% end %>
@@ -28,11 +28,23 @@
 			<% end %>
 		</tr>
 		<tr class="crew_maps">
+			<% index_checker = 1 %>
 			<% @crews.each do |c| %>
 				<td>
-					<% source_string = ""%>
-					<iframe width="88%" height="150" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=lancaster+pa&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=50.244827,114.169922&amp;ie=UTF8&amp;hq=&amp;hnear=Lancaster,+Pennsylvania&amp;t=m&amp;z=13&amp;ll=40.037876,-76.305514&amp;output=embed"></iframe>
+					<% jobs = [] %>
+					<% c.contracts.select{|c| c.schedule_day_id == sd.id }.each do |z| 
+						jobs << z.estimate.job
+					end %>
+					<% if @crews.count == index_checker %>
+						<%#= gmaps("markers" => {"data" => jobs.to_gmaps4rails}, 
+											"map_options" => { "height" => 150, "width" => "88%", :id => "crew#{c.id}" } ) %>
+					<% else %>
+						<%#= gmaps("markers" => {"data" => jobs.to_gmaps4rails}, 
+											"map_options" => { "height" => 150, "width" => "88%", :id => "crew#{c.id}"},
+											:last_map => false ) %>
+					<% end %>
 				</td>
+				<% index_checker = index_checker + 1 %>
 			<% end %>
 		</tr>
 	</table>
@@ -77,3 +89,5 @@
 	// });
 
 </script>
+
+<!-- <iframe width="88%" height="150" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=lancaster+pa&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=50.244827,114.169922&amp;ie=UTF8&amp;hq=&amp;hnear=Lancaster,+Pennsylvania&amp;t=m&amp;z=13&amp;ll=40.037876,-76.305514&amp;output=embed"></iframe> -->

@@ -4,7 +4,7 @@ gem 'rails', '3.2.2'
 gem 'geokit-rails3'
 gem 'devise'
 gem 'mail'
-
+gem 'gmaps4rails'
 group :development do
   gem 'heroku'
   gem 'mysql2'

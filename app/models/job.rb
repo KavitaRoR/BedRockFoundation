@@ -1,6 +1,8 @@
 # encoding: utf-8
 require "rock_pad_calculator"
 class Job < ActiveRecord::Base
+  acts_as_gmappable
+  
   include ActionView::Helpers::NumberHelper
   belongs_to :job_type
   belongs_to :truck
@@ -53,6 +55,14 @@ class Job < ActiveRecord::Base
 
   def city_state
     [city,province].reject{|f| f.blank? }.join(", ")
+  end
+  
+  def latitude
+    self.lat
+  end
+  
+  def longitude
+    self.lng
   end
   
   def extras

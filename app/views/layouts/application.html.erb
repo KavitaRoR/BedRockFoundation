@@ -5,15 +5,16 @@
 		<meta name="description" content="Reflect Template" />
 		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 		<title>Abundant Life Scheduling System</title>
-		<%= stylesheet_link_tag "stylesheets/style_all.css", "stylesheets/style2.css" %>
+		<%= stylesheet_link_tag "stylesheets/style_all.css", "stylesheets/style2.css", 'gmaps4rails' %>
 		<!--[if IE 6]>
 			<script src="/javascripts/ie6pngfix.js"></script>
 			<script>
 				DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
 			</script>
 		<![endif]--> 
-		<%= javascript_include_tag "jquery-1.7.1.min", 'jquery-ui', 'jquery.flash', 'jquery.wysiwyg', 'tablesorter', 'jquery.tablesorter.pager', 'custom.js', "application", "jrails", "rails" %>
+		<%= javascript_include_tag "jquery-1.7.1.min", 'jquery-ui', 'jquery.flash', 'jquery.wysiwyg', 'tablesorter', 'jquery.tablesorter.pager', 'custom', "application", "jrails", "rails", 'gmaps4rails/gmaps4rails.base', 'gmaps4rails/gmaps4rails.googlemaps' %>
 		<%= csrf_meta_tag %>
+		<%= yield :head %>
 	</head>
 	<body>
 		<div id="top">
@@ -56,5 +57,6 @@
 			</div>
 		</div><!-- end top -->
 		<%= yield :js_bottom %>
+		<%= yield :scripts %>
 	</body>
 </html>
