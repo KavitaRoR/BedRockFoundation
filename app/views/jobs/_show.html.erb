@@ -24,7 +24,14 @@
 	<br />
 	<h2>Type &amp; Off-Level Amounts</h2>
 	<p>
-		The current price of <strong><%= money_from_cents @job.price_in_cents %></strong> is priced for an <strong><%= @job.job_type.kind %></strong> pad with an off-level amount of 0" to 6" included in its price.<br />
+		The current price of <strong><%= money_from_cents @job.price_in_cents %></strong> is priced for an <strong><%= @job.job_type.kind %></strong> pad with an off-level amount of 
+		
+		<% if @job.off_level_amount_in_inches != nil %>
+			<%= @job.off_level_amount_in_inches %>" is included in the final price.
+		<% else %>
+			0" to 6" is include in the final price.<br />
+		<% end %>
+		
 		<% if @job.job_type.kind == "Standard" || @job.job_type.ind == "Elite" %>
 			To adjust the price for economy, subtract the amount shown for the off-level depth from the final price.
 		<% end %>
