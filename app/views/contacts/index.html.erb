@@ -30,10 +30,11 @@
 			<% end 	%>
 			</td>
       <td><%=h contact.campaign.name rescue "Other" %></td>
-      <td style="width:'auto"><%= link_to "Show", contact %>
+      <td style="width:'auto">
+				<%= link_to "Show", contact %>
       | <%= link_to "Edit", edit_contact_path(contact) %>
-      | <%= link_to "Destroy", "/contacts/destroy/#{contact.id}", :confirm => 'Are you sure?', :method => :delete %><br />
-			<a href='/contacts/contact_active/<%= contact.id %>'>Set Active</a>
+      <!-- | <%#= link_to "Destroy", "/contacts/destroy/#{contact.id}", :confirm => 'Are you sure?', :method => :delete %><br /> -->
+			| <a href='/contacts/contact_active/<%= contact.id %>'>Set Active</a>
 			| <a href='/contacts/contact_dead/<%= contact.id %>'>Sold!</a>
 			| <a href='/contacts/contact_dead/<%= contact.id %>'>Set Dead</a>
 			</td>
