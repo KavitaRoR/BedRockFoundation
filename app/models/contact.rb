@@ -5,8 +5,8 @@ class Contact < ActiveRecord::Base
   belongs_to :contact_status
   has_many :next_actions
   
-  # before_validation :geocode_address, :on => [:create, :update]
-  after_commit :geocode_address, :if => :persisted?
+  after_create :geocode_address
+
   def name 
     return company if !company.blank?
     return "**NO NAME**" if first_name.blank? && last_name.blank?

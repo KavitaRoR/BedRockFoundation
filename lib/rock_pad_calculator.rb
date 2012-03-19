@@ -2,7 +2,8 @@
 class RockPadCalculator
   
   def findVar(key)
-    return RockPadVariable.find_by_key(key).value
+    # return RockPadVariable.find_by_key(key).value
+    return @vars.select{|v| v.key == key}.first.value
   end
   def log(str)
     RAILS_DEFAULT_LOGGER.debug str if RAILS_DEFAULT_LOGGER
@@ -10,6 +11,7 @@ class RockPadCalculator
   
   def initialize(dist=30, w=0, l=0, kind="Standard", sixbysix=false, d=0.5)
     # puts "Given a #{w}×#{l} #{kind} rock pad #{dist} miles away"
+    @vars = RockPadVariable.all
     @length = l
     @width = w
     @depth = d
@@ -50,7 +52,6 @@ class RockPadCalculator
   end
   
   def weed_fabric_cost
-    # 3/8/11 we changed from square footgage of the whole pad to just the perimeter in a 2' wide swath
     weed_fabric_per_foot * perimeter * 2
   end
   
@@ -92,18 +93,11 @@ class RockPadCalculator
   end
   
   def round_trip_distance
-    # # puts "One Trip Distance: #{@distance rescue "none"}"
-    # @distance * 2
-    # we are now 3/18/11 only charging for one-way
     @distance rescue 0
   end
   
   def driving_hours
     speed = findVar("rockpad_speed_for_hour_calculation") rescue 50
-    # puts "speed: " + speed.inspect
-    # puts "round_trip_distance: " + round_trip_distance.inspect
-    # puts "hours: " + (((round_trip_distance.to_f * 100) / (speed.to_f * 100))).to_s
-    # puts "#{(5400.to_f/5500.to_f) }"
     return (round_trip_distance.to_f / speed.to_f).to_f
   end
   
@@ -120,12 +114,11 @@ class RockPadCalculator
   end
   
   def driving_labor_cost
-    # puts "Driving labor stuff:"
     time_on_road = driving_hours.to_f
     number_of_laborers = @laborers.to_f
     laborer_rate = @laborer_rate.to_f
     driving_labor_cost = number_of_laborers * time_on_road * laborer_rate
-    # puts "#{number_of_laborers}  *  #{time_on_road}  *  #{laborer_rate} = #{driving_labor_cost}" 
+
     return driving_labor_cost
   end
   

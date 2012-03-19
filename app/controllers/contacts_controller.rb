@@ -50,19 +50,14 @@ class ContactsController < ApplicationController
   
   def active_contacts
     @page_title = "Active Contacts"
-    cs_arr = []
-    ContactStatus.all.each do |cs|
-      if cs.status_name.downcase != 'dead'
-        cs_arr.push(cs.id)
-      end
-    end
-    @contacts = Contact.find(:all, :conditions => ["contact_status_id IN (?)", cs_arr ], :order => "created_at DESC")
+    @contacts = Contact.where(:contact_status_id => [1,2]).includes(:contact_status, :campaign, :jobs, :statuses).order("created_at DESC")
+    logger.debug("pre render")
     render :template => 'contacts/index'
   end
   
   def dead_contacts
     @page_title = "Dead Contacts"
-    @contacts = Contact.find(:all, :conditions => {:contact_status_id => ContactStatus.find_by_status_name("Dead").id }, :order => "created_at DESC")
+    @contacts = Contact.where(:contact_status_id => 3).includes(:contact_status, :campaign, :jobs, :statuses).order("created_at DESC")
     render :template => 'contacts/index'
   end
   

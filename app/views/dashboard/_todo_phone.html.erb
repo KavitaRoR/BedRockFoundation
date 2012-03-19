@@ -9,12 +9,12 @@
         <th>View</th>
         <th>Done?</th>
       </tr>
-	  <% @todos.select{|t| t.next_action && t.contact && t.next_action.requires_phone_call && t.done != true }.sort{|x,y| x.followup_date <=> y.followup_date }.each do |todo| %>
+	  <% @todos.select{|t| t.next_action_id && t.contact_id && t.next_action.requires_phone_call && t.done != true }.sort{|x,y| x.followup_date <=> y.followup_date }.each do |todo| %>
 	    <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
 	      <th class="spec"><%=h todo.job.contact.name rescue " " %></th>
-        <td><%=h todo.job.contact.phone rescue "" %></td>
-        <td><%=h todo.job.contact.phone_alt rescue "" %></td>
-        <td><%=h todo.job.referencing rescue "" %></td>
+        <td><%=h todo.contact.phone rescue "" %></td>
+        <td><%=h todo.contact.phone_alt rescue "" %></td>
+        <td><%=h todo.referencing rescue "" %></td>
 				<% if (Time.now).beginning_of_day >= todo.followup_date.beginning_of_day %>
 					<td>
 						<span style="color:#F00;"><strong>PAST DUE:</strong></span><%=h ((todo.notes rescue "") + " Follow-Up on: #{todo.followup_date.strftime("%m/%d at %I:%M %p ") rescue "not set" }") %><%= (todo.followup_date).beginning_of_day %>
@@ -26,7 +26,7 @@
 				<% else %>
 					<td><%=h ((todo.notes rescue "") + " Follow-Up on: #{todo.followup_date.strftime("%m/%d at %I:%M %p ") rescue "not set" }") %></td>
 				<% end %>
-        <td><%= link_to "View", (todo.job.contact rescue "") %></td>
+        <td><%= link_to "View", (todo.contact rescue "") %></td>
         <td><%= link_to image_tag("24_tick.png"), "/dashboard/clear_todo/#{todo.id}" %></td>
       </tr> 
    <% end %>

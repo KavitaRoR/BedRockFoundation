@@ -1,7 +1,7 @@
 # encoding: utf-8
 require "rock_pad_calculator"
 class Job < ActiveRecord::Base
-  # acts_as_gmappable
+  acts_as_gmappable
   
   include ActionView::Helpers::NumberHelper
   belongs_to :job_type
@@ -84,25 +84,28 @@ class Job < ActiveRecord::Base
   
   def pad_job_type_offset
     econ_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 0).total_price + (self.additional_price * 100) - (self.discount * 100)
-    econ_6 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 0.5).total_price + (self.additional_price * 100) - (self.discount * 100)
     econ_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 1).total_price + (self.additional_price * 100) - (self.discount * 100)
     econ_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 1.5).total_price + (self.additional_price * 100) - (self.discount * 100)
     econ_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 2).total_price + (self.additional_price * 100) - (self.discount * 100)
+    econ_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 2.5).total_price + (self.additional_price * 100) - (self.discount * 100)
+    econ_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 3).total_price + (self.additional_price * 100) - (self.discount * 100)
     stan_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 0).total_price + (self.additional_price * 100) - (self.discount * 100)
-    stan_6 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 0.5).total_price + (self.additional_price * 100) - (self.discount * 100)
     stan_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1).total_price + (self.additional_price * 100) - (self.discount * 100)
     stan_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1.5).total_price + (self.additional_price * 100) - (self.discount * 100)
     stan_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2).total_price + (self.additional_price * 100) - (self.discount * 100)
+    stan_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2.5).total_price + (self.additional_price * 100) - (self.discount * 100)
+    stan_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 3).total_price + (self.additional_price * 100) - (self.discount * 100)
     elite_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 0).total_price + (self.additional_price * 100) - (self.discount * 100)
-    elite_6 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 0.5).total_price + (self.additional_price * 100) - (self.discount * 100)
     elite_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 1).total_price + (self.additional_price * 100) - (self.discount * 100)
     elite_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 1.5).total_price + (self.additional_price * 100) - (self.discount * 100)
     elite_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 2).total_price + (self.additional_price * 100) - (self.discount * 100)
+    elite_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 2.5).total_price + (self.additional_price * 100) - (self.discount * 100)
+    elite_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 3).total_price + (self.additional_price * 100) - (self.discount * 100)
     
     return {
-      economy: {zero: econ_0, six: econ_6, twelve: econ_12, eighteen: econ_18, twentyfour: econ_24},
-      standard: {zero: stan_0, six: stan_6, twelve: stan_12, eighteen: stan_18, twentyfour: stan_24},
-      elite: {zero: elite_0, six: elite_6, twelve: elite_12, eighteen: elite_18, twentyfour: elite_24}
+      economy: {zero: econ_0, twelve: econ_12, eighteen: econ_18, twentyfour: econ_24, thirty: econ_30, thirtysix: econ_36},
+      standard: {zero: stan_0, twelve: stan_12, eighteen: stan_18, twentyfour: stan_24, thirty: stan_30, thirtysix: stan_36},
+      elite: {zero: elite_0, twelve: elite_12, eighteen: elite_18, twentyfour: elite_24, thirty: elite_30, thirtysix: elite_36}
     }
   end
   

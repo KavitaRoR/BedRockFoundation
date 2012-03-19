@@ -20,7 +20,7 @@
   <% for contact in @contacts %>
     <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
       <th class="spec"><%= link_to contact.name, contact %></th>
-			<td><%= contact.status.status_name %></td>
+			<td><%= contact.contact_status.status_name %></td>
       <td><%=h contact.phone %></td>
       <td><%=h contact.address_oneline %><br />
 			<% if contact.distance %>
