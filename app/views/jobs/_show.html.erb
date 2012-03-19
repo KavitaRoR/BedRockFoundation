@@ -32,7 +32,7 @@
 			0" to 6" included in the final price.
 		<% end %>
 		
-		<% if @job.job_type.kind == "Standard" || @job.job_type.ind == "Elite" %>
+		<% if @job.job_type.kind == "Standard" || @job.job_type.kind == "Elite" %>
 			<br />To adjust the price for economy, subtract the amount shown for the off-level depth from the final price.
 		<% end %>
 	</p>
@@ -87,7 +87,7 @@
 	</tr>
 	<tr>
 		<td>Cubic Footage</td>
-		<td><%= @job.pad_job.cubic_footage %></td>
+		<td><%= number_with_precision @job.pad_job.cubic_footage %></td>
 		<td></td>
 	</tr>
 	<tr>
@@ -98,19 +98,19 @@
 	<tr>
 		<td>Off-level amount</td>
 		<td><%= @job.off_level_amount_in_inches %> inches
-			<br /><%= @job.pad_job.my_depth %> feet
+			<br /><%= number_with_precision @job.pad_job.my_depth %> feet
 		</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>Rows of Boards (on slope)</td>
-		<td><%= (@job.pad_job.board_rows) %> rows</td>
+		<td><%= (number_with_precision @job.pad_job.board_rows) %> rows</td>
 		<td></td>
 	</tr>
 	
 	<tr>
 		<td>Boards</td>
-		<td><%= @job.pad_job.board_quantity_in_feet %> ft</td>
+		<td><%= number_with_precision @job.pad_job.board_quantity_in_feet %> ft</td>
 		<td><%= money_from_cents @job.pad_job.board_cost %></td>
 	</tr>
 	
