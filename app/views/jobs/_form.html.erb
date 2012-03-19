@@ -16,8 +16,6 @@
 	<dd><%= f.text_area :description, :class => "text" %></dd>
   <dt><%= f.label :foundation_id %></dt>
 	<dd><%= f.select :foundation_id, Foundation.all.collect{|fo| [fo.kind, fo.id]} %></dd>
-  <!-- <dt><%= f.label :pad_size_id %></dt> -->
-	<!-- <dd><%= f.select :pad_size_id, PadSize.all.collect{|p| [p.size, p.id]} %></dd> -->
   <dt><%= f.label :width %></dt>
 	<dd><%= f.text_field :width, :class => "integer" %></dd>
   <dt><%= f.label :length %></dt>
@@ -28,12 +26,6 @@
 	<dd><%= f.text_field :door_placement, :class => "string" %></dd>
   <dt><%= f.label :off_level_amount_in_inches %></dt>  
 	<dd><%= f.text_field :off_level_amount_in_inches, :class => "integer" %></dd>
-  <!-- <dt><%= f.label :price_in_cents %></dt>
-	<dd><%= f.text_field :price_in_cents, :class => "integer" %></dd>
-  <dt><%= f.label :material_cost_in_cents %></dt>
-	<dd><%= f.text_field :material_cost_in_cents, :class => "integer" %></dd>
-  <dt><%= f.label :labor_cost_in_cents %></dt>
-	<dd><%= f.text_field :labor_cost_in_cents, :class => "integer" %></dd> -->
   <dt><%= f.label :accessible_with_machine %></dt>
 	<dd><%= f.text_field :accessible_with_machine, :class => "string" %></dd>
   <dt><%= f.label :additional_fill_dirt %></dt>
@@ -42,12 +34,8 @@
 	<dd><%= f.text_field :build_up_timbers, :class => "string" %></dd>
   <dt><%= f.label :timber_wall %></dt>
 	<dd><%= f.text_field :timber_wall, :class => "string" %></dd>
-  <dt><%= f.label :economy_or_elite, "Standard, Elite or Economy" %></dt>
-	<% @job.economy_or_elite = "Standard" if @job.economy_or_elite.nil? || @job.economy_or_elite.empty? %>
-	<dd><%= f.select :economy_or_elite, ["Economy", "Standard", "Elite"] %></dd>
-
-  <!-- <dt><%= f.label :shed_company %></dt>
-	<dd><%= f.text_field :shed_company, :class => "string" %></dd> -->
+	<dt><%= f.label :job_type_id, "Job Type" %></dt>
+  <dd><%= f.select :job_type_id, JobType.all.collect{|j| [j.kind, j.id] } %></dd>
   <dt><%= f.label :additional_price %></dt>
 	<dd><%= f.text_field :additional_price, :class => "integer" %></dd>
   <dt><%= f.label :discount %></dt>

@@ -100,7 +100,7 @@
 		<td><%= money_from_cents @job.pad_job.board_cost %></td>
 	</tr>
 	
-	<% if @job.economy_or_elite == "Elite" %>
+	<% if @job.job_type.kind == "Elite" %>
 	<tr>
 		<td>Trex Additional</td>
 		<td><%= @job.pad_job.perimeter %> ft</td>

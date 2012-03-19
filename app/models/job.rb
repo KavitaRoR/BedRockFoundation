@@ -46,7 +46,7 @@ class Job < ActiveRecord::Base
   end
   
   def referencing
-    return "#{self.estimate_or_contract} - #{self.width} × #{self.length} - #{self.economy_or_elite}"
+    return "#{self.estimate_or_contract} - #{self.width} × #{self.length} - #{self.job_type.kind}"
   end
   
   def address_oneline
@@ -112,7 +112,8 @@ class Job < ActiveRecord::Base
   end
   
   def options_for_print(kind="Standard")
-    pad_job = RockPadCalculator.new(self.distance, self.width, self.length, kind, self.border_sixbysix, 2)
+    pad_job = RockPadCalculator.new(self.distance, self.width, self.length, kind, self.border_sixbysix, ((self.off_level_amount_in_inches / 12) rescue 0))
+    logger.debug("Pad Job: #{pad_job.total_price}")
     if self.contact
       return { 
     		contact_name: "#{ self.contact.first_name rescue ""} #{ self.contact.last_name rescue "" }",
