@@ -1,7 +1,7 @@
 # encoding: utf-8
 require "rock_pad_calculator"
 class Job < ActiveRecord::Base
-  acts_as_gmappable
+  # acts_as_gmappable
   
   include ActionView::Helpers::NumberHelper
   belongs_to :job_type
