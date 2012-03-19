@@ -27,9 +27,9 @@
 		The current price of <strong><%= money_from_cents @job.price_in_cents %></strong> is priced for an <strong><%= @job.job_type.kind %></strong> pad with an off-level amount of 
 		
 		<% if @job.off_level_amount_in_inches != nil %>
-			<%= @job.off_level_amount_in_inches %>" is included in the final price.
+			<%= @job.off_level_amount_in_inches %>" included in the final price.
 		<% else %>
-			0" to 6" is include in the final price.
+			0" to 6" included in the final price.
 		<% end %>
 		
 		<% if @job.job_type.kind == "Standard" || @job.job_type.ind == "Elite" %>
