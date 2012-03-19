@@ -29,11 +29,11 @@
 		<% if @job.off_level_amount_in_inches != nil %>
 			<%= @job.off_level_amount_in_inches %>" is included in the final price.
 		<% else %>
-			0" to 6" is include in the final price.<br />
+			0" to 6" is include in the final price.
 		<% end %>
 		
 		<% if @job.job_type.kind == "Standard" || @job.job_type.ind == "Elite" %>
-			To adjust the price for economy, subtract the amount shown for the off-level depth from the final price.
+			<br />To adjust the price for economy, subtract the amount shown for the off-level depth from the final price.
 		<% end %>
 	</p>
 	<table>
