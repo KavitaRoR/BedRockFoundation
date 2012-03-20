@@ -126,6 +126,7 @@ class Job < ActiveRecord::Base
     		contact_phone_cell: "#{ self.contact.phone_alt rescue "" }",
     		contact_phone_work: "#{ self.contact.phone_work rescue "" }",
     		contact_email: "#{ self.contact.email rescue "" }",
+    		shed_company: "#{ self.contact.campaign.name rescue "None" }",
     		job_location_abbr: "#{ self.location.abbreviation rescue 'ERR' }",
     		job_location_phone: "#{ self.location.phone rescue '- no location assigned' }",
     		job_quality: "#{ kind rescue "" }",
@@ -139,7 +140,8 @@ class Job < ActiveRecord::Base
     		job_inches: "#{self.off_level_amount_in_inches}",
     		job_kind: "#{kind}",
     		foundation_kind: "#{self.foundation.kind rescue ''} Foundation",
-    		job_date: "#{ self.updated_at.strftime('%m/%d/%Y') || '' }"
+    		job_date: "#{ self.updated_at.strftime('%m/%d/%Y') || '' }",
+    		estimate_date: "#{ self.created_at.strftime('%m/%d/%Y') || ""}"
     	}
     else
       return {}
