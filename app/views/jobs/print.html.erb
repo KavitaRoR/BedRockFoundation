@@ -7,8 +7,13 @@
 	<%= link_to "(email to customer)", "/estimates/email/#{@job.id}/#{@type}" %><br />
 <% end %>
 <span class="sell-it">
-	<% if @estimate && @estimate.sold? %>
-		This job has been sold based on this estimate.  It is currently scheduled for <%= @estimate.contract.scheduled_date rescue " -- not scheduled" %>.
+	<% if @estimate.sold? %>
+		<% if @estimate.job_type.kind == @type %>
+			This job has been sold based on this estimate. <br /> 
+			It is currently scheduled for <%= @estimate.contract.scheduled_date.strftime("%m/%d/%Y") rescue " -- not scheduled" %>.
+		<% else %>
+			A <%= @estimate.job_type.kind.capitalize %> estimate has been sold for this job. <br /><%= link_to "Click to view that estimate", "/jobs/#{@job.id}/print/?type=#{@estimate.job_type.kind}" %>
+		<% end %>
 	<% else %>
 		<%= link_to "Move to Production Schedule", "/estimates/push_to_sold/#{@job.id}/#{@type}"%>
 	<% end %>
@@ -41,7 +46,8 @@
 			job_kind: '#{ escape_javascript(@options_for_job[:job_kind]) }',
 			foundation_kind: '#{ escape_javascript(@options_for_job[:foundation_kind]) }',
 			job_date: '#{ escape_javascript(@options_for_job[:address2]) }',
-			estimate_date: '#{ escape_javascript(@options_for_job[:estimate_date]) }'
+			estimate_date: '#{ escape_javascript(@options_for_job[:estimate_date]) }',
+			invoice_number: '#{ escape_javascript(@estimate.invoice_number.to_s) }'
 		}"
 	%>
 

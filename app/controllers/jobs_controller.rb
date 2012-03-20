@@ -12,7 +12,13 @@ class JobsController < ApplicationController
 
   def print
     @job = Job.find(params[:id])
-    @options_for_job = @job.options_for_print((params[:type].capitalize rescue "Standard"))
+    @job_type = JobType.where(:kind => params[:type].capitalize).first
+    @estimate = Estimate.find(:last, :conditions => {:job_id => params[:id], :job_type_id => @job_type.id})
+    @options_for_job = @job.options_for_print((params[:type].capitalize rescue "Standard")).with_indifferent_access
+    if !@estimate
+      @estimate = Estimate.create(job_id: params[:id], job_type_id: @job_type.id, flashvars: @options_for_job, token: SecureRandom.hex(16))
+    end
+    
     @type = params[:type].capitalize
     session[:look] = 'print'
   end
