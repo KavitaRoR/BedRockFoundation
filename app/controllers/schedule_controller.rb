@@ -2,7 +2,7 @@ class ScheduleController < ApplicationController
   
   def index
     @crews = Crew.find(:all, :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
-    @contracts = Contract.where("scheduled_date > ?", (Time.now - 2.days)).includes(:estimate, {:estimates => :jobs}).order("scheduled_date ASC")
+    @contracts = Contract.where("scheduled_date > ?", (Time.now - 2.days)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
     @queued_contracts = Contract.where(:scheduled_date => nil)
   end
   
