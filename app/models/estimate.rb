@@ -31,7 +31,7 @@ class Estimate < ActiveRecord::Base
   protected
   def generate_invoice_number
     str = Estimate.find(:all, :order => "invoice_number DESC").first.invoice_number
-    str = str+1
+    str = str.to_i + 1
     self.invoice_number = str
     
   end
