@@ -5,7 +5,8 @@ class Contact < ActiveRecord::Base
   belongs_to :contact_status
   has_many :next_actions
   
-  after_create :geocode_address
+  before_create :geocode_address
+  before_save :geocode_address
 
   def name 
     return company if !company.blank?
@@ -23,29 +24,6 @@ class Contact < ActiveRecord::Base
     return ContactStatus.find(self.contact_status_id)
   end
   
-  def update
-    if super && self.update_geocode_address
-      return true
-    else
-      return false
-    end
-  end
-  
-  def update_geocode_address
-    if self.valid? && address_1 != "" && !address_1.nil?
-      geo = Geokit::Geocoders::MultiGeocoder.geocode(self.address_oneline)
-      base = Geokit::Geocoders::MultiGeocoder.geocode "461 Old Wilmington Rd, Coatesville, PA"
-
-      if geo.success
-        self.lat = geo.lat
-        self.lng = geo.lng
-        self.distance = geo.distance_from(base, :units => :miles)
-      else
-        errors.add(:address_1, "Could not Geocode address")
-      end
-    end
-  end
-  
   protected
   def geocode_address
     if self.valid? && address_1 != "" && !address_1.nil?
@@ -56,7 +34,6 @@ class Contact < ActiveRecord::Base
         self.lat = geo.lat
         self.lng = geo.lng
         self.distance = geo.distance_from(base, :units => :miles)
-        self.save!
       else
         errors.add(:address_1, "Could not Geocode address")
       end
