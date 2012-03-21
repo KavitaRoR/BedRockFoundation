@@ -40,6 +40,7 @@ class Contact < ActiveRecord::Base
         self.lat = geo.lat
         self.lng = geo.lng
         self.distance = geo.distance_from(base, :units => :miles)
+        self.save!
       else
         errors.add(:address_1, "Could not Geocode address")
       end
