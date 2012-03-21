@@ -104,7 +104,7 @@ class RockPadCalculator
   def truck_gas_cost
     (@gas_cost / @truck_mileage_per_gallon) * round_trip_distance
   end
-  
+    
   def truck_maintenance_cost
     @truck_cost_per_mile * round_trip_distance
   end
