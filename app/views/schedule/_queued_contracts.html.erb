@@ -22,7 +22,7 @@
       	var the_center = new mxn.LatLonPoint(crew_base[0], crew_base[1]);
       	map.setCenterAndZoom(the_center, 6);
 	    var marker = new mxn.Marker(the_center);
-    	marker.setIcon("/assets/images/marker-1.png");
+    	marker.setIcon("/assets/images/marker.png");
     	marker.setIconSize(24,24);
 	    map.addMarker(marker);
 		// marker.addData({'infoBubble': 'This is a popup'})
@@ -64,6 +64,7 @@
  	    	var loc = jQuery(this).attr("rel").split(",");
  	    	var spot = new mxn.LatLonPoint(loc[0], loc[1]);
  	    	var marker = new mxn.Marker(spot);
+	    	marker.setIcon("/assets/images/marker-"+loc[2]+".png");
  	    	map.addMarker(marker);
  	    });
  	    jQuery(dailyrow).find("div.map_links").hide();
