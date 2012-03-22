@@ -18,14 +18,14 @@
 					<% con = @contracts.select{|co| (co.scheduled_date.beginning_of_day rescue false) == day.beginning_of_day && co.crew == c && co.position_in_day == it } %>
 	
 					<% if con.empty? %>
-						<a id="empty-<%= c.id %>-<%= it %>-<%= day.beginning_of_day.to_i %>" class="schedule_button empty" href="#">
+						<a id="empty-<%= c.id %>-<%= it %>-<%= day.beginning_of_day.to_i %>" class="schedule_button empty" href="#" onclick="return false;">
 							<span class="schedule_button_heading">Empty Slot #<%= it %></span>
 							<span>&nbsp;</span>
 						</a>
 						<br />
 					<% else %>
 						<% con = con.first %>
-						<a class="schedule_button full" href="#">
+						<a class="schedule_button full" href="#" onclick="return false;">
 							<span class="schedule_button_heading" id="con-<%= con.id %>"><%= con.estimate.job.name rescue ""%></span>
 							<span><%= con.estimate.job.city_state %>
 							</span>
