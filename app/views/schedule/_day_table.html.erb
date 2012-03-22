@@ -60,7 +60,15 @@
 		</tr>
 		<tr class="daily_map">
 			<td colspan="<%= @crews.count %>">
-				
+				<% jobs = [] %>
+				<div class="map_links">
+				<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day }.each do |z| %>
+					<% job = z.estimate.job %>
+					<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
+						rel="<%= job.lat %>,<%= job.lng %>,<%= z.crew.ordering %>" target="_blank" class="job_site">
+						<%= job.lat %>,<%= job.lng %></a><br />
+				<% end %>
+				</div>
 			</td>
 		</tr>
 	</table>

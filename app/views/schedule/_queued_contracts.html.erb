@@ -45,6 +45,36 @@
       	jQuery(this).find("div.crew_tiny_map").remove();
       });
   }
+
+  function createDailyMap(dailyrow) {
+  		// alert("create crew maps")
+      // create mxn object
+      // jQuery(crewrow).find("td").each(function(){
+      	// var crew_base = jQuery(this).find("a.crew_base").attr("rel").split(",");
+      	var randomnumber = Math.floor(Math.random()*999999999);
+      	jQuery(dailyrow).find("td").append("<div id='daily_map_"+randomnumber+"' class='daily_map' style='width: 96%; height: 500px;'></div>");
+      	map = new mxn.Mapstraction('daily_map_'+randomnumber, 'leaflet');
+      	var the_center = new mxn.LatLonPoint(39.9831616,-75.8238355);
+      	map.setCenterAndZoom(the_center, 8);
+
+		// marker.addData({'infoBubble': 'This is a popup'})
+ 	    // marker.openBubble();
+ 	    map.addSmallControls();
+ 	    jQuery(dailyrow).find("a.job_site").each(function() {
+ 	    	var loc = jQuery(this).attr("rel").split(",");
+ 	    	var spot = new mxn.LatLonPoint(loc[0], loc[1]);
+ 	    	var marker = new mxn.Marker(spot);
+ 	    	map.addMarker(marker);
+ 	    });
+ 	    jQuery(dailyrow).find("div.map_links").hide();
+
+      // });
+
+
+  }
+  function killDailyMap(dailyrow) {
+      jQuery(dailyrow).find("div.daily_map").remove();
+  }
 //]]>
 </script> 
 <script type="text/javascript" charset="utf-8">
@@ -67,12 +97,14 @@
 			jQuery(this).hide();
 		});
 		jQuery(".show_daily_map").click(function() {
-			jQuery(this).parent().parent().find(".daily_map").show();			
+			jQuery(this).parent().parent().find(".daily_map").show();	
+			createDailyMap(jQuery(this).parent().parent().find(".daily_map"));
 			jQuery(this).parent().find(".hide_daily_map").show();
 			jQuery(this).hide();
 		});
 		jQuery(".hide_daily_map").click(function() {
 			jQuery(this).parent().parent().find(".daily_map").hide();
+			killDailyMap(jQuery(this).parent().parent().find(".daily_map"));
 			jQuery(this).parent().find(".show_daily_map").show();
 			jQuery(this).hide();
 		});
