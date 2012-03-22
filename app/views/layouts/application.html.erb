@@ -12,6 +12,11 @@
 				DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
 			</script>
 		<![endif]--> 
+		<link href="http://leaflet.cloudmade.com/dist/leaflet.css" media="all" rel="stylesheet" type="text/css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.ie.css" /><![endif]-->
+		<script src="http://leaflet.cloudmade.com/dist/leaflet.js" type="text/javascript"></script>
+		<script src="/assets/mxn/mxn.js?(leaflet)" type="text/javascript"></script> 
+
 		<%= javascript_include_tag "jquery-1.7.1.min", 'jquery.simplemodal.1.4.2.min', 'jquery-ui', 'jquery.flash', 'jquery.wysiwyg', 'tablesorter', 'jquery.tablesorter.pager', 'custom', "application", "jrails", "rails", 'gmaps4rails/gmaps4rails.base', 'gmaps4rails/gmaps4rails.googlemaps' %>
 		<%= csrf_meta_tag %>
 		<%= yield :head %>

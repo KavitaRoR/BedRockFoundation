@@ -39,22 +39,20 @@
 		<tr class="crew_maps">
 			<% index_checker = 1 %>
 			<% @crews.each do |c| %>
-				<td>
+				<td class="crew_map_<%= c.ordering %>">
 					<% jobs = [] %>
 					<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day && co.crew_id == c.id }.each do |z| 
 						jobs << z.estimate.job
 					end %>
-					<% if @crews.count == index_checker %>
-						<%#= gmaps("markers" => {"data" => jobs.to_gmaps4rails}, 
-											"map_options" => { "height" => 150, "width" => "88%", :id => "crew#{c.id}" } ) %>
-					<% else %>
-						<%#= gmaps("markers" => {"data" => jobs.to_gmaps4rails}, 
-											"map_options" => { "height" => 150, "width" => "88%", :id => "crew#{c.id}"},
-											:last_map => false ) %>
-					<% end %>
-					<% if day.beginning_of_day == Date.today.beginning_of_day %>
-					<iframe width="88%" height="150" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=lancaster+pa&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=50.244827,114.169922&amp;ie=UTF8&amp;hq=&amp;hnear=Lancaster,+Pennsylvania&amp;t=m&amp;z=13&amp;ll=40.037876,-76.305514&amp;output=embed"></iframe>
-					<% end %>
+					<div>
+						<a href="http://maps.google.com/maps?q=<%= c.lat %>,<%= c.lng %>" target="_blank" class="crew_base">
+							Home Base</a><br />
+						<% for job in jobs %>
+						<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>" target="_blank">
+							<%= job.lat %>,<%= job.lng %></a><br />
+						<% end %>
+					</div>
+
 
 				</td>
 				<% index_checker = index_checker + 1 %>
@@ -63,7 +61,7 @@
 		<tr class="daily_map">
 			<td colspan="<%= @crews.count %>">
 				<% if day.beginning_of_day == Date.today.beginning_of_day %>
-					<iframe width="96%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=lancaster+pa&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=50.244827,114.169922&amp;ie=UTF8&amp;hq=&amp;hnear=Lancaster,+Pennsylvania&amp;t=m&amp;z=13&amp;ll=40.037876,-76.305514&amp;output=embed"></iframe>
+
 				<% end %>
 			</td>
 		</tr>
