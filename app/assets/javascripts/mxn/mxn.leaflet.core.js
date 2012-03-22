@@ -1,7 +1,6 @@
 mxn.register('leaflet', {
 
 Mapstraction: {
-	
 	init: function(element, api) {
 		if (typeof(L) != 'undefined') {
 			var me = this;

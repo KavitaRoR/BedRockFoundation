@@ -15,7 +15,6 @@ class ScheduleController < ApplicationController
   end
   
   def persist_assignment
-    # Parameters: {"crew_id"=>"1", "position"=>"1", "day"=>"1331697600", "contract_id"=>"3"}
     logger.debug(params.inspect)
     contract = Contract.find(params[:contract_id])
     
