@@ -8,6 +8,45 @@
 	<% end %>
 	</div>
 </div>
+
+<script type="text/javascript">
+//<![CDATA[
+  function createCrewMaps(crewrow) {
+  		// alert("create crew maps")
+      // create mxn object
+      jQuery(crewrow).find("td").each(function(){
+      	var crew_base = jQuery(this).find("a.crew_base").attr("rel").split(",");
+      	var randomnumber = Math.floor(Math.random()*999999999);
+      	jQuery(this).append("<div id='crew_tiny_map_"+randomnumber+"' class='crew_tiny_map' style='width: 88%; height: 200px;'></div>");
+      	map = new mxn.Mapstraction('crew_tiny_map_'+randomnumber, 'leaflet');
+      	var the_center = new mxn.LatLonPoint(crew_base[0], crew_base[1]);
+      	map.setCenterAndZoom(the_center, 6);
+	    var marker = new mxn.Marker(the_center);
+    	marker.setIcon("/assets/images/marker-1.png");
+    	marker.setIconSize(24,24);
+	    map.addMarker(marker);
+		// marker.addData({'infoBubble': 'This is a popup'})
+ 	    // marker.openBubble();
+ 	    map.addSmallControls();
+ 	    jQuery(this).find("a.job_site").each(function() {
+ 	    	var loc = jQuery(this).attr("rel").split(",");
+ 	    	var spot = new mxn.LatLonPoint(loc[0], loc[1]);
+ 	    	var marker = new mxn.Marker(spot);
+ 	    	map.addMarker(marker);
+ 	    });
+ 	    jQuery(this).find("div.map_links").hide();
+
+      });
+
+
+  }
+   function killCrewMaps(crewrow) {
+      jQuery(crewrow).find("td").each(function(){
+      	jQuery(this).find("div.crew_tiny_map").remove();
+      });
+  }
+//]]>
+</script> 
 <script type="text/javascript" charset="utf-8">
 
 	jQuery(function() {
@@ -16,12 +55,14 @@
 		jQuery(".hide_crew_maps").hide();
 		jQuery(".hide_daily_map").hide();
 		jQuery(".show_crew_maps").click(function() {
-			jQuery(this).parent().parent().find(".crew_maps").show();			
+			jQuery(this).parent().parent().find(".crew_maps").show();	
+			createCrewMaps(jQuery(this).parent().parent().find(".crew_maps"));		
 			jQuery(this).parent().find(".hide_crew_maps").show();
 			jQuery(this).hide();
 		});
 		jQuery(".hide_crew_maps").click(function() {
 			jQuery(this).parent().parent().find(".crew_maps").hide();			
+			killCrewMaps(jQuery(this).parent().parent().find(".crew_maps"));		
 			jQuery(this).parent().find(".show_crew_maps").show();
 			jQuery(this).hide();
 		});
@@ -39,4 +80,4 @@
 
 	});
 
-</script>
+// </script>

@@ -37,44 +37,40 @@
 			<% end %>
 		</tr>
 		<tr class="crew_maps">
-			<% index_checker = 1 %>
 			<% @crews.each do |c| %>
 				<td class="crew_map_<%= c.ordering %>">
 					<% jobs = [] %>
 					<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day && co.crew_id == c.id }.each do |z| 
 						jobs << z.estimate.job
 					end %>
-					<div>
-						<a href="http://maps.google.com/maps?q=<%= c.lat %>,<%= c.lng %>" target="_blank" class="crew_base">
+					<div class="map_links">
+						<a href="http://maps.google.com/maps?q=<%= c.lat %>,<%= c.lng %>"
+							rel="<%= c.lat %>,<%= c.lng %>" target="_blank" class="crew_base">
 							Home Base</a><br />
 						<% for job in jobs %>
-						<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>" target="_blank">
+						<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
+							rel="<%= job.lat %>,<%= job.lng %>" target="_blank" class="job_site">
 							<%= job.lat %>,<%= job.lng %></a><br />
 						<% end %>
 					</div>
 
 
 				</td>
-				<% index_checker = index_checker + 1 %>
 			<% end %>
 		</tr>
 		<tr class="daily_map">
 			<td colspan="<%= @crews.count %>">
-				<% if day.beginning_of_day == Date.today.beginning_of_day %>
-
-				<% end %>
+				
 			</td>
 		</tr>
 	</table>
-	<% if day.beginning_of_day == Date.today.beginning_of_day %>
 	<div class="hide_show_links" style="margin-bottom: 50px;">
-	<a href="#" class="show_crew_maps">Show Crew Maps</a> 
-	<a href="#" class="hide_crew_maps">Hide Crew Maps</a>
+	<a href="#" onclick="return false;" class="show_crew_maps">Show Crew Maps</a> 
+	<a href="#" onclick="return false;" class="hide_crew_maps">Hide Crew Maps</a>
 	| 
-	<a href="#" class="show_daily_map">Show Daily Map</a>
-	<a href="#" class="hide_daily_map">Hide Daily Map</a>
+	<a href="#" onclick="return false;" class="show_daily_map">Show Daily Map</a>
+	<a href="#" onclick="return false;" class="hide_daily_map">Hide Daily Map</a>
 	</div>
-	<% end %>
 </div>
 
 
