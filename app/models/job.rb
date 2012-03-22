@@ -148,8 +148,6 @@ class Job < ActiveRecord::Base
     end
   end
   
-  
-  
   protected
   
     def create_initial_status
