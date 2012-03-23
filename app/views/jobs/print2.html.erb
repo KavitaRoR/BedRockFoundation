@@ -1,0 +1,106 @@
+<!-- <div style="float:right">
+
+	<h2>Estimate:</h2>
+	<%= link_to "(edit estimate details)", edit_job_path(@job) %><br />
+	<% if @job.contact && @job.contact.email %>
+		<%= link_to "(email to customer)", "/estimates/email/#{@job.id}/#{@type}" %><br />
+	<% end %>
+	<span class="sell-it">
+		<% if @estimate.sold? %>
+			<% if @estimate.job_type.kind == @type %>
+				This job has been sold based on this estimate. <br /> 
+				It is currently scheduled for <%= @estimate.contract.scheduled_date.strftime("%m/%d/%Y") rescue " -- not scheduled" %>.
+			<% else %>
+				A <%= @estimate.job_type.kind.capitalize %> estimate has been sold for this job. <br /><%= link_to "Click to view that estimate", "/jobs/#{@job.id}/print/?type=#{@estimate.job_type.kind}" %>
+			<% end %>
+		<% else %>
+			<%= link_to "Move to Production Schedule", "/estimates/push_to_sold/#{@job.id}/#{@type}"%>
+		<% end %>
+	</span>
+</div> -->
+
+<div id="estimate" style="border: 1px solid black; width:750px; height:970px;">
+	<div style="width: 75%; margin: 0px auto; text-align:center;">
+		<h1>Bed Rock Foundations</h1>
+		<p style="margin-top: -20px;">dba. Abundant Life Landscaping, LLC</p>
+	</div>
+	<div style="width:90%;">
+		<div style="float:left; width: 40%; text-align:left; margin-left:75px;">
+			<p>
+				<strong>Main Office</strong><br />
+				461 Old Wilmington Rd.<br />
+				Coatesville, PA 19320<br />
+				<strong><%= @options_for_job[:job_location_abbr].upcase %></strong> <%= @options_for_job[:job_location_phone] %>
+			</p>
+		</div>
+		<div style="float:right; width: 30%; text-align:left; padding:10px 20px 0px 0px;">
+			<span><strong>Invoice No:</strong> #<%= @estimate.invoice_number %></span><br />
+			<span><strong>Crew:</strong> <%= @contract.crew.crew_name rescue "none assigned" %></span><br />
+			<span><strong>Rig #:</strong>____________</span>
+		</div>
+	</div>
+	<div style="clear:both;"></div>
+	<table style="width 90%; margin:0px auto;">
+		<tr>
+			<td><strong>Shed Co:</strong></td>
+			<td style="width:300px;"><%= @options_for_job[:shed_company] %></td>
+			<td>&nbsp;</td>
+			<td><strong>Date of Est:</strong></td>
+			<td><%= @options_for_job[:estimate_date] %></td>
+		</tr>
+		<tr>
+			<td><strong>Cust. Name:</strong></td>
+			<td><%= @options_for_job[:contact_name] %></td>
+			<td>&nbsp;</td>
+			<td><strong>Phone Home:</strong></td>
+			<td><%= @options_for_job[:contact_phone_home] %></td>
+		</tr>
+		<tr>
+			<td><strong>Address:</strong></td>
+			<td><%= @options_for_job[:contact_address] %></td>
+			<td>&nbsp;</td>
+			<td><strong>Phone Cell:</strong></td>
+			<td><%= @options_for_job[:contact_phone_cell] %></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><%= @options_for_job[:contact_address2] %></td>
+			<td>&nbsp;</td>
+			<td><strong>Phone Work:</strong></td>
+			<td><%= @options_for_job[:contact_phone_word] %></td>
+		</tr>
+		<tr>
+			<td><strong>Email:</strong></td>
+			<td colspan=2><%= @options_for_job[:contact_email] %></td>
+		</tr>
+	</table>
+	<hr style="width:90%;" />
+	<div style="width:90%; margin: 0px auto;">
+		<p style="width:50%; float:left; border-bottom:1px solid #000000;">
+			<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} Shed Foundation" %>
+		</p>
+		<p style="width:20%; float:right; text-align:right; border-bottom:1px solid #000000;">
+			<%= "#{money_from_cents(@job.specific_offlevel(@type)[:zero][0])}" %>
+		</p>
+		<% if @job.off_level_amount_in_inches %>
+			<p style="width:50%; float:left; border-bottom:1px solid #000000;">
+				With <%= @job.off_level_amount_in_inches %>" Off-Level
+			</p>
+			<p style="width:20%; float:right; text-align:right; border-bottom:1px solid #000000;">
+				<%= money_from_cents ((@job.total_price - @job.off_level_amount_in_inches) + (self.additional_price * 100) - (self.discount * 100))  %>
+			</p>			
+		<% end %>
+		<div style="width:50%; float:left; line-height:1.3em;">
+			<span style="border-bottom:1px solid #000000;">Estimated Off-Level Amounts:</span><br />
+			<% @job.specific_offlevel(@type).each do |k, v| %>
+				<span style="border-bottom:1px solid #000000;"><%= v[1] %>"</span><br />
+			<% end %>
+		</div>
+		<div style="width:20%; float:right; line-height:1.3em;">
+			<span style="border-bottom:1px solid #000000;">Estimated Off-Level Amounts:</span><br />
+			<% @job.specific_offlevel(@type).each do |k, v| %>
+				<span style="border-bottom:1px solid #000000;"><%= v[1] %>"</span><br />
+			<% end %>
+		</div>
+	</div>
+</div>

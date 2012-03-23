@@ -111,9 +111,36 @@ class Job < ActiveRecord::Base
     }
   end
   
+  def specific_offlevel(kind)
+    kind_0 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 0).total_price + (self.additional_price * 100) - (self.discount * 100)
+    kind_12 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 1).total_price + (self.additional_price * 100) - (self.discount * 100)
+    kind_18 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 1.5).total_price + (self.additional_price * 100) - (self.discount * 100)
+    kind_24 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 2).total_price + (self.additional_price * 100) - (self.discount * 100)
+    kind_30 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 2.5).total_price + (self.additional_price * 100) - (self.discount * 100)
+    kind_36 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 3).total_price + (self.additional_price * 100) - (self.discount * 100)
+    return {
+      zero: [kind_0, 0], twelve: [kind_12, 12], eighteen: [kind_18, 18], twentyfour: [kind_24, 24], thirty: [kind_30, 30], thirtysix: [kind_36, 36]
+    }
+  end
+  
   def money_from_cents(cents)
     return "$0" if cents == 0 || cents.nil?
     number_to_currency (cents.to_f / 100)
+  end
+  
+  def job_description_for_flash(kind)
+    str = ""
+    if kind == "Economy"
+      str = "This foundation eliminates the 4\"× 6\" pressure-treated border, the weed fabric and the rebar. It will be filled in with 5-6 inches of #5 clean stone which helps for quick drainage and insures that your structure remains level on top of the stone base."
+    elsif kind == "Standard"
+      str = "Excavation of area ensures that the top of the foundation will be even with the ground where the entrance of the structure will be located. 4\"× 6\" pressure treated timbers are used for the border. ½\"× 2' rebar secures the border to the ground. Geotextile fabric is used to eliminate weed growth around the structure. The soil will be compacted to eliminate settling. This area will be filled in with 5-6 inches of #5 clean stone which helps for quick drainage and insures that your structure remains level on top of the stone base."
+    elsif kind == "Elite"
+      str = "Excavation of area ensures that the top of the foundation will be even with the ground where the entrance of the structure will be located. 4\"× 6\" pressure treated timbers are used for the border with 1\"× 6\" Trex-composite capping on top of the border to enhance the beauty and extend the durability of the border.  ½\"× 2' rebar secures the border to the ground. Geotextile fabric is used to eliminate weed growth around the structure. The soil will be compacted to eliminate settling. This area will be filled in with 5-6 inches of #5 clean stone which helps for quick drainage and insures that your structure remains level on top of the stone base."
+    elsif kind == "Custom"
+      str = "This foundation eliminates the 4\"× 6\" pressure-treated border, the weed fabric and the rebar. The soil will be compacted to eliminate settling. It will be filled in with 5-6 inches of #5 clean stone which helps for quick drainage and insures that your structure remains level on top of the stone base."
+    end
+    
+    str.gsub("4\"× 6\" pressure", "6\"× 6\" pressure") if self.border_sixbysix
   end
   
   def options_for_print(kind="Standard")
@@ -133,6 +160,7 @@ class Job < ActiveRecord::Base
     		job_location_phone: "#{ self.location.phone rescue '- no location assigned' }",
     		job_quality: "#{ kind rescue "" }",
     		job_quality_alt: "#{ self.description rescue "" }",
+    		job_description: "#{ job_description_for_flash(kind) }",
     		job_extras: "#{ self.extras.join('\n') rescue "" }",
     		job_price: "#{money_from_cents pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)}",
     		additional_price: "#{money_from_cents(self.additional_price * 100)}",
