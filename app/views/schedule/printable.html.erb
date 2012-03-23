@@ -1,0 +1,32 @@
+<div class="jquery_tab">
+
+    <div class="content_block">
+    	<h2>Bedrock Schedule from: <%= Date.today.strftime("%F") %> until: <%= @query_future_date.strftime("%F") %></h2>
+
+    	<div id="filter_links">
+    		<% crew_string = ("crew=" + params[:crew]) unless params[:crew].nil? || params[:crew].empty? %>
+    		<% until_string = ("until=" + params[:until]) unless params[:until].nil? || params[:until].empty? %>
+    	<a href="/schedule/printable?<%= until_string %>">All Crews</a> | 
+    	<% for crew in Crew.find(:all, :order => "ordering ASC") %>
+    	<a href="/schedule/printable?crew=<%= crew.id %>&<%= until_string %>"><%= crew.crew_name %></a> | 
+    	<% end %>
+    	<a href="/schedule/printable?until=1.w&<%= crew_string %>">1 week</a> | 
+    	<a href="/schedule/printable?until=2.w&<%= crew_string %>">2 weeks</a> | 
+    	<a href="/schedule/printable?until=3.w&<%= crew_string %>">3 weeks</a> | 
+    	<a href="/schedule/printable?until=4.w&<%= crew_string %>">4 weeks</a>  
+    	</div>
+		<!-- <h2 class="jquery_tab_title">Current Schedule</h2> -->
+		<% last_day = @contracts.last.scheduled_date rescue Date.today + 5.day %>
+
+		<% ((Date.today)..(@query_future_date)).each do |day| %>
+			<%= render :partial => "day_printable", :locals => {:day => day} %>
+		<% end %>
+
+    </div>
+</div>
+
+
+
+<%= content_for :js_bottom do %>
+
+<% end %>
