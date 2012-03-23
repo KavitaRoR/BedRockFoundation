@@ -76,31 +76,62 @@
 	</table>
 	<hr style="width:90%;" />
 	<div style="width:90%; margin: 0px auto;">
-		<p style="width:50%; float:left; border-bottom:1px solid #000000;">
+		<p style="width:50%; float:left; border-bottom:1px solid #000000; text-align:right;">
 			<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} Shed Foundation" %>
 		</p>
 		<p style="width:20%; float:right; text-align:right; border-bottom:1px solid #000000;">
 			<%= "#{money_from_cents(@job.specific_offlevel(@type)[:zero][0])}" %>
 		</p>
 		<% if @job.off_level_amount_in_inches %>
-			<p style="width:50%; float:left; border-bottom:1px solid #000000;">
+			<p style="width:50%; float:left; text-align:right; border-bottom:1px solid #000000;">
 				With <%= @job.off_level_amount_in_inches %>" Off-Level
 			</p>
 			<p style="width:20%; float:right; text-align:right; border-bottom:1px solid #000000;">
-				<%= money_from_cents ((@job.total_price - @job.off_level_amount_in_inches) + (self.additional_price * 100) - (self.discount * 100))  %>
+				<%= money_from_cents ((@job.price_in_cents) + (@job.additional_price * 100) - (@job.discount * 100))  %>
 			</p>			
 		<% end %>
-		<div style="width:50%; float:left; line-height:1.3em;">
-			<span style="border-bottom:1px solid #000000;">Estimated Off-Level Amounts:</span><br />
+		<div style="width:50%; float:left; line-height:1.3em; text-align:right;">
+			<span style="border-bottom:1px solid #000000;">Estimated Off-Level Price (TBD while On-Site)</span><br />
 			<% @job.specific_offlevel(@type).each do |k, v| %>
-				<span style="border-bottom:1px solid #000000;"><%= v[1] %>"</span><br />
+				<% if k != :zero %>
+					<span style="border-bottom:1px solid #000000;"><%= v[1] %>"</span><br />
+				<% end %>
 			<% end %>
 		</div>
-		<div style="width:20%; float:right; line-height:1.3em;">
-			<span style="border-bottom:1px solid #000000;">Estimated Off-Level Amounts:</span><br />
+		<div style="width:20%; float:right; line-height:1.3em; text-align: right;">
+			<span></span><br />
 			<% @job.specific_offlevel(@type).each do |k, v| %>
-				<span style="border-bottom:1px solid #000000;"><%= v[1] %>"</span><br />
+				<% if k != :zero %>
+					<span style="border-bottom:1px solid #000000;">+<%= money_from_cents(v[0] - @job.specific_offlevel(@type)[:zero][0]) %></span><br />
+				<% end %>
 			<% end %>
 		</div>
+		<div style="width:50%; float:left; line-height:1.3em; text-align:right;">
+			<p>
+				<%= @job.description %>
+			</p>
+		</div>
+	</div>
+	<div style="clear:both;"></div>
+	<br />
+	<hr style="width: 90%;" />
+	<div style="width: 90%; margin: 0px auto;">
+		<p style="font-size:13px;">
+			<%= @job.job_description_for_flash(@type) %>
+		</p>
+	</div>
+	<hr style="width: 90%;" />
+	<div style="width:20%; float:right; line-height:1.3em; text-align: right; margin-right:40px;">
+		<strong>Total:</strong><div style="border: 1px solid black; width:150px; height: 35px;"></div>
+	</div>
+	<br /><br />
+	<div style="width: 90%; margin: 0px auto;">
+		<p>
+			<strong>Make Check Payable to: Bed Rock Foundations</strong><br />
+			Disclaimer: Our Company is not responsible for damage to any of the following: lawn, driveway,
+			pipes, wires, cables, water lines, septic lines, gas lines, roots, trees or anything else that may obstruct 
+			or hinder the construction of the foundation.  Customer is responsible to get permits if needed,
+			this is the sole responsibility of customer.
+		</p>
 	</div>
 </div>

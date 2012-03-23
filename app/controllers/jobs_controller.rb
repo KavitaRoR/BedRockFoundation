@@ -32,7 +32,6 @@ class JobsController < ApplicationController
     if !@estimate
       @estimate = Estimate.create(job_id: params[:id], job_type_id: @job_type.id, flashvars: @options_for_job, token: SecureRandom.hex(16))
     end
-    
     @type = params[:type].capitalize
     
     render :layout => false
