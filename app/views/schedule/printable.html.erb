@@ -1,0 +1,19 @@
+<div class="jquery_tab">
+
+    <div class="content_block">
+    	<h2>Bedrock Schedule from: <%= Date.today.strftime("%F") %> until: <%= @query_future_date.strftime("%F") %></h2>
+		<!-- <h2 class="jquery_tab_title">Current Schedule</h2> -->
+		<% last_day = @contracts.last.scheduled_date rescue Date.today + 5.day %>
+
+		<% ((Date.today)..(@query_future_date)).each do |day| %>
+			<%= render :partial => "day_printable", :locals => {:day => day} %>
+		<% end %>
+
+    </div>
+</div>
+
+
+
+<%= content_for :js_bottom do %>
+
+<% end %>

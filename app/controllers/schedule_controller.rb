@@ -51,4 +51,30 @@ class ScheduleController < ApplicationController
       redirect_to "/schedule", error: "The contact was not found"
     end
   end
+
+  def printable
+    @query_future_date = parse_date_until(params[:until]) || (Date.today + 2.weeks)
+    @crews = if params[:crew].nil?
+      Crew.find(:all, :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
+    else
+      Crew.find(:all, :conditions => ["id = ?", params[:crew]], :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
+    end
+    @contracts = Contract.where("scheduled_date > ?", (Time.now - 1.day)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
+  end
+
+
+  def parse_date_until(string_date)
+    return false if string_date.nil?
+    qty = string_date.split(".").first.to_i
+    span = string_date.split(".").last
+    days = case span
+    when "d"
+      1
+    when "w"
+      7
+    when "m"
+      30
+    end
+    return Date.today + (days*qty).days
+  end
 end
