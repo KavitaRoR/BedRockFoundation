@@ -12,7 +12,7 @@
 		</td>
 		<td colspan=2>
 			<strong>Invoice No:</strong> #<%= @estimate.invoice_number %><br />
-			<strong>Crew:</strong> <%= @contract.crew.crew_name rescue "none assigned" %><br />
+			<strong>Crew:</strong> <%= @estimate.contract.crew.crew_name rescue "none assigned" %><br />
 			<strong>Rig #:</strong>____________
 		</td>
 	</tr>
