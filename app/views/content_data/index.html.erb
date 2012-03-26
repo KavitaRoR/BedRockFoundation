@@ -1,0 +1,27 @@
+<h1>Listing content_data</h1>
+
+<table>
+  <tr>
+    <th>Key</th>
+    <th>Description</th>
+    <th>Value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @content_data.each do |content_datum| %>
+  <tr>
+    <td><%= content_datum.key %></td>
+    <td><%= content_datum.description %></td>
+    <td><%= content_datum.value %></td>
+    <td><%= link_to 'Show', content_datum %></td>
+    <td><%= link_to 'Edit', edit_content_datum_path(content_datum) %></td>
+    <td><%= link_to 'Destroy', content_datum, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Content datum', new_content_datum_path %>

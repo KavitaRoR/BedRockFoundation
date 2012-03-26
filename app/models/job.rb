@@ -131,13 +131,13 @@ class Job < ActiveRecord::Base
   def job_description_for_flash(kind)
     str = ""
     if kind == "Economy"
-      str = "This foundation eliminates the 4\"× 6\" pressure-treated border, the weed fabric and the rebar. It will be filled in with 5-6 inches of #5 clean stone which helps for quick drainage and insures that your structure remains level on top of the stone base."
+      str = ContentDatum.find_by_key("rockpad_estimate_economy").value
     elsif kind == "Standard"
-      str = "Excavation of area ensures that the top of the foundation will be even with the ground where the entrance of the structure will be located. 4\"× 6\" pressure treated timbers are used for the border. ½\"× 2' rebar secures the border to the ground. Geotextile fabric is used to eliminate weed growth around the structure. The soil will be compacted to eliminate settling. This area will be filled in with 5-6 inches of #5 clean stone which helps for quick drainage and insures that your structure remains level on top of the stone base."
+      str = ContentDatum.find_by_key("rockpad_estimate_standard").value
     elsif kind == "Elite"
-      str = "Excavation of area ensures that the top of the foundation will be even with the ground where the entrance of the structure will be located. 4\"× 6\" pressure treated timbers are used for the border with 1\"× 6\" Trex-composite capping on top of the border to enhance the beauty and extend the durability of the border.  ½\"× 2' rebar secures the border to the ground. Geotextile fabric is used to eliminate weed growth around the structure. The soil will be compacted to eliminate settling. This area will be filled in with 5-6 inches of #5 clean stone which helps for quick drainage and insures that your structure remains level on top of the stone base."
+      str = ContentDatum.find_by_key("rockpad_estimate_elite").value
     elsif kind == "Custom"
-      str = "This foundation eliminates the 4\"× 6\" pressure-treated border, the weed fabric and the rebar. The soil will be compacted to eliminate settling. It will be filled in with 5-6 inches of #5 clean stone which helps for quick drainage and insures that your structure remains level on top of the stone base."
+      str = ContentDatum.find_by_key("rockpad_estimate_custom").value
     end
     
     str.gsub("4\"× 6\" pressure", "6\"× 6\" pressure") if self.border_sixbysix

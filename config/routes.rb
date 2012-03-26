@@ -1,4 +1,6 @@
 Abundant::Application.routes.draw do
+  resources :content_data
+
   resources :crews
 
   resources :shed_companies

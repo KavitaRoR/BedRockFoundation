@@ -1,0 +1,2 @@
+module ContentDataHelper
+end

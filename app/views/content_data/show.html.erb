@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Key:</b>
+  <%= @content_datum.key %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @content_datum.description %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @content_datum.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_content_datum_path(@content_datum) %> |
+<%= link_to 'Back', content_data_path %>
