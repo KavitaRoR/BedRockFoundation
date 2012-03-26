@@ -130,6 +130,7 @@ class Job < ActiveRecord::Base
   
   def job_description_for_flash(kind)
     str = ""
+    kind = kind.upcase
     if kind == "Economy"
       str = ContentDatum.find_by_key("rockpad_estimate_economy").value
     elsif kind == "Standard"
