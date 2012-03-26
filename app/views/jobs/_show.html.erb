@@ -22,6 +22,12 @@
 				<%= link_to "Elite estimate", "#{print_modal_job_url(@job)}/?type=elite", :class => "iframe" %>
 			</p>	
 		</div>
+		<script type="text/javascript">
+		function closeFancyboxAndRedirectToUrl(url){
+		    $.fancybox.close();
+		    window.location = url;
+		}
+		</script>
 	<% end %>
 	
 	<br />
