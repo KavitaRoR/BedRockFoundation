@@ -20,6 +20,17 @@
 		<% end %>
 		<br />
 		<a href="#" id="print-link">&raquo; Click to print estimate</a><br />
+		<br />
+		<% if @estimate.sold? %>
+			<% if @estimate.job_type.kind == @type %>
+				This job has been sold based on this estimate. <br /> 
+				It is currently scheduled for <%= @estimate.contract.scheduled_date.strftime("%m/%d/%Y") rescue " -- not scheduled" %>.
+			<% else %>
+				A <%= @estimate.job_type.kind.capitalize %> estimate has been sold for this job. <br /><%= link_to "Click to view that estimate", "/jobs/#{@job.id}/print/?type=#{@estimate.job_type.kind}" %>
+			<% end %>
+		<% else %>
+			<%= link_to "Move to Production Schedule", "/estimates/push_to_sold/#{@job.id}/#{@type}"%>
+		<% end %>
 	</div>
 	<div style="clear:both;"></div>
 	<hr />
