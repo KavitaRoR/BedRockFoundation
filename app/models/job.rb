@@ -143,6 +143,7 @@ class Job < ActiveRecord::Base
     end
     logger.debug("returning #{str.gsub("4\"× 6\" pressure", "6\"× 6\" pressure")}")
     return str.gsub("4\"× 6\" pressure", "6\"× 6\" pressure") if self.border_sixbysix
+    return str
   end
   
   def options_for_print(kind="Standard")
