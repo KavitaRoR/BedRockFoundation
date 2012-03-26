@@ -24,7 +24,7 @@ class JobsController < ApplicationController
     session[:look] = 'print'
   end
   
-  def print2
+  def print_modal
     @job = Job.find(params[:id])
     @job_type = JobType.where(:kind => params[:type].capitalize).first
     @estimate = Estimate.find(:last, :conditions => {:job_id => params[:id], :job_type_id => @job_type.id})

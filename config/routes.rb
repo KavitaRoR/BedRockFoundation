@@ -21,7 +21,7 @@ Abundant::Application.routes.draw do
   resources :jobs do
     member do
       get 'print'
-      get 'print2'
+      get 'print_modal'
     end
   end
   root :to => 'dashboard#index'

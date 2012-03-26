@@ -7,11 +7,12 @@ class EstimatesController < ApplicationController
     begin
       @job_type = JobType.find(:first, conditions: {kind: params[:type].capitalize})
       @estimate = Estimate.find(:last, :conditions => {:job_id => params[:id], :job_type_id => @job_type.id})
-      
+
       if !@estimate
         @estimate = Estimate.create(job_id: params[:id], job_type_id: @job_type.id, flashvars: @job.options_for_print(params[:type].capitalize).with_indifferent_access, token: SecureRandom.hex(16))
       end
-      
+
+      @estimate.update_attribute(:date_of_email_to_client, Time.now)
       if EstimateMailer.send_to_contact(@estimate).deliver
         redirect_to :back, notice: "Mail Successfully sent to #{@estimate.job.contact.email}"
       else
@@ -25,7 +26,13 @@ class EstimatesController < ApplicationController
   
   def client_estimate
     @estimate = Estimate.find_by_token(params[:token])
-    @estimate.flashvars = YAML::load(@estimate.flashvars).with_indifferent_access
+    @estimate.update_attribute(:date_of_client_view, Time.now)
+    
+    @job = @estimate.job
+    @job_type = @estimate.job_type
+    @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
+    @type = @estimate.job_type.kind
+    
   end
   
   def push_to_sold

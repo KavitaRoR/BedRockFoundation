@@ -1,5 +1,9 @@
-<%= simple_format @job.description %>
-<div style="float:right;">     
+<%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
+<div style="width:50%;">
+	<%= @job.description %>
+</div>
+
+<div style="float:right; width: 40%;">     
 	<% if !@job.estimates.select{|e| e.sold? }.empty? %>
 		<div class="job-sold">
 			This job has been marked as sold!<br />
@@ -8,18 +12,17 @@
 			<%= link_to "Print the original estimate", "#{print_job_url(@job)}/?type=#{@job.job_type.kind.downcase}"%>
 		</div>
 	<% else %>
-		<%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
+		
 		<h2>Print this Job Estimate</h2>
 		<div>
 			Print: <br />
 			<p style="padding-left:30px;">
-				<%= link_to "Economy estimate", "#{print_job_url(@job)}/?type=economy" %><br />
-				<%= link_to "Standard estimate", "#{print_job_url(@job)}/?type=standard" %><br />
-				<%= link_to "Elite estimate", "#{print_job_url(@job)}/?type=elite" %>
+				<%= link_to "Economy estimate", "#{print_modal_job_url(@job)}/?type=economy", :class => "iframe" %><br />
+				<%= link_to "Standard estimate", "#{print_modal_job_url(@job)}/?type=standard", :class => "iframe" %><br />
+				<%= link_to "Elite estimate", "#{print_modal_job_url(@job)}/?type=elite", :class => "iframe" %>
 			</p>	
 		</div>
 	<% end %>
-	
 	
 	<br />
 	<h2>Type &amp; Off-Level Amounts</h2>
@@ -36,174 +39,193 @@
 			<br />To adjust the price for economy, subtract the amount shown for the off-level depth from the final price.
 		<% end %>
 	</p>
+	<% job_block = @job.pad_job_type_offset %>
 	<table>
 		<thead>
 			<tr>
 				<th>&nbsp;</th>
-				<th id="zero">0" - 6"</th>
-				<th id="twelve">12"</th>
-				<th id="eighteen">18"</th>
-				<th id="twentyfour">24"</th>
-				<th id="thirty">30"</th>
-				<th id="thirtysix">36"</th>
+				<th>Economy</th>
+				<th>Standard</th>
+				<th>Elite</th>
 			</tr>
 			<tr>
-				<% job_block = @job.pad_job_type_offset %>
-				<% job_block.each do |k,v| %>
-					<tr>
-						<% if @job.job_type.kind.downcase == k.to_s %>
-							<td style="color:#95BF84; font-weight:bold;"><%= k.capitalize %></td>
-						<% else %>
-							<td><%= k.capitalize %></td>
-						<% end %>
-						<% v.each do |j,l| %>
-							<td><%= money_from_cents(((l - @job.price_in_cents) / 100).round * 100) %></td>
-						<% end %>
-					</tr>
-				<% end %>
+				<td>&lt;6"</td>
+				<td><%= money_from_cents(((job_block[:economy][:zero] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:standard][:zero] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:elite][:zero] - @job.price_in_cents) / 100).round * 100) %></td>
+			</tr>
+			<tr>
+				<td>12"</td>
+				<td><%= money_from_cents(((job_block[:economy][:twelve] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:standard][:twelve] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:elite][:twelve] - @job.price_in_cents) / 100).round * 100) %></td>
+			</tr>
+			<tr>
+				<td>18"</td>
+				<td><%= money_from_cents(((job_block[:economy][:eighteen] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:standard][:eighteen] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:elite][:eighteen] - @job.price_in_cents) / 100).round * 100) %></td>
+			</tr>
+			<tr>
+				<td>24"</td>
+				<td><%= money_from_cents(((job_block[:economy][:twentyfour] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:standard][:twentyfour] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:elite][:twentyfour] - @job.price_in_cents) / 100).round * 100) %></td>
+			</tr>
+			<tr>
+				<td>30"</td>
+				<td><%= money_from_cents(((job_block[:economy][:thirty] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:standard][:thirty] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:elite][:thirty] - @job.price_in_cents) / 100).round * 100) %></td>
+			</tr>
+			<tr>
+				<td>36"</td>
+				<td><%= money_from_cents(((job_block[:economy][:thirtysix] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:standard][:thirtysix] - @job.price_in_cents) / 100).round * 100) %></td>
+				<td><%= money_from_cents(((job_block[:elite][:thirtysix] - @job.price_in_cents) / 100).round * 100) %></td>
 			</tr>
 		</thead>
 	</table>
-	
 </div>
-<table>
-	<thead>
-	<tr>
-		<th>Item</th>
-		<th>Quantity</th>
-		<th>Cost</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-		<td><b>Pad Size</b></td>
-		<td><%= @job.width rescue "" %> x <%= @job.length rescue "" %></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Square Footage</td>
-		<td><%= @job.pad_job.square_footage %></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Cubic Footage</td>
-		<td><%= number_with_precision @job.pad_job.cubic_footage %></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Perimeter</td>
-		<td><%= @job.pad_job.perimeter %> ft</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Off-level amount</td>
-		<td><%= @job.off_level_amount_in_inches %> inches
-			<br /><%= number_with_precision @job.pad_job.my_depth %> feet
-		</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Rows of Boards (on slope)</td>
-		<td><%= (number_with_precision @job.pad_job.board_rows) %> rows</td>
-		<td></td>
-	</tr>
+<div style="width:50%;">
+	<table>
+		<thead>
+		<tr>
+			<th>Item</th>
+			<th>Quantity</th>
+			<th>Cost</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td><b>Pad Size</b></td>
+			<td><%= @job.width rescue "" %> x <%= @job.length rescue "" %></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Square Footage</td>
+			<td><%= @job.pad_job.square_footage %></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Cubic Footage</td>
+			<td><%= number_with_precision @job.pad_job.cubic_footage %></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Perimeter</td>
+			<td><%= @job.pad_job.perimeter %> ft</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Off-level amount</td>
+			<td><%= @job.off_level_amount_in_inches %> inches
+				<br /><%= number_with_precision @job.pad_job.my_depth %> feet
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Rows of Boards (on slope)</td>
+			<td><%= (number_with_precision @job.pad_job.board_rows) %> rows</td>
+			<td></td>
+		</tr>
 	
-	<tr>
-		<td>Boards</td>
-		<td><%= number_with_precision @job.pad_job.board_quantity_in_feet %> ft</td>
-		<td><%= money_from_cents @job.pad_job.board_cost %></td>
-	</tr>
+		<tr>
+			<td>Boards</td>
+			<td><%= number_with_precision @job.pad_job.board_quantity_in_feet %> ft</td>
+			<td><%= money_from_cents @job.pad_job.board_cost %></td>
+		</tr>
 	
-	<% if @job.job_type.kind == "Elite" %>
-	<tr>
-		<td>Trex Additional</td>
-		<td><%= @job.pad_job.perimeter %> ft</td>
-		<td><%= money_from_cents @job.pad_job.trex_additional_cost %></td>
-	</tr>
-	<% end %>
-	<tr>
-		<td>Weed Fabric</td>
-		<td><%= '%.2f' % @job.pad_job.weed_fabric_per_foot.to_s %> per ft</td>
-		<td><%= money_from_cents @job.pad_job.weed_fabric_cost %></td>
-	</tr>
-	<tr>
-		<td>Rebar</td>
-		<td><%= @job.pad_job.rebar_quantity %></td>
-		<td><%= money_from_cents @job.pad_job.rebar_cost %></td>
-	</tr>
-	<tr class="endsection">
-		<td>Rock</td>
-		<td><%= number_with_precision(@job.pad_job.rock_tonage, :precision => 2, :strip_insignification_zeros => true) %> tons</td>
-		<td><%= money_from_cents @job.pad_job.rock_cost %></td>
-	</tr>
+		<% if @job.job_type.kind == "Elite" %>
+		<tr>
+			<td>Trex Additional</td>
+			<td><%= @job.pad_job.perimeter %> ft</td>
+			<td><%= money_from_cents @job.pad_job.trex_additional_cost %></td>
+		</tr>
+		<% end %>
+		<tr>
+			<td>Weed Fabric</td>
+			<td><%= '%.2f' % @job.pad_job.weed_fabric_per_foot.to_s %> per ft</td>
+			<td><%= money_from_cents @job.pad_job.weed_fabric_cost %></td>
+		</tr>
+		<tr>
+			<td>Rebar</td>
+			<td><%= @job.pad_job.rebar_quantity %></td>
+			<td><%= money_from_cents @job.pad_job.rebar_cost %></td>
+		</tr>
+		<tr class="endsection">
+			<td>Rock</td>
+			<td><%= number_with_precision(@job.pad_job.rock_tonage, :precision => 2, :strip_insignification_zeros => true) %> tons</td>
+			<td><%= money_from_cents @job.pad_job.rock_cost %></td>
+		</tr>
 	
-	<tr>
-		<td>Truck Gas Cost</td>
-		<td><%= @job.pad_job.round_trip_distance %> miles</td>
-		<td><%= money_from_cents @job.pad_job.truck_gas_cost %></td>
-	</tr>
-	<tr>
-		<td>Truck Maintenace Cost</td>
-		<td><%= @job.pad_job.round_trip_distance %> miles</td>
-		<td><%= money_from_cents @job.pad_job.truck_maintenance_cost %></td>
-	</tr>
-	<tr class="endsection">
-		<td>Driving Labor</td>
-		<td><%= @job.pad_job.round_trip_distance %> miles</td>
-		<td><%= money_from_cents @job.pad_job.driving_labor_cost %></td>
-	</tr>
+		<tr>
+			<td>Truck Gas Cost</td>
+			<td><%= @job.pad_job.round_trip_distance %> miles</td>
+			<td><%= money_from_cents @job.pad_job.truck_gas_cost %></td>
+		</tr>
+		<tr>
+			<td>Truck Maintenace Cost</td>
+			<td><%= @job.pad_job.round_trip_distance %> miles</td>
+			<td><%= money_from_cents @job.pad_job.truck_maintenance_cost %></td>
+		</tr>
+		<tr class="endsection">
+			<td>Driving Labor</td>
+			<td><%= @job.pad_job.round_trip_distance %> miles</td>
+			<td><%= money_from_cents @job.pad_job.driving_labor_cost %></td>
+		</tr>
 
-	<tr>
-		<td>Working Labor</td>
-		<td><%= @job.pad_job.working_labor_hours %> hours</td>
-		<td><%= money_from_cents @job.pad_job.working_labor_cost %></td>
-	</tr>
-	<tr>
-		<td>Materials</td>
-		<td></td>
-		<td><%= money_from_cents @job.pad_job.total_material_cost %></td>
-	</tr>
-	<tr class="endsection">
-		<td>Total Cost</td>
-		<td></td>
-		<td><%= money_from_cents @job.pad_job.total_cost %></td>
-	</tr>
+		<tr>
+			<td>Working Labor</td>
+			<td><%= @job.pad_job.working_labor_hours %> hours</td>
+			<td><%= money_from_cents @job.pad_job.working_labor_cost %></td>
+		</tr>
+		<tr>
+			<td>Materials</td>
+			<td></td>
+			<td><%= money_from_cents @job.pad_job.total_material_cost %></td>
+		</tr>
+		<tr class="endsection">
+			<td>Total Cost</td>
+			<td></td>
+			<td><%= money_from_cents @job.pad_job.total_cost %></td>
+		</tr>
 	
-	<tr>
-		<td>Material Markup</td>
-		<td></td>
-		<td><%= money_from_cents @job.pad_job.total_material_markup %></td>
-	</tr>
-	<tr class="endsection">
-		<td>Labor Markup</td>
-		<td></td>
-		<td><%= money_from_cents @job.pad_job.total_labor_markup %></td>
-	</tr>
+		<tr>
+			<td>Material Markup</td>
+			<td></td>
+			<td><%= money_from_cents @job.pad_job.total_material_markup %></td>
+		</tr>
+		<tr class="endsection">
+			<td>Labor Markup</td>
+			<td></td>
+			<td><%= money_from_cents @job.pad_job.total_labor_markup %></td>
+		</tr>
 	
-	<tr>
-		<td><b>Base Price</b></td>
-		<td></td>
-		<td><%= money_from_cents @job.pad_job.total_price %></td>
-	</tr>
+		<tr>
+			<td><b>Base Price</b></td>
+			<td></td>
+			<td><%= money_from_cents @job.pad_job.total_price %></td>
+		</tr>
 	
-	<tr>
-		<td><b>Additional Price Added</b></td>
-		<td></td>
-		<td><%= money_from_cents(@job.additional_price.to_f * 100) %></td>
-	</tr>
-	<tr>
-		<td><b>DISCOUNT</b></td>
-		<td></td>
-		<td><%= money_from_cents(@job.discount * 100) %></td>
-	</tr>
-	<tr>
-		<td><b>FINAL PRICE</b></td>
-		<td></td>
-		<td><%= money_from_cents(@job.price_in_cents) %></td>
-	</tr>
-	</tbody>
-</table>
- 
+		<tr>
+			<td><b>Additional Price Added</b></td>
+			<td></td>
+			<td><%= money_from_cents(@job.additional_price.to_f * 100) %></td>
+		</tr>
+		<tr>
+			<td><b>DISCOUNT</b></td>
+			<td></td>
+			<td><%= money_from_cents(@job.discount * 100) %></td>
+		</tr>
+		<tr>
+			<td><b>FINAL PRICE</b></td>
+			<td></td>
+			<td><%= money_from_cents(@job.price_in_cents) %></td>
+		</tr>
+		</tbody>
+	</table>
+</div>
 <h2>Communication History</h2>
 
 <% for update in @job.statuses.reverse %>
@@ -224,3 +246,17 @@
 <%= button_to "Destroy", @job, :confirm => 'Are you sure?', :method => :delete %>
 <br /><br />
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("a.iframe").fancybox({
+		'transitionIn'	:	'elastic',
+		'transitionOut'	:	'elastic',
+		'speedIn'		:	600, 
+		'speedOut'		:	200, 
+		'overlayShow'	:	false,
+		'width': 800,
+		'height': 700
+	});
+	
+});</script>

@@ -1,0 +1,34 @@
+<%= javascript_include_tag "jquery-1.7.1.min" %>
+<style>
+	@media only print
+	{
+		#links {
+			display:none;
+		}
+	}
+</style>
+<div id="estimate" style="width:750px; height:970px;">
+	<div style="float:left;" id="links">
+		<% if @estimate.date_of_client_view %>
+			<span style="text-align:right;">Client viewed on <%= @estimate.date_of_client_view.strftime("%m/%d/%Y at %I:%m %p")%></span><br />
+		<% end %>
+
+		<% if @estimate.date_of_email_to_client %>
+			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link" >&raquo; Re-Send Estimate to Customer (Sent <%= @estimate.date_of_email_to_client.strftime("%m/%d/%Y at %I:%m %p") %>)</a>
+		<% else %>
+			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link" >&raquo; Email Estimate to Customer</a>
+		<% end %>
+		<br />
+		<a href="#" id="print-link">&raquo; Click to print estimate</a><br />
+	</div>
+	<div style="clear:both;"></div>
+	<hr />
+		<%= render :partial => "estimates/print_modal" %>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#print-link").click(function() {
+			window.print();
+		})
+	})
+</script>
