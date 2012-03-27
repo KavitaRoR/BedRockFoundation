@@ -66,23 +66,14 @@
 					The off-level amount of the pad area will be accurately measured and a price given upon arrival at the job site, before any work begins.  The estimates to the right are the adjustments that may/may not be needed based on the true off-level amount of the surface. 
 				</span>
 			</td>
-			<td>
-				<ul style="list-style-type:none; text-align:right;">
+			<td colspan=2>
+				<ul style="list-style-type:none; text-align:left;">
 					<% @job.specific_offlevel(@type).each do |k, v| %>
 						<% if k != :zero && @estimate.off_level_to_show.include?(v[1].to_s) %>
-							<li><%= v[1] %>"</li>
+							<li><%= v[1] %>" - +<%= money_from_cents(v[0] - @job.specific_offlevel(@type)[:zero][0]) %></li>
 						<% end %>
 					<% end %>
 				<ul>
-			</td>
-			<td>
-				<ul style="list-style-type:none; text-align:right;">
-					<% @job.specific_offlevel(@type).each do |k, v| %>
-						<% if k != :zero && @estimate.off_level_to_show.include?(v[1].to_s) %>
-							<li>+<%= money_from_cents(v[0] - @job.specific_offlevel(@type)[:zero][0]) %></li>
-						<% end %>
-					<% end %>
-				</ul>
 			</td>
 		</tr>
 	<% end %>

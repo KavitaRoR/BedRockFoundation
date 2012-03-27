@@ -5,6 +5,7 @@ gem 'geokit-rails3'
 gem 'devise'
 gem 'mail'
 gem 'gmaps4rails'
+gem 'will_paginate'
 
 group :development do
   gem 'heroku'

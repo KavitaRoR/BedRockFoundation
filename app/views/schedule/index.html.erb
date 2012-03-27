@@ -1,13 +1,19 @@
 <div class="jquery_tab">
 
     <div class="content_block">
-		<!-- <h2 class="jquery_tab_title">Current Schedule</h2> -->
-		<% last_day = @contracts.last.scheduled_date rescue Date.today + 5.day %>
-
-		<% ((Date.today)..(Date.today + 14.days)).each do |day| %>
-			<%= render :partial => "day_table", :locals => {:day => day} %>
-		<% end %>
-
+			<div style="float:right;">
+				<input type="button" id="show-previous-button" value="Show Previous Schedule" />
+				<input type="button" id="hide-previous-button" value="Hide Previous Schedule" style="display:none;" />
+			</div>
+			<div class="previous-calendar" style="display:none;">
+				<% ((Date.today - 15.days)..(Date.today)).each do |day| %>
+					<%= render :partial => "day_table", :locals => {:day => day} %>
+				<% end %>
+			</div>
+			<a id="today-marker"></a>
+			<% ((Date.today)..(Date.today + 31.days)).each do |day| %>
+				<%= render :partial => "day_table", :locals => {:day => day} %>
+			<% end %>
     </div>
 </div>
 
@@ -18,3 +24,21 @@
 	<%= render :partial => 'persistence' %>
 
 <% end %>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#show-previous-button").click(function() {
+			$("#show-previous-button").hide();
+			$("#hide-previous-button").show();
+			$(".previous-calendar").slideDown('slow', function() {
+				location.hash = "#today-marker";
+			});			
+		})
+		
+		$("#hide-previous-button").click(function() {
+			$(".previous-calendar").slideUp();
+			$("#show-previous-button").show();
+			$("#hide-previous-button").hide();
+		})
+	})
+</script>
