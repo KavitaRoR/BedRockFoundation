@@ -131,7 +131,6 @@ class Job < ActiveRecord::Base
   def job_description_for_flash(kind)
     str = ""
     kind = kind.capitalize
-    logger.debug("In job Description: #{kind}")
     if kind == "Economy"
       str = ContentDatum.find_by_key("rockpad_estimate_economy").value
     elsif kind == "Standard"
@@ -141,7 +140,6 @@ class Job < ActiveRecord::Base
     elsif kind == "Custom"
       str = ContentDatum.find_by_key("rockpad_estimate_custom").value
     end
-    logger.debug("returning #{str.gsub("4\"× 6\" pressure", "6\"× 6\" pressure")}")
     return str.gsub("4\"× 6\" pressure", "6\"× 6\" pressure") if self.border_sixbysix
     return str
   end

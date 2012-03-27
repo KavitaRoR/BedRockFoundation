@@ -8,13 +8,13 @@
 	}
 </style>
 <div id="estimate" style="width:750px; height:970px;">
-	<div style="float:left;" id="links">
+	<div style="float:left; width:50%;" id="links">
 		<% if @estimate.date_of_client_view %>
 			<span style="text-align:right;">Client viewed on <%= @estimate.date_of_client_view.strftime("%m/%d/%Y at %I:%m %p")%></span><br />
 		<% end %>
 
 		<% if @estimate.date_of_email_to_client %>
-			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link" >&raquo; Re-Send Estimate to Customer (Sent <%= @estimate.date_of_email_to_client.strftime("%m/%d/%Y at %I:%m %p") %>)</a>
+			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link" >&raquo; Re-Send Estimate to Customer<br />&nbsp;&nbsp;&nbsp;&nbsp;(Sent <%= @estimate.date_of_email_to_client.strftime("%m/%d/%Y at %I:%m %p") %>)</a>
 		<% else %>
 			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link" >&raquo; Email Estimate to Customer</a>
 		<% end %>
@@ -36,6 +36,45 @@
 			<a href="/estimates/push_to_sold/<%= @job.id %>/<%= @type %>" target="_parent">Move to Production Schedule</a>
 		<% end %>
 	</div>
+	<div style="float:right;">
+		<span>Select Off-Level to Show:</span>
+		<%= form_for "offlevel", :url => "/estimates/off_level_to_show" do |f| %>
+			<%= f.hidden_field "selected_vals", :value => @estimate.off_level_to_show %>
+			<%= f.hidden_field "estimate_id", :value => @estimate.id %>
+			<%= f.check_box "twelve" %>12"
+			<%= f.check_box "eighteen" %>18"
+			<%= f.check_box "twentyfour" %>24"
+			<%= f.check_box "thirty" %>30"
+			<%= f.check_box "thirtysix" %>36"<br />
+			<%= f.submit "Save Options" %>
+		<% end %>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var shownOffLevel = $("#offlevel_selected_vals").val().split(",")
+				$("#offlevel_selected_vals").remove();
+				if (shownOffLevel.indexOf("12") != -1) {
+					$("#offlevel_twelve").prop("checked", true)
+				} 
+				
+				if (shownOffLevel.indexOf("18") != -1) {
+					$("#offlevel_eighteen").prop("checked", true)
+				} 
+				
+				if (shownOffLevel.indexOf("24") != -1) {
+					$("#offlevel_twentyfour").prop("checked", true)
+				} 
+				
+				if (shownOffLevel.indexOf("30") != -1) {
+					$("#offlevel_thirty").prop("checked", true)
+				}  
+				
+				if (shownOffLevel.indexOf("36") != -1) {
+					$("#offlevel_thirtysix").prop("checked", true)
+				}
+				
+			})
+		</script>
+	</div>
 	<div style="clear:both;"></div>
 	<hr />
 		<%= render :partial => "estimates/print_modal" %>
@@ -45,6 +84,5 @@
 		$("#print-link").click(function() {
 			window.print();
 		})
-
 	})
 </script>

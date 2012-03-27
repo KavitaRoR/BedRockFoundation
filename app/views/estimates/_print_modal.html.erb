@@ -5,9 +5,7 @@
 <table style="width: 90%; margin: 0px auto;">
 	<tr>
 		<td colspan=2 style="left">
-				<strong>Main Office</strong><br />
-				461 Old Wilmington Rd.<br />
-				Coatesville, PA 19320<br />
+				
 				<strong><%= @options_for_job[:job_location_abbr].upcase %> Office:</strong> <%= @options_for_job[:job_location_phone] %>
 		</td>
 		<td colspan=2>
@@ -60,32 +58,34 @@
 			</td>
 		</tr>
 	<% end %>
-	<tr>
-		<td colspan=2>
-			<strong>Estimated Off-Level Price</strong> (TBD while On-Site)<br />
-			<span style="font-size:0.8em;">
-				The off-level amount of the pad area will be accurately measured and a price given upon arrival at the job site, before any work begins.  The estimates to the right are the adjustments that may/may not be needed based on the true off-level amount of the surface. 
-			</span>
-		</td>
-		<td>
-			<ul style="list-style-type:none; text-align:right;">
-				<% @job.specific_offlevel(@type).each do |k, v| %>
-					<% if k != :zero %>
-						<li><%= v[1] %>"</li>
+	<% if @estimate.off_level_to_show != "" && @estimate.off_level_to_show != nil %>
+		<tr>
+			<td colspan=2>
+				<strong>Estimated Off-Level Price</strong><br />
+				<span style="font-size:0.8em;">
+					The off-level amount of the pad area will be accurately measured and a price given upon arrival at the job site, before any work begins.  The estimates to the right are the adjustments that may/may not be needed based on the true off-level amount of the surface. 
+				</span>
+			</td>
+			<td>
+				<ul style="list-style-type:none; text-align:right;">
+					<% @job.specific_offlevel(@type).each do |k, v| %>
+						<% if k != :zero && @estimate.off_level_to_show.include?(v[1].to_s) %>
+							<li><%= v[1] %>"</li>
+						<% end %>
 					<% end %>
-				<% end %>
-			<ul>
-		</td>
-		<td>
-			<ul style="list-style-type:none; text-align:right;">
-				<% @job.specific_offlevel(@type).each do |k, v| %>
-					<% if k != :zero %>
-						<li>+<%= money_from_cents(v[0] - @job.specific_offlevel(@type)[:zero][0]) %></li>
+				<ul>
+			</td>
+			<td>
+				<ul style="list-style-type:none; text-align:right;">
+					<% @job.specific_offlevel(@type).each do |k, v| %>
+						<% if k != :zero && @estimate.off_level_to_show.include?(v[1].to_s) %>
+							<li>+<%= money_from_cents(v[0] - @job.specific_offlevel(@type)[:zero][0]) %></li>
+						<% end %>
 					<% end %>
-				<% end %>
-			</ul>
-		</td>
-	</tr>
+				</ul>
+			</td>
+		</tr>
+	<% end %>
 	<tr>
 		<td colspan=4>
 			<strong>Additional Notes:</strong>
@@ -109,10 +109,17 @@
 	</tr>
 	<tr>
 		<td colspan=4>
-			<p>
-				<em>Please make checks payable to: <strong>Bed Rock Foundations</strong></em><br /><br />
-				<strong>Disclaimer:</strong> <span style="font-size: 0.8em;">Bed Rock Foundations and any and all affiliates are not responsible for damage to any of the following: lawn, driveway, pipes, wires, cables, water lines, septic lines, gas lines, roots, trees or anything else that may obstruct or hinder the construction of the foundation.  Customer is responsible for acquiring all permits if needed, this is the sole responsibility of customer.</span>
+			<p style="font-size: 0.8em;">
+				<em>Please make checks payable to: <strong>Bed Rock Foundations</strong></em> 461 Old Wilmington Rd.	Coatesville, PA 19320<br /><br />
+				<strong>Disclaimer:</strong> <span>Bed Rock Foundations and any and all affiliates are not responsible for damage to any of the following: lawn, driveway, pipes, wires, cables, water lines, septic lines, gas lines, roots, trees or anything else that may obstruct or hinder the construction of the foundation.  Customer is responsible for acquiring all permits if needed, this is the sole responsibility of customer.</span>
 			<p>
 		</td>
+	</tr>
+	<tr><td colspan=4>&nbsp;</td></tr>
+	<tr>
+		<td colspan=3>
+			<strong>Customer Signature:</strong>_______________________________
+		</td>
+		<td colspan=1><strong>Date:</strong>_______________</td>
 	</tr>
 </table>

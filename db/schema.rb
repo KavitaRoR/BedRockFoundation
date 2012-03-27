@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120326202616) do
+ActiveRecord::Schema.define(:version => 20120327185646) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -86,11 +86,12 @@ ActiveRecord::Schema.define(:version => 20120326202616) do
     t.text     "flashvars"
     t.datetime "date_of_email_to_client"
     t.string   "token"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.boolean  "sold",                    :default => false
     t.integer  "invoice_number"
     t.datetime "date_of_client_view"
+    t.string   "off_level_to_show",       :default => "12,18,24,30,36"
   end
 
   create_table "foundations", :force => true do |t|

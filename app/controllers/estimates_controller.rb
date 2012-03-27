@@ -55,4 +55,33 @@ class EstimatesController < ApplicationController
       redirect_to :back, notice: "An Error occurred."
     end
   end
+  
+  def off_level_to_show
+    arr = []
+    params[:offlevel].each do |k,v|
+      if v == "1"
+        case k
+        when "twelve"
+          arr << "12"
+        when "eighteen"
+          arr << "18"
+        when "twentyfour"
+          arr << "24"
+        when "thirty"
+          arr << "30"
+        when "thirtysix"
+          arr << "36"
+        end
+      end
+    end
+    str = arr.join(",")
+    begin
+      logger.debug("Estimate id: #{params[:offlevel][:estimate_id]} with str: #{str.inspect}")
+      Estimate.find(params[:offlevel][:estimate_id].to_i).update_attribute(:off_level_to_show, str)
+      redirect_to :back and return
+    rescue Exception => e
+      logger.debug("Problem: #{e.message}")
+      redirect_to :back and return
+    end
+  end
 end
