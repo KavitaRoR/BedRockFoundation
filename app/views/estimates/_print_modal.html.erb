@@ -5,8 +5,8 @@
 <table style="width: 90%; margin: 0px auto;">
 	<tr>
 		<td colspan=2 style="left">
-				
-				<strong><%= @options_for_job[:job_location_abbr].upcase %> Office:</strong> <%= @options_for_job[:job_location_phone] %>
+				<strong><%= "#{@estimate.job.location.name}, #{@estimate.job.location.abbreviation}" %></strong> <br />
+				<%= @estimate.job.location.phone %>
 		</td>
 		<td colspan=2>
 			<strong>Invoice No:</strong> #<%= @estimate.invoice_number %><br />
