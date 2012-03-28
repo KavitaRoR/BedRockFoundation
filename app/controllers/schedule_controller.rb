@@ -1,9 +1,9 @@
 class ScheduleController < ApplicationController
   
   def index
-    @crews = Crew.find(:all, :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
-    @contracts = Contract.where("scheduled_date > ?", (Time.now - 15.days)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
-    @queued_contracts = Contract.where(:scheduled_date => nil).sort{|x,y| x.estimate.invoice_number <=> y.estimate.invoice_number}
+    @crews = Crew.find(:all, :include => [:contracts, {:contracts => [:estimate, {:estimate => :job}]}], :order => "ordering ASC")
+    @contracts = Contract.where("scheduled_date > ?", (Time.now - 15.days)).includes(:estimate, :crew, {:estimate => [:job, {:job => :contact, :job => :estimates}] }).order("scheduled_date ASC")
+    @queued_contracts = Contract.where(:scheduled_date => nil).includes(:estimate, :crew, {:estimate => [:job, {:job => :contact, :job => :estimates}] }).sort{|x,y| x.estimate.invoice_number <=> y.estimate.invoice_number}
   end
   
   def get_queued_for_dropdown
@@ -21,7 +21,7 @@ class ScheduleController < ApplicationController
     if contract
       # if Contract.find(:all, :conditions => { crew_id: params[:crew_id], position_in_day})
       if contract.update_attributes({ crew_id: params[:crew_id], position_in_day: params[:position], scheduled_date: Time.at(params[:day].to_i) })
-        render :json => { conName: contract.name, location: contract.location }
+        render :json => { conId: contract.id, conName: contract.name, location: contract.location, size: "#{contract.estimate.job.width}' x #{contract.estimate.job.length}'" }
       else
         render :text => false
       end

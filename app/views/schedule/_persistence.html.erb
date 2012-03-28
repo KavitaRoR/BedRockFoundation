@@ -16,11 +16,16 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
-		function bindEmptyClicks() {
-			$(".empty > span.schedule_button_heading").click(function() {
-				var ele = $(this).parent();
+		$(".schedule_button").click(function() {
+			doClicky(this)
+		});
+		
+		function doClicky(spec) {
+			console.log($(spec))
+			if ($(spec).hasClass("empty")) {
+				var ele = $(spec);
 				$(ele).removeClass("empty").addClass("editing");
+				
 				$.get("/schedule/get_queued_for_dropdown", function(data) {
 					var myHtml = "<select class='con-select'><option value='' selected='selected'></option>";
 					$(data).each(function() {
@@ -48,13 +53,13 @@
 								}, function(data) {
 									if (data != "false") {
 										$(ele2).parent().parent().removeClass("editing").addClass("full");
-										// bindFullClicks();
 										$($(ele2).parent().parent().children('span')[0]).text(data["conName"]);
-										$(ele2).parent().text(data["location"]);
+										$($(ele2).parent().parent().children('span')[0]).prop("id", ("con-" + data["conId"]));
+										$(ele2).parent().text(data["size"] + " in " + data["location"]);
 
-										if ($("#qc-" + conId)) {
-											$("#qc-" + conId).remove();
-										}
+										// if ($("#qc-" + conId)) {
+										// 									$("#qc-" + conId).remove();
+										// 								}
 									}
 								})
 							}
@@ -63,28 +68,19 @@
 					}
 				})
 				return false;
-			})
-		}
-		
-		function bindFullClicks() {
-
-			$(".full").click(function() {
-				$("#full_slot").find("h2").html($(this).find(".schedule_button_heading").html());
+			} else if ($(spec).hasClass("full")) {
+				$("#full_slot").find("h2").html($(spec).find(".schedule_button_heading").html());
 				$("#full_slot").modal({
 					opacity:60,
 					overlayCss: {backgroundColor:"#fff"}
 				});
-				var conId = $(this).find(".schedule_button_heading").attr("id").split("-")[1];
-				
-				var the_clicked = $(this);
+				var conId = $(spec).find(".schedule_button_heading").attr("id").split("-")[1];
+				var the_clicked = $(spec);
 				$(".schedule_button.delete").click(function(){
 					$.post("/schedule/remove_assignment", { id: conId }, function(data) {
-						// $("#full_slot").remove();
 						$.modal.close();
 						the_clicked.removeClass("full").addClass("empty")
 						the_clicked.find("span").html("Empty");
-						// bindEmptyClicks();
-						// window.location.href = "/schedule";
 					})
 				});
 				
@@ -93,12 +89,8 @@
 				});
 				
 				return false;
-			})
+			}
 		}
-
-		bindFullClicks();
-		bindEmptyClicks();
-			
 	})
 </script>
 

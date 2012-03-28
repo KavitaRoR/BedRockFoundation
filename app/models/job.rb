@@ -22,7 +22,7 @@ class Job < ActiveRecord::Base
   
   def name
     return id if contact.nil?
-    return "#{contact.name} - ##{self.estimates.select{|e| e.sold?}.first.invoice_number }" if !self.estimates.select{|e| e.sold? }.empty?
+    return "#{contact.name} - ##{self.location.abbreviation rescue ""}-#{self.estimates.select{|e| e.sold?}.first.invoice_number }" if !self.estimates.select{|e| e.sold? }.empty?
     return "#{contact.name} - ##{id}"
     return "#{id}"
   end
