@@ -2,8 +2,8 @@ class ScheduleController < ApplicationController
   
   def index
     @crews = Crew.find(:all, :include => [:contracts, {:contracts => [:estimate, {:estimate => :job}]}], :order => "ordering ASC")
-    @contracts = Contract.where("scheduled_date > ?", (Time.now - 15.days)).includes(:estimate, :crew, {:estimate => [:job, {:job => :contact, :job => :estimates}] }).order("scheduled_date ASC")
-    @queued_contracts = Contract.where(:scheduled_date => nil).includes(:estimate, :crew, {:estimate => [:job, {:job => :contact, :job => :estimates}] }).sort{|x,y| x.estimate.invoice_number <=> y.estimate.invoice_number}
+    @contracts = Contract.where("scheduled_date > ?", (Time.now - 15.days)).includes(:estimate, :crew, {:estimate => [:job, {:job => :contact, :job => :estimates, :job => :location}] }).order("scheduled_date ASC")
+    @queued_contracts = Contract.where(:scheduled_date => nil).includes(:estimate, :crew, {:estimate => [:job, {:job => :contact, :job => :estimates, :job => :location}] }).sort{|x,y| x.estimate.invoice_number <=> y.estimate.invoice_number}
   end
   
   def get_queued_for_dropdown
