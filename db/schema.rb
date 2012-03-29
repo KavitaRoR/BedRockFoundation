@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327185646) do
+ActiveRecord::Schema.define(:version => 20120329134328) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(:version => 20120327185646) do
     t.integer  "distance"
     t.integer  "width"
     t.integer  "length"
-    t.decimal  "additional_price",           :precision => 10, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "additional_price",           :precision => 10, :scale => 2, :default => 0.0,        :null => false
     t.decimal  "depth",                      :precision => 10, :scale => 0
     t.string   "shed_company"
     t.string   "accessible_with_machine"
@@ -142,11 +142,12 @@ ActiveRecord::Schema.define(:version => 20120327185646) do
     t.string   "timber_wall"
     t.string   "economy_or_elite"
     t.boolean  "border_sixbysix",                                           :default => false
-    t.decimal  "discount",                   :precision => 10, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "discount",                   :precision => 10, :scale => 2, :default => 0.0,        :null => false
     t.string   "crew_name"
     t.string   "rig_name"
     t.integer  "location_id"
     t.integer  "job_type_id",                                               :default => 1
+    t.string   "off_level_fill_type",                                       :default => "Build-Up"
   end
 
   create_table "locations", :force => true do |t|

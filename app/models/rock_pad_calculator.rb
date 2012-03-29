@@ -5,12 +5,8 @@ class RockPadCalculator
     # return RockPadVariable.find_by_key(key).value
     return @vars.select{|v| v.key == key}.first.value
   end
-  def log(str)
-    RAILS_DEFAULT_LOGGER.debug str if RAILS_DEFAULT_LOGGER
-  end
   
-  def initialize(dist=30, w=0, l=0, kind="Standard", sixbysix=false, d=0.5)
-    # puts "Given a #{w}×#{l} #{kind} rock pad #{dist} miles away"
+  def initialize(dist=30, w=0, l=0, kind="Standard", sixbysix=false, d=0.5, fill_type="Build-Up")
     @vars = RockPadVariable.all
     @length = l
     @width = w
@@ -29,6 +25,20 @@ class RockPadCalculator
     @weed_fabric_per_roll = (findVar("rockpad_weed_fabric_per_roll") * 100) || 36500
     @rebar_piece = (findVar("rockpad_rebar_piece") * 100) || 100
     @kind = kind.capitalize
+    @fill_type = fill_type
+  end
+  
+  def excavation_labor
+    if square_footage > 200
+      @excavation_labor = square_footage / 2 * 100
+    else
+      @excavation_labor = square_footage * 100
+    end
+    
+    per_inch = @excavation_labor / 12
+    @excavation_labor = per_inch * (@depth * 12)
+    return @excavation_labor if (@kind != "Economy" && @fill_type == "Excavation")
+    return 0
   end
   
   def square_footage
@@ -72,7 +82,8 @@ class RockPadCalculator
   end
   
   def board_rows
-    (@depth * 2) + 1
+    return (@depth * 2) + 1 if @fill_type != "Excavate" && @kind != "Economy"
+    return 1
   end 
 
   def board_quantity_in_feet
@@ -150,7 +161,7 @@ class RockPadCalculator
   end
   
   def total_labor_cost
-    working_labor_cost + driving_labor_cost + truck_cost
+    working_labor_cost + driving_labor_cost + truck_cost + excavation_labor
   end
   
   def total_material_cost

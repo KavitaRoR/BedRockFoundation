@@ -10,8 +10,8 @@
 					<%= render :partial => "day_table", :locals => {:day => day} %>
 				<% end %>
 			</div>
-			<a id="today-marker"></a>
-			<% ((Date.today)..(Date.today + 31.days)).each do |day| %>
+			<div id="today-marker"></div>
+			<% ((Date.today)..(Date.today + 15.days)).each do |day| %>
 				<%= render :partial => "day_table", :locals => {:day => day} %>
 			<% end %>
     </div>
@@ -22,7 +22,6 @@
 
 <%= content_for :js_bottom do %>
 	<%= render :partial => 'persistence' %>
-
 <% end %>
 
 <script type="text/javascript">

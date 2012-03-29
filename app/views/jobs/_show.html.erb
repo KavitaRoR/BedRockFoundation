@@ -131,6 +131,17 @@
 			<td></td>
 		</tr>
 		<tr>
+			<td>Fill type:</td>
+			<td><%= @job.off_level_fill_type %></td>
+			<td>
+				<% if @job.off_level_fill_type == "Excavate" %>
+					<%= money_from_cents @job.pad_job.excavation_labor %>
+				<% else %>
+					&nbsp;
+				<% end %>
+			</td>
+		</tr>
+		<tr>
 			<td>Rows of Boards (on slope)</td>
 			<td><%= (number_with_precision @job.pad_job.board_rows) %> rows</td>
 			<td></td>
@@ -160,7 +171,7 @@
 			<td><%= money_from_cents @job.pad_job.rebar_cost %></td>
 		</tr>
 		<tr class="endsection">
-			<td>Rock</td>
+			<td>Rock (<%= RockPadVariable.find_by_key("rockpad_square_footage_per_ton").value %> sqft/ton @ 6")</td>
 			<td><%= number_with_precision(@job.pad_job.rock_tonage, :precision => 2, :strip_insignification_zeros => true) %> tons</td>
 			<td><%= money_from_cents @job.pad_job.rock_cost %></td>
 		</tr>

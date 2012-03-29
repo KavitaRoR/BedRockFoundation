@@ -1,9 +1,9 @@
 <div id="queued_contracts">
 	<h3>Unscheduled Contracts</h3>
 	<div>
-	<% for contract in @queued_contracts %>
-		<p id="qc-<%= contract.id %>"><%= contract.estimate.job.name %><br />
-			<%= contract.estimate.job.city_state %>
+	<% for con in @queued_contracts %>
+		<p id="qc-<%= con.id %>"><%= "#{con.estimate.job.contact.name} - ##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %><br />
+			<%= con.estimate.job.city_state %>
 		</p>
 	<% end %>
 	</div>
@@ -109,8 +109,6 @@
 			jQuery(this).parent().find(".show_daily_map").show();
 			jQuery(this).hide();
 		});
-
-
 	});
 
 // </script>

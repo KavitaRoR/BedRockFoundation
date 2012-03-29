@@ -17,12 +17,10 @@ class DashboardController < ApplicationController
         end
       end
     end
-    logger.debug("Original size: #{@all_todos.count}")
     @todos = []
     id_group.each do |k, v|
       @todos << Status.find(v)
     end
-    logger.debug("Uniqued Size: #{@todos.count}")
   end
   
   def clear_todo
