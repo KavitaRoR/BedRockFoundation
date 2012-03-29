@@ -1,4 +1,3 @@
-<%#= render :partial => "map_day_jobs" %>
 <div id="<%= day.to_s %>" style="margin: 30px 0">
 	<hr />
 	<h1>
@@ -16,11 +15,13 @@
 				<% con = con.first %>
 				<div style="">
 					<span class="schedule_button_heading" id="con-<%= con.id %>">
-						<b>Rock Pad # <%= con.estimate.job.id rescue "" %></b><br />
+						<b>Rock Pad <%= "##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %></b><br />
 						<%= con.estimate.job.width rescue ""%> x 
 						<%= con.estimate.job.length rescue ""%> 
 						<%= con.estimate.job_type.kind rescue ""%><br />
-						<%= con.estimate.job.contact.name %> <br />
+						<%= con.estimate.job.contact.name %> <br /><br />
+						<%= link_to "View the Estimate", "/jobs/foreman_print_modal/#{con.estimate.job.id}/?type=#{con.estimate.job.job_type.kind.downcase}", :class => "iframe" %>
+						<br />
 					</span>
 					<span><%= con.estimate.job.address_1 %><br />
 						 <%= "<br />" + con.estimate.job.address_2 if !con.estimate.job.address_2.empty? %>
@@ -31,40 +32,6 @@
 			<% end %>
 	</div>
 	<% end %>
-
-
-
-			<% @crews.each do |c| %>
-<!-- 				<div class="crew_map_<%= c.ordering %>">
-					<% jobs = [] %>
-					<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day && co.crew_id == c.id }.each do |z| 
-						jobs << z.estimate.job
-					end %>
-					<div class="map_links">
-						<a href="http://maps.google.com/maps?q=<%= c.lat %>,<%= c.lng %>"
-							rel="<%= c.lat %>,<%= c.lng %>" target="_blank" class="crew_base">
-							Home Base</a><br />
-						<% for job in jobs %>
-						<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
-							rel="<%= job.lat %>,<%= job.lng %>" target="_blank" class="job_site">
-							<%= job.lat %>,<%= job.lng %></a><br />
-						<% end %>
-					</div>
-
-
-				</div> -->
-			<% end %>
-
-				<% jobs = [] %>
-<!-- 				<div class="map_links">
-				<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day }.each do |z| %>
-					<% job = z.estimate.job %>
-					<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
-						rel="<%= job.lat %>,<%= job.lng %>,<%= z.crew.ordering %>" target="_blank" class="job_site">
-						<%= job.lat %>,<%= job.lng %></a><br />
-				<% end %>
-				</div> -->
-
 </div>
 
 

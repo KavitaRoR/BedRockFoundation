@@ -1,6 +1,7 @@
 class Crew < ActiveRecord::Base
   has_many :trucks
   has_many :contracts
+  has_many :users
   
   before_create :geocode_address
   before_save :geocode_address

@@ -29,6 +29,7 @@ class RockPadCalculator
   end
   
   def excavation_labor
+    puts "Fill Type: #{@fill_type}"
     if square_footage > 200
       @excavation_labor = square_footage / 2 * 100
     else
@@ -37,7 +38,10 @@ class RockPadCalculator
     
     per_inch = @excavation_labor / 12
     @excavation_labor = per_inch * (@depth * 12)
-    return @excavation_labor if (@kind != "Economy" && @fill_type == "Excavation")
+    puts "Per Inch: #{per_inch} Depth: #{@depth * 12} Total: #{per_inch * @depth * 12}"
+    puts "REturn 1"
+    return @excavation_labor if @fill_type == "Excavate"
+    puts "Return 2"
     return 0
   end
   
@@ -82,7 +86,7 @@ class RockPadCalculator
   end
   
   def board_rows
-    return (@depth * 2) + 1 if @fill_type != "Excavate" && @kind != "Economy"
+    return (@depth * 2) + 1 if @fill_type != "Excavate"
     return 1
   end 
 

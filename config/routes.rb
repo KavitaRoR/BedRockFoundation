@@ -1,12 +1,6 @@
 Abundant::Application.routes.draw do
-  resources :content_data
+  devise_for :users, :controllers => {:registrations => "users"}
 
-  resources :crews
-
-  resources :shed_companies
-
-  devise_for :users
-  
   match '/contacts/active_contacts' => "contacts#active_contacts"
   match '/contacts/dead_contacts' => "contacts#dead_contacts"
   match '/contacts/contact_active/:id' => "contacts#contact_active"
@@ -16,10 +10,11 @@ Abundant::Application.routes.draw do
   match "/estimates/client_estimate/:token" => "estimates#client_estimate"
   match "/estimates/push_to_sold/:id/:type" => "estimates#push_to_sold"
   match "/estimates/off_level_to_show" => "estimates#off_level_to_show"
-  
+  match "/users/create" => "users#create"
   match "/schedule/(:action)" => "schedule"
-  
-  resources :rock_pad_variables, :next_actions, :pad_jobs, :statuses, :foundations, :pad_sizes, :trucks, :rock_pad_variables, :jobs, :contacts, :campaigns, :locations, :schedule
+  match 'jobs/foreman_print_modal/(:id)' => 'jobs#foreman_print_modal'
+
+  resources :rock_pad_variables, :next_actions, :pad_jobs, :statuses, :foundations, :pad_sizes, :trucks, :rock_pad_variables, :jobs, :contacts, :campaigns, :locations, :schedule, :shed_companies, :crews, :content_data, :crew_dashboard, :users
   
   resources :jobs do
     member do
@@ -27,11 +22,8 @@ Abundant::Application.routes.draw do
       get 'print_modal'
     end
   end
-  root :to => 'dashboard#index'
+  
+  root :to => 'passthrough#index'
 
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
   match ':controller(/:action(/:id))(.:format)'
 end

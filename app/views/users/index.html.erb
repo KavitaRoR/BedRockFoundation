@@ -1,0 +1,23 @@
+<h1>All Users</h1>
+<%= link_to "Create a new User", new_user_registration_path %>
+<br />
+<table>
+	<thead>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Crew</th>
+		<th>Permissions</th>
+		<th>Actions</th>
+	</thead>
+	<tbody>
+		<% @users.each do |u| %>
+			<tr>
+				<td><%= u.name %></td>
+				<td><%= u.email %></td>
+				<td><%= u.crew.crew_name rescue "" %></td>
+				<td><%= u.permissions_levels %></td>
+				<td><%= link_to "Edit", edit_user_path(u) %> | <%= link_to "Delete", user_registration_path(u), :method => :destroy, :confirm => "Are you sure?" %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

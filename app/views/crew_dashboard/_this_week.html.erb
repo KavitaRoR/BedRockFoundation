@@ -1,0 +1,72 @@
+<div id="<%= day.to_s %>">
+	<h2>
+		<%= day.strftime("%A %B %d, %Y") %>
+	</h2>
+	
+	<table class="table_liquid" cellspacing="0">
+		<tr>
+			<td class="crew_<%= @crew.ordering %>">
+				<% (1..@crew.job_max_per_day).each do |it| %>
+					<% con = @contracts.select{|co| (co.scheduled_date.beginning_of_day rescue false) == day.beginning_of_day && co.crew == @crew && co.position_in_day == it } %>
+	
+					<% if con.empty? %>
+						<a id="empty-<%= @crew.id %>-<%= it %>-<%= day.beginning_of_day.to_i %>" class="schedule_button empty" href="#" onclick="return false;">
+							<span class="schedule_button_heading">Empty Slot #<%= it %></span>
+							<span>&nbsp;</span>
+						</a>
+						<br />
+					<% else %>
+						<% con = con.first %>
+						<a class="schedule_button full" href="#" onclick="return false;">
+							<span class="schedule_button_heading" id="con-<%= con.id %>"><%= "#{con.estimate.job.contact.name} - ##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %></span>
+							<span><%= con.estimate.job.width %>' x <%= con.estimate.job.length %>' in <%= con.estimate.job.city_state %>
+							</span>
+						</a>
+						<br />
+					<% end %>
+				<% end %>
+			</td>
+		</tr>
+		<tr class="crew_maps">
+				<td class="crew_map_<%= @crew.ordering %>">
+					<% jobs = [] %>
+					<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day && co.crew_id == @crew.id }.each do |z| 
+						jobs << z.estimate.job
+					end %>
+					<div class="map_links">
+						<a href="http://maps.google.com/maps?q=<%= @crew.lat %>,<%= @crew.lng %>"
+							rel="<%= @crew.lat %>,<%= @crew.lng %>" target="_blank" class="crew_base">
+							Home Base</a><br />
+						<% for job in jobs %>
+						<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
+							rel="<%= job.lat %>,<%= job.lng %>" target="_blank" class="job_site">
+							<%= job.lat %>,<%= job.lng %></a><br />
+						<% end %>
+					</div>
+				</td>
+		</tr>
+		<tr class="daily_map">
+			<td colspan="<%= @crews.count %>">
+				<% jobs = [] %>
+				<div class="map_links">
+				<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day }.each do |z| %>
+					<% job = z.estimate.job %>
+					<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
+						rel="<%= job.lat %>,<%= job.lng %>,<%= z.crew.ordering %>" target="_blank" class="job_site">
+						<%= job.lat %>,<%= job.lng %></a><br />
+				<% end %>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div class="hide_show_links" style="margin-bottom: 50px;">
+	<a href="#" onclick="return false;" class="show_crew_maps">Show Crew Maps</a> 
+	<a href="#" onclick="return false;" class="hide_crew_maps">Hide Crew Maps</a>
+	| 
+	<a href="#" onclick="return false;" class="show_daily_map">Show Daily Map</a>
+	<a href="#" onclick="return false;" class="hide_daily_map">Hide Daily Map</a>
+	</div>
+</div>
+
+
+

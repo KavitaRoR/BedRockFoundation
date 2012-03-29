@@ -1,5 +1,5 @@
 class ScheduleController < ApplicationController
-  
+  layout "foreman", :only => [:consolidated_printable]
   def index
     @crews = Crew.find(:all, :include => [:contracts, {:contracts => [:estimate, {:estimate => :job}]}], :order => "ordering ASC")
     
@@ -61,6 +61,12 @@ class ScheduleController < ApplicationController
     else
       Crew.find(:all, :conditions => ["id = ?", params[:crew]], :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
     end
+    @contracts = Contract.where("scheduled_date > ?", (Time.now - 1.day)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
+  end
+  
+  def consolidated_printable
+    @query_future_date = parse_date_until(params[:until]) || (Date.today + 2.weeks)
+    @crews = Crew.find(:all, :conditions => ["id = ?", current_user.crew_id], :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
     @contracts = Contract.where("scheduled_date > ?", (Time.now - 1.day)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
   end
 

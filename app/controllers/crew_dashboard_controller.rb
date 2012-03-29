@@ -1,0 +1,3 @@
+class CrewDashboardController < ApplicationController
+  
+end

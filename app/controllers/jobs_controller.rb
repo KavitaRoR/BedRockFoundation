@@ -37,6 +37,19 @@ class JobsController < ApplicationController
     render :layout => false
   end
   
+  def foreman_print_modal
+    @job = Job.find(params[:id])
+    @job_type = JobType.where(:kind => params[:type].capitalize).first
+    @estimate = Estimate.find(:last, :conditions => {:job_id => params[:id], :job_type_id => @job_type.id})
+    @options_for_job = @job.options_for_print((params[:type].capitalize rescue "Standard")).with_indifferent_access
+    if !@estimate
+      @estimate = Estimate.create(job_id: params[:id], job_type_id: @job_type.id, flashvars: @options_for_job, token: SecureRandom.hex(16))
+    end
+    @type = params[:type].capitalize
+    
+    render :layout => false
+  end
+  
   def new
     @job = Job.new
   end

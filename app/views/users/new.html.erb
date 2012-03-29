@@ -1,0 +1,39 @@
+<%= form_for @user, :url => "/users/create" do |f| %>
+	<% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<%= f.label :name %><br />
+	<%= f.text_field :name %><br />
+	<%= f.label :email %><br />
+	<%= f.text_field :email %><br />
+	<%= f.label :password %><br />
+	<%= f.password_field :password %><br />
+	<%= f.label :password_confirmation %><br />
+	<%= f.password_field :password_confirmation %>
+	
+	<br />
+	<%= f.label :permissions %><br />
+
+	<% if @user.permissions_levels.to_s.include?("Admin") %>
+		<input type="checkbox" name="permissions_level_admin" value="Admin" checked="checked">Admin</input>
+	<% else %>
+		<input type="checkbox" name="permissions_level_admin" value="Admin">Admin</input>
+	<% end %>
+	<% if @user.permissions_levels.to_s.include?("Crew Foreman") %>
+		<input type="checkbox" name="permissions_level_foreman" value="Crew Foreman" checked="checked">Crew Foreman</input>
+	<% else %>
+		<input type="checkbox" name="permissions_level_foreman" value="Crew Foreman">Crew Foreman</input>
+	<% end %><br />
+	<%= f.label :crew %><br />
+	<%= f.select :crew_id, Crew.all.collect{|c| [c.crew_name, c.id]}, :include_blank => true %>
+	<br />
+	<%= f.submit "Create" %>
+<% end %>

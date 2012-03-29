@@ -10,4 +10,12 @@ class ApplicationController < ActionController::Base
         session[:blackbird] = true
       end
     end
+    
+  def require_admin
+    return true if current_user && current_user.permissions_levels.to_s.include?("Admin")
+  end
+  
+  def require_foreman
+    return true if current_user && current_user.permissions_levels.to_s.include?(["Admin", "Crew Foreman"])
+  end
 end
