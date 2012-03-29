@@ -19,7 +19,7 @@ class DashboardController < ApplicationController
     end
     @todos = []
     id_group.each do |k, v|
-      @todos << Status.find(v)
+      @todos << Status.find(v, :include => [:contact, :job, :next_action, {:contact => :jobs}])
     end
   end
   
