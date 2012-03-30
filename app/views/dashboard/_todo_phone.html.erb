@@ -11,7 +11,7 @@
       </tr>
 	  <% @todos.select{|t| t.next_action_id && t.contact_id && t.next_action.requires_phone_call && t.done != true }.sort{|x,y| x.followup_date <=> y.followup_date }.each do |todo| %>
 	    <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
-	      <th class="spec"><%=h todo.job.contact.name rescue " " %></th>
+	      <th class="spec"><%=h todo.contact.name rescue " " %></th>
         <td><%=h todo.contact.phone rescue "" %></td>
         <td><%=h todo.contact.phone_alt rescue "" %></td>
         <td><%=h todo.referencing rescue "" %></td>
