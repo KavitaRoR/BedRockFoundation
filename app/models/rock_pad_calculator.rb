@@ -38,10 +38,8 @@ class RockPadCalculator
     
     per_inch = @excavation_labor / 12
     @excavation_labor = per_inch * (@depth * 12)
-    puts "Per Inch: #{per_inch} Depth: #{@depth * 12} Total: #{per_inch * @depth * 12}"
-    puts "REturn 1"
+
     return @excavation_labor if @fill_type == "Excavate"
-    puts "Return 2"
     return 0
   end
   
@@ -99,8 +97,20 @@ class RockPadCalculator
   end
   
   def rock_tonage
+    puts "Initial: #{@length}x #{@width}x #{@depth}"
+    rock_depth = @depth / 2
+    rock_depth < 0.5 ? rock_depth = 0.5 : rock_depth
+    
     footage_per_ton = findVar("rockpad_square_footage_per_ton") rescue 36
-    (@length * @width / footage_per_ton)
+    cubic_footage_per_ton = footage_per_ton * 0.5
+    
+    total_cubic_of_pad = @length * @width * rock_depth
+    total_cubic_tonnage = total_cubic_of_pad / cubic_footage_per_ton
+    
+    total_tonnage = (@length * @width / footage_per_ton)
+    puts "Tonnage #1 : #{total_tonnage} : Cubic Tonnage: #{total_cubic_tonnage}"
+    return total_tonnage if @fill_type == "Excavate" || @depth <= 0.5
+    return total_cubic_tonnage
   end
   
   def rock_cost
