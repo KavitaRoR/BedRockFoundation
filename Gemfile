@@ -6,6 +6,7 @@ gem 'devise'
 gem 'mail'
 gem 'gmaps4rails'
 gem 'will_paginate'
+gem 'exception_notification'
 
 group :development do
   gem 'heroku'

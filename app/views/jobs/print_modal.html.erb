@@ -5,6 +5,9 @@
 		#links {
 			display:none;
 		}
+		#off-level {
+			display:none;
+		}
 	}
 </style>
 <div id="estimate" style="width:750px; height:970px;">
@@ -36,7 +39,7 @@
 			<a href="/estimates/push_to_sold/<%= @job.id %>/<%= @type %>" target="_parent">Move to Production Schedule</a>
 		<% end %>
 	</div>
-	<div style="float:right;">
+	<div id="off-level" style="float:right;">
 		<span>Select Off-Level to Show:</span>
 		<%= form_for "offlevel", :url => "/estimates/off_level_to_show" do |f| %>
 			<%= f.hidden_field "selected_vals", :value => @estimate.off_level_to_show %>
