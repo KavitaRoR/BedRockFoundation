@@ -47,9 +47,11 @@
 							rel="<%= c.lat %>,<%= c.lng %>" target="_blank" class="crew_base">
 							Home Base</a><br />
 						<% for job in jobs %>
+						<% unless job.nil? %>
 						<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
 							rel="<%= job.lat %>,<%= job.lng %>" target="_blank" class="job_site">
 							<%= job.lat %>,<%= job.lng %></a><br />
+						<% end %>
 						<% end %>
 					</div>
 
