@@ -3,7 +3,7 @@
     <div class="content_block">
 		<div id="filter_links">
     	<a href="/schedule/?until=-4.w">previous 4 weeks</a> | 
-    	<a href="/schedule/">0 - 3 weeks out</a> | 
+    	<a href="/schedule/" style="color: #f90; font-weight: bold;">TODAY + 4 weeks</a> | 
     	<a href="/schedule/?until=4.w">4 - 7 weeks out</a> | 
     	<a href="/schedule/?until=8.w">8 - 11 weeks out</a> | 
     	<a href="/schedule/?until=12.w">12 - 15 weeks out</a> | 
@@ -17,6 +17,9 @@
 			<% ((@query_start_date)..(@query_start_date + 4.weeks)).each do |day| %>
 				<%= render :partial => "day_table", :locals => {:day => day} %>
 			<% end %>
+		<% u = params[:until].split(".").first.to_i rescue 0 %>
+		<div style="font-size: 2em; margin-bottom: 40px;"><a href="/schedule/?until=<%= u + 4 %>.w">Show me the next 4 weeks &raquo;</a>  </div>
+	    
     </div>
 </div>
 
