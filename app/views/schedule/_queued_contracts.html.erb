@@ -1,8 +1,9 @@
 <div id="queued_contracts">
-	<h3>Unscheduled Contracts</h3>
+	<a href="#">hide/show</a>
+	<h3>Unscheduled Contracts </h3>
 	<div>
 	<% for con in @queued_contracts %>
-		<p id="qc-<%= con.id %>"><%= "#{con.estimate.job.contact.name} - ##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %><br />
+		<p id="qc-<%= con.id %>" class="queued_cons"><%= "#{con.estimate.job.contact.name} - ##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %><br />
 			<%= con.estimate.job.city_state %>
 		</p>
 	<% end %>
@@ -81,6 +82,12 @@
 <script type="text/javascript" charset="utf-8">
 
 	jQuery(function() {
+		
+		jQuery("#queued_contracts a").click(function() {
+			jQuery(".queued_cons").toggle();
+			jQuery("#queued_contracts h3").toggle();
+		});
+		
 		jQuery(".crew_maps").hide();
 		jQuery(".daily_map").hide();
 		jQuery(".hide_crew_maps").hide();
