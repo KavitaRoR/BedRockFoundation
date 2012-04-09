@@ -1,17 +1,20 @@
 <div class="jquery_tab">
 
     <div class="content_block">
-			<div style="float:right;">
-				<input type="button" id="show-previous-button" value="Show Previous Schedule" />
-				<input type="button" id="hide-previous-button" value="Hide Previous Schedule" style="display:none;" />
-			</div>
-			<div class="previous-calendar" style="display:none;">
-				<% ((Date.today - 15.days)..(Date.today)).each do |day| %>
-					<%= render :partial => "day_table", :locals => {:day => day} %>
-				<% end %>
-			</div>
+		<div id="filter_links">
+    	<a href="/schedule/?until=-4.w">previous 4 weeks</a> | 
+    	<a href="/schedule/">0 - 3 weeks out</a> | 
+    	<a href="/schedule/?until=4.w">4 - 7 weeks out</a> | 
+    	<a href="/schedule/?until=8.w">8 - 11 weeks out</a> | 
+    	<a href="/schedule/?until=12.w">12 - 15 weeks out</a> | 
+    	<a href="/schedule/?until=16.w">16 - 19 weeks out</a> |
+    	<a href="/schedule/?until=20.w">20 - 23 weeks out</a> |
+    	<a href="/schedule/?until=24.w">24 - 27 weeks out</a>  
+    	</div>
+	
+
 			<div id="today-marker"></div>
-			<% ((Date.today)..(Date.today + 15.days)).each do |day| %>
+			<% ((@query_start_date)..(@query_start_date + 4.weeks)).each do |day| %>
 				<%= render :partial => "day_table", :locals => {:day => day} %>
 			<% end %>
     </div>
