@@ -1,6 +1,8 @@
 class ScheduleController < ApplicationController
   layout "foreman", :only => [:consolidated_printable]
   def index
+    @query_start_date = parse_date_until(params[:until])
+    
     @crews = Crew.find(:all, :include => [:contracts, {:contracts => [:estimate, {:estimate => :job}]}], :order => "ordering ASC")
     
     @contracts = Contract.where("scheduled_date > ?", (Time.now - 16.days)).includes(:estimate, :crew, {:estimate => [:job, {:job => :estimates, :job => :location, :job => :contact}] }).order("scheduled_date ASC")
@@ -65,14 +67,14 @@ class ScheduleController < ApplicationController
   end
   
   def consolidated_printable
-    @query_future_date = parse_date_until(params[:until]) || (Date.today + 2.weeks)
+    @query_future_date = parse_date_until(params[:until],(Date.today + 2.weeks))
     @crews = Crew.find(:all, :conditions => ["id = ?", current_user.crew_id], :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
     @contracts = Contract.where("scheduled_date > ?", (Time.now - 1.day)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
   end
 
 
-  def parse_date_until(string_date)
-    return false if string_date.nil?
+  def parse_date_until(string_date, default_date = Date.today)
+    return (default_date) if string_date.nil?
     qty = string_date.split(".").first.to_i
     span = string_date.split(".").last
     days = case span
