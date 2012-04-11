@@ -3,7 +3,8 @@ class RockPadCalculator
   
   def findVar(key)
     # return RockPadVariable.find_by_key(key).value
-    return @vars.select{|v| v.key == key}.first.value
+    @vars = RockPadVariable.all if @vars.nil?
+    return @vars.select{|v| v.key == key}.first.value rescue 0
   end
   
   def initialize(dist=30, w=0, l=0, kind="Standard", sixbysix=false, d=0.5, fill_type="Build-Up")
