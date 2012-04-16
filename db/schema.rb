@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120329203432) do
+ActiveRecord::Schema.define(:version => 20120416145652) do
+
+  create_table "arrival_ranges", :force => true do |t|
+    t.string   "early"
+    t.string   "late"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "position"
+  end
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -63,8 +71,9 @@ ActiveRecord::Schema.define(:version => 20120329203432) do
     t.integer  "crew_id"
     t.datetime "scheduled_date"
     t.integer  "position_in_day"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "arrival_range_id"
   end
 
   create_table "crews", :force => true do |t|
