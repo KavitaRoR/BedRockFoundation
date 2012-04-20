@@ -44,6 +44,18 @@ class ScheduleController < ApplicationController
     end
   end
   
+  def remove_from_schedule_entirely
+    contract = Contract.find(params[:id])
+    if contract
+      estimate = contract.estimate
+      estimate.update_attribute(:sold, 0)
+      contract.destroy
+      render :text => true
+    else
+      render :text => false
+    end
+  end
+  
   def redirect_to_contact
     contract = Contract.find(params[:id])
     if contract && contract.estimate.job.contact

@@ -56,7 +56,6 @@
 							var day = strArr[3];
 							var conId = $(this).val();
 							var arrival = $(this).parent().find('.arrival-select').val();
-							// alert($(this).parent().parent())
 
 							if (crewId != "" && conPos != "" && day != "") {
 								$.post("/schedule/persist_assignment", {
@@ -89,6 +88,15 @@
 				var the_clicked = $(spec);
 				$(".schedule_button.delete").click(function(){
 					$.post("/schedule/remove_assignment", { id: conId }, function(data) {
+						$.modal.close();
+						the_clicked.removeClass("full").addClass("empty")
+						the_clicked.find("span").html(" ");
+						the_clicked.find("span:first").html("Empty Slot");
+					})
+				});
+				
+				$(".schedule_button.trash").click(function() {
+					$.post("/schedule/remove_from_schedule_entirely", { id: conId }, function(data) {
 						$.modal.close();
 						the_clicked.removeClass("full").addClass("empty")
 						the_clicked.find("span").html(" ");
