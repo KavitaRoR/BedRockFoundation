@@ -21,7 +21,7 @@ class ScheduleController < ApplicationController
     
     if contract
       # if Contract.find(:all, :conditions => { crew_id: params[:crew_id], position_in_day})
-      if contract.update_attributes({ crew_id: params[:crew_id], position_in_day: params[:position], scheduled_date: Time.at(params[:day].to_i) })
+      if contract.update_attributes({ crew_id: params[:crew_id], arrival_range_id: params[:arrival_id], position_in_day: params[:position], scheduled_date: Time.at(params[:day].to_i) })
         render :json => { conId: contract.id, conName: contract.name, location: contract.location, size: "#{contract.estimate.job.width}' x #{contract.estimate.job.length}'" }
       else
         render :text => false

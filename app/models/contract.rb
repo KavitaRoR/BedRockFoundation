@@ -2,6 +2,7 @@ class Contract < ActiveRecord::Base
   belongs_to :estimate
   # belongs_to :schedule_day
   belongs_to :crew
+  belongs_to :arrival_range
   
   # before_create :check_schedule
   

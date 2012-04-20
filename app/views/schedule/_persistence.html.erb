@@ -16,6 +16,14 @@
 	</a>    	  
 </div>
 
+<div id="hidden_arrival_ranges" style="display:none;">
+	<select class='arrival-select' name="arrival_range_id">
+		<option value=''>Arrival Time</option>
+		<% for ar in ArrivalRange.find(:all, :order => "position ASC") %>
+			<option value='<%= ar.id %>'><%= ar.early %> to <%= ar.late %></option>
+		<% end %>
+	</select>
+</div>
 
 
 <script type="text/javascript">
@@ -37,6 +45,7 @@
 					
 					myHtml += "</select>";
 					if ($($(ele).children('span')[1]).children('select').length == 0) {
+						$($(ele).children('span')[1]).append($('#hidden_arrival_ranges').html());
 						$($(ele).children('span')[1]).append(myHtml);
 						
 						$(".con-select").change(function() {
@@ -46,13 +55,16 @@
 							var conPos = strArr[2];
 							var day = strArr[3];
 							var conId = $(this).val();
+							var arrival = $(this).parent().find('.arrival-select').val();
+							// alert($(this).parent().parent())
 
 							if (crewId != "" && conPos != "" && day != "") {
 								$.post("/schedule/persist_assignment", {
 									crew_id: crewId,
 									position: conPos,
 									day: day,
-									contract_id: conId
+									contract_id: conId,
+									arrival_id: arrival
 								}, function(data) {
 									if (data != "false") {
 										$(ele2).parent().parent().removeClass("editing").addClass("full");
@@ -79,7 +91,8 @@
 					$.post("/schedule/remove_assignment", { id: conId }, function(data) {
 						$.modal.close();
 						the_clicked.removeClass("full").addClass("empty")
-						the_clicked.find("span").html("Empty");
+						the_clicked.find("span").html(" ");
+						the_clicked.find("span:first").html("Empty Slot");
 					})
 				});
 				

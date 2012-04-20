@@ -1,0 +1,29 @@
+<%= form_for(@arrival_range) do |f| %>
+  <% if @arrival_range.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@arrival_range.errors.count, "error") %> prohibited this arrival_range from being saved:</h2>
+
+      <ul>
+      <% @arrival_range.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :early, "Early Time (like '7am')" %><br />
+    <%= f.text_field :early %>
+  </div>
+  <div class="field">
+    <%= f.label :late, "Late Time (like '9am')" %><br />
+    <%= f.text_field :late %>
+  </div>
+  <div class="field">
+    <%= f.label :position, "What order in the list does this show up in?" %><br />
+    <%= f.text_field :position %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

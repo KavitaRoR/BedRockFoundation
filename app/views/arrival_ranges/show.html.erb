@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Early:</b>
+  <%= @arrival_range.early %>
+</p>
+
+<p>
+  <b>Late:</b>
+  <%= @arrival_range.late %>
+</p>
+
+
+<%= link_to 'Edit', edit_arrival_range_path(@arrival_range) %> |
+<%= link_to 'Back', arrival_ranges_path %>

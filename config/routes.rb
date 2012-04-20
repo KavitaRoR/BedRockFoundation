@@ -1,4 +1,6 @@
 Abundant::Application.routes.draw do
+  resources :arrival_ranges
+
   devise_for :users, :controllers => {:registrations => "users"}
 
   match '/contacts/active_contacts' => "contacts#active_contacts"

@@ -1,0 +1,27 @@
+<h1>Listing arrival_ranges</h1>
+
+<table>
+  <tr>
+    <th>Early</th>
+    <th>Late</th>
+    <th>Order</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @arrival_ranges.each do |arrival_range| %>
+  <tr>
+    <td><%= arrival_range.early %></td>
+    <td><%= arrival_range.late %></td>
+    <td><%= arrival_range.position %></td>
+    <td><%= link_to 'Show', arrival_range %></td>
+    <td><%= link_to 'Edit', edit_arrival_range_path(arrival_range) %></td>
+    <td><%= link_to 'Destroy', arrival_range, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Arrival range', new_arrival_range_path %>
