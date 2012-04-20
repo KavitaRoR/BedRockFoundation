@@ -15,7 +15,6 @@
     	<a href="/schedule/printable?until=3.w&<%= crew_string %>">3 weeks</a> | 
     	<a href="/schedule/printable?until=4.w&<%= crew_string %>">4 weeks</a>  
     	</div>
-		<!-- <h2 class="jquery_tab_title">Current Schedule</h2> -->
 		<% last_day = @contracts.last.scheduled_date rescue Date.today + 5.day %>
 
 		<% ((Date.today)..(@query_future_date)).each do |day| %>

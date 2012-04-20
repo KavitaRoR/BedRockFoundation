@@ -3,10 +3,10 @@
 		<h2 class="jquery_tab_title">Name: <%= @contact.name %></h2><span style="float:right;"><%= link_to "Edit Contact Info", edit_contact_url(@contact) %></span>
 		<p>
 			<b>Status: </b><%=h @contact.status.status_name %><br />
-		  <b>Company: </b> <%= @contact.company + "<br />" if !@contact.company.blank? %><br />
+		  <b>Company: </b> <%= @contact.company if !@contact.company.blank? %><br />
 			<b>Full Name: </b> <%=h @contact.first_name %> <%=h @contact.last_name %><br />
-			<b>Email: </b><%=h @contact.email rescue ""%><br />
-			<b>Address: </b> <%= @contact.address_1 + (!@contact.address_2.blank? ? ("<br />" + @contact.address_2) : "") %> <%=h @contact.city %>, <%=h @contact.province %> <%=h @contact.zip %><br />
+			<b>Email: </b><%=h @contact.email rescue "" %><br />
+			<b>Address: </b> <%= @contact.address_1 + (!@contact.address_2.blank? ? ( @contact.address_2) : "") %> <%=h @contact.city %>, <%=h @contact.province %> <%=h @contact.zip %><br />
 			<b>Phone Number: </b> <%=h @contact.phone %><br />
 			<b>Alternate Number: </b> <%=h @contact.phone_alt %><br />
 		  <b>Campaign:</b> <%= link_to(@contact.campaign.name, @contact.campaign) rescue "Other" %><br />

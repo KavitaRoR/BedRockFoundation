@@ -2,11 +2,8 @@ class ScheduleController < ApplicationController
   layout "foreman", :only => [:consolidated_printable]
   def index
     @query_start_date = parse_date_until(params[:until])
-    
     @crews = Crew.find(:all, :include => [:contracts, {:contracts => [:estimate, {:estimate => :job}]}], :order => "ordering ASC")
-    
     @contracts = Contract.where("scheduled_date > ?", (Time.now - 16.days)).includes(:estimate, :crew, {:estimate => [:job, {:job => :estimates, :job => :location, :job => :contact}] }).order("scheduled_date ASC")
-    
     @queued_contracts = Contract.where(:scheduled_date => nil).includes(:estimate, :crew, {:estimate => [:job, {:job => :contact, :job => :estimates, :job => :location}] }).sort{|x,y| x.estimate.invoice_number <=> y.estimate.invoice_number}
   end
   

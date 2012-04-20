@@ -48,6 +48,17 @@
 			<strong><%= "#{money_from_cents(@job.specific_offlevel(@type)[:zero][0])}" %></strong>
 		</td>
 	</tr>
+	<% if @job.has_erosion_control_lft? %>
+		<tr>
+			<td colspan=3>
+				<%= "With #{@job.erosion_control_lft rescue 0}\" of Erosion Control Wire" %>
+			</td>
+			<td colspan=1 style="text-align: right;">
+				+<%= "#{money_from_cents(@job.pad_job.erosion_control_cost) }" %>
+			</td>
+		</tr>
+	<% end %>
+	
 	<% if @job.off_level_amount_in_inches %>
 		<tr>
 			<td colspan=3>

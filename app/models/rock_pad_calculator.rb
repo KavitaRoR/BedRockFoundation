@@ -7,11 +7,12 @@ class RockPadCalculator
     return @vars.select{|v| v.key == key}.first.value rescue 0
   end
   
-  def initialize(dist=30, w=0, l=0, kind="Standard", sixbysix=false, d=0.5, fill_type="Build-Up")
+  def initialize(dist=30, w=0, l=0, kind="Standard", sixbysix=false, d=0.5, fill_type="Build-Up", ec_lft=0)
     @vars = RockPadVariable.all
     @length = l
     @width = w
     @depth = d
+    @ec_lft = ec_lft
     @distance = dist
     @laborers = (findVar("rockpad_laborers") || 2)
     @laborer_rate = (findVar("rockpad_laborer_rate") * 100) || 2000
@@ -25,12 +26,12 @@ class RockPadCalculator
     @trex_price_per_foot = (findVar("rockpad_trex_price_per_foot") * 100) || 500
     @weed_fabric_per_roll = (findVar("rockpad_weed_fabric_per_roll") * 100) || 36500
     @rebar_piece = (findVar("rockpad_rebar_piece") * 100) || 100
+    @erosion_control_per_lft = (findVar("rockpad_erosion_control_wire_price")) || 2.50
     @kind = kind.capitalize
     @fill_type = fill_type
   end
   
   def excavation_labor
-    puts "Fill Type: #{@fill_type}"
     if square_footage > 200
       @excavation_labor = square_footage / 2 * 100
     else
@@ -42,6 +43,15 @@ class RockPadCalculator
 
     return @excavation_labor if @fill_type == "Excavate"
     return 0
+  end
+  
+  def erosion_control_cost
+    if @ec_lft != nil
+      cost = ((@erosion_control_per_lft.to_f * 100) * @ec_lft).to_f 
+    else 
+      cost = 0
+    end
+    return cost
   end
   
   def square_footage
@@ -98,7 +108,6 @@ class RockPadCalculator
   end
   
   def rock_tonage
-    puts "Initial: #{@length}x #{@width}x #{@depth}"
     rock_depth = @depth / 2
     rock_depth < 0.5 ? rock_depth = 0.5 : rock_depth
     
@@ -109,7 +118,6 @@ class RockPadCalculator
     total_cubic_tonnage = total_cubic_of_pad / cubic_footage_per_ton
     
     total_tonnage = (@length * @width / footage_per_ton)
-    puts "Tonnage #1 : #{total_tonnage} : Cubic Tonnage: #{total_cubic_tonnage}"
     return total_tonnage if @fill_type == "Excavate" || @depth <= 0.5
     return total_cubic_tonnage
   end
@@ -181,9 +189,9 @@ class RockPadCalculator
   
   def total_material_cost
     case @kind
-      when "Standard" then weed_fabric_cost + board_cost + rock_cost + rebar_cost
-      when "Economy" then rock_cost
-      when "Elite" then weed_fabric_cost + board_cost + rock_cost + rebar_cost + trex_additional_cost
+      when "Standard" then weed_fabric_cost + board_cost + rock_cost + rebar_cost + erosion_control_cost
+      when "Economy" then rock_cost + erosion_control_cost
+      when "Elite" then weed_fabric_cost + board_cost + rock_cost + rebar_cost + trex_additional_cost + erosion_control_cost
     end
   end
   
@@ -192,18 +200,12 @@ class RockPadCalculator
   end
   
   def total_labor_price
-    # puts "labor_cost_markup:" 
-    # puts findVar("labor_cost_markup")
     markup_percentage = (findVar("rockpad_labor_cost_markup")+100).to_f / 100 rescue 1.25
-    # puts("markup_percentage = #{markup_percentage}")
     total_labor_cost * markup_percentage
   end
   
   def total_material_price
-    # puts "material_cost_markup"
-    # puts findVar("material_cost_markup")
     markup_percentage = (findVar("rockpad_material_cost_markup")+100).to_f / 100 || 1.15
-    # puts("markup_percentage = #{markup_percentage}")
     total_material_cost * markup_percentage
   end
   
@@ -216,6 +218,7 @@ class RockPadCalculator
   end
   
   def total_price
+    puts "Total Price : #{total_labor_cost} * #{(findVar("rockpad_labor_cost_markup")+100) / 100} + #{total_material_cost} * #{(findVar("rockpad_material_cost_markup")+100) / 100}"
     (total_labor_cost * (findVar("rockpad_labor_cost_markup")+100) / 100 || 1.25) + (total_material_cost * (findVar("rockpad_material_cost_markup")+100) / 100 || 1.15)
   end
   
@@ -228,8 +231,3 @@ class RockPadCalculator
   end
   
 end
-
-# puts RockPadCalculator.new(3444, 14, 14).their_price
-
-
-

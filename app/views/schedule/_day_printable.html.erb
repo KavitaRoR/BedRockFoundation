@@ -7,28 +7,29 @@
 	<% @crews.each do |c| %>
 	<div class="crew_<%= c.ordering %>" style="margin: 30px 0;">
 		<%=raw "<h2>" + c.crew_name + "</h2>" if @crews.length > 1 %>
-			<% con = @contracts.select{|co| (co.scheduled_date.beginning_of_day rescue false) == day.beginning_of_day && co.crew == c } %>
+			<% crew_cons = @contracts.select{|co| (co.scheduled_date.beginning_of_day rescue false) == day.beginning_of_day && co.crew_id == c.id } %>
 
-			<% if con.empty? %>
+			<% if crew_cons.empty? %>
 
 			<% else %>
-				<% con = con.first %>
-				<div style="">
-					<span class="schedule_button_heading" id="con-<%= con.id %>">
-						<b>Rock Pad <%= "##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %></b><br />
-						<%= con.estimate.job.width rescue ""%> x 
-						<%= con.estimate.job.length rescue ""%> 
-						<%= con.estimate.job_type.kind rescue ""%><br />
-						<%= con.estimate.job.contact.name %> <br /><br />
-						<%= link_to "View the Estimate", "/jobs/foreman_print_modal/#{con.estimate.job.id}/?type=#{con.estimate.job.job_type.kind.downcase}", :class => "iframe" %>
-						<br />
-					</span>
-					<span><%= con.estimate.job.address_1 %><br />
-						 <%= "<br />" + con.estimate.job.address_2 if !con.estimate.job.address_2.empty? %>
-					</span>
-					<span><%= con.estimate.job.city %>, <%= con.estimate.job.province %> <%= con.estimate.job.zip %></span>
-				</div>
-				<br />
+				<% crew_cons.each do |con| %>
+					<div style="">
+						<span class="schedule_button_heading" id="con-<%= con.id %>">
+							<b>Rock Pad <%= "##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %></b><br />
+							<%= con.estimate.job.width rescue ""%> x 
+							<%= con.estimate.job.length rescue ""%> 
+							<%= con.estimate.job_type.kind rescue ""%><br />
+							<%= con.estimate.job.contact.name %> <br /><br />
+							<%= link_to "View the Estimate", "/jobs/foreman_print_modal/#{con.estimate.job.id}/?type=#{con.estimate.job.job_type.kind.downcase}", :class => "iframe" %>
+							<br />
+						</span>
+						<span><%= con.estimate.job.address_1 %><br />
+							 <%= "<br />" + con.estimate.job.address_2 if !con.estimate.job.address_2.empty? %>
+						</span>
+						<span><%= con.estimate.job.city %>, <%= con.estimate.job.province %> <%= con.estimate.job.zip %></span>
+					</div>
+					<br />
+				<% end %>
 			<% end %>
 	</div>
 	<% end %>

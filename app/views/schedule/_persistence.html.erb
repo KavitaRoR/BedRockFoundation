@@ -3,13 +3,17 @@
 <div id="full_slot" class="contextMenu" style="display: none;">
 	<h2></h2>
 	<a class="schedule_button delete" href="#" onclick="return false;">
-		<span class="schedule_button_heading">Remove from the Schedule</span>
+		<span class="schedule_button_heading">Un-Schedule from this day </span>
 		<span>&nbsp;</span>
 	</a>      
 	<a class="schedule_button view" href="#" onclick="return false;">
 		<span class="schedule_button_heading">View this Contract</span>
 		<span>&nbsp;</span>
-	</a>      	  
+	</a>  
+	<a class="schedule_button trash" href="#" onclick="return false;">
+		<span class="schedule_button_heading">Remove from Schedule entirely</span>
+		<span>&nbsp;</span>
+	</a>    	  
 </div>
 
 
@@ -21,7 +25,6 @@
 		});
 		
 		function doClicky(spec) {
-			console.log($(spec))
 			if ($(spec).hasClass("empty")) {
 				var ele = $(spec);
 				$(ele).removeClass("empty").addClass("editing");

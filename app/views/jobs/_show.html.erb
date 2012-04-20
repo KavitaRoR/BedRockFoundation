@@ -200,6 +200,11 @@
 			<td><%= number_with_precision @job.pad_job.board_quantity_in_feet %> ft</td>
 			<td><%= money_from_cents @job.pad_job.board_cost %></td>
 		</tr>
+		<tr>
+			<td>Erosion Control</td>
+			<td><%= @job.erosion_control_lft %> lft</td>
+			<td><%= money_from_cents @job.pad_job.erosion_control_cost %></td>
+		</tr>
 	
 		<% if @job.job_type.kind == "Elite" %>
 		<tr>

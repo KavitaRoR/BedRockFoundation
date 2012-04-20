@@ -32,8 +32,9 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    
-    if @user.update_attributes(params[:user])
+    logger.debug("In update")
+    begin
+      @user.update_attributes(params[:user])
       permissions = []
       if params[:permissions_level_admin]
         permissions << "Admin"
@@ -41,9 +42,11 @@ class UsersController < ApplicationController
       if params[:permissions_level_foreman]
         permissions << "Crew Foreman"
       end
+      logger.debug("PERMISSIONS : #{permissions.join(",")}")
       @user.update_attribute(:permissions_levels, permissions.join(","))
       redirect_to :action => :index
-    else
+    rescue Exception => e
+      logger.debug("Something Failed : #{e.message}")
       redirect_to :back
     end
   end
