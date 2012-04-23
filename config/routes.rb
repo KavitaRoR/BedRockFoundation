@@ -1,4 +1,6 @@
 Abundant::Application.routes.draw do
+  resources :day_crew_blocks
+
   resources :arrival_ranges
 
   devise_for :users, :controllers => {:registrations => "users"}

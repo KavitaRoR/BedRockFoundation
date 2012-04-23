@@ -1,0 +1,33 @@
+<%= form_for(@day_crew_block) do |f| %>
+  <% if @day_crew_block.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@day_crew_block.errors.count, "error") %> prohibited this day_crew_block from being saved:</h2>
+
+      <ul>
+      <% @day_crew_block.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :crew_id %><br />
+    <%= f.number_field :crew_id %>
+  </div>
+  <div class="field">
+    <%= f.label :reason %><br />
+    <%= f.text_field :reason %>
+  </div>
+  <div class="field">
+    <%= f.label :day %><br />
+    <%= f.datetime_select :day %>
+  </div>
+  <div class="field">
+    <%= f.label :contract_id %><br />
+    <%= f.number_field :contract_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

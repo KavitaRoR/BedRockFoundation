@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  crew_id: 1
+  reason: MyString
+  day: 2012-04-23 03:13:19
+  contract_id: 1
+
+two:
+  crew_id: 1
+  reason: MyString
+  day: 2012-04-23 03:13:19
+  contract_id: 1

@@ -908,3 +908,62 @@ display: block;
 #full_slot h2 {
 	color: #111;
 }
+
+th.crew_name b {
+	float:left;
+}
+
+div.daycrewblock form { 
+	clear: both;
+	background: #fff;
+	border: 1px solid #888;
+	color: #222;
+	padding: 5px 10px;
+	text-align: center;
+	
+}
+div.daycrewblock form input { 
+	margin: 10px 0;
+	font-size: 17px;
+	width: 10em;
+	text-align: center;
+}
+div.daycrewblock form input[type="checkbox"]{
+	width: auto;
+}
+
+div.daycrewblock b { 
+	float: right;
+}
+
+
+.crew_block_button{
+	float:left;
+	width:88%;
+	/*height:80px;*/
+	overflow:hidden;
+	border:1px solid #ff9922;
+	padding:8px;
+	margin:0 10px 10px 0;
+	background:#ffeebb url(<%= asset_path 'highlight_line.gif' %>) repeat-x top left;
+	font-size:11px;
+	line-height:1.4em;
+	text-decoration:none;
+	color:#a1a1a1;
+	}
+	
+.crew_block_button span{
+	display:block;
+	padding-top:7px;
+	text-align: center;
+	}
+	
+.daycrewblock form {
+	display: none;
+}
+
+div.destroy {
+	display:none;
+	clear: both;
+	margin-bottom: 2em;
+}

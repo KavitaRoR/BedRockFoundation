@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Crew:</b>
+  <%= @day_crew_block.crew_id %>
+</p>
+
+<p>
+  <b>Reason:</b>
+  <%= @day_crew_block.reason %>
+</p>
+
+<p>
+  <b>Day:</b>
+  <%= @day_crew_block.day %>
+</p>
+
+<p>
+  <b>Contract:</b>
+  <%= @day_crew_block.contract_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_day_crew_block_path(@day_crew_block) %> |
+<%= link_to 'Back', day_crew_blocks_path %>

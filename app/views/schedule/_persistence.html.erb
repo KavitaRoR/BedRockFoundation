@@ -31,6 +31,12 @@
 		$(".schedule_button").click(function() {
 			doClicky(this)
 		});
+		$("a.crew_block_button").click(function() {
+			$(this).parent().find("div.destroy").slideToggle();
+		});
+		$(".note_toggle").click(function() {
+			$(this).parent().find("form").slideToggle();
+		});
 		
 		function doClicky(spec) {
 			if ($(spec).hasClass("empty")) {

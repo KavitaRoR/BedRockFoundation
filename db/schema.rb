@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120420191443) do
+ActiveRecord::Schema.define(:version => 20120423075843) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -87,6 +87,16 @@ ActiveRecord::Schema.define(:version => 20120420191443) do
     t.datetime "updated_at",                       :null => false
     t.integer  "job_max_per_day",   :default => 3
     t.integer  "ordering",          :default => 1
+  end
+
+  create_table "day_crew_blocks", :force => true do |t|
+    t.integer  "crew_id"
+    t.string   "reason"
+    t.datetime "day"
+    t.integer  "contract_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.boolean  "block_off"
   end
 
   create_table "estimates", :force => true do |t|

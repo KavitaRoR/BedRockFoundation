@@ -1,0 +1,29 @@
+<h1>Listing day_crew_blocks</h1>
+
+<table>
+  <tr>
+    <th>Crew</th>
+    <th>Reason</th>
+    <th>Day</th>
+    <th>Contract</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @day_crew_blocks.each do |day_crew_block| %>
+  <tr>
+    <td><%= day_crew_block.crew_id %></td>
+    <td><%= day_crew_block.reason %></td>
+    <td><%= day_crew_block.day %></td>
+    <td><%= day_crew_block.contract_id %></td>
+    <td><%= link_to 'Show', day_crew_block %></td>
+    <td><%= link_to 'Edit', edit_day_crew_block_path(day_crew_block) %></td>
+    <td><%= link_to 'Destroy', day_crew_block, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Day crew block', new_day_crew_block_path %>
