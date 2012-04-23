@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120423075843) do
+ActiveRecord::Schema.define(:version => 20120423203717) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -168,6 +168,7 @@ ActiveRecord::Schema.define(:version => 20120423075843) do
     t.integer  "job_type_id",                                               :default => 1
     t.string   "off_level_fill_type",                                       :default => "Build-Up"
     t.integer  "erosion_control_lft"
+    t.string   "trex_color"
   end
 
   create_table "locations", :force => true do |t|

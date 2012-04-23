@@ -38,6 +38,9 @@
 	<dd><%= f.text_field :timber_wall, :class => "string" %></dd>
 	<dt><%= f.label :job_type_id, "Job Type" %></dt>
   <dd><%= f.select :job_type_id, JobType.all.collect{|j| [j.kind, j.id] } %></dd>
+	<dt><%= f.label :trex_color %></dt>
+	<dd><%= f.select :trex_color, [["Grey", "Grey"], ["Brown", "Brown"], ["Red", "Red"]] %></dd>
+
 	<dt class="off_level_fill_type"><%= f.label :off_level_fill_type %> (Leave blank if not needed)</dt>
 	<dd class="off_level_fill_type"><%= f.select :off_level_fill_type, [["Excavate","Excavate"], ["Build-Up","Build-Up"]], :include_blank => true, :default => @job.off_level_fill_type %></dd>
   <dt><%= f.label :additional_price %></dt>
