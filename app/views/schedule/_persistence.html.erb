@@ -102,7 +102,9 @@
 				$("#full_slot").modal({
 					opacity:60,
 					overlayCss: {backgroundColor:"#fff"},
-					minWidth: '400px'
+					minWidth: '400px',
+					close: true,
+					overlayClose: true
 				});
 				
 				$.getJSON("/schedule/get_contract_details", { id: conId }, function(result) {
