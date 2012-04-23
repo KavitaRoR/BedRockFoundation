@@ -767,55 +767,47 @@ div.status_update h3 span {
 	font-size: 0.7em;
 }
 
-
-
-
-
-				.schedule_button{
-					float:left;
-					width:88%;
-					/*height:80px;*/
-					overflow:hidden;
-					border:1px solid #c0c0c0;
-					padding:8px;
-					margin:0 10px 10px 0;
-					background:#eaeaea url(<%= asset_path 'highlight_line.gif' %>) repeat-x top left;
-					font-size:11px;
-					line-height:1.4em;
-					text-decoration:none;
-					color:#a1a1a1;
-					}
+/* Schedule Stuff */
+.schedule_button{
+	float:left;
+	width:88%;
+	overflow:hidden;
+	border:1px solid #c0c0c0;
+	padding:8px;
+	margin:0 10px 10px 0;
+	background:#eaeaea url(<%= asset_path 'highlight_line.gif' %>) repeat-x top left;
+	font-size:11px;
+	line-height:1.4em;
+	text-decoration:none;
+	color:#a1a1a1;
+}
 					
-				.schedule_button span{
-					display:block;
-					padding-top:7px;
-					text-align: center;
-					}
+.schedule_button span{
+	display:block;
+	padding-top:7px;
+	text-align: center;
+}
 				
-				#top .schedule_button_heading{
-					display:block;
-					color:#4a4a4a;
-					font-size:14px;
-					padding:0 0 0 0px;
-					line-height:16px;
-					/*height:35px;*/
-					}
+#top .schedule_button_heading{
+	display:block;
+	color:#4a4a4a;
+	font-size:14px;
+	padding:0 0 0 0px;
+	line-height:16px;
+}
 					
-				#top .two_lines.schedule_button_heading{
-					line-height:15px;
-					}
-					
-					
-				.schedule_button:hover{
-					background:#ddd;
-					border:1px solid #aaa;
-					/*padding-top:9px;*/
-					/*height:79px;*/
-				}
-				
-				#top .schedule_button:hover .schedule_button_heading{
-					color:#222;
-				}
+#top .two_lines.schedule_button_heading{
+	line-height:15px;
+}
+	
+.schedule_button:hover{
+	background:#ddd;
+	border:1px solid #aaa;
+}
+
+#top .schedule_button:hover .schedule_button_heading{
+	color:#222;
+}
 
 
 #top .schedule_button.full {
@@ -887,22 +879,29 @@ display: block;
 	background:#FF7722 url(<%= asset_path 'highlight_line.gif' %>) repeat-x top left;
 	border:1px solid #c0ddee;
 	color:#fff;
-	font-size: 18px;
-	line-height: 18px;
+	font-size: 12px;
+	line-height: 12px;
+	width: 160px;
 }
 .schedule_button.view {
 	background:#33cc33 url(<%= asset_path 'highlight_line.gif' %>) repeat-x top left;
 	border:1px solid #c0ddee;
 	color:#000;
-	font-size: 18px;
-	line-height: 18px;
+	font-size: 12px;
+	line-height: 12px;
+	width: 160px;
 }
 .schedule_button.trash {
 	background:#c00 url(<%= asset_path 'highlight_line.gif' %>) repeat-x top left;
 	border:1px solid #c0ddee;
 	color:#fff;
-	font-size: 18px;
-	line-height: 18px;
+	font-size: 12px;
+	line-height: 12px;
+	width: 160px;
+}
+
+.schedule_button_actions {
+	float:right;
 }
 
 #full_slot h2 {

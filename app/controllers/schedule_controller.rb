@@ -97,4 +97,23 @@ class ScheduleController < ApplicationController
     end
     return Date.today + (days*qty).days
   end
+  
+  def get_contract_details
+    @contract = Contract.find(params[:id])
+    if @contract
+      @estimate = @contract.estimate
+      @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
+      render :json => { 
+        :job_address => "<strong>Address:</strong> " + @options_for_job[:contact_address] + " " + @options_for_job[:contact_address2],
+        :phone_number => "<strong>Phone:</strong> " + @options_for_job[:job_location_phone],
+        :email => @options_for_job[:contact_email] || "No email",
+        :sixbysix => @estimate.job.border_sixbysix,
+        :foundation => "<strong>Foundation:</strong> #{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"}", 
+        :erosion_control => "#{@job.erosion_control_lft rescue 0} lft of <strong>Erosion Control Wire</strong>", 
+        :offlevel => "#{(@estimate.job.off_level_amount_in_inches rescue 0) || 0} inches <strong>off level</strong>"
+      }
+    else
+      render :text => "no"
+    end
+  end
 end
