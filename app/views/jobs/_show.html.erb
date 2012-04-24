@@ -284,6 +284,11 @@
 			<td><%= money_from_cents(@job.additional_price.to_f * 100) %></td>
 		</tr>
 		<tr>
+			<td><b>Job Additions Price</b></td>
+			<td></td>
+			<td><%= money_from_cents (@job.job_additions.collect{|a| a.addition_price_in_cents }.inject(0) {|result, element| result + element }).to_f %></td>
+		</tr>
+		<tr>
 			<td><b>DISCOUNT</b></td>
 			<td></td>
 			<td><%= money_from_cents(@job.discount * 100) %></td>
@@ -295,6 +300,13 @@
 		</tr>
 		</tbody>
 	</table>
+	
+	<h3>Job Additions:</h3>
+	<% @job.job_additions.each do |j| %>
+		Price: <%= money_from_cents j.addition_price_in_cents %><br />
+		Desc: <%= j.addition_description %><br />
+		----------------------------------------<br />
+	<% end %>
 </div>
 <h2>Communication History</h2>
 

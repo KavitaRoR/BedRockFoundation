@@ -1,4 +1,6 @@
 Abundant::Application.routes.draw do
+  resources :job_additions
+
   resources :day_crew_blocks
 
   resources :arrival_ranges

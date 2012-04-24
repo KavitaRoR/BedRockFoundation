@@ -9,6 +9,7 @@ class Job < ActiveRecord::Base
   belongs_to :location
   has_many :statuses, :dependent => :destroy
   has_many :estimates
+  has_many :job_additions
   
   after_create :create_initial_status
   before_create :geocode_address
@@ -226,6 +227,9 @@ class Job < ActiveRecord::Base
     def calculate_pad_costs
       self.discount = 0.00 if self.discount == nil
       self.price_in_cents = pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)
+      self.job_additions.each do |ja|
+        self.price_in_cents = self.price_in_cents + ja.addition_price_in_cents
+      end
       self.labor_cost_in_cents = pad_job.total_labor_cost
       self.material_cost_in_cents = pad_job.total_material_cost
     end

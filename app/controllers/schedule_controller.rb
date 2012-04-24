@@ -105,7 +105,7 @@ class ScheduleController < ApplicationController
       @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
       render :json => { 
         :job_address => "<strong>Address:</strong> " + @options_for_job[:contact_address] + " " + @options_for_job[:contact_address2],
-        :phone_number => "<strong>Phone:</strong> " + @options_for_job[:job_location_phone],
+        :phone_number => "<strong>Phone:</strong> " + (@estimate.job.contact.phone || "") + " <strong>Alt:</strong> " + (@estimate.job.contact.phone_alt || ""),
         :email => @options_for_job[:contact_email] || "No email",
         :sixbysix => @estimate.job.border_sixbysix,
         :foundation => "<strong>Foundation:</strong> #{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"}", 

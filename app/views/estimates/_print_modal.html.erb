@@ -34,8 +34,8 @@
 		<td colspan=2><strong>Phone Work:</strong> <%= @options_for_job[:contact_phone_work] %></td>
 	</tr>
 	<tr>
-		<td colspan=2><strong>Email:</strong></td>
-		<td colspan=2><%= @options_for_job[:contact_email] %></td>
+		<td colspan=2><strong>Email:</strong> <%= @options_for_job[:contact_email] %></td>
+		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
 		<td colspan=4><hr /></td>
@@ -88,6 +88,35 @@
 			</td>
 			<td>&nbsp;</td>
 		</tr>
+	<% end %>
+	<% if @estimate.job.job_additions %>
+		<tr>
+			<td colspan=3>
+				<strong>Additional Items:</strong>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=4>
+				<hr style="color:#aaa;" />
+			</td>
+		</tr>
+		<% @estimate.job.job_additions.each do |a| %>
+			<tr>
+				<td colspan=3>
+					<span style="font-size:0.8em;"><%= a.addition_description %></span>
+				</td>
+				<td style="text-align: right;">
+					<strong>+<%= money_from_cents a.addition_price_in_cents %></strong>
+				</td>
+			</tr>
+			<% if a != @estimate.job.job_additions.last %>
+				<tr>
+					<td colspan=4>
+						<hr style="color:#aaa;" />
+					</td>
+				</tr>
+			<% end %>
+		<% end %>
 	<% end %>
 	<% if @job.description && @job.description != "" %>
 		<tr>
