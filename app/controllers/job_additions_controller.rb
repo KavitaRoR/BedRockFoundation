@@ -41,6 +41,7 @@ class JobAdditionsController < ApplicationController
   # POST /job_additions
   # POST /job_additions.json
   def create
+    params[:job_addition][:addition_price_in_cents] = params[:job_addition][:addition_price_in_cents].to_f * 100
     @job_addition = JobAddition.new(params[:job_addition])
 
     respond_to do |format|
