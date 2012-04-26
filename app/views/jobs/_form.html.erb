@@ -87,12 +87,18 @@
 </table>
 <div style="float:left; padding:10px; 12px;">
 	<h3>Additions to Job</h3>
-	<%= link_to "Add an additional item", "/job_additions/new?job_id=#{@job.id}" %><br /><br />
-	<% @job.job_additions.each do |a| %>
-		Price: <%= money_from_cents a.addition_price_in_cents %><br />
-		Desc: <%= a.addition_description %><br />
-		<%= link_to "Delete this item", job_addition_path(a), :method => "DELETE" %> | <%= link_to "Edit this item", edit_job_addition_path(a) %>
-		<hr />
+	<% if @job.id.nil? %>
+		You must create an estimate before you can add additional items.  Then edit the estimate to add 
+		items here.
+	<% else %>
+		
+		<%= link_to "Add an additional item", "/job_additions/new?job_id=#{@job.id}" %><br /><br />
+		<% @job.job_additions.each do |a| %>
+			Price: <%= money_from_cents a.addition_price_in_cents %><br />
+			Desc: <%= a.addition_description %><br />
+			<%= link_to "Delete this item", job_addition_path(a), :method => "DELETE" %> | <%= link_to "Edit this item", edit_job_addition_path(a) %>
+			<hr />
+		<% end %>
 	<% end %>
 </div>
 <div style="clear:both;"></div>
