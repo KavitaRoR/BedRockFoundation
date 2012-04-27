@@ -19,7 +19,7 @@
     <%= f.label :addition_description, "Description of Work" %><br />
     <%= f.text_area :addition_description %>
   </div>
-	<%= f.hidden_field :job_id, :value => @job_id %>
+	<%= f.hidden_field :job_id, :value => (@job_id || @job_addition.job_id) %>
   <div class="actions">
     <%= f.submit %>
   </div>

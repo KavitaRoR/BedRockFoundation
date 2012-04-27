@@ -1,6 +1,4 @@
 class JobAdditionsController < ApplicationController
-  # GET /job_additions
-  # GET /job_additions.json
   def index
     @job_additions = JobAddition.all
 
@@ -10,8 +8,6 @@ class JobAdditionsController < ApplicationController
     end
   end
 
-  # GET /job_additions/1
-  # GET /job_additions/1.json
   def show
     @job_addition = JobAddition.find(params[:id])
 
@@ -21,8 +17,6 @@ class JobAdditionsController < ApplicationController
     end
   end
 
-  # GET /job_additions/new
-  # GET /job_additions/new.json
   def new
     @job_id = params[:job_id]
     @job_addition = JobAddition.new
@@ -33,13 +27,11 @@ class JobAdditionsController < ApplicationController
     end
   end
 
-  # GET /job_additions/1/edit
   def edit
     @job_addition = JobAddition.find(params[:id])
+    @job_addition.addition_price_in_cents = @job_addition.addition_price_in_cents.to_f / 100
   end
 
-  # POST /job_additions
-  # POST /job_additions.json
   def create
     params[:job_addition][:addition_price_in_cents] = params[:job_addition][:addition_price_in_cents].to_f * 100
     @job_addition = JobAddition.new(params[:job_addition])
@@ -47,32 +39,26 @@ class JobAdditionsController < ApplicationController
     respond_to do |format|
       if @job_addition.save
         format.html { redirect_to "/jobs/#{@job_addition.job_id}/edit", notice: 'Job addition was successfully created.' }
-        format.json { render json: @job_addition, status: :created, location: @job_addition }
       else
         format.html { render action: "new" }
-        # format.json { render json: @job_addition.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /job_additions/1
-  # PUT /job_additions/1.json
   def update
+    params[:job_addition][:addition_price_in_cents] = params[:job_addition][:addition_price_in_cents].to_f * 100
     @job_addition = JobAddition.find(params[:id])
 
     respond_to do |format|
       if @job_addition.update_attributes(params[:job_addition])
-        format.html { redirect_to @job_addition, notice: 'Job addition was successfully updated.' }
-        format.json { head :no_content }
+        logger.debug("Here friend: #{@job_addition.inspect}")
+        format.html { redirect_to "/jobs/#{@job_addition.job_id}/edit", notice: 'Job addition was successfully created.' }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @job_addition.errors, status: :unprocessable_entity }
+        format.html { redirect_to "/jobs/#{@job_addition.job_id}/edit" }
       end
     end
   end
 
-  # DELETE /job_additions/1
-  # DELETE /job_additions/1.json
   def destroy
     @job_addition = JobAddition.find(params[:id])
     @job_addition.destroy
