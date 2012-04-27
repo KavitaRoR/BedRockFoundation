@@ -40,6 +40,7 @@
 	<tr>
 		<td colspan=4><hr /></td>
 	</tr>
+	<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_height].to_i != 0 %>
 	<tr>
 		<td colspan=3>
 			<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} Shed Foundation" %>
@@ -48,6 +49,7 @@
 			<strong><%= "#{money_from_cents(@job.specific_offlevel(@type)[:zero][0])}" %></strong>
 		</td>
 	</tr>
+	<% end %>
 	<% if @job.has_erosion_control_lft? %>
 		<tr>
 			<td colspan=3>
@@ -100,12 +102,14 @@
 	<tr>
 		<td colspan=4><hr /></td>
 	</tr>
+	<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_height].to_i != 0 %>
 	<tr>
 		<td colspan=4 style="font-size: 0.8em;">
 			<strong>Description:</strong>
 			 <%= @job.job_description_for_flash(@type) %>
 		</td>
 	</tr>
+	<% end %>
 	<tr>
 		<td colspan=4>&nbsp;</td>
 	</tr>
