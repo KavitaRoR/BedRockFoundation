@@ -85,7 +85,7 @@
 										$(ele2).parent().parent().removeClass("editing").addClass("full");
 										$($(ele2).parent().parent().children('span')[0]).text(data["conName"]);
 										$($(ele2).parent().parent().children('span')[0]).prop("id", ("con-" + data["conId"]));
-										$(ele2).parent().text(data["size"] + " in " + data["location"]);
+										$(ele2).parent().text(data["size"] + " in " + data["location"] + " \n " + data["fill_type"] + " - " + data["arrival_time"]);
 									}
 								})
 							}

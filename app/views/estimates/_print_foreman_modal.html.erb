@@ -1,150 +1,192 @@
-<div style="width: 75%; margin: 0px auto; text-align:center;">
-	<h1>Bed Rock Foundations</h1>
-	<p style="margin-top: -20px;">dba. Abundant Life Landscaping, LLC</p>
-</div>
-<table style="width: 90%; margin: 0px auto;">
-	<tr>
-		<td colspan=2 style="left">
-				<strong><%= "#{@estimate.job.location.name}, #{@estimate.job.location.abbreviation}" %></strong> <br />
-				<%= @estimate.job.location.phone %>
-		</td>
-		<td colspan=2>
-			<strong>Invoice No:</strong> #<%= @estimate.invoice_number %><br />
-			<strong>Crew:</strong> <%= @estimate.contract.crew.crew_name rescue "none assigned" %><br />
-			<strong>Rig #:</strong>____________
-		</td>
-	</tr>
-	<tr>
-		<td colspan=4><hr /></td>
-	</tr>
-	<tr>
-		<td colspan=2><strong>Shed Co:</strong> <%= @options_for_job[:shed_company] %></td>
-		<td colspan=2><strong>Date of Est:</strong> <%= @options_for_job[:estimate_date] %></td>
-	</tr>
-	<tr>
-		<td colspan=2><strong>Cust. Name:</strong> <%= @options_for_job[:contact_name] %></td>
-		<td colspan=2><strong>Phone Home:</strong> <%= @options_for_job[:contact_phone_home] %></td>
-	</tr>
-	<tr>
-		<td colspan=2><strong>Address:</strong> <%= @options_for_job[:contact_address] %></td>
-		<td colspan=2><strong>Phone Cell:</strong> <%= @options_for_job[:contact_phone_cell] %></td>
-	</tr>
-	<tr>
-		<td colspan=2><%= @options_for_job[:contact_address2] %></td>
-		<td colspan=2><strong>Phone Work:</strong> <%= @options_for_job[:contact_phone_work] %></td>
-	</tr>
-	<tr>
-		<td colspan=2><strong>Email:</strong></td>
-		<td colspan=2><%= @options_for_job[:contact_email] %></td>
-	</tr>
-	<tr>
-		<td colspan=4><hr /></td>
-	</tr>
-	<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_height].to_i != 0 %>
-	<tr>
-		<td colspan=3>
-			<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} Shed Foundation" %>
-		</td>
-		<td colspan=1 style="text-align: right;">
-			<strong><%= "#{money_from_cents(@job.specific_offlevel(@type)[:zero][0])}" %></strong>
-		</td>
-	</tr>
-	<% end %>
-	<% if @job.has_erosion_control_lft? %>
+	<div style="width: 75%; margin: 0px auto; text-align:center;">
+		<h1>Bed Rock Foundations</h1>
+		<p style="margin-top: -20px;">dba. Abundant Life Landscaping, LLC</p>
+	</div>
+	<table style="width: 90%; margin: 0px auto;">
 		<tr>
-			<td colspan=3>
-				<%= "With #{@job.erosion_control_lft rescue 0}\" of Erosion Control Wire" %>
-			</td>
-			<td colspan=1 style="text-align: right;">
-				+<%= "#{money_from_cents(@job.pad_job.erosion_control_cost) }" %>
-			</td>
-		</tr>
-	<% end %>
-	
-	<% if @job.off_level_amount_in_inches %>
-		<tr>
-			<td colspan=3>
-				With <%= @job.off_level_amount_in_inches %>" Off-Level
-			</td>
-			<td colspan=1 style="text-align: right;">
-				+<%= money_from_cents ((@job.price_in_cents) + (@job.additional_price * 100) - (@job.discount * 100) - @job.specific_offlevel(@type)[:zero][0])  %>
-			</td>
-		</tr>
-	<% end %>
-	<% if @estimate.off_level_to_show != "" && @estimate.off_level_to_show != nil %>
-		<tr>
-			<td colspan=1>
-				<strong>Estimated Off-Level Price</strong><br />
-				<span style="font-size:0.8em;">
-					The off-level amount of the pad area will be accurately measured and a price given upon arrival at the job site, before any work begins.  The estimates to the right are the adjustments that may/may not be needed based on the true off-level amount of the surface. 
-				</span>
+			<td colspan=2 style="left">
+					<strong><%= "#{@estimate.job.location.name}, #{@estimate.job.location.abbreviation}" %></strong> <br />
+					<%= @estimate.job.location.phone %>
 			</td>
 			<td colspan=2>
-				<ul style="list-style-type:none; text-align:left; width:120px;">
-					<% @job.specific_offlevel(@type).each do |k, v| %>
-						<% if k != :zero && @estimate.off_level_to_show.include?(v[1].to_s) %>
-							<li><strong><%= v[1] %>"</strong> +<%= money_from_cents(v[0] - @job.specific_offlevel(@type)[:zero][0]) %></li>
-						<% end %>
-					<% end %>
-				<ul>
+				<strong>Invoice No:</strong> #<%= @estimate.invoice_number %><br />
+				<strong>Crew:</strong> <%= @estimate.contract.crew.crew_name rescue "none assigned" %><br />
+				<strong>Rig #:</strong>____________
 			</td>
-			<td>&nbsp;</td>
 		</tr>
-	<% end %>
-	<% if @job.description && @job.description != "" %>
+		<tr>
+			<td colspan=4><hr /></td>
+		</tr>
+		<tr>
+			<td colspan=2><%= @options_for_job[:shed_company] rescue "" %><td>
+			<td colspan=2><strong>Date of Est:</strong> <%= @options_for_job[:estimate_date] %></td>
+		</tr>
+		<tr>
+			<td colspan=2><strong>Cust. Name:</strong> <%= @options_for_job[:contact_name] %></td>
+			<td colspan=2><strong>Phone Home:</strong> <%= @options_for_job[:contact_phone_home] %></td>
+		</tr>
+		<tr>
+			<td colspan=2><strong>Address:</strong> <%= @options_for_job[:contact_address] %></td>
+			<td colspan=2><strong>Phone Cell:</strong> <%= @options_for_job[:contact_phone_cell] %></td>
+		</tr>
+		<tr>
+			<td colspan=2><%= @options_for_job[:contact_address2] %></td>
+			<td colspan=2><strong>Phone Work:</strong> <%= @options_for_job[:contact_phone_work] %></td>
+		</tr>
+		<tr>
+			<td colspan=2><strong>Email:</strong> <%= @options_for_job[:contact_email] %></td>
+			<td colspan=2><strong>Arrival:</strong> <%= @estimate.contract.arrival_range.early %> to <%= @estimate.contract.arrival_range.late %></td>
+		</tr>
+		<tr>
+			<td colspan=4><hr /></td>
+		</tr>
+		<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_length].to_i != 0 %>
+			<tr>
+				<td colspan=3>
+						<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"} Foundation" %>
+				</td>
+				<td colspan=1 style="text-align: right;">
+					<strong><%= "#{money_from_cents(@job.specific_offlevel(@type)[:zero][0])}" %></strong>
+				</td>
+			</tr>
+		<% end %>
+		<% if @estimate.job.border_sixbysix %>
+			<tr>
+				<td colspan=3>
+					With 6" x 6" timbers
+				</td>
+			</tr>
+		<% else %>
+			<tr>
+				<td colspan=3>
+					With 4" x 6" timbers
+				</td>
+			</tr>
+		<% end %>
+		<% if @job.has_erosion_control_lft? %>
+			<tr>
+				<td colspan=3>
+					<%= "With #{@job.erosion_control_lft rescue 0}\" of Erosion Control Wire" %>
+				</td>
+				<td colspan=1 style="text-align: right;">
+					+<%= "#{money_from_cents(@job.pad_job.erosion_control_cost) }" %>
+				</td>
+			</tr>
+		<% end %>
+
+		<% if @job.off_level_amount_in_inches %>
+			<tr>
+				<td colspan=3>
+					With <%= @job.off_level_amount_in_inches %>" Off-Level
+				</td>
+				<td colspan=1 style="text-align: right;">
+					+<%= money_from_cents ((@job.price_in_cents) + (@job.additional_price * 100) - (@job.discount * 100) - @job.specific_offlevel(@type)[:zero][0])  %>
+				</td>
+			</tr>
+		<% end %>
+		<% if @estimate.off_level_to_show != "" && @estimate.off_level_to_show != nil %>
+			<tr>
+				<td colspan=1>
+					<strong>Estimated Off-Level Price</strong><br />
+					<span style="font-size:0.8em;">
+						The off-level amount of the pad area will be accurately measured and a price given upon arrival at the job site, before any work begins.  The estimates to the right are the adjustments that may/may not be needed based on the true off-level amount of the surface. 
+					</span>
+				</td>
+				<td colspan=2>
+					<ul style="list-style-type:none; text-align:left; width:120px;">
+						<% @job.specific_offlevel(@type).each do |k, v| %>
+							<% if k != :zero && @estimate.off_level_to_show.include?(v[1].to_s) %>
+								<li><strong><%= v[1] %>"</strong> +<%= money_from_cents(v[0] - @job.specific_offlevel(@type)[:zero][0]) %></li>
+							<% end %>
+						<% end %>
+					<ul>
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+		<% end %>
+		<% if @estimate.job.job_additions %>
+			<tr>
+				<td colspan=3>
+					<strong>Additional Items:</strong>
+				</td>
+			</tr>
+			<tr>
+				<td colspan=4>
+					<hr style="color:#aaa;" />
+				</td>
+			</tr>
+			<% @estimate.job.job_additions.each do |a| %>
+				<tr>
+					<td colspan=3>
+						<span style="font-size:0.8em;"><%= a.addition_description %></span>
+					</td>
+					<td style="text-align: right;">
+						<strong>+<%= money_from_cents a.addition_price_in_cents %></strong>
+					</td>
+				</tr>
+				<% if a != @estimate.job.job_additions.last %>
+					<tr>
+						<td colspan=4>
+							<hr style="color:#aaa;" />
+						</td>
+					</tr>
+				<% end %>
+			<% end %>
+		<% end %>
+		<% if @job.description && @job.description != "" %>
+			<tr>
+				<td colspan=4>
+					<strong>Additional Notes:</strong>
+					<span style="font-size:0.8em;"><%= @job.description %></span>
+				</td>
+			</tr>
+		<% end %>
+		<tr>
+			<td colspan=4><hr /></td>
+		</tr>
+		<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_length].to_i != 0 %>
+			<tr>
+				<td colspan=4 style="font-size: 0.8em;">
+					<strong>Description:</strong>
+					 <%= @job.job_description_for_flash(@type) %>
+				</td>
+			</tr>
+		<% end %>
+		<tr>
+			<td colspan=4>&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan=3>
+			<p style="font-size: 0.8em;">	
+				<strong>Make checks payable to:</strong><br /> 
+				Bed Rock Foundations<br /> 
+				461 Old Wilmington Rd.<br />
+				Coatesville, PA 19320</p>
+			</td>
+			<td colspan=1>
+				<strong>Total:</strong>
+				<div style="border: 1px solid black; width:150px; height: 35px; text-align:center;">
+					<% if @job.off_level_amount_in_inches %>
+						<p><strong><%= "#{money_from_cents(@job.price_in_cents)}" %></strong></p>
+					<% end %>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=4>&nbsp;</td>
+		</tr>
 		<tr>
 			<td colspan=4>
-				<strong>Additional Notes:</strong>
-				<span style="font-size:0.8em;"><%= @job.description %></span>
+				<p style="font-size: 0.8em;">
+					<strong>Disclaimer:</strong> <span>Bed Rock Foundations and any and all affiliates are not responsible for damage to any of the following: lawn, driveway, pipes, wires, cables, water lines, septic lines, gas lines, roots, trees or anything else that may obstruct or hinder the construction of the foundation.  Customer is responsible for acquiring all permits if needed, this is the sole responsibility of customer.</span>
+				<p>
 			</td>
 		</tr>
-	<% end %>
-	<tr>
-		<td colspan=4><hr /></td>
-	</tr>
-	<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_height].to_i != 0 %>
-	<tr>
-		<td colspan=4 style="font-size: 0.8em;">
-			<strong>Description:</strong>
-			 <%= @job.job_description_for_flash(@type) %>
-		</td>
-	</tr>
-	<% end %>
-	<tr>
-		<td colspan=4>&nbsp;</td>
-	</tr>
-	<tr>
-		<td colspan=3>
-		<p style="font-size: 0.8em;">	
-			<strong>Make checks payable to:</strong><br /> 
-			Bed Rock Foundations<br /> 
-			461 Old Wilmington Rd.<br />
-			Coatesville, PA 19320</p>
-		</td>
-		<td colspan=1>
-			<strong>Total:</strong>
-			<div style="border: 1px solid black; width:150px; height: 35px; text-align:center;">
-				<% if @job.off_level_amount_in_inches %>
-					<p><strong><%= "#{money_from_cents(@job.price_in_cents)}" %></strong></p>
-				<% end %>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td colspan=4>&nbsp;</td>
-	</tr>
-	<tr>
-		<td colspan=4>
-			<p style="font-size: 0.8em;">
-				<strong>Disclaimer:</strong> <span>Bed Rock Foundations and any and all affiliates are not responsible for damage to any of the following: lawn, driveway, pipes, wires, cables, water lines, septic lines, gas lines, roots, trees or anything else that may obstruct or hinder the construction of the foundation.  Customer is responsible for acquiring all permits if needed, this is the sole responsibility of customer.</span>
-			<p>
-		</td>
-	</tr>
-	<tr><td colspan=4>&nbsp;</td></tr>
-	<tr>
-		<td colspan=3>
-			<strong>Customer Signature:</strong>_______________________________
-		</td>
-		<td colspan=1><strong>Date:</strong>_______________</td>
-	</tr>
-</table>
+		<tr><td colspan=4>&nbsp;</td></tr>
+		<tr>
+			<td colspan=3>
+				<strong>Customer Signature:</strong>_______________________________
+			</td>
+			<td colspan=1><strong>Date:</strong>_______________</td>
+		</tr>
+	</table>
