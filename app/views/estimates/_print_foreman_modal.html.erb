@@ -35,7 +35,7 @@
 		</tr>
 		<tr>
 			<td colspan=2><strong>Email:</strong> <%= @options_for_job[:contact_email] %></td>
-			<td colspan=2><strong>Arrival:</strong> <%= @estimate.contract.arrival_range.early %> to <%= @estimate.contract.arrival_range.late %></td>
+			<td colspan=2><strong>Arrival:</strong> <%= @estimate.contract.arrival_range.early rescue "" %> to <%= @estimate.contract.arrival_range.late rescue "" %></td>
 		</tr>
 		<tr>
 			<td colspan=4><hr /></td>
