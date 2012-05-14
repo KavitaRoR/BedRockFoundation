@@ -24,7 +24,7 @@
 		</tr>
 		<tr>
 			<td><%= f.label :foundation_calculator_id, "Use this Calculator" %></td>
-			<td><%= f.select :foundation_calculator, FoundationCalculator.all.collect{ |f| [f.kind.titleize, f.id] } %></td>
+			<td><%= f.select :foundation_calculator_id, FoundationCalculator.all.collect{ |f| [f.kind.titleize, f.id] } %></td>
 		</tr>
 		<tr>
 			<td><%= f.label :width %></td>
