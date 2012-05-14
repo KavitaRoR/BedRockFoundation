@@ -19,6 +19,10 @@
 	<thead></thead>
 	<tbody>
 		<tr>
+			<td><%= f.label :foundation_calculator, "Foundation" %></td>
+			<td><%= f.select :foundation_calculator, options_for_select(FoundationCalculator.all.collect{ |f| [f.id, f.kind] }) %></td>
+		</tr>
+		<tr>
 			<td><%= f.label :foundation_id %></td>
 			<td><%= f.select :foundation_id, Foundation.all.collect{|fo| [fo.kind, fo.id]} %></td>
 		</tr>
