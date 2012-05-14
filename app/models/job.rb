@@ -230,6 +230,7 @@ class Job < ActiveRecord::Base
       else
         self.discount = 0.00 if self.discount == nil
         self.price_in_cents = self.pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)
+        
         self.labor_cost_in_cents = self.pad_job.total_labor_cost
         self.material_cost_in_cents = self.pad_job.total_material_cost
       end
