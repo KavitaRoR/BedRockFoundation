@@ -19,16 +19,12 @@
 	<thead></thead>
 	<tbody>
 		<tr>
-			<td><%= f.label :foundation_calculator, "Foundation" %></td>
-			<td><%= f.select :foundation_calculator, FoundationCalculator.all.collect{ |f| [f.kind.titleize, f.id] } %></td>
-		</tr>
-		<tr>
 			<td><%= f.label :foundation_id %></td>
 			<td><%= f.select :foundation_id, Foundation.all.collect{|fo| [fo.kind, fo.id]} %></td>
 		</tr>
 		<tr>
 			<td><%= f.label :foundation_calculator_id, "Use this Calculator" %></td>
-			<td><%= f.select :foundation_calculator_id, FoundationCalculator.all.collect{|fc| [fc.kind, fc.id]} %></td>
+			<td><%= f.select :foundation_calculator, FoundationCalculator.all.collect{ |f| [f.kind.titleize, f.id] } %></td>
 		</tr>
 		<tr>
 			<td><%= f.label :width %></td>

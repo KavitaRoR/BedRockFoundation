@@ -62,8 +62,8 @@ class Job < ActiveRecord::Base
     self.lat
   end
   
-  def foundation_kind
-    @foundation_calc ||= self.foundation_calculator.kind rescue ""
+  def foundation_calc
+    @foundation_calc ||= self.foundation_calculator.kind.downcase rescue ""
   end
   
   def longitude
