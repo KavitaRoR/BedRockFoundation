@@ -143,76 +143,11 @@
 </div>
 <div style="width:50%;">
 	<% 
-	partialz = @job.foundation_kind.downcase
+	partialz = @job.foundation_kind.downcase.to_slug
 	partialz = "rock_pad" unless @job.foundation_kind.include?("Concrete") 
 	%>
 	<%= render partial: "/jobs/estimate_table_#{partialz}", locals: {job: @job} %>
 
-<<<<<<< HEAD
-=======
-		<tr>
-			<td>Working Labor</td>
-			<td><%= @job.pad_job.working_labor_hours %> hours</td>
-			<td><%= money_from_cents @job.pad_job.working_labor_cost %></td>
-		</tr>
-		<tr>
-			<td>Materials</td>
-			<td></td>
-			<td><%= money_from_cents @job.pad_job.total_material_cost %></td>
-		</tr>
-		<tr class="endsection">
-			<td>Total Cost</td>
-			<td></td>
-			<td><%= money_from_cents @job.pad_job.total_cost %></td>
-		</tr>
-	
-		<tr>
-			<td>Material Markup</td>
-			<td></td>
-			<td><%= money_from_cents @job.pad_job.total_material_markup %></td>
-		</tr>
-		<tr class="endsection">
-			<td>Labor Markup</td>
-			<td></td>
-			<td><%= money_from_cents @job.pad_job.total_labor_markup %></td>
-		</tr>
-	
-		<tr>
-			<td><b>Base Price</b></td>
-			<td></td>
-			<td><%= money_from_cents @job.pad_job.total_price %></td>
-		</tr>
-	
-		<tr>
-			<td><b>Additional Price Added</b></td>
-			<td></td>
-			<td><%= money_from_cents(@job.additional_price.to_f * 100) %></td>
-		</tr>
-		<tr>
-			<td><b>Job Additions Price</b></td>
-			<td></td>
-			<td><%= money_from_cents (@job.job_additions.collect{|a| a.addition_price_in_cents }.inject(0) {|result, element| result + element }).to_f %></td>
-		</tr>
-		<tr>
-			<td><b>DISCOUNT</b></td>
-			<td></td>
-			<td><%= money_from_cents(@job.discount * 100) %></td>
-		</tr>
-		<tr>
-			<td><b>FINAL PRICE</b></td>
-			<td></td>
-			<td><%= money_from_cents(@job.price_in_cents) %></td>
-		</tr>
-		</tbody>
-	</table>
-	
-	<h3>Job Additions:</h3>
-	<% @job.job_additions.each do |j| %>
-		Price: <%= money_from_cents j.addition_price_in_cents %><br />
-		Desc: <%= j.addition_description %><br />
-		----------------------------------------<br />
-	<% end %>
->>>>>>> d0940e9314b7d1f1d4cc7b6dbf59fc7e089f2b88
 </div>
 <h2>Communication History</h2>
 
