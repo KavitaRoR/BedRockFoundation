@@ -225,12 +225,16 @@ class Job < ActiveRecord::Base
       end
     end
     def calculate_pad_costs
-      self.discount = 0.00 if self.discount == nil
-      self.price_in_cents = pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)
+      if self.foundation_kind.include?("concrete")
+      
+      else
+        self.discount = 0.00 if self.discount == nil
+        self.price_in_cents = self.pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)
+        self.labor_cost_in_cents = self.pad_job.total_labor_cost
+        self.material_cost_in_cents = self.pad_job.total_material_cost
+      end
       self.job_additions.each do |ja|
         self.price_in_cents = self.price_in_cents + ja.addition_price_in_cents
       end
-      self.labor_cost_in_cents = pad_job.total_labor_cost
-      self.material_cost_in_cents = pad_job.total_material_cost
     end
 end
