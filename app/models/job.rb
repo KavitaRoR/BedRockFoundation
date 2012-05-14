@@ -91,6 +91,10 @@ class Job < ActiveRecord::Base
     @padjob ||= RockPadCalculator.new(self.distance, self.width, self.length, (self.job_type.kind rescue "Standard"), self.border_sixbysix, (self.off_level_amount_in_inches.to_f/12), self.off_level_fill_type, self.erosion_control_lft)
   end
   
+  def adhoc_job
+    @adhocjob ||= AdhocJobCalculator.new(self.distance, self.width, self.length, (self.off_level_amount_in_inches.to_f/12))
+  end
+  
   def pad_job_with_options
     @padjob ||= RockPadCalculator.new(self.distance, self.width, self.length, (self.job_type.kind rescue "Standard"), self.border_sixbysix, (self.off_level_amount_in_inches.to_f/12), self.off_level_fill_type, self.erosion_control_lft)
   end
@@ -240,6 +244,8 @@ class Job < ActiveRecord::Base
     def calculate_pad_costs
       if self.foundation_kind.include?("concrete")
         
+      elsif self.foundation_kind.include?("adhoc")
+        self.calculate_adhoc_job_costs
       else
         self.calculate_rock_pad_costs
       end
@@ -254,6 +260,13 @@ class Job < ActiveRecord::Base
       self.price_in_cents = self.pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)
       self.labor_cost_in_cents = self.pad_job.total_labor_cost
       self.material_cost_in_cents = self.pad_job.total_material_cost
+    end
+
+    def calculate_adhoc_job_costs
+      self.discount = 0.00 if self.discount == nil
+      self.price_in_cents = self.adhoc_job.total_price + (self.additional_price * 100) - (self.discount * 100)
+      self.labor_cost_in_cents = self.adhoc_job.total_labor_cost
+      self.material_cost_in_cents = self.adhoc_job.total_material_cost
     end
     
 end
