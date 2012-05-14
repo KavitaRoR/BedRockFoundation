@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Kind:</b>
+  <%= @foundation_calculator.kind %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%= @foundation_calculator.position %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @foundation_calculator.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_foundation_calculator_path(@foundation_calculator) %> |
+<%= link_to 'Back', foundation_calculators_path %>

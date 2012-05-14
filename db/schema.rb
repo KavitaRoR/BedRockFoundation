@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120424131927) do
+ActiveRecord::Schema.define(:version => 20120514184816) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -113,6 +113,14 @@ ActiveRecord::Schema.define(:version => 20120424131927) do
     t.string   "off_level_to_show",       :default => "12,18,24,30,36"
   end
 
+  create_table "foundation_calculators", :force => true do |t|
+    t.string   "kind"
+    t.integer  "position"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "foundations", :force => true do |t|
     t.string   "kind"
     t.datetime "created_at"
@@ -177,7 +185,10 @@ ActiveRecord::Schema.define(:version => 20120424131927) do
     t.string   "off_level_fill_type",                                       :default => "Build-Up"
     t.integer  "erosion_control_lft"
     t.string   "trex_color"
+    t.integer  "foundation_calculator_id",                                  :default => 1
   end
+
+  add_index "jobs", ["id"], :name => "index_jobs_on_id"
 
   create_table "locations", :force => true do |t|
     t.string   "name"

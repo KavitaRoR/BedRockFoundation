@@ -1,4 +1,6 @@
 Abundant::Application.routes.draw do
+  resources :foundation_calculators
+
   resources :job_additions
 
   resources :day_crew_blocks

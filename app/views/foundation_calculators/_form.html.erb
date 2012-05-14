@@ -1,0 +1,29 @@
+<%= form_for(@foundation_calculator) do |f| %>
+  <% if @foundation_calculator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@foundation_calculator.errors.count, "error") %> prohibited this foundation_calculator from being saved:</h2>
+
+      <ul>
+      <% @foundation_calculator.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :kind %><br />
+    <%= f.text_field :kind %>
+  </div>
+  <div class="field">
+    <%= f.label :position %><br />
+    <%= f.number_field :position %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
