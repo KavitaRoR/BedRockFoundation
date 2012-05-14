@@ -20,7 +20,7 @@
 	<tbody>
 		<tr>
 			<td><%= f.label :foundation_calculator, "Foundation" %></td>
-			<td><%= f.select :foundation_calculator, options_for_select(FoundationCalculator.all.collect{ |f| [f.id, f.kind] }) %></td>
+			<td><%= f.select :foundation_calculator, FoundationCalculator.all.collect{ |f| [f.kind.titleize, f.id] } %></td>
 		</tr>
 		<tr>
 			<td><%= f.label :foundation_id %></td>
