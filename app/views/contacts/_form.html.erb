@@ -38,7 +38,7 @@
 	<dd><%= f.text_field :zip, :class => "integer" %></dd>
   <dt><%= f.label :email %></dt>
 	<dd><%= f.text_field :email, :class => "string" %></dd>
-  <dt><%= f.label :campaign_id, "How did the customer learn about Abundant Life?" %></dt>
+  <dt><%= f.label :campaign_id, "How did the customer learn about Bedrock Foundations?" %></dt>
 	<dd><%= f.select :campaign_id, Campaign.all.collect{|c| [c.name, c.id]}, :include_blank => "Other" %></dd>
 </dl>
 <p><%= f.submit "Save" %></p>
