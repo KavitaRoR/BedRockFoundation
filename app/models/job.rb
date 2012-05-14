@@ -60,6 +60,10 @@ class Job < ActiveRecord::Base
     self.lat
   end
   
+  def foundation_kind
+    self.foundation.kind rescue ""
+  end
+  
   def longitude
     self.lng
   end
