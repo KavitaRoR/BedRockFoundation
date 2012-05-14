@@ -61,6 +61,10 @@ class Job < ActiveRecord::Base
     self.lat
   end
   
+  def foundation_kind
+    @foundation_kind ||= self.foundation.kind rescue ""
+  end
+  
   def longitude
     self.lng
   end
@@ -72,6 +76,14 @@ class Job < ActiveRecord::Base
     str << "Build up timbers: #{build_up_timbers}" if !build_up_timbers.blank? 
     str << "Timber wall: #{timber_wall}" if !timber_wall.blank? 
     str
+  end
+  
+  def job_calc_type
+    if foundation_kind.downcase.include?("concrete")
+      @job_calc_type ||= foundation_kind.downcase.to_slug      
+    else
+      @job_calc_type ||= "pad"
+    end
   end
   
   def pad_job
@@ -226,16 +238,21 @@ class Job < ActiveRecord::Base
     end
     def calculate_pad_costs
       if self.foundation_kind.include?("concrete")
-      
-      else
-        self.discount = 0.00 if self.discount == nil
-        self.price_in_cents = self.pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)
         
-        self.labor_cost_in_cents = self.pad_job.total_labor_cost
-        self.material_cost_in_cents = self.pad_job.total_material_cost
+      else
+        self.calculate_rock_pad_costs
       end
+      
       self.job_additions.each do |ja|
         self.price_in_cents = self.price_in_cents + ja.addition_price_in_cents
       end
     end
+    
+    def calculate_rock_pad_costs
+      self.discount = 0.00 if self.discount == nil
+      self.price_in_cents = self.pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)
+      self.labor_cost_in_cents = self.pad_job.total_labor_cost
+      self.material_cost_in_cents = self.pad_job.total_material_cost
+    end
+    
 end
