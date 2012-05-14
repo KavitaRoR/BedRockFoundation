@@ -34,43 +34,23 @@
 		</td>
 		<td></td>
 	</tr>
-	<tr>
-		<td>Fill type:</td>
-		<td><%= @job.off_level_fill_type %></td>
-		<td>
-			<% if @job.off_level_fill_type == "Excavate" %>
-				<%= money_from_cents @job.pad_job.excavation_labor %>
-			<% else %>
-				&nbsp;
-			<% end %>
-		</td>
-	</tr>
-	<tr>
-		<td>Rows of Boards (on slope)</td>
-		<td><%= (number_with_precision @job.pad_job.board_rows) %> rows</td>
-		<td></td>
-	</tr>
-
-	<tr>
-		<td>Boards</td>
-		<td><%= number_with_precision @job.pad_job.board_quantity_in_feet %> ft</td>
-		<td><%= money_from_cents @job.pad_job.board_cost %></td>
-	</tr>
+	
 	<tr>
 		<td>Erosion Control</td>
 		<td><%= @job.erosion_control_lft %> lft</td>
 		<td><%= money_from_cents @job.pad_job.erosion_control_cost %></td>
 	</tr>
-
-	<% if @job.job_type.kind == "Elite" %>
+	
 	<tr>
-		<td>Trex Additional</td>
-		<td><%= @job.pad_job.perimeter %> ft</td>
-		<td><%= money_from_cents @job.pad_job.trex_additional_cost %></td>
+		<td>Concrete Cubic Feet</td>
+		<td><%= @job.erosion_control_lft %> lft</td>
+		<td><%= money_from_cents @job.pad_job.erosion_control_cost %></td>
 	</tr>
-	<% end %>
+	
+
+
 	<tr>
-		<td>Weed Fabric</td>
+		<td>Vapor Barrier</td>
 		<td><%= '%.2f' % @job.pad_job.weed_fabric_per_foot.to_s %> per ft</td>
 		<td><%= money_from_cents @job.pad_job.weed_fabric_cost %></td>
 	</tr>
