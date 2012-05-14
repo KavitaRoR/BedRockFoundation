@@ -1,0 +1,27 @@
+<h1>Listing foundation_calculators</h1>
+
+<table>
+  <tr>
+    <th>Kind</th>
+    <th>Position</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @foundation_calculators.each do |foundation_calculator| %>
+  <tr>
+    <td><%= foundation_calculator.kind %></td>
+    <td><%= foundation_calculator.position %></td>
+    <td><%= foundation_calculator.description %></td>
+    <td><%= link_to 'Show', foundation_calculator %></td>
+    <td><%= link_to 'Edit', edit_foundation_calculator_path(foundation_calculator) %></td>
+    <td><%= link_to 'Destroy', foundation_calculator, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Foundation calculator', new_foundation_calculator_path %>
