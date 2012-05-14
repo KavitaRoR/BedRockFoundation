@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  addition_price_in_cents: 1
+  addition_description: MyText
+  job_id: 1
+
+two:
+  addition_price_in_cents: 1
+  addition_description: MyText
+  job_id: 1

@@ -67,7 +67,7 @@
 							<span><%= con.estimate.job.width rescue "deleted" %>' x <%= con.estimate.job.length rescue "deleted" %>' <%= con.estimate.job.job_type.kind %> in <%= con.estimate.job.city_state rescue "deleted" %>
 								<% unless con.arrival_range.nil? %>
 								<br />
-								Arriving between <%= con.arrival_range.early %> and <%= con.arrival_range.late %>
+								<%= con.estimate.job.off_level_fill_type rescue "" %> - <%= con.arrival_range.early %> and <%= con.arrival_range.late %>
 								<% end %>
 							</span>
 						</a>

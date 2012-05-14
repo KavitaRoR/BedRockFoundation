@@ -23,7 +23,7 @@ class ScheduleController < ApplicationController
     if contract
       # if Contract.find(:all, :conditions => { crew_id: params[:crew_id], position_in_day})
       if contract.update_attributes({ crew_id: params[:crew_id], arrival_range_id: params[:arrival_id], position_in_day: params[:position], scheduled_date: Time.at(params[:day].to_i) })
-        render :json => { conId: contract.id, conName: contract.name, location: contract.location, size: "#{contract.estimate.job.width}' x #{contract.estimate.job.length}' #{contract.estimate.job.job_type.kind rescue ''}" }
+        render :json => { conId: contract.id, conName: contract.name, location: contract.location, size: "#{contract.estimate.job.width}' x #{contract.estimate.job.length}' #{contract.estimate.job.job_type.kind rescue ''}", fill_type: (contract.off_level_fill_type rescue "Build-Up"), arrival_time: "#{contract.arrival_range.early rescue ""} to #{contract.arrival_range.late rescue ""}" }
       else
         render :text => false
       end
@@ -96,5 +96,25 @@ class ScheduleController < ApplicationController
       30
     end
     return Date.today + (days*qty).days
+  end
+  
+  def get_contract_details
+    @contract = Contract.find(params[:id])
+    if @contract
+      @estimate = @contract.estimate
+      @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
+      render :json => { 
+        :job_address => "<strong>Address:</strong> " + @options_for_job[:contact_address] + " " + @options_for_job[:contact_address2],
+        :phone_number => "<strong>Phone:</strong> " + (@estimate.job.contact.phone || "") + " <strong>Alt:</strong> " + (@estimate.job.contact.phone_alt || ""),
+        :email => @options_for_job[:contact_email] || "No email",
+        :sixbysix => @estimate.job.border_sixbysix,
+        :foundation => "<strong>Foundation:</strong> #{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"}", 
+        :erosion_control => "#{@job.erosion_control_lft rescue 0} lft of <strong>Erosion Control Wire</strong>", 
+        :offlevel => "#{(@estimate.job.off_level_amount_in_inches rescue 0) || 0} inches <strong>off level</strong>",
+        :trex_color => "#{@estimate.job.trex_color || "no"}<strong> Trex</strong>"
+      }
+    else
+      render :text => "no"
+    end
   end
 end

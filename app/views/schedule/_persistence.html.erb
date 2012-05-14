@@ -1,19 +1,25 @@
 
 <!-- Full Slot Click Menu -->
-<div id="full_slot" class="contextMenu" style="display: none;">
-	<h2></h2>
-	<a class="schedule_button delete" href="#" onclick="return false;">
-		<span class="schedule_button_heading">Un-Schedule from this day </span>
-		<span>&nbsp;</span>
-	</a>      
-	<a class="schedule_button view" href="#" onclick="return false;">
-		<span class="schedule_button_heading">View this Contract</span>
-		<span>&nbsp;</span>
-	</a>  
-	<a class="schedule_button trash" href="#" onclick="return false;">
-		<span class="schedule_button_heading">Remove from Schedule entirely</span>
-		<span>&nbsp;</span>
-	</a>    	  
+<div id="full_slot" class="contextMenu" style="display: none; background-color:#ddd; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px;">
+	<h2></h2><a href="#" id="close-button" style="float:right; font-size:10px;">Close</a>
+	<div id="deep-info">
+		<span>Loading...</span>
+	</div>
+	<br />
+	<div style="height: 60px; background-color:#ddd; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px;">
+		<a class="schedule_button delete" href="#" onclick="return false;">
+			<span class="schedule_button_heading_small">Un-Schedule from this day </span>
+			<span>&nbsp;</span>
+		</a>
+		<a class="schedule_button view" href="#" onclick="return false;">
+			<span class="schedule_button_heading_small">View this Contract</span>
+			<span>&nbsp;</span>
+		</a>
+		<a class="schedule_button trash" href="#" onclick="return false;">
+			<span class="schedule_button_heading_small">Remove from Schedule</span>
+			<span>&nbsp;</span>
+		</a>    	  
+	</div>
 </div>
 
 <div id="hidden_arrival_ranges" style="display:none;">
@@ -37,6 +43,10 @@
 		$(".note_toggle").click(function() {
 			$(this).parent().find("form").slideToggle();
 		});
+		
+		$("#close-button").click(function() {
+			$.modal.close();
+		})
 		
 		function doClicky(spec) {
 			if ($(spec).hasClass("empty")) {
@@ -75,7 +85,7 @@
 										$(ele2).parent().parent().removeClass("editing").addClass("full");
 										$($(ele2).parent().parent().children('span')[0]).text(data["conName"]);
 										$($(ele2).parent().parent().children('span')[0]).prop("id", ("con-" + data["conId"]));
-										$(ele2).parent().text(data["size"] + " in " + data["location"]);
+										$(ele2).parent().text(data["size"] + " in " + data["location"] + " \n " + data["fill_type"] + " - " + data["arrival_time"]);
 									}
 								})
 							}
@@ -85,13 +95,34 @@
 				})
 				return false;
 			} else if ($(spec).hasClass("full")) {
+				var conId = $(spec).find(".schedule_button_heading").attr("id").split("-")[1];
+				var the_clicked = $(spec);
+				
 				$("#full_slot").find("h2").html($(spec).find(".schedule_button_heading").html());
 				$("#full_slot").modal({
 					opacity:60,
-					overlayCss: {backgroundColor:"#fff"}
+					overlayCss: {backgroundColor:"#fff"},
+					minWidth: '400px',
+					close: true,
+					overlayClose: true
 				});
-				var conId = $(spec).find(".schedule_button_heading").attr("id").split("-")[1];
-				var the_clicked = $(spec);
+				
+				$.getJSON("/schedule/get_contract_details", { id: conId }, function(result) {
+					var str = "";
+					str += result.phone_number + "<br />";
+					str += "<strong>Email:</strong> <a href='mailto:" + result.email + "'>" + result.email + "</a>" + "<br />";
+					str += result.job_address + "<br />";
+					str += result.foundation + "<br />";
+					str += result.erosion_control + "<br />";
+					str += result.offlevel + "<br />";
+					str += result.trex_color;
+					if (result.sixbysix == "true") {
+						str += "6x6 posts <br />";
+					}
+					
+					$("#deep-info").html(str);
+				})
+				
 				$(".schedule_button.delete").click(function(){
 					$.post("/schedule/remove_assignment", { id: conId }, function(data) {
 						$.modal.close();

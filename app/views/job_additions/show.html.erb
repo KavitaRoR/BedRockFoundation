@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Addition price in cents:</b>
+  <%= @job_addition.addition_price_in_cents %>
+</p>
+
+<p>
+  <b>Addition description:</b>
+  <%= @job_addition.addition_description %>
+</p>
+
+<p>
+  <b>Job:</b>
+  <%= @job_addition.job_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_job_addition_path(@job_addition) %> |
+<%= link_to 'Back', job_additions_path %>

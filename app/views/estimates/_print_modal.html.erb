@@ -18,7 +18,7 @@
 		<td colspan=4><hr /></td>
 	</tr>
 	<tr>
-		<td colspan=2><strong>Shed Co:</strong> <%= @options_for_job[:shed_company] %></td>
+		<td colspan=2><%= @options_for_job[:shed_company] rescue "" %><td>
 		<td colspan=2><strong>Date of Est:</strong> <%= @options_for_job[:estimate_date] %></td>
 	</tr>
 	<tr>
@@ -34,20 +34,35 @@
 		<td colspan=2><strong>Phone Work:</strong> <%= @options_for_job[:contact_phone_work] %></td>
 	</tr>
 	<tr>
-		<td colspan=2><strong>Email:</strong></td>
-		<td colspan=2><%= @options_for_job[:contact_email] %></td>
+		<td colspan=2><strong>Email:</strong> <%= @options_for_job[:contact_email] %></td>
+		<td colspan=2>&nbsp;</td>
 	</tr>
 	<tr>
 		<td colspan=4><hr /></td>
 	</tr>
-	<tr>
-		<td colspan=3>
-			<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"} Foundation" %>
-		</td>
-		<td colspan=1 style="text-align: right;">
-			<strong><%= "#{money_from_cents(@job.specific_offlevel(@type)[:zero][0])}" %></strong>
-		</td>
-	</tr>
+	<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_length].to_i != 0 %>
+		<tr>
+			<td colspan=3>
+					<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"} Foundation" %>
+			</td>
+			<td colspan=1 style="text-align: right;">
+				<strong><%= "#{money_from_cents(@job.specific_offlevel(@type)[:zero][0])}" %></strong>
+			</td>
+		</tr>
+	<% end %>
+	<% if @estimate.job.border_sixbysix %>
+		<tr>
+			<td colspan=3>
+				With 6" x 6" timbers
+			</td>
+		</tr>
+	<% else %>
+		<tr>
+			<td colspan=3>
+				With 4" x 6" timbers
+			</td>
+		</tr>
+	<% end %>
 	<% if @job.has_erosion_control_lft? %>
 		<tr>
 			<td colspan=3>
@@ -89,6 +104,35 @@
 			<td>&nbsp;</td>
 		</tr>
 	<% end %>
+	<% if @estimate.job.job_additions %>
+		<tr>
+			<td colspan=3>
+				<strong>Additional Items:</strong>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=4>
+				<hr style="color:#aaa;" />
+			</td>
+		</tr>
+		<% @estimate.job.job_additions.each do |a| %>
+			<tr>
+				<td colspan=3>
+					<span style="font-size:0.8em;"><%= a.addition_description %></span>
+				</td>
+				<td style="text-align: right;">
+					<strong>+<%= money_from_cents a.addition_price_in_cents %></strong>
+				</td>
+			</tr>
+			<% if a != @estimate.job.job_additions.last %>
+				<tr>
+					<td colspan=4>
+						<hr style="color:#aaa;" />
+					</td>
+				</tr>
+			<% end %>
+		<% end %>
+	<% end %>
 	<% if @job.description && @job.description != "" %>
 		<tr>
 			<td colspan=4>
@@ -100,12 +144,14 @@
 	<tr>
 		<td colspan=4><hr /></td>
 	</tr>
-	<tr>
-		<td colspan=4 style="font-size: 0.8em;">
-			<strong>Description:</strong>
-			 <%= @job.job_description_for_flash(@type) %>
-		</td>
-	</tr>
+	<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_length].to_i != 0 %>
+		<tr>
+			<td colspan=4 style="font-size: 0.8em;">
+				<strong>Description:</strong>
+				 <%= @job.job_description_for_flash(@type) %>
+			</td>
+		</tr>
+	<% end %>
 	<tr>
 		<td colspan=4>&nbsp;</td>
 	</tr>

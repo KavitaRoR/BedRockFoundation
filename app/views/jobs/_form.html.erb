@@ -1,76 +1,163 @@
 <%= form_for @job do |f| %>
-  <% if @job.errors.any? %>
-	    <div id="error_explanation">
-	      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this post from being saved:</h2>
+	<% if @job.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@job.errors.count, "error") %> prohibited this post from being saved:</h2>
+			<ul>
+				<% @job.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
 
-	      <ul>
-	      <% @job.errors.full_messages.each do |msg| %>
-	        <li><%= msg %></li>
-	      <% end %>
-	      </ul>
-	    </div>
-	  <% end %>
+<%= link_to "Go Back to Contact", "/contacts/#{@job.contact_id}" %><br />
+<br />
+<%= f.label :description %><br />
+<%= f.text_area :description, :class => "text" %>
 
-<dl>
-  <dt><%= f.label :description %></dt>
-	<dd><%= f.text_area :description, :class => "text" %></dd>
-  <dt><%= f.label :foundation_id %></dt>
-	<dd><%= f.select :foundation_id, Foundation.all.collect{|fo| [fo.kind, fo.id]} %></dd>
-  <dt><%= f.label :width %></dt>
-	<dd><%= f.text_field :width, :class => "integer" %></dd>
-  <dt><%= f.label :length %></dt>
-	<dd><%= f.text_field :length, :class => "integer" %></dd>
-  <dt><%= f.label :border_sixbysix, "Use 6x6 timbers around the border?" %></dt>
-	<dd><%= f.check_box :border_sixbysix %></dd>
-	<dt><%= f.label :erosion_control_lft, "Lft of Erosion Control Wire" %></dt>
-	<dd><%= f.text_field :erosion_control_lft %></dd>
-  <dt><%= f.label :door_placement %></dt>
-	<dd><%= f.text_field :door_placement, :class => "string" %></dd>
-  <dt><%= f.label :off_level_amount_in_inches %></dt>  
-	<dd><%= f.text_field :off_level_amount_in_inches, :class => "integer" %></dd>
-  <dt><%= f.label :accessible_with_machine %></dt>
-	<dd><%= f.text_field :accessible_with_machine, :class => "string" %></dd>
-  <dt><%= f.label :additional_fill_dirt %></dt>
-	<dd><%= f.text_field :additional_fill_dirt, :class => "string" %></dd>
-  <dt><%= f.label :build_up_timbers %></dt>
-	<dd><%= f.text_field :build_up_timbers, :class => "string" %></dd>
-  <dt><%= f.label :timber_wall %></dt>
-	<dd><%= f.text_field :timber_wall, :class => "string" %></dd>
-	<dt><%= f.label :job_type_id, "Job Type" %></dt>
-  <dd><%= f.select :job_type_id, JobType.all.collect{|j| [j.kind, j.id] } %></dd>
-	<dt class="off_level_fill_type"><%= f.label :off_level_fill_type %> (Leave blank if not needed)</dt>
-	<dd class="off_level_fill_type"><%= f.select :off_level_fill_type, [["Excavate","Excavate"], ["Build-Up","Build-Up"]], :include_blank => true, :default => @job.off_level_fill_type %></dd>
-  <dt><%= f.label :additional_price %></dt>
-	<dd><%= f.text_field :additional_price, :class => "integer" %></dd>
-  <dt><%= f.label :discount %></dt>
-	<dd><%= f.text_field :discount, :class => "string" %></dd>
-
+<table style="float:left;">
+	<thead></thead>
+	<tbody>
+		<tr>
+			<td><%= f.label :foundation_id %></td>
+			<td><%= f.select :foundation_id, Foundation.all.collect{|fo| [fo.kind, fo.id]} %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :width %></td>
+			<td><%= f.text_field :width, :class => "integer" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :length %></td>
+			<td><%= f.text_field :length, :class => "integer" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :border_sixbysix, "Use 6x6 timbers?" %></td>
+			<td><%= f.check_box :border_sixbysix %>  (check for yes)</td>
+		</tr>
+		<tr>
+			<td><%= f.label :erosion_control_lft, "Lft of Erosion Control Wire" %></td>
+			<td><%= f.text_field :erosion_control_lft %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :door_placement %></td>
+			<td><%= f.text_field :door_placement, :class => "string" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :off_level_amount_in_inches %></td>  
+			<td><%= f.text_field :off_level_amount_in_inches, :class => "integer" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :accessible_with_machine %></td>
+			<td><%= f.text_field :accessible_with_machine, :class => "string" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :additional_fill_dirt %></td>
+			<td><%= f.text_field :additional_fill_dirt, :class => "string" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :build_up_timbers %></td>
+			<td><%= f.text_field :build_up_timbers, :class => "string" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :timber_wall %></td>
+			<td><%= f.text_field :timber_wall, :class => "string" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :job_type_id, "Job Type" %></td>
+		  <td><%= f.select :job_type_id, JobType.all.collect{|j| [j.kind, j.id] } %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :trex_color %></td>
+			<td><%= f.select :trex_color, [["Grey", "Grey"], ["Brown", "Brown"], ["Red", "Red"]] %></td>
+		</tr>
+		<tr>
+			<td class="off_level_fill_type"><%= f.label :off_level_fill_type %></td>
+			<td class="off_level_fill_type"><%= f.select :off_level_fill_type, [["Excavate","Excavate"], ["Build-Up","Build-Up"]], :include_blank => true, :default => @job.off_level_fill_type %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :additional_price %></td>
+			<td><%= f.text_field :additional_price, :class => "integer" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :discount %></td>
+			<td><%= f.text_field :discount, :class => "string" %></td>
+		</tr>
+		
+	</tbody>
+</table>
+<div style="float:left; padding:10px; 12px;">
+	<h3>Additions to Job</h3>
+	<% if @job.id.nil? %>
+		You must create an estimate before you can add additional items.  Then edit the estimate to add 
+		items here.
+	<% else %>
+		
+		<%= link_to "Add an additional item", "/job_additions/new?job_id=#{@job.id}" %><br /><br />
+		<% @job.job_additions.each do |a| %>
+			Price: <%= money_from_cents a.addition_price_in_cents %><br />
+			Desc: <%= a.addition_description %><br />
+			<%= link_to "Delete this item", job_addition_path(a), :method => "DELETE" %> | <%= link_to "Edit this item", edit_job_addition_path(a) %>
+			<hr />
+		<% end %>
+	<% end %>
+</div>
+<div style="clear:both;"></div>
+<%= f.hidden_field(:contact_id, :value => (params[:for] || @contact.id)) rescue "" %>
 <hr />
 	<h3>Job site address</h3>
 	<p>Leave this empty if the customer address is the same</p>
-  <dt><%= f.label :address_1 %></dt>
-	<dd><%= f.text_field :address_1, :class => "string" %></dd>
-  <dt><%= f.label :address_2 %></dt>
-	<dd><%= f.text_field :address_2, :class => "string" %></dd>
-  <dt><%= f.label :city %></dt>
-	<dd><%= f.text_field :city, :class => "string" %></dd>
-  <dt><%= f.label :province, "State" %></dt>
-	<dd><%= f.text_field :province, :class => "string" %></dd>
-  <dt><%= f.label :zip %></dt>
-	<dd><%= f.text_field :zip, :class => "integer" %></dd>
-	<%= f.hidden_field(:contact_id, :value => (params[:for] || @contact.id)) rescue "" %>
-  <dt><%= f.label :location_id, "Office Location for Invoice" %></dt>
-	<dd><%= f.select :location_id, Location.find(:all, :order => "abbreviation ASC").map{|l| [l.name, l.id] } %></dd>
+	<table>
+		<tbody>
+			<tr>
+				<td>
+					<%= f.label :address_1 %><br />
+					<%= f.text_field :address_1, :class => "string" %></td>
+				<td colspan=2>
+					<%= f.label :address_2 %><br />
+					<%= f.text_field :address_2, :class => "string" %>
+				</td>
+				
+			</tr>
+			<tr>
+				<td>
+					<%= f.label :city %><br />
+					<%= f.text_field :city, :class => "string" %>
+				</td>
+				<td>
+					<%= f.label :province, "State" %><br />
+					<%= f.text_field :province, :class => "string" %>
+				</td>
+				<td>
+					<%= f.label :zip %><br />
+					<%= f.text_field :zip, :class => "integer" %>
+				</td>
+			</tr>
+			<tr>
+				<td colspan=3>
+					<%= f.label :location_id, "Office Location for Invoice:" %>
+					<%= f.select :location_id, Location.find(:all, :order => "abbreviation ASC").map{|l| [l.name, l.id] } %>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 	
-	
-	<hr />
-		<h3>Job Crew and Rig</h3>
-	  <dt><%= f.label :crew_name %></dt>
-		<dd><%= f.text_field :crew_name, :class => "string" %></dd>
-	  <dt><%= f.label :rig_name, "Rig #" %></dt>
-		<dd><%= f.text_field :rig_name, :class => "string" %></dd>
-</dl>
-<p><%= f.submit "Save" %></p>
+	<!-- <hr /> -->
+		<!-- <h3>Job Crew and Rig</h3> -->
+		<!-- <table>
+			<tbody>
+				<tr>
+					<td><%#= f.label :crew_name %></td>
+					<td><%#= f.text_field :crew_name, :class => "string" %></td>
+				</tr>
+				<tr>
+					<td><%#= f.label :rig_name, "Rig #" %></td>
+					<td><%#= f.text_field :rig_name, :class => "string" %></td>
+				</tr>
+			</tbody>
+		</table> -->
+<p>
+	<%= f.submit "Save" %>
+</p>
 <% end %>
 
 <script type="text/javascript">
