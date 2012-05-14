@@ -165,7 +165,19 @@
 <% end %>
 
 <script type="text/javascript">
+	function hideAndShowAppropriate() {
+		var chosen = $("#job_foundation_calculator").val();
+		if (chosen == "adhoc") {
+			$(".concrete").slideUp();
+			$(".adhoc").slideDown();
+		} else if (chosen.indexOf("concrete") != -1) {
+			$(".adhoc").slideUp();
+			$(".concrete").slideDown();
+		}
+	}
+
 	$(document).ready(function() {
+		hideAndShowAppropriate();
 		$("#job_job_type_id").change(function() {
 			if ($(this).val() == "1") {
 				$(".off_level_fill_type").slideUp()
@@ -175,5 +187,7 @@
 				}
 			}
 		})
+		
+		$("#job_foundation_calculator").change(hideAndShowAppropriate);
 	})
 </script>
