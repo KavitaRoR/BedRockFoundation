@@ -7,6 +7,7 @@ class Job < ActiveRecord::Base
   belongs_to :foundation
   belongs_to :pad_size
   belongs_to :location
+  belongs_to :foundation_calculator
   has_many :statuses, :dependent => :destroy
   has_many :estimates
   has_many :job_additions
