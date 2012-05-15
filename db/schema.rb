@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120514184816) do
+ActiveRecord::Schema.define(:version => 20120515060725) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -168,24 +168,32 @@ ActiveRecord::Schema.define(:version => 20120514184816) do
     t.integer  "distance"
     t.integer  "width"
     t.integer  "length"
-    t.decimal  "additional_price",           :precision => 10, :scale => 2, :default => 0.0,        :null => false
-    t.decimal  "depth",                      :precision => 10, :scale => 0
+    t.decimal  "additional_price",                    :precision => 10, :scale => 2, :default => 0.0,        :null => false
+    t.decimal  "depth",                               :precision => 10, :scale => 0
     t.string   "shed_company"
     t.string   "accessible_with_machine"
     t.string   "additional_fill_dirt"
     t.string   "build_up_timbers"
     t.string   "timber_wall"
     t.string   "economy_or_elite"
-    t.boolean  "border_sixbysix",                                           :default => false
-    t.decimal  "discount",                   :precision => 10, :scale => 2, :default => 0.0,        :null => false
+    t.boolean  "border_sixbysix",                                                    :default => false
+    t.decimal  "discount",                            :precision => 10, :scale => 2, :default => 0.0,        :null => false
     t.string   "crew_name"
     t.string   "rig_name"
     t.integer  "location_id"
-    t.integer  "job_type_id",                                               :default => 1
-    t.string   "off_level_fill_type",                                       :default => "Build-Up"
+    t.integer  "job_type_id",                                                        :default => 1
+    t.string   "off_level_fill_type",                                                :default => "Build-Up"
     t.integer  "erosion_control_lft"
     t.string   "trex_color"
-    t.integer  "foundation_calculator_id",                                  :default => 1
+    t.integer  "foundation_calculator_id",                                           :default => 1
+    t.integer  "concrete_thickness_in_inches",                                       :default => 4
+    t.integer  "concrete_edge_thickness_in_inches",                                  :default => 4
+    t.boolean  "vapor_barrier",                                                      :default => true
+    t.integer  "gravel_base_depth_in_inches",                                        :default => 4
+    t.integer  "gibraltar_concrete_footer_in_inches",                                :default => 8
+    t.integer  "days_on_job",                                                        :default => 1
+    t.integer  "extra_man_days",                                                     :default => 1
+    t.integer  "number_of_piers",                                                    :default => 4
   end
 
   add_index "jobs", ["id"], :name => "index_jobs_on_id"
