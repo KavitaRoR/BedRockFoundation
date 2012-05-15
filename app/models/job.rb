@@ -220,6 +220,10 @@ class Job < ActiveRecord::Base
     return false
   end
   
+  def foundation_kind
+    return self.foundation_calculator.kind rescue ""
+  end
+  
   protected
   
     def create_initial_status
