@@ -95,6 +95,10 @@ class Job < ActiveRecord::Base
     @adhocjob ||= AdhocJobCalculator.new(self.distance, self.width, self.length, (self.off_level_amount_in_inches.to_f/12))
   end
   
+  def concrete_job
+    @concretejob ||= ConcreteCalculator.new(self.distance, self.width, self.length, (self.off_level_amount_in_inches.to_f/12))
+  end
+  
   def pad_job_with_options
     @padjob ||= RockPadCalculator.new(self.distance, self.width, self.length, (self.job_type.kind rescue "Standard"), self.border_sixbysix, (self.off_level_amount_in_inches.to_f/12), self.off_level_fill_type, self.erosion_control_lft)
   end

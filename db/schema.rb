@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120515060725) do
+ActiveRecord::Schema.define(:version => 20120515083051) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20120515060725) do
     t.integer  "days_on_job",                                                        :default => 1
     t.integer  "extra_man_days",                                                     :default => 1
     t.integer  "number_of_piers",                                                    :default => 4
+    t.integer  "concrete_price_per_yard",                                            :default => 150
   end
 
   add_index "jobs", ["id"], :name => "index_jobs_on_id"
