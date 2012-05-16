@@ -1,10 +1,6 @@
 development:
   adapter: mysql2
-<<<<<<< HEAD
-  database: bedrock_foundations_master
-=======
-  database: bedrock_foundations_develop
->>>>>>> 655256b3420afc97f4f2da6e35eeb85a1f1ccca4
+  database: abundant3_dev
   host: localhost
   username: root
   password: 
