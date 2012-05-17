@@ -4,7 +4,7 @@ Abundant::Application.configure do
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[BRF] ",
     :sender_address => %{"BedRock App" <notifier@bedrockfoundations.com>},
-    :exception_recipients => %w{kevin@wearefound.com timothy@wearefound.com}
+    :exception_recipients => %w{kevin@wearefound.com timothy@wearefound.com jhnsntmthy@me.com}
     
   # Code is not reloaded between requests
   config.cache_classes = true
