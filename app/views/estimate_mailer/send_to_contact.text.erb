@@ -1,10 +1,17 @@
 Dear <%= @estimate.job.contact.first_name %> <%= @estimate.job.contact.last_name %>,
 	<% vars = YAML::load(@estimate.flashvars).with_indifferent_access %>
-	I've created completed an estimate for a <%= vars[:job_width] %>' x <%= vars[:job_length] %>' <%= vars[:foundation_kind] %> Foundation.
-	To access the estimate, you will need to have the Adobe's Flash Player installed.  Please feel free to call me with any questions, comments, or concerns.
+
+I've completed an estimate for a <%= vars[:job_width] %>' x <%= vars[:job_length] %>' <%= vars[:foundation_kind] %> Foundation.
 	
-	To view your estimate follow this url at http://app.bedrockfoundations.com/estimates/client_estimate/<%= @estimate.token %> to view it. 
+If you have any problems accessing the estimate, please feel free to call me with any questions, comments, or concerns.
+	
+To view your estimate follow this link below to view it. 
+
+http://app.bedrockfoundations.com/e/<%= @estimate.token %> 
+
 
 Yours truly,
 
 Eli Stoltzfus
+Bedrock Foundations
+717-587-7062
