@@ -81,7 +81,7 @@ class AdhocJobCalculator
     
   
   def cement_bar_quantity
-    @padkind.include?('gibraltar') ? ((perimeter.to_f * 12) / 16) * 4) : 0
+    @padkind.include?('gibraltar') ? (((perimeter.to_f * 12) / 16) * 4) : 0
   end
 
   def cement_block_cost
