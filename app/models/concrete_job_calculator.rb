@@ -149,9 +149,8 @@ class AdhocJobCalculator
     time_on_road = driving_hours.to_f
     number_of_laborers = @laborers.to_f
     laborer_rate = @laborer_rate.to_f
-    driving_labor_cost = (number_of_laborers + @job.extra_man_days.to_f) * time_on_road * laborer_rate + 
-
-    return driving_labor_cost
+    driving_labor_cost = (number_of_laborers + @job.extra_man_days.to_f) * time_on_road * laborer_rate
+    driving_labor_cost
   end
   
   def working_labor_hours
