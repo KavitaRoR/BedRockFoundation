@@ -51,7 +51,7 @@
 		</tr>
 		<tr>
 			<td>&lt;6"</td>
-			<td><%= money_from_cents(((job_block[:buildup_economy][:zero] - @job.price_in_cents) / 100).round * 100) %></td>
+			<td><%= money_from_cents(((job_block[:buildup_economy][:zero] - @job.price_in_cents) / 100).round * 100) rescue ""%></td>
 			<td><%= money_from_cents(((job_block[:buildup_standard][:zero] - @job.price_in_cents) / 100).round * 100) %></td>
 			<td><%= money_from_cents(((job_block[:buildup_elite][:zero] - @job.price_in_cents) / 100).round * 100) %></td>
 		</tr>
