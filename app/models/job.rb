@@ -47,7 +47,7 @@ class Job < ActiveRecord::Base
   end
   
   def referencing
-    return "#{self.estimate_or_contract} - #{self.width} × #{self.length} - #{self.job_type.kind}"
+    return "#{self.estimate_or_contract} - #{self.width} × #{self.length} - #{self.job_type.kind} - #{self.foundation_kind_short}"
   end
   
   def address_oneline
@@ -226,6 +226,10 @@ class Job < ActiveRecord::Base
   
   def foundation_kind
     return self.foundation_calculator.kind rescue ""
+  end
+  
+  def foundation_kind_short
+    return self.foundation_calculator.shortcode rescue ""
   end
   
   protected
