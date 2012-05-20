@@ -15,7 +15,7 @@ class AdhocJobCalculator
     @padkind = job.foundation_calculator.kind.downcase rescue "graduated"
     @distance = dist
     @trips = @job.days_on_job rescue 3
-    @laborers = (findVar("rockpad_laborers") || 2)
+    @laborers = (findVar("concrete_laborers") || 2)
     @laborer_rate = (findVar("rockpad_laborer_rate") * 100) || 2000
     @gas_cost = (findVar("rockpad_gas_cost") * 100) || 400
     @truck_cost_per_mile = (findVar("rockpad_truck_cost_per_mile") * 100) || 200
@@ -41,34 +41,49 @@ class AdhocJobCalculator
 
   
   def vapor_barrier_cost
-    case 
+    vapor_barrier_per_foot = findVar("concrete_vapor_barrier_roll_cost") / (findVar("concrete_vapor_barrier_length") * findVar("concrete_vapor_barrier_width")) rescue 3.3
+    vbc = case 
     when @padkind.include?('gibraltar')
-      
+      (@length - 1.3333) * (@width - 1.3333) * vapor_barrier_per_foot
     when @padkind.include?('graduated')
-      
+      edge = findVar("concrete_edge_thickness_in_inches") / 12
+      (@length - (edge * 2)) * (@width - (edge * 2)) * vapor_barrier_per_foot
     when @padkind.include?('floating')
-      
+      square_footage * vapor_barrier_per_foot
     when @padkind.include?('piers')
-      
+      0
     else
-      
+      0
     end
-    vapor_barrier_per_foot * perimeter * 2
+    if findVar("vapor_barrier") == true
+      return vbc
+    else 
+      return 0
+    end
   end
   
   def concrete_cost 
-    case 
+    concrete_amount * findVar("concrete_price_per_yard")
+  end
+  
+  def concrete_amount
+    thick = findVar("concrete_thickness_in_inches") / 36
+    cubic_yards_of_concrete = case 
     when @padkind.include?('gibraltar')
-      
+      ((@length - 1.3333) / 3) * ((@width - 1.3333) / 3) * thick
     when @padkind.include?('graduated')
-      
+      edge = findVar("concrete_edge_thickness_in_inches") / 36
+      edge_amount = edge * edge * (perimeter / 3)
+      inside_amount = ((@length/3) - (edge*2)) * ((@width/3) - (edge*2)) * thick
     when @padkind.include?('floating')
-      
+      (@length/3) * (@width/3) * thick
     when @padkind.include?('piers')
-      
+      cubic_area_per_pier = (findVar("concrete_piers_depth_in_inches") / 36) * ((findVar("concrete_piers_diameter_in_inches")/72) * Math::PI)
+      cubic_area_per_pier * findVar("number_of_piers")
     else
-      
+      0
     end
+    cubic_yards_of_concrete
   end
     
   
@@ -77,11 +92,23 @@ class AdhocJobCalculator
   end
 
   def cement_block_cost
-      cement_block_quantity * (find_var(concrete_cement_block_cost) * 100)
+      cement_block_quantity * findVar("concrete_cement_block_cost")
   end
   
   def rebar_quantity
-    (perimeter / findVar("rockpad_spacing_for_rebar") || 8)
+    rebar = case 
+    when @padkind.include?('gibraltar')
+      (square_footage / 2) - (perimeter / 2) + ((perimeter * 2) / 20)      
+    when @padkind.include?('graduated')
+      (square_footage / 2) + (perimeter / 2)
+    when @padkind.include?('floating')
+      square_footage / 2
+    when @padkind.include?('piers')
+      6 * findVar("number_of_piers")
+    else
+      0
+    end
+    rebar
   end 
   
   def rebar_cost
@@ -97,8 +124,7 @@ class AdhocJobCalculator
   end
   
   def rock_tonage
-    rock_depth = @depth / 2
-    rock_depth < 0.5 ? rock_depth = 0.5 : rock_depth
+    rock_depth = findVar("gravel_base_depth_in_inches") / 12
     
     footage_per_ton = findVar("rockpad_square_footage_per_ton") rescue 36
     cubic_footage_per_ton = footage_per_ton * 0.5
@@ -146,7 +172,7 @@ class AdhocJobCalculator
   end
   
   def working_labor_hours
-    (@job.extra_man_days * 8) + (8 * @trips)
+    (@job.extra_man_days * 8) + (8 * @trips * @laborers)
   end
   
   def working_labor_cost
@@ -158,7 +184,19 @@ class AdhocJobCalculator
   end
   
   def total_material_cost
-    rock_cost + rebar_cost + vapor_barrier_cost + concrete_cost + cement_block_cost
+    tmc = case 
+    when @padkind.include?('gibraltar')
+      rock_cost + rebar_cost + vapor_barrier_cost + concrete_cost + cement_block_cost
+    when @padkind.include?('graduated')
+      rock_cost + rebar_cost + vapor_barrier_cost + concrete_cost 
+    when @padkind.include?('floating')
+      rock_cost + rebar_cost + vapor_barrier_cost + concrete_cost       
+    when @padkind.include?('piers')
+      rebar_cost + concrete_cost 
+    else
+      0
+    end
+    tmc
   end
   
   def total_cost
