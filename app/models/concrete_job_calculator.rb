@@ -71,20 +71,21 @@ class ConcreteJobCalculator
   end
   
   def concrete_amount
-    thick = @concrete_thickness / 36
+    thick = @concrete_thickness.to_f / 36
+    Rails.logger.debug "Thick = #{thick}"
     cubic_yards_of_concrete = case 
     when @padkind.include?('gibraltar')
-      ((@length - 1.3333) / 3) * ((@width - 1.3333) / 3) * thick
+      ((@length.to_f - 1.3333) / 3) * ((@width.to_f - 1.3333) / 3) * thick
       # @length * @width @ thick
     when @padkind.include?('graduated')
-      edge = @concrete_edge_thickness_in_inches / 36
+      edge = @concrete_edge_thickness_in_inches.to_f / 36
       edge_amount = edge * edge * (perimeter / 3)
-      inside_amount = ((@length/3) - (edge*2)) * ((@width/3) - (edge*2)) * thick
+      inside_amount = ((@length.to_f/3) - (edge*2)) * ((@width.to_f/3) - (edge*2)) * thick
       inside_amount + edge_amount
     when @padkind.include?('floating')
-      (@length/3) * (@width/3) * thick
+      (@length.to_f/3) * (@width.to_f/3) * thick
     when @padkind.include?('piers')
-      cubic_area_per_pier = (@concrete_piers_depth_in_inches / 36) * (@concrete_piers_diameter_in_inches / 72) * Math::PI
+      cubic_area_per_pier = (@concrete_piers_depth_in_inches.to_f / 36) * (@concrete_piers_diameter_in_inches.to_f / 72) * Math::PI
       cubic_area_per_pier * findVar("number_of_piers")
     else
       0
