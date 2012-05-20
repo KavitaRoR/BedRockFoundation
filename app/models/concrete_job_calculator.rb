@@ -20,16 +20,8 @@ class AdhocJobCalculator
     @gas_cost = (findVar("rockpad_gas_cost") * 100) || 400
     @truck_cost_per_mile = (findVar("rockpad_truck_cost_per_mile") * 100) || 200
     @truck_mileage_per_gallon = findVar("rockpad_truck_mileage_per_gallon") || 9
-    # @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot") * 100) || 200
-    # @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot_gt_16") * 100) || 400 if @width >= 16
-    # @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot_6x6") * 100) || 500 if sixbysix
     @rock_per_ton = (findVar("rockpad_rock_per_ton") * 100) || 2000
-    # @trex_price_per_foot = (findVar("rockpad_trex_price_per_foot") * 100) || 500
-    # @weed_fabric_per_roll = (findVar("rockpad_weed_fabric_per_roll") * 100) || 36500
     @rebar_piece = (findVar("rockpad_rebar_piece") * 100) || 100
-    # @erosion_control_per_lft = (findVar("rockpad_erosion_control_wire_price")) || 2.50
-    # @kind = kind.capitalize
-    # @fill_type = fill_type
   end
   
   
@@ -80,12 +72,12 @@ class AdhocJobCalculator
   end
     
   
-  def cement_bar_quantity
+  def cement_block_quantity
     @padkind.include?('gibraltar') ? (((perimeter.to_f * 12) / 16) * 4) : 0
   end
 
   def cement_block_cost
-      cement_bar_quantity * (find_var(concrete_cement_block_cost) * 100)
+      cement_block_quantity * (find_var(concrete_cement_block_cost) * 100)
   end
   
   def rebar_quantity
