@@ -34,39 +34,3 @@
 	<% end %>
 	
 </p>
-<% job_block = @job.pad_job_type_offset %>
-<table>
-	<caption>Off-level amounts</caption>
-	<thead>
-		<tr>
-			<th>&nbsp;</th>
-			<th>Economy</th>
-			<th>Standard</th>
-			<th>Elite</th>
-		</tr>
-		<tr>
-			<td>&lt;6"</td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:zero] - @job.price_in_cents) / 100).round * 100) %></td>
-		</tr>
-		<tr>
-			<td>12"</td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:twelve] - @job.price_in_cents) / 100).round * 100) %></td>
-		</tr>
-		<tr>
-			<td>18"</td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:eighteen] - @job.price_in_cents) / 100).round * 100) %></td>
-		</tr>
-		<tr>
-			<td>24"</td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:twentyfour] - @job.price_in_cents) / 100).round * 100) %></td>
-		</tr>
-		<tr>
-			<td>30"</td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:thirty] - @job.price_in_cents) / 100).round * 100) %></td>
-		</tr>
-		<tr>
-			<td>36"</td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:thirtysix] - @job.price_in_cents) / 100).round * 100) %></td>
-		</tr>
-	</thead>
-</table>

@@ -1,5 +1,5 @@
 # encoding: utf-8
-class AdhocJobCalculator
+class ConcreteJobCalculator
   
   def findVar(key)
     # return RockPadVariable.find_by_key(key).value
@@ -12,6 +12,7 @@ class AdhocJobCalculator
     @length = job.length
     @width = job.width
     @job = job
+    @concrete_price_per_yard = job.concrete_price_per_yard
     @padkind = job.foundation_calculator.kind.downcase rescue "graduated"
     @distance = dist
     @trips = @job.days_on_job rescue 3
@@ -30,18 +31,17 @@ class AdhocJobCalculator
     @length * @width
   end
   
-  def cubic_footage
-    @length * @width * @depth
-  end
   
   def perimeter
     (@length + @width) * 2
   end
   
+  def vapor_barrier_per_foot
+    findVar("concrete_vapor_barrier_roll_cost") / (findVar("concrete_vapor_barrier_length") * findVar("concrete_vapor_barrier_width")) rescue 3.3
+  end
 
   
   def vapor_barrier_cost
-    vapor_barrier_per_foot = findVar("concrete_vapor_barrier_roll_cost") / (findVar("concrete_vapor_barrier_length") * findVar("concrete_vapor_barrier_width")) rescue 3.3
     vbc = case 
     when @padkind.include?('gibraltar')
       (@length - 1.3333) * (@width - 1.3333) * vapor_barrier_per_foot
@@ -63,7 +63,7 @@ class AdhocJobCalculator
   end
   
   def concrete_cost 
-    concrete_amount * findVar("concrete_price_per_yard")
+    concrete_amount * @concrete_price_per_yard * 100
   end
   
   def concrete_amount
@@ -75,6 +75,8 @@ class AdhocJobCalculator
       edge = findVar("concrete_edge_thickness_in_inches") / 36
       edge_amount = edge * edge * (perimeter / 3)
       inside_amount = ((@length/3) - (edge*2)) * ((@width/3) - (edge*2)) * thick
+      inside_amount + edge_amount
+      10
     when @padkind.include?('floating')
       (@length/3) * (@width/3) * thick
     when @padkind.include?('piers')
@@ -92,7 +94,7 @@ class AdhocJobCalculator
   end
 
   def cement_block_cost
-      cement_block_quantity * findVar("concrete_cement_block_cost")
+      cement_block_quantity * findVar("concrete_cement_block_cost") * 100
   end
   
   def rebar_quantity
@@ -128,13 +130,9 @@ class AdhocJobCalculator
     
     footage_per_ton = findVar("rockpad_square_footage_per_ton") rescue 36
     cubic_footage_per_ton = footage_per_ton * 0.5
-    
-    total_cubic_of_pad = @length * @width * rock_depth
-    total_cubic_tonnage = total_cubic_of_pad / cubic_footage_per_ton
-    
+        
     total_tonnage = (@length * @width / footage_per_ton)
-    return total_tonnage if @fill_type == "Excavate" || @depth <= 0.5
-    return total_cubic_tonnage
+    return total_tonnage 
   end
   
   def rock_cost

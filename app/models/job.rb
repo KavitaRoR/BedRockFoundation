@@ -47,7 +47,15 @@ class Job < ActiveRecord::Base
   end
   
   def referencing
-    return "#{self.estimate_or_contract} - #{self.width} × #{self.length} - #{self.job_type.kind} - #{self.foundation_kind_short}"
+    return "#{self.estimate_or_contract} - #{self.width} × #{self.length} - #{self.job_shortcode}"
+  end
+  
+  def job_shortcode
+    if job_calc_type == "pad"
+      "RP #{job_type.kind}"
+    else 
+      job_calc_type.humanize
+    end
   end
   
   def address_oneline
@@ -85,6 +93,7 @@ class Job < ActiveRecord::Base
     else
       @job_calc_type ||= "pad"
     end
+    @job_calc_type
   end
   
   def pad_job
@@ -96,7 +105,7 @@ class Job < ActiveRecord::Base
   end
   
   def concrete_job
-    @concretejob ||= ConcreteCalculator.new(self.distance, self.width, self.length, (self.off_level_amount_in_inches.to_f/12))
+    @concretejob ||= ConcreteJobCalculator.new(self)
   end
   
   def pad_job_with_options

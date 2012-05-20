@@ -5,7 +5,7 @@
 
 <% 
 partialz = @job.foundation_calc.to_slug
-partialz = "rock_pad" unless @job.foundation_calc.include?("Concrete") 
+partialz = "rock_pad" unless @job.foundation_calc.include?("concrete") 
 partialz = "adhoc" if @job.foundation_calc.include?("adhoc") 
 %>
 
