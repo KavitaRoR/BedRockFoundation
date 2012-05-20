@@ -1,5 +1,4 @@
 <h3>Pricing Breakdown for Floating Slab</h3>	
-
 <table>
 	<thead>
 	<tr>
@@ -16,124 +15,91 @@
 	</tr>
 	<tr>
 		<td>Square Footage</td>
-		<td><%= @job.pad_job.square_footage %></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Cubic Footage</td>
-		<td><%= number_with_precision @job.pad_job.cubic_footage %></td>
+		<td><%= @job.concrete_job.square_footage %></td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>Perimeter</td>
-		<td><%= @job.pad_job.perimeter %> ft</td>
+		<td><%= @job.concrete_job.perimeter %> ft</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>Off-level amount</td>
 		<td><%= @job.off_level_amount_in_inches %> inches
-			<br /><%= number_with_precision @job.pad_job.my_depth %> feet
+			<br /><%= number_with_precision @job.concrete_job.my_depth %> feet
 		</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Fill type:</td>
-		<td><%= @job.off_level_fill_type %></td>
-		<td>
-			<% if @job.off_level_fill_type == "Excavate" %>
-				<%= money_from_cents @job.pad_job.excavation_labor %>
-			<% else %>
-				&nbsp;
-			<% end %>
-		</td>
-	</tr>
-	<tr>
-		<td>Rows of Boards (on slope)</td>
-		<td><%= (number_with_precision @job.pad_job.board_rows) %> rows</td>
 		<td></td>
 	</tr>
 
 	<tr>
-		<td>Boards</td>
-		<td><%= number_with_precision @job.pad_job.board_quantity_in_feet %> ft</td>
-		<td><%= money_from_cents @job.pad_job.board_cost %></td>
+		<td>Vapor Barrier</td>
+		<td><%= '%.2f' % @job.concrete_job.vapor_barrier_per_foot.to_s %> per ft</td>
+		<td><%= money_from_cents @job.concrete_job.vapor_barrier_cost %></td>
 	</tr>
 	<tr>
-		<td>Erosion Control</td>
-		<td><%= @job.erosion_control_lft %> lft</td>
-		<td><%= money_from_cents @job.pad_job.erosion_control_cost %></td>
+		<td>Concrete (cubic yards)</td>
+		<td><%= '%.2f' % @job.concrete_job.concrete_amount %> cu yd</td>
+		<td><%= money_from_cents @job.concrete_job.concrete_cost %></td>
 	</tr>
 
-	<% if @job.job_type.kind == "Elite" %>
-	<tr>
-		<td>Trex Additional</td>
-		<td><%= @job.pad_job.perimeter %> ft</td>
-		<td><%= money_from_cents @job.pad_job.trex_additional_cost %></td>
-	</tr>
-	<% end %>
-	<tr>
-		<td>Weed Fabric</td>
-		<td><%= '%.2f' % @job.pad_job.weed_fabric_per_foot.to_s %> per ft</td>
-		<td><%= money_from_cents @job.pad_job.weed_fabric_cost %></td>
-	</tr>
 	<tr>
 		<td>Rebar</td>
-		<td><%= @job.pad_job.rebar_quantity %></td>
-		<td><%= money_from_cents @job.pad_job.rebar_cost %></td>
+		<td><%= @job.concrete_job.rebar_quantity %></td>
+		<td><%= money_from_cents @job.concrete_job.rebar_cost %></td>
 	</tr>
 	<tr class="endsection">
 		<td>Rock (<%= RockPadVariable.find_by_key("rockpad_square_footage_per_ton").value %> sqft/ton @ 6")</td>
-		<td><%= number_with_precision(@job.pad_job.rock_tonage, :precision => 2, :strip_insignification_zeros => true) %> tons</td>
-		<td><%= money_from_cents @job.pad_job.rock_cost %></td>
+		<td><%= number_with_precision(@job.concrete_job.rock_tonage, :precision => 2, :strip_insignification_zeros => true) %> tons</td>
+		<td><%= money_from_cents @job.concrete_job.rock_cost %></td>
 	</tr>
 
 	<tr>
 		<td>Truck Gas Cost</td>
-		<td><%= @job.pad_job.round_trip_distance %> miles</td>
-		<td><%= money_from_cents @job.pad_job.truck_gas_cost %></td>
+		<td><%= @job.concrete_job.round_trip_distance %> miles</td>
+		<td><%= money_from_cents @job.concrete_job.truck_gas_cost %></td>
 	</tr>
 	<tr>
-		<td>Truck Maintenace Cost</td>
-		<td><%= @job.pad_job.round_trip_distance %> miles</td>
-		<td><%= money_from_cents @job.pad_job.truck_maintenance_cost %></td>
+		<td>Truck Maintenance Cost</td>
+		<td><%= @job.concrete_job.round_trip_distance %> miles</td>
+		<td><%= money_from_cents @job.concrete_job.truck_maintenance_cost %></td>
 	</tr>
 	<tr class="endsection">
 		<td>Driving Labor</td>
-		<td><%= @job.pad_job.round_trip_distance %> miles</td>
-		<td><%= money_from_cents @job.pad_job.driving_labor_cost %></td>
+		<td><%= @job.concrete_job.round_trip_distance %> miles</td>
+		<td><%= money_from_cents @job.concrete_job.driving_labor_cost %></td>
 	</tr>
 
 		<tr>
 			<td>Working Labor</td>
-			<td><%= @job.pad_job.working_labor_hours %> hours</td>
-			<td><%= money_from_cents @job.pad_job.working_labor_cost %></td>
+			<td><%= @job.concrete_job.working_labor_hours %> hours</td>
+			<td><%= money_from_cents @job.concrete_job.working_labor_cost %></td>
 		</tr>
 		<tr>
 			<td>Materials</td>
 			<td></td>
-			<td><%= money_from_cents @job.pad_job.total_material_cost %></td>
+			<td><%= money_from_cents @job.concrete_job.total_material_cost %></td>
 		</tr>
 		<tr class="endsection">
 			<td>Total Cost</td>
 			<td></td>
-			<td><%= money_from_cents @job.pad_job.total_cost %></td>
+			<td><%= money_from_cents @job.concrete_job.total_cost %></td>
 		</tr>
 	
 		<tr>
 			<td>Material Markup</td>
 			<td></td>
-			<td><%= money_from_cents @job.pad_job.total_material_markup %></td>
+			<td><%= money_from_cents @job.concrete_job.total_material_markup %></td>
 		</tr>
 		<tr class="endsection">
 			<td>Labor Markup</td>
 			<td></td>
-			<td><%= money_from_cents @job.pad_job.total_labor_markup %></td>
+			<td><%= money_from_cents @job.concrete_job.total_labor_markup %></td>
 		</tr>
 	
 		<tr>
 			<td><b>Base Price</b></td>
 			<td></td>
-			<td><%= money_from_cents @job.pad_job.total_price %></td>
+			<td><%= money_from_cents @job.concrete_job.total_price %></td>
 		</tr>
 	
 		<tr>

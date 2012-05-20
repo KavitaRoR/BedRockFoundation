@@ -15,6 +15,10 @@ class ConcreteJobCalculator
     @concrete_price_per_yard = job.concrete_price_per_yard
     @padkind = job.foundation_calculator.kind.downcase rescue "graduated"
     @distance = dist
+    @concrete_thickness = job.concrete_thickness_in_inches
+    @concrete_edge_thickness_in_inches = job.concrete_edge_thickness_in_inches
+    @concrete_piers_depth_in_inches = job.concrete_piers_depth_in_inches
+    @concrete_piers_diameter_in_inches = job.concrete_piers_diameter_in_inches
     @trips = @job.days_on_job rescue 3
     @laborers = (findVar("concrete_laborers") || 2)
     @laborer_rate = (findVar("rockpad_laborer_rate") * 100) || 2000
@@ -67,20 +71,20 @@ class ConcreteJobCalculator
   end
   
   def concrete_amount
-    thick = findVar("concrete_thickness_in_inches") / 36
+    thick = @concrete_thickness / 36
     cubic_yards_of_concrete = case 
     when @padkind.include?('gibraltar')
       ((@length - 1.3333) / 3) * ((@width - 1.3333) / 3) * thick
+      # @length * @width @ thick
     when @padkind.include?('graduated')
-      edge = findVar("concrete_edge_thickness_in_inches") / 36
+      edge = @concrete_edge_thickness_in_inches / 36
       edge_amount = edge * edge * (perimeter / 3)
       inside_amount = ((@length/3) - (edge*2)) * ((@width/3) - (edge*2)) * thick
       inside_amount + edge_amount
-      10
     when @padkind.include?('floating')
       (@length/3) * (@width/3) * thick
     when @padkind.include?('piers')
-      cubic_area_per_pier = (findVar("concrete_piers_depth_in_inches") / 36) * ((findVar("concrete_piers_diameter_in_inches")/72) * Math::PI)
+      cubic_area_per_pier = (@concrete_piers_depth_in_inches / 36) * (@concrete_piers_diameter_in_inches / 72) * Math::PI
       cubic_area_per_pier * findVar("number_of_piers")
     else
       0
