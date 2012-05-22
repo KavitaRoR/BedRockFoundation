@@ -52,8 +52,10 @@
 				
 				<% unless block_it_off %>
 				<% (1..c.job_max_per_day).each do |it| %>
-					<% con = @contracts.select{|co| (co.scheduled_date.beginning_of_day rescue false) == day.beginning_of_day && co.crew == c && co.position_in_day == it } %>
-	
+						<% con = Contract.where("scheduled_date > ? and scheduled_date < ? and position_in_day = ? and crew_id = ?", day.beginning_of_day, day.beginning_of_day + 1.day, it, c.id)
+
+						# .select{|co| (co.scheduled_date.beginning_of_day rescue false) == day.beginning_of_day && co.crew_id == c.id && co.position_in_day == it } 
+						%>
 					<% if con.empty? %>
 						<a id="empty-<%= c.id %>-<%= it %>-<%= day.beginning_of_day.to_i %>" class="schedule_button empty" href="#" onclick="return false;">
 							<span class="schedule_button_heading">Empty Slot #<%= it %></span>
