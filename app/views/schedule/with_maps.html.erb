@@ -1,0 +1,58 @@
+<div class="jquery_tab">
+
+    <div class="content_block">
+		<div id="filter_links">Weeks out: 
+    	<a href="/schedule/with_maps/?until=-2.w">prev 2w</a> | 
+    	<a href="/schedule/with_maps/" style="color: #f90; font-weight: bold;">TODAY + 2w</a> | 
+    	<a href="/schedule/with_maps/?until=2.w">2 - 3</a> | 
+    	<a href="/schedule/with_maps/?until=4.w">4 - 5</a> | 
+    	<a href="/schedule/with_maps/?until=6.w">6 - 7</a> | 
+    	<a href="/schedule/with_maps/?until=8.w">8 - 9</a> |
+    	<a href="/schedule/with_maps/?until=10.w">10 - 11</a> |
+    	<a href="/schedule/with_maps/?until=12.w">12 - 13</a> |
+    	<a href="/schedule/with_maps/?until=14.w">14 - 15</a> |
+    	<a href="/schedule/with_maps/?until=16.w">16 - 17</a> |
+    	<a href="/schedule/with_maps/?until=18.w">18 - 19</a> |
+    	<a href="/schedule/with_maps/?until=20.w">20 - 21</a> |
+    	<a href="/schedule/with_maps/?until=22.w">22 - 23</a> |
+    	<a href="/schedule/with_maps/?until=24.w">24 - 25</a> |
+    	<a href="/schedule/with_maps/?until=26.w">26 - 27</a> |
+    	<a href="/schedule/with_maps/?until=28.w">28 - 29</a> |
+    	<a href="/schedule/with_maps/?until=30.w">30 - 31</a> 
+    	</div>
+	
+
+			<div id="today-marker"></div>
+			<% ((@query_start_date)..(@query_start_date + 2.weeks)).each do |day| %>
+				<%= render :partial => "day_table2", :locals => {:day => day} %>
+			<% end %>
+		<% u = params[:until].split(".").first.to_i rescue 0 %>
+		<div style="font-size: 2em; margin-bottom: 40px;"><a href="/schedule/?until=<%= u + 2 %>.w">Show me the next 2 weeks &raquo;</a>  </div>
+	    
+    </div>
+</div>
+
+
+<%= render :partial => "queued_contracts" %>
+
+<%= content_for :js_bottom do %>
+	<%= render :partial => 'persistence' %>
+<% end %>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#show-previous-button").click(function() {
+			$("#show-previous-button").hide();
+			$("#hide-previous-button").show();
+			$(".previous-calendar").slideDown('slow', function() {
+				location.hash = "#today-marker";
+			});			
+		})
+		
+		$("#hide-previous-button").click(function() {
+			$(".previous-calendar").slideUp();
+			$("#show-previous-button").show();
+			$("#hide-previous-button").hide();
+		})
+	})
+</script>

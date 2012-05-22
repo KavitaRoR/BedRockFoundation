@@ -8,6 +8,10 @@ class ScheduleController < ApplicationController
     @daycrewblocks = DayCrewBlock.where("day > ? and day < ?", @query_start_date, @query_start_date + 2.weeks)
   end
   
+  def with_maps
+    index
+  end
+  
   def get_queued_for_dropdown
     val = []
     Contract.where(:scheduled_date => nil).each do |c|
