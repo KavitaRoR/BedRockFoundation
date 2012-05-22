@@ -48,18 +48,19 @@ class ConcreteJobCalculator
   def vapor_barrier_cost
     vbc = case 
     when @padkind.include?('gibraltar')
-      (@length - 1.3333) * (@width - 1.3333) * vapor_barrier_per_foot
+      return (@length - 1.3333) * (@width - 1.3333) * vapor_barrier_per_foot
     when @padkind.include?('graduated')
       edge = findVar("concrete_edge_thickness_in_inches") / 12
-      (@length - (edge * 2)) * (@width - (edge * 2)) * vapor_barrier_per_foot
+      return (@length - (edge * 2)) * (@width - (edge * 2)) * vapor_barrier_per_foot
     when @padkind.include?('floating')
-      square_footage * vapor_barrier_per_foot
+      return square_footage * vapor_barrier_per_foot
     when @padkind.include?('piers')
-      0
+      return 0
     else
-      0
+      return 0
     end
-    if findVar("vapor_barrier") == true
+    
+    if @job.vapor_barrier? == true
       return vbc
     else 
       return 0
@@ -72,7 +73,7 @@ class ConcreteJobCalculator
   
   def concrete_amount
     thick = @concrete_thickness.to_f / 36
-    Rails.logger.debug "Thick = #{thick}"
+    puts "Thick = #{thick}"
     cubic_yards_of_concrete = case 
     when @padkind.include?('gibraltar')
       ((@length.to_f - 1.3333) / 3) * ((@width.to_f - 1.3333) / 3) * thick
@@ -86,7 +87,7 @@ class ConcreteJobCalculator
       (@length.to_f/3) * (@width.to_f/3) * thick
     when @padkind.include?('piers')
       cubic_area_per_pier = (@concrete_piers_depth_in_inches.to_f / 36) * (@concrete_piers_diameter_in_inches.to_f / 72) * Math::PI
-      cubic_area_per_pier * findVar("number_of_piers")
+      cubic_area_per_pier * findVar("concrete_number_of_piers")
     else
       0
     end
@@ -111,7 +112,7 @@ class ConcreteJobCalculator
     when @padkind.include?('floating')
       square_footage / 2
     when @padkind.include?('piers')
-      6 * findVar("number_of_piers")
+      6 * findVar("concrete_number_of_piers")
     else
       0
     end
@@ -131,7 +132,7 @@ class ConcreteJobCalculator
   end
   
   def rock_tonage
-    rock_depth = findVar("gravel_base_depth_in_inches") / 12
+    rock_depth = findVar("concrete_gravel_base_depth_in_inches") / 12
     
     footage_per_ton = findVar("rockpad_square_footage_per_ton") rescue 36
     cubic_footage_per_ton = footage_per_ton * 0.5
@@ -207,12 +208,12 @@ class ConcreteJobCalculator
   end
   
   def total_labor_price
-    markup_percentage = (findVar("rockpad_labor_cost_markup")+100).to_f / 100 rescue 1.25
+    markup_percentage = (findVar("concrete_labor_cost_markup")+100).to_f / 100 rescue 1.25
     total_labor_cost * markup_percentage
   end
   
   def total_material_price
-    markup_percentage = (findVar("rockpad_material_cost_markup")+100).to_f / 100 || 1.15
+    markup_percentage = (findVar("concrete_material_cost_markup")+100).to_f / 100 || 1.15
     total_material_cost * markup_percentage
   end
   
@@ -225,8 +226,8 @@ class ConcreteJobCalculator
   end
   
   def total_price
-    puts "Total Price : #{total_labor_cost} * #{(findVar("rockpad_labor_cost_markup")+100) / 100} + #{total_material_cost} * #{(findVar("rockpad_material_cost_markup")+100) / 100}"
-    (total_labor_cost * (findVar("rockpad_labor_cost_markup")+100) / 100 || 1.25) + (total_material_cost * (findVar("rockpad_material_cost_markup")+100) / 100 || 1.15)
+    # puts "Total Price : #{total_labor_cost} * #{(findVar("rockpad_labor_cost_markup")+100) / 100} + #{total_material_cost} * #{(findVar("rockpad_material_cost_markup")+100) / 100}"
+    (total_labor_cost * (findVar("concrete_labor_cost_markup")+100) / 100 || 1.25) + (total_material_cost * (findVar("concrete_material_cost_markup")+100) / 100 || 1.15)
   end
   
   def my_cost
