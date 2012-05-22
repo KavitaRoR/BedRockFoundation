@@ -9,6 +9,10 @@ class ArrivalRangesController < ApplicationController
       format.json { render json: @arrival_ranges }
     end
   end
+  
+  def soon
+    
+  end
 
   # GET /arrival_ranges/1
   # GET /arrival_ranges/1.json
