@@ -33,7 +33,7 @@
 
 	<tr>
 		<td>Vapor Barrier</td>
-		<td><%= '%.2f' % @job.concrete_job.vapor_barrier_per_foot.to_s %> per ft</td>
+		<td><%= '%.2f' % @job.concrete_job.vapor_barrier_per_foot.to_s %> per sqft</td>
 		<td><%= money_from_cents @job.concrete_job.vapor_barrier_cost %></td>
 	</tr>
 	<tr>
@@ -43,12 +43,12 @@
 	</tr>
 	<tr>
 		<td>Cement Block</td>
-		<td><%= @job.concrete_job.cement_block_quantity %></td>
+		<td><%= @job.concrete_job.cement_block_quantity %> blocks</td>
 		<td><%= money_from_cents @job.concrete_job.cement_block_cost %></td>
 	</tr>
 	<tr>
 		<td>Rebar</td>
-		<td><%= @job.concrete_job.rebar_quantity %></td>
+		<td><%= @job.concrete_job.rebar_quantity %> pieces</td>
 		<td><%= money_from_cents @job.concrete_job.rebar_cost %></td>
 	</tr>
 	<tr class="endsection">
