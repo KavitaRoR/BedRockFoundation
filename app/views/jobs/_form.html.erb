@@ -28,12 +28,50 @@
 		</tr>
 		<tr class="rock_pad concrete floating graduated gibraltar piers">
 			<td><%= f.label :width %></td>
-			<td><%= f.text_field :width, :class => "integer" %></td>
+			<td>
+				<%= f.text_field :width, :class => "integer" %><br />
+				<p style="color:#FF0000; display:none;" id="your-wrong-width">Please enter a valid WIDTH.</p>
+			</td>
 		</tr>
 		<tr class="rock_pad concrete floating graduated gibraltar piers">
 			<td><%= f.label :length %></td>
-			<td><%= f.text_field :length, :class => "integer" %></td>
+			<td>
+				<%= f.text_field :length, :class => "integer" %>
+				<p style="color:#FF0000; display:none;" id="your-wrong-length">Please enter a valid LENGTH.</p>
+			</td>
 		</tr>
+		<script type="text/javascript">
+			function isNumeric(n) {
+			  return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+			
+			function validateFields(ele) {
+				var val = $(ele).val();
+				if (isNumeric(val)) {
+					return true
+				} else {
+					return false
+				}
+			}
+			
+			$(document).ready(function() {
+				$("#job_width").keyup(function() {
+					if (validateFields($("#job_width"))) {
+						$("#your-wrong-width").fadeOut();
+					} else {
+						$("#your-wrong-width").fadeIn();
+					}
+				})
+				$("#job_length").keyup(function() {
+					if (validateFields($("#job_length"))) {
+						$("#your-wrong-length").fadeOut();
+					} else {
+						$("#your-wrong-length").fadeIn();
+					}
+				})
+				
+			})
+		</script>
 		<tr class="rock_pad">
 			<td><%= f.label :border_sixbysix, "Use 6x6 timbers?" %></td>
 			<td><%= f.check_box :border_sixbysix %>  (check for yes)</td>
