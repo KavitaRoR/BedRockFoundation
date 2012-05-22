@@ -7,6 +7,8 @@ gem 'mail'
 gem 'gmaps4rails'
 gem 'will_paginate'
 gem 'exception_notification'
+gem 'newrelic_rpm'
+gem 'ruby-prof'
 
 group :development do
   gem 'heroku'
