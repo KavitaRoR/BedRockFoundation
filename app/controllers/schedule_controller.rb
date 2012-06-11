@@ -115,7 +115,8 @@ class ScheduleController < ApplicationController
         :foundation => "<strong>Foundation:</strong> #{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"}", 
         :erosion_control => "#{@job.erosion_control_lft rescue 0} lft of <strong>Erosion Control Wire</strong>", 
         :offlevel => "#{(@estimate.job.off_level_amount_in_inches rescue 0) || 0} inches <strong>off level</strong>",
-        :trex_color => "#{@estimate.job.trex_color || "no"}<strong> Trex</strong>"
+        :trex_color => "#{@estimate.job.trex_color || "no"}<strong> Trex</strong>", 
+        shed_company: "<strong>Referrer: </strong>#{@estimate.job.contact.campaign.name rescue ""}"
       }
     else
       render :text => "no"
