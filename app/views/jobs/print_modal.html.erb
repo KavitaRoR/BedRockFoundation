@@ -17,12 +17,12 @@
 		<% end %>
 
 		<% if @estimate.date_of_email_to_client %>
-			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link" >&raquo; Re-Send Estimate to Customer<br />&nbsp;&nbsp;&nbsp;&nbsp;(Sent <%= @estimate.date_of_email_to_client.strftime("%m/%d/%Y at %I:%m %p") %>)</a>
+			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link" >Re-Send Estimate to Customer<br />&nbsp;&nbsp;&nbsp;&nbsp;(Sent <%= @estimate.date_of_email_to_client.strftime("%m/%d/%Y at %I:%m %p") %>)</a>
 		<% else %>
-			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link" >&raquo; Email Estimate to Customer</a>
+			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link" ><%= image_tag "email.png", width:"110px", height:"45px" %></a>
 		<% end %>
 		<br />
-		<a href="#" id="print-link">&raquo; Click to print estimate</a><br />
+		<a href="#" style="text-decoration:none;" id="print-link"> <%= image_tag "print.png", width:"110px", height:"45px" %></a><br />
 		<br />
 		<% if @estimate.sold? %>
 			<% if @estimate.job_type.kind == @type %>
