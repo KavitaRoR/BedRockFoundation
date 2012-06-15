@@ -127,11 +127,11 @@
 		</tr>
 
 		<tr class="concrete adhoc floating graduated gibraltar piers">
-			<td><%= f.label :days_on_job %></td>
+			<td><%= f.label :days_on_job, "# of days crew will be on the job?" %></td>
 			<td><%= f.text_field :days_on_job, :class => "integer" %></td>
 		</tr>
 		<tr class="concrete adhoc floating graduated gibraltar piers">
-			<td><%= f.label :extra_man_days, "How many extra man days (besides base crew)?" %></td>
+			<td><%= f.label :extra_man_days, "Extra man days? (1 = 1 day per person)?" %></td>
 			<td><%= f.text_field :extra_man_days, :class => "integer" %></td>
 		</tr>
 		

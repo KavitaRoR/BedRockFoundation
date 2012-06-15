@@ -11,7 +11,7 @@ class RockPadCalculator
     @vars = RockPadVariable.all
     @length = l
     @width = w
-    @depth = d
+    @depth = d.to_f
     @ec_lft = ec_lft
     @distance = dist
     @laborers = (findVar("rockpad_laborers") || 2)
@@ -33,16 +33,30 @@ class RockPadCalculator
   
   def excavation_labor
     if square_footage > 200
-      @excavation_labor = square_footage / 2 * 100
+      @excavation_labor = square_footage / 2 * 1.2
     else
-      @excavation_labor = square_footage * 100
+      @excavation_labor = square_footage * 1.2
     end
+    puts "---------------\n\n"
+    puts "SquareFootage #{square_footage}"
     
-    per_inch = @excavation_labor / 12
-    @excavation_labor = per_inch * (@depth * 12)
+    puts "Excavation Labor #{@excavation_labor}"
+    
+    per_inch = @excavation_labor.to_f / 12
+    @excavation_labor = per_inch * (@depth * 12.0)
 
-    return @excavation_labor if @fill_type == "Excavate"
+    puts "Depth #{@depth}"
+    puts "Per Inch #{per_inch}"
+    puts "Excavation Labor 2 #{@excavation_labor}"
+    puts "---------------\n\n"
+
+    return @excavation_labor * 100 if @fill_type == "Excavate"
     return 0
+  end
+  
+  def extra_slope_costs
+    return excavation_labor if @fill_type == "Excavate"
+    return board_cost_extra
   end
   
   def erosion_control_cost
@@ -103,8 +117,12 @@ class RockPadCalculator
     perimeter * ((board_rows - 1) / 2) + perimeter
   end
   
+  def board_cost_extra
+    board_cost - (@board_cost_per_foot * perimeter)
+  end
+  
   def board_cost
-    @board_cost_per_foot * board_quantity_in_feet
+    (@board_cost_per_foot * board_quantity_in_feet)
   end
   
   def rock_tonage

@@ -44,46 +44,32 @@
 	<caption>Build-Up</caption>
 	<thead>
 		<tr>
-			<th>&nbsp;</th>
-			<th>Economy</th>
-			<th>Standard</th>
-			<th>Elite</th>
+			<td>&nbsp;</td>
+			<th>Standard or Elite</th>
 		</tr>
 		<tr>
 			<td>&lt;6"</td>
-			<td><%= money_from_cents(((job_block[:buildup_economy][:zero] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:zero] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_elite][:zero] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:buildup_standard][:zero]) rescue "" %></td>
 		</tr>
 		<tr>
 			<td>12"</td>
-			<td><%= money_from_cents(((job_block[:buildup_economy][:twelve] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:twelve] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_elite][:twelve] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:buildup_standard][:twelve]) rescue "" %></td>
 		</tr>
 		<tr>
 			<td>18"</td>
-			<td><%= money_from_cents(((job_block[:buildup_economy][:eighteen] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:eighteen] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_elite][:eighteen] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:buildup_standard][:eighteen]) rescue "" %></td>
 		</tr>
 		<tr>
 			<td>24"</td>
-			<td><%= money_from_cents(((job_block[:buildup_economy][:twentyfour] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:twentyfour] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_elite][:twentyfour] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:buildup_standard][:twentyfour]) rescue "" %></td>
 		</tr>
 		<tr>
 			<td>30"</td>
-			<td><%= money_from_cents(((job_block[:buildup_economy][:thirty] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:thirty] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_elite][:thirty] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:buildup_standard][:thirty]) rescue "" %></td>
 		</tr>
 		<tr>
 			<td>36"</td>
-			<td><%= money_from_cents(((job_block[:buildup_economy][:thirtysix] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_standard][:thirtysix] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:buildup_elite][:thirtysix] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:buildup_standard][:thirtysix]) rescue "" %></td>
 		</tr>
 	</thead>
 </table>
@@ -91,46 +77,32 @@
 	<caption>Excavate</caption>
 	<thead>
 		<tr>
-			<th>&nbsp;</th>
-			<th>Economy</th>
-			<th>Standard</th>
-			<th>Elite</th>
+			<td></td>
+			<th>Any Type</th>
 		</tr>
 		<tr>
 			<td>&lt;6"</td>
-			<td><%= money_from_cents(((job_block[:excavate_economy][:zero] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_standard][:zero] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_elite][:zero] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:excavate_standard][:zero]) rescue "" %></td>
 		</tr>
 		<tr>
 			<td>12"</td>
-			<td><%= money_from_cents(((job_block[:excavate_economy][:twelve] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_standard][:twelve] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_elite][:twelve] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:excavate_standard][:twelve]) rescue "" %></td>
 		</tr>
 		<tr>
 			<td>18"</td>
-			<td><%= money_from_cents(((job_block[:excavate_economy][:eighteen] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_standard][:eighteen] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_elite][:eighteen] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:excavate_standard][:eighteen]) rescue "" %></td>
 		</tr>
 		<tr>
 			<td>24"</td>
-			<td><%= money_from_cents(((job_block[:excavate_economy][:twentyfour] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_standard][:twentyfour] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_elite][:twentyfour] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:excavate_standard][:twentyfour]) rescue "" %></td>
 		</tr>
 		<tr>
 			<td>30"</td>
-			<td><%= money_from_cents(((job_block[:excavate_economy][:thirty] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_standard][:thirty] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_elite][:thirty] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:excavate_standard][:thirty]) rescue "" %></td>
 		</tr>
 		<tr>
 			<td>36"</td>
-			<td><%= money_from_cents(((job_block[:excavate_economy][:thirtysix] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_standard][:thirtysix] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
-			<td><%= money_from_cents(((job_block[:excavate_elite][:thirtysix] - @job.price_in_cents) / 100).round * 100) rescue "" %></td>
+			<td><%= money_from_cents(job_block[:excavate_standard][:thirtysix]) rescue "" %></td>
 		</tr>
 	</thead>
 </table>

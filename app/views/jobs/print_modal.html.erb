@@ -22,12 +22,12 @@
 			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link" ><%= image_tag "email.png", width:"110px", height:"45px" %></a>
 		<% end %>
 		<br />
-		<a href="#" style="text-decoration:none;" id="print-link"> <%= image_tag "print.png", width:"110px", height:"45px" %></a><br />
+		<a href="#" style="text-decoration:none;" id="print-link" class="avia-button  light  grey large"><%= image_tag "print.png", width:"110px", height:"45px" %></a><br />
 		<br />
 		<% if @estimate.sold? %>
 			<% if @estimate.job_type.kind == @type %>
 				This job has been sold based on this estimate. <br /> 
-				<% if @estimate.contract.scheduled_date %>
+				<% if !@estimate.contract.nil? %>
 					It is currently scheduled for <%= @estimate.contract.scheduled_date.strftime("%m/%d/%Y") rescue " -- not scheduled" %>.
 				<% else %>
 					<a id="go-to-schedule" href="/schedule" target="_parent">Schedule it now!</a>

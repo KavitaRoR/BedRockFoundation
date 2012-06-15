@@ -23,8 +23,8 @@
 	</tr>
 	<tr>
 		<td colspan=2>&nbsp;</td>
-		<td><strong>Scheduled:</strong> <%= @estimate.contract.scheduled_date.strftime("%m/%d/%Y")%> 
-			<% if @estimate.contract.arrival_range %>
+		<td><strong>Scheduled:</strong> <%= @estimate.contract.scheduled_date.strftime("%m/%d/%Y") rescue "" %> 
+			<% if @estimate.contract && @estimate.contract.arrival_range %>
 				At <%= @estimate.contract.arrival_range.early rescue "TBD" %></td>
 			<% end %>
 	</tr>
@@ -63,7 +63,7 @@
 				With 6" x 6" timbers
 			</td>
 		</tr>
-	<% else %>
+	<% elsif @estimate.job.job_calc_type != "adhoc" %>
 		<tr>
 			<td colspan=3>
 				With 4" x 6" timbers

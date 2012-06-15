@@ -46,6 +46,8 @@ class EstimatesController < ApplicationController
       end
       
       if @estimate.push_to_sold
+        @estimate.job.statuses.last.update_attribute("done", true)
+        @estimate.job.statuses.create({:notes => "Sold!", :assigned_by => @creator.id, :assigned_to => @creator.id, :done => true, :next_action_id => 7})
         redirect_to "/schedule", notice: "The job is on the production schedule."
       else 
         redirect_to :back, error: "Something went terribly wrong.  Check the job data and try again."

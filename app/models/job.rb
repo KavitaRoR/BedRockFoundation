@@ -115,60 +115,32 @@ class Job < ActiveRecord::Base
   end
   
   def pad_job_type_offset
-    buildup_econ_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 0, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_econ_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 1, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_econ_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 1.5, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_econ_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 2, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_econ_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 2.5, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_econ_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 3, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_stan_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 0, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_stan_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_stan_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1.5, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_stan_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_stan_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2.5, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_stan_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 3, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_elite_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 0, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_elite_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 1, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_elite_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 1.5, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_elite_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 2, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_elite_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 2.5, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    buildup_elite_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 3, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_econ_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 0, "Build-Up", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_econ_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 1, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_econ_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 1.5, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_econ_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 2, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_econ_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 2.5, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_econ_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Economy", self.border_sixbysix, 3, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_stan_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 0, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_stan_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_stan_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1.5, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_stan_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_stan_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2.5, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_stan_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 3, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_elite_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 0, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_elite_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 1, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_elite_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 1.5, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_elite_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 2, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_elite_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 2.5, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    excavate_elite_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Elite", self.border_sixbysix, 3, "Excavate", self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
+    buildup_stan_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 0, "Build-Up", self.erosion_control_lft).board_cost_extra
+    buildup_stan_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1, "Build-Up", self.erosion_control_lft).board_cost_extra
+    buildup_stan_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1.5, "Build-Up", self.erosion_control_lft).board_cost_extra
+    buildup_stan_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2, "Build-Up", self.erosion_control_lft).board_cost_extra
+    buildup_stan_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2.5, "Build-Up", self.erosion_control_lft).board_cost_extra
+    buildup_stan_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 3, "Build-Up", self.erosion_control_lft).board_cost_extra
+    excavate_stan_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 0, "Excavate", self.erosion_control_lft).excavation_labor
+    excavate_stan_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1, "Excavate", self.erosion_control_lft).excavation_labor
+    excavate_stan_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1.5, "Excavate", self.erosion_control_lft).excavation_labor
+    excavate_stan_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2, "Excavate", self.erosion_control_lft).excavation_labor
+    excavate_stan_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2.5, "Excavate", self.erosion_control_lft).excavation_labor
+    excavate_stan_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 3, "Excavate", self.erosion_control_lft).excavation_labor
     
     return {
-      buildup_economy: {zero: buildup_econ_0, twelve: buildup_econ_12, eighteen: buildup_econ_18, twentyfour: buildup_econ_24, thirty: buildup_econ_30, thirtysix: buildup_econ_36},
       buildup_standard: {zero: buildup_stan_0, twelve: buildup_stan_12, eighteen: buildup_stan_18, twentyfour: buildup_stan_24, thirty: buildup_stan_30, thirtysix: buildup_stan_36},
-      buildup_elite: {zero: buildup_elite_0, twelve: buildup_elite_12, eighteen: buildup_elite_18, twentyfour: buildup_elite_24, thirty: buildup_elite_30, thirtysix: buildup_elite_36},
-      excavate_economy: {zero: excavate_econ_0, twelve: excavate_econ_12, eighteen: excavate_econ_18, twentyfour: excavate_econ_24, thirty: excavate_econ_30, thirtysix: excavate_econ_36},
       excavate_standard: {zero: excavate_stan_0, twelve: excavate_stan_12, eighteen: excavate_stan_18, twentyfour: excavate_stan_24, thirty: excavate_stan_30, thirtysix: excavate_stan_36},
-      excavate_elite: {zero: excavate_elite_0, twelve: excavate_elite_12, eighteen: excavate_elite_18, twentyfour: excavate_elite_24, thirty: excavate_elite_30, thirtysix: excavate_elite_36}
     }
   end
   
   def specific_offlevel(kind)
-    kind_0 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 0, self.off_level_fill_type, self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    kind_12 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 1, self.off_level_fill_type, self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    kind_18 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 1.5, self.off_level_fill_type, self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    kind_24 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 2, self.off_level_fill_type, self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    kind_30 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 2.5, self.off_level_fill_type, self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
-    kind_36 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 3, self.off_level_fill_type, self.erosion_control_lft).total_price + (self.additional_price * 100) - (self.discount * 100)
+    kind_0 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 0, self.off_level_fill_type, self.erosion_control_lft).extra_slope_costs
+    kind_12 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 1, self.off_level_fill_type, self.erosion_control_lft).extra_slope_costs
+    kind_18 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 1.5, self.off_level_fill_type, self.erosion_control_lft).extra_slope_costs
+    kind_24 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 2, self.off_level_fill_type, self.erosion_control_lft).extra_slope_costs
+    kind_30 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 2.5, self.off_level_fill_type, self.erosion_control_lft).extra_slope_costs
+    kind_36 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 3, self.off_level_fill_type, self.erosion_control_lft).extra_slope_costs
     return {
       zero: [kind_0, 0], twelve: [kind_12, 12], eighteen: [kind_18, 18], twentyfour: [kind_24, 24], thirty: [kind_30, 30], thirtysix: [kind_36, 36]
     }
