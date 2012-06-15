@@ -89,7 +89,9 @@ class Job < ActiveRecord::Base
   
   def job_calc_type
     if foundation_kind.downcase.include?("concrete")
-      @job_calc_type ||= foundation_kind.downcase.to_slug      
+      @job_calc_type ||= foundation_kind.downcase.to_slug 
+    elsif self.foundation_calculator.kind == "adhoc"
+      @job_calc_type ||= "adhoc"     
     else
       @job_calc_type ||= "pad"
     end
