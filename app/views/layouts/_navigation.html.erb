@@ -1,7 +1,8 @@
 <ul class="nav">
 	<li><a class="headitem item1" href="/">Dashboard</a>
 		<ul class="<%= "opened" if controller.controller_name == "dashboard" %>">
-			<li class="<%= "current" if controller.action_name == "index" && controller.controller_name == "dashboard" %>"><a href="/">Dash &amp; To-Do List</a></li>
+			<li class="<%= "current" if controller.action_name == "index" && controller.controller_name == "dashboard" %>"><a href="/">Dashboard &amp; My To-Do List</a></li>
+			<li><a href="/dashboard/todos">Everyone's To-Do List</a></li>
 		</ul>
 	</li>
 	<li><a class="headitem item2" href="#">Campaigns</a>
