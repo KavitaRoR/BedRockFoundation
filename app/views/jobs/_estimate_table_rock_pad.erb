@@ -39,11 +39,7 @@
 		<td>Fill type:</td>
 		<td><%= @job.off_level_fill_type %></td>
 		<td>
-			<% if @job.off_level_fill_type == "Excavate" %>
-				<%= money_from_cents @job.pad_job.excavation_labor %>
-			<% else %>
-				&nbsp;
-			<% end %>
+			<%= money_from_cents @job.pad_job.extra_slope_costs %>
 		</td>
 	</tr>
 	<tr>

@@ -53,7 +53,7 @@
 					<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"} Foundation" %>
 			</td>
 			<td colspan=1 style="text-align: right;">
-				<strong><%= "#{money_from_cents(@job.price_in_cents - @job.pad_job.extra_slope_costs)}" %></strong>
+				<strong><%= "#{money_from_cents(@job.base_price_for_pad)}" %></strong>
 			</td>
 		</tr>
 	<% end %>

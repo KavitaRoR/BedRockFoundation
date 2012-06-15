@@ -117,26 +117,45 @@ class RockPadCalculator
     perimeter * ((board_rows - 1) / 2) + perimeter
   end
   
+  def build_up_board_quantity
+    perimeter * ((board_rows - 1) / 2)
+  end
+  
   def board_cost_extra
-    board_cost - (@board_cost_per_foot * perimeter)
+    (@board_cost_per_foot + 150) * build_up_board_quantity * ((findVar("rockpad_material_cost_markup")+100) / 100 || 1.15)
   end
   
   def board_cost
-    (@board_cost_per_foot * board_quantity_in_feet)
+    @board_cost_per_foot * perimeter 
   end
   
+  # Old Rock Tonage Calculator, used Rock from top to bottom of slope
+  # def rock_tonage
+  #   rock_depth = @depth / 2
+  #   rock_depth < 0.5 ? rock_depth = 0.5 : rock_depth
+  #   
+  #   footage_per_ton = findVar("rockpad_square_footage_per_ton") rescue 36
+  #   cubic_footage_per_ton = footage_per_ton * 0.5
+  #   
+  #   total_cubic_of_pad = @length * @width * rock_depth
+  #   total_cubic_tonnage = total_cubic_of_pad / cubic_footage_per_ton
+  #   
+  #   total_tonnage = (@length * @width / footage_per_ton)
+  #   return total_tonnage if @fill_type == "Excavate" || @depth <= 0.5
+  #   return total_cubic_tonnage
+  # end
+  
   def rock_tonage
-    rock_depth = @depth / 2
-    rock_depth < 0.5 ? rock_depth = 0.5 : rock_depth
+    rock_depth = 0.5
     
     footage_per_ton = findVar("rockpad_square_footage_per_ton") rescue 36
-    cubic_footage_per_ton = footage_per_ton * 0.5
+    cubic_footage_per_ton = footage_per_ton.to_f * 0.5
     
-    total_cubic_of_pad = @length * @width * rock_depth
+    total_cubic_of_pad = @length.to_f * @width.to_f * rock_depth
     total_cubic_tonnage = total_cubic_of_pad / cubic_footage_per_ton
     
-    total_tonnage = (@length * @width / footage_per_ton)
-    return total_tonnage if @fill_type == "Excavate" || @depth <= 0.5
+    # total_tonnage = (@length.to_f * @width.to_f / footage_per_ton.to_f)
+    # return total_tonnage if @fill_type == "Excavate" || @depth <= 0.5
     return total_cubic_tonnage
   end
   

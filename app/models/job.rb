@@ -202,6 +202,10 @@ class Job < ActiveRecord::Base
     end
   end
   
+  def base_price_for_pad
+    pad_job.total_price + ((additional_price - discount) * 100)
+  end
+  
   def has_erosion_control_lft?
     return true if self.erosion_control_lft != nil && self.erosion_control_lft != 0
     return false
@@ -259,7 +263,7 @@ class Job < ActiveRecord::Base
     
     def calculate_rock_pad_costs
       self.discount = 0.00 if self.discount == nil
-      self.price_in_cents = self.pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)
+      self.price_in_cents = self.pad_job.total_price + self.pad_job.extra_slope_costs + (self.additional_price * 100) - (self.discount * 100)
       self.labor_cost_in_cents = self.pad_job.total_labor_cost
       self.material_cost_in_cents = self.pad_job.total_material_cost
     end
