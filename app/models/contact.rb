@@ -16,6 +16,11 @@ class Contact < ActiveRecord::Base
     return last_name if first_name.blank?
   end
   
+  def big_potential_deal?
+    jobs.any?{|j| j.price_in_cents > 499999}
+  end
+  
+  
   def address_oneline
     [address_1,address_2,city,province,zip].reject{|f| f.blank? }.join(", ")
   end

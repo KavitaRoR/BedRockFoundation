@@ -13,6 +13,7 @@ class Contract < ActiveRecord::Base
   def location
     self.estimate.job.city_state
   end
+  
 
   
   protected
