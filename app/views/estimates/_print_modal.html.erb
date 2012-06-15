@@ -53,7 +53,7 @@
 					<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"} Foundation" %>
 			</td>
 			<td colspan=1 style="text-align: right;">
-				<strong><%= "#{money_from_cents(@job.specific_offlevel(@type)[:zero][0])}" %></strong>
+				<strong><%= "#{money_from_cents(@job.price_in_cents - @job.pad_job.extra_slope_costs)}" %></strong>
 			</td>
 		</tr>
 	<% end %>
@@ -87,7 +87,7 @@
 				With <%= @job.off_level_amount_in_inches %>" Off-Level
 			</td>
 			<td colspan=1 style="text-align: right;">
-				+<%= money_from_cents ((@job.price_in_cents) + (@job.additional_price * 100) - (@job.discount * 100) - @job.specific_offlevel(@type)[:zero][0])  %>
+				+<%= money_from_cents (@job.pad_job.extra_slope_costs)  %>
 			</td>
 		</tr>
 	<% end %>
