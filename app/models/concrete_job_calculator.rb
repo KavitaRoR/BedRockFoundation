@@ -9,8 +9,8 @@ class ConcreteJobCalculator
   
   def initialize(dist=30, job)
     @vars = RockPadVariable.all
-    @length = job.length
-    @width = job.width
+    @length = job.length || 0
+    @width = job.width || 0
     @job = job
     @concrete_price_per_yard = job.concrete_price_per_yard
     @padkind = job.foundation_calculator.kind.downcase rescue "graduated"
@@ -28,8 +28,6 @@ class ConcreteJobCalculator
     @rock_per_ton = (findVar("rockpad_rock_per_ton") * 100) || 2000
     @rebar_piece = (findVar("rockpad_rebar_piece") * 100) || 100
   end
-  
-  
   
   def square_footage
     @length * @width
@@ -180,7 +178,9 @@ class ConcreteJobCalculator
   end
   
   def working_labor_cost
-    working_labor_hours * @laborers * @laborer_rate
+    # @Tim: Should not be multiplying by laborers again.  Theyre factored into the working labor hours
+    # working_labor_hours * @laborers * @laborer_rate
+    return working_labor_hours * @laborer_rate
   end
   
   def total_labor_cost

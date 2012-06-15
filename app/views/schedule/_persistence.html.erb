@@ -109,6 +109,7 @@
 				
 				$.getJSON("/schedule/get_contract_details", { id: conId }, function(result) {
 					var str = "";
+					str += result.shed_company + "<br />";
 					str += result.phone_number + "<br />";
 					str += "<strong>Email:</strong> <a href='mailto:" + result.email + "'>" + result.email + "</a>" + "<br />";
 					str += result.job_address + "<br />";

@@ -5,7 +5,11 @@ class ScheduleController < ApplicationController
     @crews = Crew.find(:all, :include => [:contracts, {:contracts => [:estimate, {:estimate => :job}]}], :order => "ordering ASC")
     @contracts = Contract.where("scheduled_date > ? and scheduled_date < ?", @query_start_date, (@query_start_date + 2.weeks + 1.day)).includes(:estimate, :crew, {:estimate => [:job, {:job => :estimates, :job => :location, :job => :contact}] }).order("scheduled_date ASC")
     @queued_contracts = Contract.where(:scheduled_date => nil).includes(:estimate, :crew, {:estimate => [:job, {:job => :contact, :job => :estimates, :job => :location}] }).sort{|x,y| x.estimate.invoice_number <=> y.estimate.invoice_number}
-    @daycrewblocks = DayCrewBlock.where("day > ?", @query_start_date)
+    @daycrewblocks = DayCrewBlock.where("day > ? and day < ?", @query_start_date, @query_start_date + 2.weeks)
+  end
+  
+  def with_maps
+    index
   end
   
   def get_queued_for_dropdown
@@ -111,7 +115,8 @@ class ScheduleController < ApplicationController
         :foundation => "<strong>Foundation:</strong> #{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"}", 
         :erosion_control => "#{@job.erosion_control_lft rescue 0} lft of <strong>Erosion Control Wire</strong>", 
         :offlevel => "#{(@estimate.job.off_level_amount_in_inches rescue 0) || 0} inches <strong>off level</strong>",
-        :trex_color => "#{@estimate.job.trex_color || "no"}<strong> Trex</strong>"
+        :trex_color => "#{@estimate.job.trex_color || "no"}<strong> Trex</strong>", 
+        shed_company: "<strong>Referrer: </strong>#{@estimate.job.contact.campaign.name rescue ""}"
       }
     else
       render :text => "no"

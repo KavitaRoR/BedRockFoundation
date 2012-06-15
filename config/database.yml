@@ -4,4 +4,10 @@ development:
   host: localhost
   username: root
   password: 
-
+production:
+  adapter: mysql2
+  database: bedrock_foundations_production
+  pool: 15
+  host: localhost
+  username: root 
+  password: 

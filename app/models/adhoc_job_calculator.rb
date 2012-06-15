@@ -9,9 +9,9 @@ class AdhocJobCalculator
   
   def initialize(dist=30, w=0, l=0, d=0.5)
     @vars = RockPadVariable.all
-    @length = l
-    @width = w
-    @depth = d
+    @length = l || 0
+    @width = w || 0
+    @depth = d || 1
     # @ec_lft = ec_lft
     @distance = dist
     @laborers = (findVar("rockpad_laborers") || 2)

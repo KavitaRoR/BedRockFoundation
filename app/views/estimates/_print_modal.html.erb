@@ -18,8 +18,15 @@
 		<td colspan=4><hr /></td>
 	</tr>
 	<tr>
-		<td colspan=2><%= @options_for_job[:shed_company] rescue "" %><td>
-		<td colspan=2><strong>Date of Est:</strong> <%= @options_for_job[:estimate_date] %></td>
+		<td colspan=2><%= @options_for_job[:shed_company] rescue "" %></td>
+		<td><strong>Date of Est:</strong> <%= @options_for_job[:estimate_date] %></td>
+	</tr>
+	<tr>
+		<td colspan=2>&nbsp;</td>
+		<td><strong>Scheduled:</strong> <%= @estimate.contract.scheduled_date.strftime("%m/%d/%Y")%> 
+			<% if @estimate.contract.arrival_range %>
+				At <%= @estimate.contract.arrival_range.early rescue "TBD" %></td>
+			<% end %>
 	</tr>
 	<tr>
 		<td colspan=2><strong>Cust. Name:</strong> <%= @options_for_job[:contact_name] %></td>
