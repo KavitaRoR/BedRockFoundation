@@ -221,7 +221,7 @@ class RockPadCalculator
   end
   
   def total_labor_cost
-    working_labor_cost + driving_labor_cost + truck_cost + excavation_labor
+    working_labor_cost + driving_labor_cost + truck_cost
   end
   
   def total_material_cost
