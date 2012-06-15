@@ -37,18 +37,18 @@ class RockPadCalculator
     else
       @excavation_labor = square_footage * 1.2
     end
-    puts "---------------\n\n"
-    puts "SquareFootage #{square_footage}"
-    
-    puts "Excavation Labor #{@excavation_labor}"
+    # puts "---------------\n\n"
+    # puts "SquareFootage #{square_footage}"
+    # 
+    # puts "Excavation Labor #{@excavation_labor}"
     
     per_inch = @excavation_labor.to_f / 12
     @excavation_labor = per_inch * (@depth * 12.0)
 
-    puts "Depth #{@depth}"
-    puts "Per Inch #{per_inch}"
-    puts "Excavation Labor 2 #{@excavation_labor}"
-    puts "---------------\n\n"
+    # puts "Depth #{@depth}"
+    # puts "Per Inch #{per_inch}"
+    # puts "Excavation Labor 2 #{@excavation_labor}"
+    # puts "---------------\n\n"
 
     return @excavation_labor * 100 if @fill_type == "Excavate"
     return 0

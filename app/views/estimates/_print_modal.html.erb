@@ -53,7 +53,9 @@
 					<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"} Foundation" %>
 			</td>
 			<td colspan=1 style="text-align: right;">
-				<strong><%= "#{money_from_cents(@job.base_price_for_pad)}" %></strong>
+				<strong>
+				<%= money_from_cents(@job.specific_offlevel(@type)[:zero][0]) %>
+				</strong>
 			</td>
 		</tr>
 	<% end %>
@@ -63,7 +65,7 @@
 				With 6" x 6" timbers
 			</td>
 		</tr>
-	<% elsif @estimate.job.job_calc_type != "adhoc" %>
+	<% elsif @estimate.job.job_calc_type != "adhoc" && @type != "Economy" %>
 		<tr>
 			<td colspan=3>
 				With 4" x 6" timbers
@@ -101,9 +103,9 @@
 			</td>
 			<td colspan=2>
 				<ul style="list-style-type:none; text-align:left; width:120px;">
-					<% @job.specific_offlevel(@type).each do |k, v| %>
+					<% @job.specific_offlevel_diff(@type).each do |k, v| %>
 						<% if k != :zero && @estimate.off_level_to_show.include?(v[1].to_s) %>
-							<li><strong><%= v[1] %>"</strong> +<%= money_from_cents(v[0] - @job.specific_offlevel(@type)[:zero][0]) %></li>
+							<li><strong><%= v[1] %>"</strong> +<%= money_from_cents(v[0] - @job.specific_offlevel_diff(@type)[:zero][0]) %></li>
 						<% end %>
 					<% end %>
 				<ul>
@@ -174,7 +176,7 @@
 			<strong>Total:</strong>
 			<div style="border: 1px solid black; width:150px; height: 35px; text-align:center;">
 				<% if @job.off_level_amount_in_inches %>
-					<p><strong><%= "#{money_from_cents(@job.price_in_cents)}" %></strong></p>
+					<p><strong><%= "#{money_from_cents(@job.price_in_cents + @job.specific_offlevel(@type)[:zero][0] - @job.specific_offlevel()[:zero][0])}" %></strong></p>
 				<% end %>
 			</div>
 		</td>
