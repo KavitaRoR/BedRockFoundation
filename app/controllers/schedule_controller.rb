@@ -99,7 +99,7 @@ class ScheduleController < ApplicationController
     when "m"
       30
     end
-    return Date.today + (days*qty).days
+    return Date.today - 8.hours + (days*qty).days
   end
   
   def get_contract_details
