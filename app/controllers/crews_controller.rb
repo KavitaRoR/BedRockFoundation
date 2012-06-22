@@ -1,4 +1,6 @@
 class CrewsController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /crews
   # GET /crews.json
   def index

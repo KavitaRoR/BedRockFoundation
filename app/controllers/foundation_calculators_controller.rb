@@ -1,4 +1,6 @@
 class FoundationCalculatorsController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /foundation_calculators
   # GET /foundation_calculators.json
   def index

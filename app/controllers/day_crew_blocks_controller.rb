@@ -1,4 +1,6 @@
 class DayCrewBlocksController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /day_crew_blocks
   # GET /day_crew_blocks.json
   def index

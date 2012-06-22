@@ -1,4 +1,6 @@
 class ArrivalRangesController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /arrival_ranges
   # GET /arrival_ranges.json
   def index

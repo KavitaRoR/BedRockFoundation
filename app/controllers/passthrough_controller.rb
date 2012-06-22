@@ -1,4 +1,6 @@
 class PassthroughController < ApplicationController
+  before_filter :authenticate_user!
+  
   def index
     if current_user
       path = "/schedule/consolidated_printable" if current_user.permissions_levels.to_s.include?("Crew Foreman")

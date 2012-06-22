@@ -1,4 +1,6 @@
 class JobAdditionsController < ApplicationController
+  before_filter :authenticate_user!
+  
   def index
     @job_additions = JobAddition.all
 

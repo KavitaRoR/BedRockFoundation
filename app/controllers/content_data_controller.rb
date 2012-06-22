@@ -1,4 +1,6 @@
 class ContentDataController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /content_data
   # GET /content_data.json
   def index

@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_filter :authenticate_user!
+  
   helper :all
   # before_filter :blackbird_override
   protect_from_forgery 
