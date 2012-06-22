@@ -37,6 +37,7 @@ class EstimatesController < ApplicationController
   
   def push_to_sold
     @job = Job.find(params[:id])
+    @creator = current_user
     begin
       @job_type = JobType.find(:first, conditions: {kind: params[:type].capitalize})
       @estimate = Estimate.find(:last, :conditions => {:job_id => params[:id], :job_type_id => @job_type.id})
