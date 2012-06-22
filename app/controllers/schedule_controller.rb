@@ -103,7 +103,8 @@ class ScheduleController < ApplicationController
     when "m"
       30
     end
-    return Date.today - 8.hours + (days*qty).days
+    # You CANNOT subtract 8 hours from here without further parsing.  This leads to an eternal loopback on Time#succ 
+    return Date.strptime((Time.now - 8.hours).strftime("%m/%d/%Y"), "%m/%d/%Y") + (days*qty).days
   end
   
   def get_contract_details
