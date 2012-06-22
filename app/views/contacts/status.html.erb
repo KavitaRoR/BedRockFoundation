@@ -1,0 +1,11 @@
+
+    <h2 class="jquery_tab_title">Communication Form</h2>
+	<p class="big-message orange-gradient">
+							<span class="block-arrow"><span></span></span>
+							<span class="big-message-icon icon-tick"></span>
+							<strong>Please Update the Status of this Contract</strong><br>
+							When removing a contract from the Schedule, please mark it as a follow up or LOST
+						</p>
+		<% @status = Status.new(:contact_id => @contact.id) %>
+		<% @jobs = @contact.jobs.by_recent %>
+		<%= render :partial => "statuses/form" %>

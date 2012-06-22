@@ -93,6 +93,7 @@
 				return false;
 			} else if ($(spec).hasClass("full")) {
 				var conId = $(spec).find(".schedule_button_heading").attr("id").split("-")[1];
+				var contactId = $(spec).find(".schedule_button_heading").attr("id").split("-")[2];
 				var the_clicked = $(spec);
 				
 				$("#full_slot").find("h2").html($(spec).find(".schedule_button_heading").html());
@@ -136,6 +137,7 @@
 						the_clicked.removeClass("full").addClass("empty")
 						the_clicked.find("span").html(" ");
 						the_clicked.find("span:first").html("Empty Slot");
+						window.open('/contacts/status/'+contactId,'_blank');
 					})
 				});
 				

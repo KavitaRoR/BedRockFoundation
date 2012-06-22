@@ -17,7 +17,7 @@ class StatusesController < ApplicationController
   
   def create
     @status = Status.new(params[:status])
-    if @status.save
+    if @status.save      
       flash[:notice] = "Successfully created status."
       redirect_to @status.job.contact and return if @status.job
       redirect_to @status.contact

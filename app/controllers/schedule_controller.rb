@@ -54,6 +54,7 @@ class ScheduleController < ApplicationController
     if contract
       estimate = contract.estimate
       estimate.update_attribute(:sold, 0)
+      estimate.job.update_attribute "current_scheduled_at", nil
       contract.destroy
       render :text => true
     else

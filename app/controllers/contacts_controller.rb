@@ -11,6 +11,18 @@ class ContactsController < ApplicationController
     session[:look] = 'show'
   end
   
+  def status
+    @contact = Contact.find(params[:id])
+    if params[:contract_id_rem]
+      logger.debug "REMOVED FROM SCHEDULE"
+      @contract = Contract.find(params[:contract_id_rem])
+      @contract.estimate.update_attribute(:sold, 0)
+      @contract.estimate.job.update_attribute "current_scheduled_at", nil
+      @contract.destroy
+    end
+    session[:look] = 'show'
+  end
+  
   def new
     @contact = Contact.new
   end
