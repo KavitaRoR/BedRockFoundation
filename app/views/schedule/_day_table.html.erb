@@ -64,7 +64,7 @@
 					<% elsif con.first.estimate.job %>
 						<% con = con.first %>
 						<a class="schedule_button full" href="#" onclick="return false;">
-							<span class="schedule_button_heading" id="con-<%= con.id %>"><%= "#{con.estimate.job.contact.name rescue "deleted job"} - ##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %></span>
+							<span class="schedule_button_heading" id="con-<%= con.id %>-<%= con.estimate.job.contact_id %>"><%= "#{con.estimate.job.contact.name rescue "deleted job"} - ##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %></span>
 							<span><%= con.estimate.job.width rescue "deleted" %>' x <%= con.estimate.job.length rescue "deleted" %>' <%= con.estimate.job.job_type.kind %> in <%= con.estimate.job.city_state rescue "deleted" %>
 								<% unless con.arrival_range.nil? %>
 								<br />
