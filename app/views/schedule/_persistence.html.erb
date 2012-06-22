@@ -7,18 +7,12 @@
 	</div>
 	<br />
 	<div style="height: 60px; background-color:#ddd; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px;">
-		<a class="schedule_button delete" href="#" onclick="return false;">
-			<span class="schedule_button_heading_small">Un-Schedule from this day </span>
-			<span>&nbsp;</span>
-		</a>
-		<a class="schedule_button view" href="#" onclick="return false;">
-			<span class="schedule_button_heading_small">View this Contract</span>
-			<span>&nbsp;</span>
-		</a>
-		<a class="schedule_button trash" href="#" onclick="return false;">
-			<span class="schedule_button_heading_small">Remove from Schedule</span>
-			<span>&nbsp;</span>
-		</a>    	  
+
+		<%= link_to "Un-Schedule from this Day", "#", :class => "button anthracite-gradient schedule_button2 delete", :onclick => "return false;" %>
+		<%= link_to "View this Contract", "#", :class => "button green-gradient schedule_button2 view", :onclick => "return false;" %>
+		<%= link_to "Remove from Schedule", "#", :class => "button red-gradient schedule_button2 trash", :onclick => "return false;" %>
+		
+   	  
 	</div>
 </div>
 
@@ -35,6 +29,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".schedule_button").click(function() {
+			doClicky(this)
+		});
+		$(".schedule_button2").click(function() {
 			doClicky(this)
 		});
 		$("a.crew_block_button").click(function() {
@@ -124,7 +121,7 @@
 					$("#deep-info").html(str);
 				})
 				
-				$(".schedule_button.delete").click(function(){
+				$(".schedule_button2.delete").click(function(){
 					$.post("/schedule/remove_assignment", { id: conId }, function(data) {
 						$.modal.close();
 						the_clicked.removeClass("full").addClass("empty")
@@ -133,7 +130,7 @@
 					})
 				});
 				
-				$(".schedule_button.trash").click(function() {
+				$(".schedule_button2.trash").click(function() {
 					$.post("/schedule/remove_from_schedule_entirely", { id: conId }, function(data) {
 						$.modal.close();
 						the_clicked.removeClass("full").addClass("empty")
@@ -142,7 +139,7 @@
 					})
 				});
 				
-				$(".schedule_button.view").click(function(){
+				$(".schedule_button2.view").click(function(){
 					window.location.href = ("/schedule/redirect_to_contact/"+ conId);
 				});
 				
