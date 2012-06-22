@@ -50,7 +50,13 @@
 	<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_length].to_i != 0 %>
 		<tr>
 			<td colspan=3>
+				<% if @job.job_calc_type == "pad" %>
 					<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"} Foundation" %>
+				<% elsif @job.job_calc_type == "adhoc" %>
+					<%= @job.foundation.kind %>
+				<% else %>
+					<%= "#{@job.width}' x #{@job.length}'" %> <%= @job.foundation.kind %> - <%= @job.foundation_calculator.description %>
+				<% end %>
 			</td>
 			<td colspan=1 style="text-align: right;">
 				<strong>
@@ -59,18 +65,20 @@
 			</td>
 		</tr>
 	<% end %>
-	<% if @estimate.job.border_sixbysix %>
-		<tr>
-			<td colspan=3>
-				With 6" x 6" timbers
-			</td>
-		</tr>
-	<% elsif @estimate.job.job_calc_type != "adhoc" && @type != "Economy" %>
-		<tr>
-			<td colspan=3>
-				With 4" x 6" timbers
-			</td>
-		</tr>
+	<% if @job.job_calc_type == "pad" %>
+		<% if @estimate.job.border_sixbysix %>
+			<tr>
+				<td colspan=3>
+					With 6" x 6" timbers
+				</td>
+			</tr>
+		<% elsif @estimate.job.job_calc_type != "adhoc" && @type != "Economy" %>
+			<tr>
+				<td colspan=3>
+					With 4" x 6" timbers
+				</td>
+			</tr>
+		<% end %>
 	<% end %>
 	<% if @job.has_erosion_control_lft? %>
 		<tr>
