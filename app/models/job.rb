@@ -12,12 +12,35 @@ class Job < ActiveRecord::Base
   has_many :estimates
   has_many :job_additions
   
+  
   after_create :create_initial_status
   before_create :geocode_address
   before_save :geocode_address
   before_save :calculate_pad_costs
   
   scope :by_recent, :order => "updated_at DESC"
+  
+  
+  serialize :labor_schedule
+  
+  def self.serialized_attr_accessor(*args)
+    for day in 1..10
+      args.each do |method_name|
+        method_name = "day_#{day}_#{method_name.to_s}".to_sym
+          eval "
+            def #{method_name}
+              (self.labor_schedule || {})[:#{method_name}]
+            end
+            def #{method_name}=(value)
+              self.labor_schedule ||= {}
+              self.labor_schedule[:#{method_name}] = value
+            end
+           "
+      end      
+    end
+  end
+
+  serialized_attr_accessor :men, :hours, :trucks
   
   def name
     return id if contact.nil?
@@ -107,7 +130,7 @@ class Job < ActiveRecord::Base
   end
   
   def concrete_job
-    @concretejob ||= ConcreteJobCalculator.new(self)
+    @concretejob ||= ConcreteJobCalculator.new(self.distance, self)
   end
   
   def pad_job_with_options

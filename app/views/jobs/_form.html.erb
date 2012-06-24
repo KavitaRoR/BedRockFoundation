@@ -104,6 +104,10 @@
 			<td><%= f.label :number_of_piers, "Number of Concrete Pillars" %></td>
 			<td><%= f.text_field :number_of_piers, :class => "integer" %></td>
 		</tr>
+		<tr class="concrete gibraltar">
+			<td><%= f.label :gibraltar_courses_of_block, "Courses of Blocks" %></td>  
+			<td><%= f.select :gibraltar_courses_of_block, [['4"', "4"], ['6"', '6']] %></td>
+		</tr>
 		
 		<tr class="concrete floating graduated gibraltar">
 			<td><%= f.label :concrete_thickness_in_inches, "Concrete Slab Thickness (in inches)" %></td>  
@@ -111,7 +115,7 @@
 		</tr>
 		<tr class="concrete gibraltar">
 			<td><%= f.label :gibraltar_concrete_footer_in_inches, "Gibraltar Footer Thickness (in inches)" %></td>  
-			<td><%= f.select :gibraltar_concrete_footer_in_inches, [['8"', "8"], ['12"', '12']] %></td>
+			<td><%= f.select :gibraltar_concrete_footer_in_inches, [['8"', "8"],['10"', "10"],['12"','12']] %></td>
 		</tr>
 		<tr class="concrete graduated">
 			<td><%= f.label :concrete_edge_thickness_in_inches, "Graduated Edge Thickness (in inches)" %></td>  
@@ -130,10 +134,35 @@
 			<td><%= f.label :days_on_job, "# of days crew will be on the job?" %></td>
 			<td><%= f.text_field :days_on_job, :class => "integer" %></td>
 		</tr>
+		<% if false %>
 		<tr class="concrete adhoc floating graduated gibraltar piers">
 			<td><%= f.label :extra_man_days, "Extra man days? (1 = 1 day per person)?" %></td>
 			<td><%= f.text_field :extra_man_days, :class => "integer" %></td>
 		</tr>
+		<% else %>
+		<tr class="concrete adhoc floating graduated gibraltar piers">
+			<td colspan="2">
+					
+				<table width="100%" border="0" cellpadding="4">
+					<tr>
+						<td>Laborers Needed</td>
+						<th># people</th>
+						<th># hours</th>
+						<th># trucks</th>
+					</tr>
+					
+					<% for day in 1..10 %>
+					<tr style="text-align: center;">
+						<td>Day #<%= day %></td>
+						<td><%= f.text_field "day_#{day}_men".to_sym, :class => "integer", :style => "width:40px; text-align:center;" %></td>
+						<td><%= f.text_field "day_#{day}_hours".to_sym, :class => "integer", :style => "width:40px; text-align:center;" %></td>
+						<td><%= f.text_field "day_#{day}_trucks".to_sym, :class => "integer", :style => "width:40px; text-align:center;" %></td>
+					</tr>
+					<% end %>
+				</table>
+			</td>
+		</tr>
+		<% end %>
 		
 		
 		<tr>
