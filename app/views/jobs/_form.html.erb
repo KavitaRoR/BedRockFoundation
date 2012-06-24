@@ -106,7 +106,7 @@
 		</tr>
 		<tr class="concrete gibraltar">
 			<td><%= f.label :gibraltar_courses_of_block, "Courses of Blocks" %></td>  
-			<td><%= f.select :gibraltar_courses_of_block, [['4"', "4"], ['6"', '6']] %></td>
+			<td><%= f.select :gibraltar_courses_of_block, [1,2,3,4,5,6,7,8] %></td>
 		</tr>
 		
 		<tr class="concrete floating graduated gibraltar">
@@ -130,11 +130,11 @@
 			<td><%= f.select :vapor_barrier, [['Yes', "true"], ['no', "false"]] %></td>
 		</tr>
 
+		<% if false %>
 		<tr class="concrete adhoc floating graduated gibraltar piers">
 			<td><%= f.label :days_on_job, "# of days crew will be on the job?" %></td>
 			<td><%= f.text_field :days_on_job, :class => "integer" %></td>
 		</tr>
-		<% if false %>
 		<tr class="concrete adhoc floating graduated gibraltar piers">
 			<td><%= f.label :extra_man_days, "Extra man days? (1 = 1 day per person)?" %></td>
 			<td><%= f.text_field :extra_man_days, :class => "integer" %></td>

@@ -56,7 +56,6 @@
 		<td><%= number_with_precision(@job.concrete_job.rock_tonage, :precision => 2, :strip_insignification_zeros => true) %> tons</td>
 		<td><%= money_from_cents @job.concrete_job.rock_cost %></td>
 	</tr>
-
 	<tr>
 		<td>One-way Distance</td>
 		<td><%= @job.concrete_job.round_trip_distance %> miles</td>
