@@ -1,9 +1,10 @@
-ActionMailer::Base.smtp_settings = {
-  :address        => 'smtp.sendgrid.net',
-  :port           => '587',
-  :authentication => :plain,
-  :user_name      => ENV['SENDGRID_USERNAME'],
-  :password       => ENV['SENDGRID_PASSWORD'],
-  :domain         => 'heroku.com'
-}
-ActionMailer::Base.delivery_method = :smtp
+# ActionMailer::Base.smtp_settings = {
+#   :address        => 'smtp.gmail.com',
+#   :port           => '587',
+#   :authentication => :login,
+#   :enable_starttls_auto => true,
+#   :user_name      => "apps@wearefound.com",
+#   :password       => "asdqwe123qwe",
+#   :domain         => 'wearefound.com'
+# }
+# # ActionMailer::Base.delivery_method = :smtp

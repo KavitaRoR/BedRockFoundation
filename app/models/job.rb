@@ -212,7 +212,8 @@ class Job < ActiveRecord::Base
     		job_kind: "#{kind}",
     		foundation_kind: "#{self.foundation.kind rescue ''} Foundation",
     		job_date: "#{ self.updated_at.strftime('%m/%d/%Y') || '' }",
-    		estimate_date: "#{ self.updated_at.strftime('%m/%d/%Y') || ""}"
+    		estimate_date: "#{ self.updated_at.strftime('%m/%d/%Y') || ""}",
+    		off_level_fill_type: "#{ self.off_level_fill_type rescue ""}"
     	}
     else
       return {}
