@@ -133,12 +133,12 @@ class ConcreteJobCalculator
   end
   
   def rock_tonage
-    rock_depth = findVar("concrete_gravel_base_depth_in_inches") / 12
+    rock_depth = @job.gravel_base_depth_in_inches / 12
     
     footage_per_ton = findVar("concrete_square_footage_per_ton") rescue 36
     cubic_footage_per_ton = footage_per_ton * 0.5
         
-    total_tonnage = (@length * @width / footage_per_ton)
+    total_tonnage = (@length * @width / footage_per_ton) * 2 * rock_depth
     return total_tonnage 
   end
   
