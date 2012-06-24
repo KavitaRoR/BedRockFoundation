@@ -94,7 +94,9 @@ class ConcreteJobCalculator
     
   
   def cement_block_quantity
-    @padkind.include?('gibraltar') ? (((perimeter.to_f * 12) / 16) * 4) : 0
+    num_courses = 4 
+    # should be between 1 and 8 courses
+    @padkind.include?('gibraltar') ? (((perimeter.to_f * 12) / 16) * num_courses) : 0
   end
 
   def cement_block_cost

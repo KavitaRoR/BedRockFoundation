@@ -60,7 +60,11 @@
 			</td>
 			<td colspan=1 style="text-align: right;">
 				<strong>
-				<%= money_from_cents(@job.specific_offlevel(@type)[:zero][0]) %>
+					<% if @job.job_calc_type == "pad" %>
+						<%= money_from_cents(@job.specific_offlevel(@type)[:zero][0]) %>
+					<% else %>
+						<%= money_from_cents @job.price_in_cents %>
+					<% end %>
 				</strong>
 			</td>
 		</tr>
