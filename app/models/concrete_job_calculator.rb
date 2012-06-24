@@ -135,7 +135,7 @@ class ConcreteJobCalculator
   def rock_tonage
     rock_depth = findVar("concrete_gravel_base_depth_in_inches") / 12
     
-    footage_per_ton = findVar("rockpad_square_footage_per_ton") rescue 36
+    footage_per_ton = findVar("concrete_square_footage_per_ton") rescue 36
     cubic_footage_per_ton = footage_per_ton * 0.5
         
     total_tonnage = (@length * @width / footage_per_ton)
@@ -187,7 +187,7 @@ class ConcreteJobCalculator
   end
   
   def driving_hours
-    speed = findVar("rockpad_speed_for_hour_calculation") rescue 50
+    speed = findVar("concrete_speed_for_hour_calculation") rescue 50
     time_on_road = ((round_trip_distance.to_f / speed.to_f).to_f * number_of_trips)
     return time_on_road.ceil
   end
