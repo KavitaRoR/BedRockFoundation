@@ -157,7 +157,7 @@ class ConcreteJobCalculator
   
   
   def round_trip_distance
-    @distance rescue 0
+    @distance * 2 rescue 0
   end
   
   def number_of_days
