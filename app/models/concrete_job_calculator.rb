@@ -40,14 +40,14 @@ class ConcreteJobCalculator
   end
   
   def vapor_barrier_per_foot
-    findVar("concrete_vapor_barrier_roll_cost") / (findVar("concrete_vapor_barrier_length") * findVar("concrete_vapor_barrier_width")) rescue 3.3
+    findVar("concrete_vapor_barrier_roll_cost") / (findVar("concrete_vapor_barrier_length") * findVar("concrete_vapor_barrier_width")) * 100 rescue 3.3
   end
 
   
   def vapor_barrier_cost
     vbc = case 
     when @padkind.include?('gibraltar')
-      return (@length - 1.3333) * (@width - 1.3333) * vapor_barrier_per_foot
+      return (@length - 1.3333) * (@width - 1.3333) * vapor_barrier_per_foot 
     when @padkind.include?('graduated')
       edge = findVar("concrete_edge_thickness_in_inches") / 12
       return (@length - (edge * 2)) * (@width - (edge * 2)) * vapor_barrier_per_foot
