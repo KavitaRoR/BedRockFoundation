@@ -96,7 +96,14 @@
 			</td>
 		</tr>
 	<% end %>
-
+	<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_length].to_i != 0 %>
+		<tr>
+			<td colspan=4 style="font-size: 0.8em;">
+				<strong>Description:</strong>
+				 <%= @job.job_description_for_flash(@type) %>
+			</td>
+		</tr>
+	<% end %>
 	<% if @job.off_level_amount_in_inches %>
 		<tr>
 			<td colspan=3>
@@ -167,14 +174,7 @@
 	<tr>
 		<td colspan=4><hr /></td>
 	</tr>
-	<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_length].to_i != 0 %>
-		<tr>
-			<td colspan=4 style="font-size: 0.8em;">
-				<strong>Description:</strong>
-				 <%= @job.job_description_for_flash(@type) %>
-			</td>
-		</tr>
-	<% end %>
+
 	<tr>
 		<td colspan=4>&nbsp;</td>
 	</tr>
