@@ -21,12 +21,12 @@ class ConcreteJobCalculator
     @concrete_piers_diameter_in_inches = job.concrete_piers_diameter_in_inches
     # @trips = @job.days_on_job rescue 3
     @laborers = (findVar("concrete_laborers") || 2)
-    @laborer_rate = (findVar("rockpad_laborer_rate") * 100) || 2000
-    @gas_cost = (findVar("rockpad_gas_cost") * 100) || 400
-    @truck_cost_per_mile = (findVar("rockpad_truck_cost_per_mile") * 100) || 200
-    @truck_mileage_per_gallon = findVar("rockpad_truck_mileage_per_gallon") || 9
-    @rock_per_ton = (findVar("rockpad_rock_per_ton") * 100) || 2000
-    @rebar_piece = (findVar("rockpad_rebar_piece") * 100) || 100
+    @laborer_rate = (findVar("concrete_laborer_rate") * 100) || 2000
+    @gas_cost = (findVar("concrete_gas_cost") * 100) || 400
+    @truck_cost_per_mile = (findVar("concrete_truck_cost_per_mile") * 100) || 200
+    @truck_mileage_per_gallon = findVar("concrete_truck_mileage_per_gallon") || 9
+    @rock_per_ton = (findVar("concrete_rock_per_ton") * 100) || 2000
+    @rebar_piece = (findVar("concrete_rebar_piece") * 100) || 100
   end
   
   def square_footage
