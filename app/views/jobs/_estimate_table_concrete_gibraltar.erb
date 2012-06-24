@@ -58,18 +58,23 @@
 	</tr>
 
 	<tr>
-		<td>Truck Gas Cost</td>
+		<td>One-way Distance</td>
 		<td><%= @job.concrete_job.round_trip_distance %> miles</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Truck Gas Cost</td>
+		<td><%= @job.concrete_job.number_of_trips %> round trips</td>
 		<td><%= money_from_cents @job.concrete_job.truck_gas_cost %></td>
 	</tr>
 	<tr>
 		<td>Truck Maintenance Cost</td>
-		<td><%= @job.concrete_job.round_trip_distance %> miles</td>
+		<td><%= @job.concrete_job.truck_total_mileage %> total miles</td>
 		<td><%= money_from_cents @job.concrete_job.truck_maintenance_cost %></td>
 	</tr>
 	<tr class="endsection">
 		<td>Driving Labor</td>
-		<td><%= @job.concrete_job.round_trip_distance %> miles</td>
+		<td><%= @job.concrete_job.driving_hours %>h / <%= @job.concrete_job.driving_labor_total %> total</td>
 		<td><%= money_from_cents @job.concrete_job.driving_labor_cost %></td>
 	</tr>
 

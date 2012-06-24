@@ -19,7 +19,7 @@ class ConcreteJobCalculator
     @concrete_edge_thickness_in_inches = job.concrete_edge_thickness_in_inches
     @concrete_piers_depth_in_inches = job.concrete_piers_depth_in_inches
     @concrete_piers_diameter_in_inches = job.concrete_piers_diameter_in_inches
-    @trips = @job.days_on_job rescue 3
+    # @trips = @job.days_on_job rescue 3
     @laborers = (findVar("concrete_laborers") || 2)
     @laborer_rate = (findVar("rockpad_laborer_rate") * 100) || 2000
     @gas_cost = (findVar("rockpad_gas_cost") * 100) || 400
@@ -145,38 +145,87 @@ class ConcreteJobCalculator
     rock_tonage * @rock_per_ton
   end
   
+  
+  # ------------------------LABOR CALCULATIONS
+  
+  def labor_schedule_var(typ,day)
+    val = @job.labor_schedule["day_#{day}_#{typ}".to_sym].to_i rescue 0
+    # puts @job.labor_schedule
+    return 0 if val.nil?
+    val
+  end
+  
+  
   def round_trip_distance
     @distance rescue 0
   end
   
+  def number_of_days
+    for day in 1..10
+      
+    end
+  end
+  
+  def number_of_trips
+    trips = 0
+    for day in 1..10
+      # puts "••• Day #{day} = #{labor_schedule_var('trucks',day)}"
+      trips += labor_schedule_var("trucks",day)
+    end
+    puts "••• Trips = #{trips}\n\n "
+    trips
+  end
+  
+  def number_of_laborers_driving
+    dudes = 0
+    for day in 1..10
+      # puts "••• Day #{day} = #{labor_schedule_var('trucks',day)}"
+      dudes += labor_schedule_var("men",day)
+    end
+    dudes
+  end
+  
   def driving_hours
     speed = findVar("rockpad_speed_for_hour_calculation") rescue 50
-    time_on_road = ((round_trip_distance.to_f / speed.to_f).to_f * @trips)
-    return time_on_road
+    time_on_road = ((round_trip_distance.to_f / speed.to_f).to_f * number_of_trips)
+    return time_on_road.ceil
+  end
+  def driving_labor_total
+    driving_hours * number_of_laborers_driving
+  end
+  def driving_labor_cost
+    driving_labor_total.to_f * @laborer_rate.to_f
+  end
+  
+    
+  def truck_total_mileage
+    round_trip_distance * number_of_trips
   end
   
   def truck_gas_cost
-    (@gas_cost / @truck_mileage_per_gallon) * round_trip_distance * @trips.to_f
+    (@gas_cost / @truck_mileage_per_gallon) * truck_total_mileage.to_f
   end
     
   def truck_maintenance_cost
-    @truck_cost_per_mile * round_trip_distance * @trips.to_f
+    @truck_cost_per_mile * truck_total_mileage.to_f
   end
   
   def truck_cost
     truck_gas_cost + truck_maintenance_cost
   end
   
-  def driving_labor_cost
-    time_on_road = driving_hours.to_f
-    number_of_laborers = @laborers.to_f
-    laborer_rate = @laborer_rate.to_f
-    driving_labor_cost = (number_of_laborers + @job.extra_man_days.to_f) * time_on_road * laborer_rate
-    driving_labor_cost
-  end
+
   
   def working_labor_hours
-    (@job.extra_man_days * 8) + (8 * @trips * @laborers)
+    dudes = 0
+    hours = 0
+    dude_hours = 0
+    for day in 1..10
+      # puts "••• Day #{day} = #{labor_schedule_var('trucks',day)}"
+      dude_hours += labor_schedule_var("men",day) * labor_schedule_var("hours",day)
+    end
+    dude_hours
+    # (@job.extra_man_days * 8) + (8 * number_of_trips * @laborers)
   end
   
   def working_labor_cost
