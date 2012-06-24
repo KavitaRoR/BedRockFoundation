@@ -22,6 +22,7 @@ class ConcreteJobCalculator
     # @trips = @job.days_on_job rescue 3
     @laborers = (findVar("concrete_laborers") || 2)
     @laborer_rate = (findVar("concrete_laborer_rate") * 100) || 2000
+    @driving_laborer_rate = (findVar("driving_laborer_rate") * 100) || 2000
     @gas_cost = (findVar("concrete_gas_cost") * 100) || 400
     @truck_cost_per_mile = (findVar("concrete_truck_cost_per_mile") * 100) || 200
     @truck_mileage_per_gallon = findVar("concrete_truck_mileage_per_gallon") || 9
@@ -194,7 +195,7 @@ class ConcreteJobCalculator
     driving_hours * number_of_laborers_driving
   end
   def driving_labor_cost
-    driving_labor_total.to_f * @laborer_rate.to_f
+    driving_labor_total.to_f * @driving_laborer_rate.to_f
   end
   
     
