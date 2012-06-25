@@ -159,13 +159,8 @@ class Job < ActiveRecord::Base
   end
   
   def specific_offlevel(kindstr=nil)
-    puts "-beginkind---------"
-    puts kindstr
     mykind = self.economy_or_elite 
-    puts mykind
     mykind = kindstr unless kindstr.nil? 
-    puts mykind
-    puts "-----------endkind-"
     kind_0 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 0, self.off_level_fill_type, self.erosion_control_lft).total_price + ((additional_price - discount) * 100)
     kind_12 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 1, self.off_level_fill_type, self.erosion_control_lft).total_price + ((additional_price - discount) * 100)
     kind_18 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 1.5, self.off_level_fill_type, self.erosion_control_lft).total_price + ((additional_price - discount) * 100)
