@@ -1,17 +1,55 @@
 
 <!-- Full Slot Click Menu -->
-<div id="full_slot" class="contextMenu" style="display: none; background-color:#ddd; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px;">
+<div id="full_slot" class="contextMenu" style="display: none; background-color:#fff; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px; border: 2px solid #aaa;">
 	<h2></h2><a href="#" id="close-button" style="float:right; font-size:10px;">Close</a>
 	<div id="deep-info">
 		<span>Loading...</span>
 	</div>
 	<br />
-	<div style="height: 60px; background-color:#ddd; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px;">
+	<div style="background-color:#fff; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px;">
 
-		<%= link_to "Un-Schedule from this Day", "#", :class => "button anthracite-gradient schedule_button2 delete", :onclick => "return false;" %>
-		<%= link_to "View this Contract", "#", :class => "button green-gradient schedule_button2 view", :onclick => "return false;" %>
-		<%= link_to "Remove from Schedule", "#", :class => "button red-gradient schedule_button2 trash", :onclick => "return false;" %>
+		<%= link_to "Un-Schedule from this Day", "#", :class => "button anthracite-gradient schedule_button2 delete icon-left", :onclick => "return false;" %>
+		<%= link_to "View this Contract", "#", :class => "button green-gradient schedule_button2 view icon-eye", :onclick => "return false;" %>
+		<%= link_to "Remove from Schedule", "#", :class => "button red-gradient schedule_button2 trash icon-cross", :onclick => "return false;" %>
 		
+   	  
+	</div>
+</div>
+
+<div id="change_slot" class="contextMenu" style="display: none; background-color:#fff; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px; border: 2px solid #aaa;">
+	<h2></h2>
+	<div >
+		<p><b>Reschedule this contract or <a href="#" class="button tiny white-gradient glossy unschedulebtn icon-cross float-right">leave unscheduled</a></b></p>
+		<input type="hidden" value="0" name="contract_id" class="contract_id_field" />
+		<select class='date-select' name="day">
+			<option value=''>Select a Day</option>
+			<% for d in 0..100 %>
+				<option value='<%= (Date.today + d.days).beginning_of_day.to_i %>'><%= (Date.today + d.days).strftime("%m/%d/%Y") %></option>
+			<% end %>
+		</select>
+		<select class='crew-select' name="crew_id">
+			<option value=''>Select a Crew</option>
+			<% for c in Crew.find(:all, :order => "ordering ASC") %>
+				<option value='<%= c.id %>'><%= c.crew_name %></option>
+			<% end %>
+		</select>
+		<select class='arrival-select' name="arrival_range_id">
+			<option value=''>Arrival Time</option>
+			<% for ar in ArrivalRange.find(:all, :order => "position ASC") %>
+				<option value='<%= ar.id %>'><%= ar.early %> to <%= ar.late %></option>
+			<% end %>
+		</select>
+		<select class='position-select' name="position">
+			<option value=''>Select a Slot</option>
+			<% for pos in 1..5 %>
+				<option value='<%= pos %>'>Slot #<%= pos %></option>
+			<% end %>
+		</select>
+	</div>
+	<br />
+	<div style="padding:6px 12px;">
+
+		<a href="#" class="button large save_reschedule green-gradient glossy icon-tick float-right">Reschedule this Contract</a>
    	  
 	</div>
 </div>
@@ -99,7 +137,7 @@
 				$("#full_slot").find("h2").html($(spec).find(".schedule_button_heading").html());
 				$("#full_slot").modal({
 					opacity:60,
-					overlayCss: {backgroundColor:"#fff"},
+					overlayCss: {backgroundColor:"#000"},
 					minWidth: '400px',
 					close: true,
 					overlayClose: true
@@ -124,10 +162,12 @@
 				
 				$(".schedule_button2.delete").click(function(){
 					$.post("/schedule/remove_assignment", { id: conId }, function(data) {
+						var title = $("#full_slot").find("h2").html();
 						$.modal.close();
 						the_clicked.removeClass("full").addClass("empty")
 						the_clicked.find("span").html(" ");
 						the_clicked.find("span:first").html("Empty Slot");
+						doReschedule(conId, spec,title);
 					})
 				});
 				
@@ -147,6 +187,54 @@
 				
 				return false;
 			}
+		}
+		
+		function doReschedule(conid, spec, title) {
+			
+			$("#change_slot").find("h2").html(title);
+			$("#change_slot .contract_id_field").val(conid);
+			$("#change_slot").modal({
+				opacity:60,
+				overlayCss: {backgroundColor:"#000"},
+				minWidth: '400px',
+				close: true,
+				overlayClose: true
+			});
+			$(".unschedulebtn").click(function(){
+				$.modal.close();
+				return false;
+			});
+			$("#change_slot .save_reschedule").click(function(){
+				var ele2 = this;
+				var crewId = $(this).parent().parent().find('.crew-select').val();
+				var conPos = $(this).parent().parent().find('.position-select').val();
+				var day = $(this).parent().parent().find('.date-select').val();
+				var conId = $(this).parent().parent().find('.contract_id_field').val();
+				var arrival = $(this).parent().parent().find('.arrival-select').val();
+
+				if (crewId != "" && conPos != "" && day != "") {
+					$.post("/schedule/persist_assignment", {
+						crew_id: crewId,
+						position: conPos,
+						day: day,
+						contract_id: conId,
+						arrival_id: arrival
+					}, function(data) {
+						if (data != "false") {
+							$("#empty-"+crewId+"-"+conPos+"-"+day).removeClass("empty").addClass("full");
+							// $(ele2).parent().parent().removeClass("editing").addClass("full");
+							$("#empty-"+crewId+"-"+conPos+"-"+day).children('span').first().text(data["conName"]);
+							$("#empty-"+crewId+"-"+conPos+"-"+day).children('span').first().prop("id", ("con-" + data["conId"]));
+							$("#empty-"+crewId+"-"+conPos+"-"+day).children('span:eq(1)').text(data["size"] + " in " + data["location"] + " \n " + data["fill_type"] + " - " + data["arrival_time"]);
+							// $($(ele2).parent().parent().children('span')[0]).text(data["conName"]);
+							// $($(ele2).parent().parent().children('span')[0]).prop("id", ("con-" + data["conId"]));
+							// $(ele2).parent().text(data["size"] + " in " + data["location"] + " \n " + data["fill_type"] + " - " + data["arrival_time"]);
+						}
+					})
+				}
+				$.modal.close();
+				return false;
+			});
 		}
 	})
 </script>

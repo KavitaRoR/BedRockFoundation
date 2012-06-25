@@ -23,11 +23,11 @@
 						    <%= f.text_field :reason %>
 						  </div>
 						  <div class="field">
-						    <%= f.check_box :block_off %> <%= f.label :block_off %>
+						    <%= f.check_box :block_off %> <%= f.label :block_off, "Block off the day" %>
 						    
 						  </div>
 						  <div class="actions">
-						    <%= f.submit "Save this note" %>
+						    <%= f.submit "Save this note", class:"button compact green-gradient", style:"width:auto;" %>
 						  </div>
 						<% end %>
 					</div>

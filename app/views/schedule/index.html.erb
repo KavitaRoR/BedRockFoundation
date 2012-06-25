@@ -27,7 +27,8 @@
 				<%= render :partial => "day_table", :locals => {:day => day} %>
 			<% end %>
 		<% u = params[:until].split(".").first.to_i rescue 0 %>
-		<div style="font-size: 2em; margin-bottom: 40px;"><a href="/schedule/?until=<%= u + 2 %>.w">Show me the next 2 weeks &raquo;</a>  </div>
+		<div style="margin-bottom: 40px;">
+			<a href="/schedule/?until=<%= u + 2 %>.w" class="button huge blue-gradient icon-right-fat">Show me the next 2 weeks </a>  </div>
 	    
     </div>
 </div>
