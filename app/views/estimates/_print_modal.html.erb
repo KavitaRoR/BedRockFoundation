@@ -95,14 +95,23 @@
 			</td>
 		</tr>
 	<% end %>
-	<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_length].to_i != 0 %>
+	<% if @options_for_job[:job_width].to_i != 0 && @options_for_job[:job_length].to_i != 0 && @job.job_calc_type != "adhoc" %>
 		<tr>
 			<td colspan=4 style="font-size: 0.8em;">
 				<strong>Description:</strong>
 				 <%= @job.job_description_for_flash(@type) %>
 			</td>
 		</tr>
+	<% else %>
+	<tr>
+		<td colspan=4 style="font-size: 0.8em;">
+			<strong>Description:</strong>
+			 <%= @job.description %>
+		</td>
+	</tr>
 	<% end %>
+		
+	
 	<% if @job.off_level_amount_in_inches %>
 		<tr>
 			<td colspan=3>
@@ -133,7 +142,7 @@
 			<td>&nbsp;</td>
 		</tr>
 	<% end %>
-	<% if @estimate.job.job_additions %>
+	<% if @estimate.job.job_additions.count > 0 %>
 		<tr>
 			<td colspan=3>
 				<strong>Additional Items:</strong>
@@ -162,7 +171,7 @@
 			<% end %>
 		<% end %>
 	<% end %>
-	<% if @job.description && @job.description != "" %>
+	<% if @job.description && @job.description != "" && @job.job_calc_type != "adhoc" %>
 		<tr>
 			<td colspan=4>
 				<strong>Additional Notes:</strong>

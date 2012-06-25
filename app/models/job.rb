@@ -11,6 +11,7 @@ class Job < ActiveRecord::Base
   has_many :statuses, :dependent => :destroy
   has_many :estimates
   has_many :job_additions
+  belongs_to :location_for_calculation, :foreign_key => 'calculation_location_id', :class_name => "Location"
   
   
   after_create :create_initial_status
@@ -266,9 +267,17 @@ class Job < ActiveRecord::Base
       statuses.create({:notes => "Created new Estimate", :assigned_by => @creator.id, :assigned_to => @creator.id, :done => true})
     end
     def geocode_address
-      if !self.address_1.blank?
-        geo = Geokit::Geocoders::MultiGeocoder.geocode (address_oneline)
-        base = Geokit::Geocoders::MultiGeocoder.geocode "461 Old Wilmington Rd, Coatesville, PA"
+      base = Geokit::Geocoders::MultiGeocoder.geocode(location_for_calculation.address_oneline)
+        
+      if base.success
+        if !self.address_1.blank?
+          addr = self.address_oneline
+        else  
+          cont = Contact.find(self.contact_id)
+          self.lat, self.lng, self.distance = cont.lat, cont.lng, cont.distance
+          self.address_1, self.address_2, self.city, self.province, self.zip = cont.address_1, cont.address_2, cont.city, cont.province, cont.zip
+        end 
+        geo = Geokit::Geocoders::MultiGeocoder.geocode(address_oneline)
         errors.add(:address_1, "Could not Geocode address") if !geo.success
         if geo.success
           self.lat, self.lng = geo.lat,geo.lng 
@@ -278,7 +287,7 @@ class Job < ActiveRecord::Base
         # reuse the contact's current geodata
         cont = Contact.find(self.contact_id)
         self.lat, self.lng, self.distance = cont.lat, cont.lng, cont.distance
-        self.address_1, self.address_2, self.city, self.province, self.zip = cont.address_1, cont.address_2, cont.city, cont.province, cont.zip
+        self.address_1, self.address_2, self.city, self.province, self.zip, self.calculation_location_id = cont.address_1, cont.address_2, cont.city, cont.province, cont.zip, 5
       end
     end
     def calculate_pad_costs

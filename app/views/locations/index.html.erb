@@ -4,27 +4,25 @@
   <tr>
     <th>Name</th>
     <th>Phone</th>
-    <th>Abbreviation</th>
-    <th>Controls</th>
+    <th>Address</th>
+    <th>Use for Estimation?</th>
   </tr>
 
 <% @locations.each do |location| %>
   <tr>
-    <td><%=h location.name %></td>
+    <td><%= link_to location.name.upcase, edit_location_path(location), class:"button blue-gradient glossy icon-pencil" %></td>
     <td><%=h location.phone %></td>
-    <td><%=h location.abbreviation %></td>
-    <td><%= link_to 'Show', location %>
-    | <%= link_to 'Edit', edit_location_path(location) %>
-    | <%= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=h "#{location.address_1} #{location.city} #{location.province} #{location.zip}" %></td>
+    <td style="text-align: center;"><%=raw "<span class='button green-gradient icon-tick'>YES</span>" if location.use_for_estimates == "yes" %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<h2>Create a new Location</h2>
-<a class="dashboard_button button7" href="/locations/new">
-    <span class="dashboard_button_heading">+ Location</span>
-    <span>Add a new phone number for the invoices</span>
+	<a class="button green-gradient glossy icon-plus" href="/locations/new">
+     Create a new Location
 </a><!--end dashboard_button-->
-
+<br />
+<br />
+<br />
+<br />

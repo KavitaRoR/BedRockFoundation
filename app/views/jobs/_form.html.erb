@@ -253,10 +253,17 @@
 			</tr>
 			<tr>
 				<td colspan=3>
-					<%= f.label :location_id, "Office Location for Invoice:" %>
+					<%= f.label :location_id, "Office Location to display on Invoice:" %>
 					<%= f.select :location_id, Location.find(:all, :order => "abbreviation ASC").map{|l| [l.name, l.id] } %>
 				</td>
 			</tr>
+			<tr>
+				<td colspan=3>
+					<b><%= f.label :calculation_location_id, "Location to base the Distance Estimate Calculations:" %></b>
+					<%= f.select :calculation_location_id, Location.find(:all, :order => "abbreviation ASC", :conditions => "use_for_estimates = 'yes'").map{|l| [l.name, l.id]}, {:selected => 5}  %>
+				</td>
+			</tr>
+			
 		</tbody>
 	</table>
 	
@@ -275,7 +282,7 @@
 			</tbody>
 		</table> -->
 <p>
-	<%= f.submit "Save" %>
+	<%= f.submit "Save & Calculate this Estimate", class:"button green-gradient glossy" %>
 </p>
 <% end %>
 
