@@ -250,7 +250,7 @@ class ConcreteJobCalculator
     when @padkind.include?('floating')
       rock_cost + rebar_cost + vapor_barrier_cost + concrete_cost       
     when @padkind.include?('piers')
-      rebar_cost + concrete_cost 
+      rock_cost + rebar_cost + concrete_cost 
     else
       0
     end
