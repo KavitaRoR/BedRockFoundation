@@ -74,13 +74,13 @@
 		<% if @estimate.job.border_sixbysix %>
 			<tr>
 				<td colspan=3>
-					With 6" x 6" timbers
+					With 6" x 6" timbers <%= "& #{@job.trex_color} composite capping" if @type == "Elite" %>
 				</td>
 			</tr>
 		<% else %>
 			<tr>
 				<td colspan=3>
-					With 4" x 6" timbers
+					With 4" x 6" timbers <%= "& #{@job.trex_color} composite capping" if @type == "Elite" %>
 				</td>
 			</tr>
 		<% end %>
