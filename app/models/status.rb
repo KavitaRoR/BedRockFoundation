@@ -12,5 +12,15 @@ class Status < ActiveRecord::Base
     User.find(assigned_to)
   end
   
+  def status_flag
+    flag = ""
+    if (Time.now).beginning_of_day >= self.followup_date.beginning_of_day
+      flag = "Past"
+    elsif (Time.now).beginning_of_day + 1.day >= self.followup_date.beginning_of_day
+      flag = "Today"
+    end
+    flag
+  end
+  
   
 end

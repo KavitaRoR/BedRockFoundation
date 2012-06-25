@@ -4,6 +4,7 @@ class Contact < ActiveRecord::Base
   belongs_to :campaign
   belongs_to :contact_status
   has_many :next_actions
+  belongs_to :shed_company
   
   before_create :geocode_address
   before_save :geocode_address

@@ -17,12 +17,26 @@
 	<dd><%= f.select :job_id, @jobs.collect{|jo| [jo.name, jo.id]}  %></dd>
   <dt><%= f.label :next_action_id %></dt>
 	<dd><%= f.select :next_action_id, NextAction.all.collect{|n| [n.name, n.id]} %></dd>
-	<dt><%= f.label :followup_date %></dt>
+  <dt><%= f.label :revenue_potential %></dt>
+	<dd><%= f.text_field :revenue_potential %></dd>
+  <dt><%= f.label :percentage_probability %></dt>
+	<dd><%= f.select :percentage_probability, [0,10,20,30,40,50,60,70,80,90,100] %></dd>
+  <dt><%= f.label :projected_sale_amount %></dt>
+	<dd><%= f.text_field :projected_sale_amount %></dd>
+  <dt><%= f.label :revenue_result %></dt>
+	<dd><%= f.text_field :revenue_result %></dd>
+  <dt><%= f.label :expected_close_date %></dt>
+	<dd><%= f.date_select :expected_close_date %></dd>
+  <dt><%= f.label :current_situation %></dt>
+	<dd><%= f.text_field :current_situation %></dd>
+  <dt><%= f.label :followup_date %></dt>
 	<dd><%= f.datetime_select :followup_date %></dd>
   <dt><%= f.label :notes %></dt>
 	<dd><%= f.text_area :notes, :class => "text" %></dd>
   <dt><%= f.label :assigned_to %></dt>
 	<dd><%= f.select :assigned_to, User.all.collect{|u| [u.name, u.id]} %></dd>
+  <dt><%= f.label :row_highlight_color %></dt>
+	<dd><%= f.select :row_highlight_color, ["none", "green", "yellow", "red", "blue", "black"] %></dd>
 </dl>
 <%= f.hidden_field :assigned_by, :value => current_user.id %>
 <p><%= f.submit "Save" %></p>
