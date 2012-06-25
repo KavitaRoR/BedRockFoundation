@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625012136) do
+ActiveRecord::Schema.define(:version => 20120625143147) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -200,7 +200,7 @@ ActiveRecord::Schema.define(:version => 20120625012136) do
     t.integer  "concrete_piers_diameter_in_inches",                                  :default => 16
     t.integer  "gibraltar_courses_of_block",                                         :default => 4
     t.text     "labor_schedule"
-    t.integer  "calculation_location_id"
+    t.integer  "calculation_location_id",                                            :default => 5
   end
 
   add_index "jobs", ["id"], :name => "index_jobs_on_id"
@@ -215,9 +215,9 @@ ActiveRecord::Schema.define(:version => 20120625012136) do
     t.string   "city"
     t.string   "province"
     t.integer  "zip"
-    t.string   "use_for_estimates",                                :default => "no"
-    t.decimal  "lat",               :precision => 10, :scale => 0
-    t.decimal  "lng",               :precision => 10, :scale => 0
+    t.string   "use_for_estimates", :default => "no"
+    t.string   "lat"
+    t.string   "lng"
   end
 
   create_table "next_actions", :force => true do |t|
@@ -277,6 +277,13 @@ ActiveRecord::Schema.define(:version => 20120625012136) do
     t.boolean  "done"
     t.integer  "contact_id"
     t.datetime "followup_date"
+    t.string   "row_highlight_color"
+    t.string   "revenue_potential"
+    t.integer  "percentage_probability"
+    t.string   "projected_sale_amount"
+    t.datetime "expected_close_date"
+    t.string   "revenue_result"
+    t.string   "current_situation"
   end
 
   create_table "trucks", :force => true do |t|
