@@ -33,13 +33,13 @@
 		<td><%= @job.off_level_amount_in_inches %> inches
 			<br /><%= number_with_precision @job.pad_job.my_depth %> feet
 		</td>
-		<td></td>
+		<td><%= money_from_cents @job.pad_job.extra_slope_costs %></td>
 	</tr>
 	<tr>
 		<td>Fill type:</td>
 		<td><%= @job.off_level_fill_type %></td>
 		<td>
-			<%= money_from_cents @job.pad_job.extra_slope_costs %>
+			
 		</td>
 	</tr>
 	<tr>
