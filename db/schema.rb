@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625012136) do
+ActiveRecord::Schema.define(:version => 20120625143147) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -277,6 +277,13 @@ ActiveRecord::Schema.define(:version => 20120625012136) do
     t.boolean  "done"
     t.integer  "contact_id"
     t.datetime "followup_date"
+    t.string   "row_highlight_color"
+    t.string   "revenue_potential"
+    t.integer  "percentage_probability"
+    t.string   "projected_sale_amount"
+    t.datetime "expected_close_date"
+    t.string   "revenue_result"
+    t.string   "current_situation"
   end
 
   create_table "trucks", :force => true do |t|

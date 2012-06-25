@@ -1,10 +1,9 @@
-<h2> Large Deals</h2>
+<h2>Large Deals</h2>
 <table class="table_liquid" cellspacing="0">
     <caption></caption>
       <tr>
-        <th class="nobg">Phone calls</th>
+        <th class="nobg">Name</th>
         <th>Phone</th>
-        <th>Phone-alt</th>
         <th>Referencing</th>
         <th>Notes</th>
         <th>View</th>
@@ -13,8 +12,8 @@
 	  <% @todos.select{|t| t.contact.big_potential_deal? && t.next_action_id && t.contact_id && t.next_action.requires_phone_call && t.done != true }.sort{|x,y| x.followup_date <=> y.followup_date }.each do |todo| %>
 	    <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
 	      <th class="spec"><%=h todo.contact.name rescue " " %></th>
-        <td><%=h todo.contact.phone rescue "" %></td>
-        <td><%=h todo.contact.phone_alt rescue "" %></td>
+        <td><%=h todo.contact.phone rescue "" %>
+			<%=raw "<br />Alt: #{todo.contact.phone_alt}" if todo.contact.phone_alt %></td>
         <td><%=h todo.referencing rescue "" %></td>
 				<% if (Time.now).beginning_of_day >= todo.followup_date.beginning_of_day %>
 					<td>
