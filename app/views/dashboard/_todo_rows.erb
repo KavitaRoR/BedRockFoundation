@@ -1,0 +1,37 @@
+  <tr class="<%= cycle("", "alt", :name => "row_class") -%> bg-<%= todo.row_highlight_color %>">
+    	<th class="spec"><%= link_to todo.contact.name, (todo.contact rescue ""), class: "button tiny black-gradient glossy icon-eye" %>
+		
+		<br /><%= todo.contact.created_at.strftime("%m/%d/%Y") %> | <%= todo.contact.campaign.name rescue todo.contact.company %>
+		</th>
+  <td><%=h todo.contact.phone rescue "" %>
+		<%=raw "<br />Alt: #{todo.contact.phone_alt}" if todo.contact.phone_alt && !todo.contact.phone_alt.blank? %>
+	</td>
+	<td>
+		<%= todo.revenue_potential rescue "" %>
+	</td>
+	<td>
+		<%= todo.percentage_probability rescue "" %>
+	</td>
+	<td>
+		<%= todo.projected_sale_amount rescue "" %>
+	</td>
+	<td>
+		<%= todo.revenue_result rescue "" %>
+	</td>
+	<td>
+		<%= todo.expected_close_date.strftime('%m/%d') rescue "" %>
+	</td>
+	<td>
+		<%= todo.current_situation rescue "" %>
+	</td>
+	<td>
+			<%=h todo.followup_date.strftime('%m/%d at %I:%M %p ') rescue "not set" %>
+			<% unless todo.status_flag.blank? %>
+			 <span class="button tiny orange-gradient"><%= todo.status_flag %></span> 
+			<% end %>
+	</td>
+	<td>
+		<%= todo.notes rescue "" %>
+	</td>
+  <td><%= link_to "", "/dashboard/clear_todo/#{todo.id}", class:"button icon-cross red-gradient" %></td>
+</tr>
