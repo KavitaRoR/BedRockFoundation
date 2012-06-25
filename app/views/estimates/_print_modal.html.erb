@@ -52,8 +52,7 @@
 			<td colspan=3>
 				<% if @job.job_calc_type == "pad" %>
 					<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} #{@job.foundation.kind.to_s.downcase.capitalize rescue "Shed"} Foundation" %>
-					<br />
-					&nbsp;&nbsp;&nbsp;-<%= "#{@options_for_job[:off_level_fill_type]}"%>
+					<%=raw "<br />&nbsp;&nbsp;&nbsp;-#{@options_for_job[:off_level_fill_type]}" if @type != "Economy" %>
 				<% elsif @job.job_calc_type == "adhoc" %>
 					<%= @job.foundation.kind %>
 				<% else %>
@@ -71,14 +70,14 @@
 			</td>
 		</tr>
 	<% end %>
-	<% if @job.job_calc_type == "pad" %>
+	<% if @job.job_calc_type == "pad" && @type != "Economy" %>
 		<% if @estimate.job.border_sixbysix %>
 			<tr>
 				<td colspan=3>
 					With 6" x 6" timbers
 				</td>
 			</tr>
-		<% elsif @estimate.job.job_calc_type != "adhoc" && @type != "Economy" %>
+		<% else %>
 			<tr>
 				<td colspan=3>
 					With 4" x 6" timbers
