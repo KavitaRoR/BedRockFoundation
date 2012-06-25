@@ -200,7 +200,7 @@ ActiveRecord::Schema.define(:version => 20120625012136) do
     t.integer  "concrete_piers_diameter_in_inches",                                  :default => 16
     t.integer  "gibraltar_courses_of_block",                                         :default => 4
     t.text     "labor_schedule"
-    t.integer  "calculation_location_id"
+    t.integer  "calculation_location_id",                                            :default => 5
   end
 
   add_index "jobs", ["id"], :name => "index_jobs_on_id"
@@ -215,9 +215,9 @@ ActiveRecord::Schema.define(:version => 20120625012136) do
     t.string   "city"
     t.string   "province"
     t.integer  "zip"
-    t.string   "use_for_estimates",                                :default => "no"
-    t.decimal  "lat",               :precision => 10, :scale => 0
-    t.decimal  "lng",               :precision => 10, :scale => 0
+    t.string   "use_for_estimates", :default => "no"
+    t.string   "lat"
+    t.string   "lng"
   end
 
   create_table "next_actions", :force => true do |t|
