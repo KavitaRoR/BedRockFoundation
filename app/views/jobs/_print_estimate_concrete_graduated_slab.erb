@@ -9,9 +9,8 @@
 	
 	<h2>Print this Job Estimate</h2>
 	<div>
-		Print: <br />
-		<p style="padding-left:30px;">
-			<%= link_to "Standard estimate", "#{print_modal_job_url(@job)}/?type=standard", :class => "iframe" %><br />
+		<p>
+			<%= link_to "Print this Concrete Slab estimate", "#{print_modal_job_url(@job)}/?type=standard", :class => "iframe button blue-gradient glossy icon-printer" %><br />
 		</p>	
 	</div>
 	<script type="text/javascript">
