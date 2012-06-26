@@ -7,57 +7,7 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr>
-		<td><b>Pad Size</b></td>
-		<td><%= @job.width rescue "" %> x <%= @job.length rescue "" %></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Square Footage</td>
-		<td><%= @job.adhoc_job.square_footage %></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Cubic Footage</td>
-		<td><%= number_with_precision @job.adhoc_job.cubic_footage %></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Perimeter</td>
-		<td><%= @job.adhoc_job.perimeter %> ft</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Off-level amount</td>
-		<td><%= @job.off_level_amount_in_inches %> inches
-			<br /><%= number_with_precision @job.adhoc_job.my_depth %> feet
-		</td>
-		<td></td>
-	</tr>
 	
-	<tr>
-		<td>Concrete Cubic Feet</td>
-		<td><%= @job.erosion_control_lft %> lft</td>
-		<td><%#= money_from_cents @job.adhoc_job.erosion_control_cost %></td>
-	</tr>
-	
-
-
-	<tr>
-		<td>Vapor Barrier</td>
-		<td><%#= '%.2f' % @job.adhoc_job.weed_fabric_per_foot.to_s %> per ft</td>
-		<td><%#= money_from_cents @job.adhoc_job.weed_fabric_cost %></td>
-	</tr>
-	<tr>
-		<td>Rebar</td>
-		<td><%= @job.adhoc_job.rebar_quantity %></td>
-		<td><%= money_from_cents @job.adhoc_job.rebar_cost %></td>
-	</tr>
-	<tr class="endsection">
-		<td>Rock (<%= RockPadVariable.find_by_key("rockpad_square_footage_per_ton").value %> sqft/ton @ 6")</td>
-		<td><%= number_with_precision(@job.adhoc_job.rock_tonage, :precision => 2, :strip_insignification_zeros => true) %> tons</td>
-		<td><%= money_from_cents @job.adhoc_job.rock_cost %></td>
-	</tr>
 
 	<tr>
 		<td>Truck Gas Cost</td>
