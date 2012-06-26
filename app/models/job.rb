@@ -122,6 +122,18 @@ class Job < ActiveRecord::Base
     @job_calc_type
   end
   
+  def job_quick_title
+    if job_calc_type == "adhoc"
+      self.foundation.kind
+    elsif job_calc_type == "pad"
+      "#{self.job_type.kind} Rock Pad for #{self.foundation.kind}"
+    elsif foundation_kind.downcase.include?("concrete")
+      foundation_kind
+    else
+      "Unknown"
+    end
+  end
+  
   def pad_job
     @padjob ||= RockPadCalculator.new(self.distance, self.width, self.length, (self.job_type.kind rescue "Standard"), self.border_sixbysix, (self.off_level_amount_in_inches.to_f/12), self.off_level_fill_type, self.erosion_control_lft)
   end
@@ -224,7 +236,7 @@ class Job < ActiveRecord::Base
     		shed_company: "#{ self.contact.campaign.name rescue "None" }",
     		job_location_abbr: "#{ self.location.abbreviation rescue 'ERR' }",
     		job_location_phone: "#{ self.location.phone rescue '- no location assigned' }",
-    		job_quality: "#{ kind rescue "" }",
+    		job_quality: "#{ job_quick_title rescue "" }",
     		job_quality_alt: "#{ self.description rescue "" }",
     		job_description: "#{ job_description_for_flash(kind) }",
     		job_extras: "#{ self.extras.join('\n') rescue "" }",
