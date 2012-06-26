@@ -33,9 +33,9 @@ class RockPadCalculator
   
   def excavation_labor
     if square_footage > 200
-      @excavation_labor = square_footage / 2 * 1.2
+      @excavation_labor = square_footage * 0.6
     else
-      @excavation_labor = square_footage * 1.2
+      @excavation_labor = square_footage * 1
     end
     # puts "---------------\n\n"
     # puts "SquareFootage #{square_footage}"
