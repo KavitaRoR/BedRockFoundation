@@ -69,6 +69,7 @@
 				</strong>
 			</td>
 		</tr>
+
 	<% end %>
 	<% if @job.job_calc_type == "pad" && @type != "Economy" %>
 		<% if @estimate.job.border_sixbysix %>
@@ -102,6 +103,18 @@
 				 <%= @job.job_description_for_flash(@type) %>
 			</td>
 		</tr>
+	<% elsif @job.job_calc_type == "adhoc" %>
+		<tr>
+			<td colspan=3 style="font-size: 0.8em;">
+				<strong>Description:</strong>
+				 <%= @job.description %>
+			</td>
+			<td colspan=1 style="text-align: right;">
+				<strong>
+						<%= money_from_cents @job.adhoc_job.total_price %>
+				</strong>
+			</td>
+		</tr>
 	<% else %>
 	<tr>
 		<td colspan=4 style="font-size: 0.8em;">
@@ -122,7 +135,7 @@
 			</td>
 		</tr>
 	<% end %>
-	<% if @estimate.off_level_to_show != "" && @estimate.off_level_to_show != nil %>
+	<% if @estimate.off_level_to_show != "" && @estimate.off_level_to_show != nil && @job.job_calc_type != "adhoc" %>
 		<tr>
 			<td colspan=1>
 				<strong>Estimated Off-Level Price</strong><br />
@@ -203,6 +216,9 @@
 					<% else %>
 						<p><strong><%= "#{money_from_cents(@job.price_in_cents + @job.specific_offlevel(@type)[:zero][0] - @job.specific_offlevel(@job.job_type.kind)[:zero][0])}" %></strong></p>
 					<% end %>
+				<% end %>
+				<% if @job.job_calc_type == "adhoc" %>
+				<p><strong><%= money_from_cents(@job.price_in_cents) %></strong></p>
 				<% end %>
 			</div>
 		</td>

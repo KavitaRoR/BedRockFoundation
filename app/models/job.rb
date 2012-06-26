@@ -210,8 +210,8 @@ class Job < ActiveRecord::Base
   end
   
   def options_for_print(kind="Standard")
-    pad_job = RockPadCalculator.new(self.distance, self.width, self.length, kind, self.border_sixbysix, ((self.off_level_amount_in_inches / 12) rescue 0), self.off_level_fill_type, self.erosion_control_lft)
-    logger.debug("Pad Job: #{pad_job.total_price}")
+    # pad_job = RockPadCalculator.new(self.distance, self.width, self.length, kind, self.border_sixbysix, ((self.off_level_amount_in_inches / 12) rescue 0), self.off_level_fill_type, self.erosion_control_lft)
+    # logger.debug("Pad Job: #{pad_job.total_price}")
     if self.contact
       return { 
     		contact_name: "#{ self.contact.first_name rescue ""} #{ self.contact.last_name rescue "" }",
@@ -228,9 +228,9 @@ class Job < ActiveRecord::Base
     		job_quality_alt: "#{ self.description rescue "" }",
     		job_description: "#{ job_description_for_flash(kind) }",
     		job_extras: "#{ self.extras.join('\n') rescue "" }",
-    		job_price: "#{money_from_cents pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)}",
-    		additional_price: "#{money_from_cents(self.additional_price * 100)}",
-    		job_total_price: "#{money_from_cents(pad_job.total_price + (self.additional_price * 100) - (self.discount * 100))}",
+        # job_price: "#{money_from_cents pad_job.total_price + (self.additional_price * 100) - (self.discount * 100)}",
+        # additional_price: "#{money_from_cents(self.additional_price * 100)}",
+        # job_total_price: "#{money_from_cents(pad_job.total_price + (self.additional_price * 100) - (self.discount * 100))}",
     		job_width: "#{self.width}",
     		job_length: "#{self.length}",
     		job_inches: "#{self.off_level_amount_in_inches}",
