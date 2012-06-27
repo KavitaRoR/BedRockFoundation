@@ -1,7 +1,7 @@
 class CampaignsController < ApplicationController
   before_filter :authenticate_user!  
   def index
-    @campaigns = Campaign.find(:all)
+    @campaigns = Campaign.find(:all, :order => "name ASC")
     session[:look] = 'index'
   end
   
