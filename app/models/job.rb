@@ -139,7 +139,7 @@ class Job < ActiveRecord::Base
   end
   
   def adhoc_job
-    @adhocjob ||= AdhocJobCalculator.new(self.distance, self.width, self.length, (self.off_level_amount_in_inches.to_f/12))
+    @adhocjob ||= AdhocJobCalculator.new(self.distance, self)
   end
   
   def concrete_job
