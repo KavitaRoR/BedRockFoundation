@@ -111,7 +111,7 @@
 			</td>
 			<td colspan=1 style="text-align: right;">
 				<strong>
-						<%= money_from_cents(@job.adhoc_job.total_price + @job.additional_price) %>
+						<%= money_from_cents(@job.adhoc_job.total_price + (@job.additional_price.to_f * 100)) %>
 				</strong>
 			</td>
 		</tr>
