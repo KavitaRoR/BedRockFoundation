@@ -63,7 +63,7 @@
 				<strong>
 					<% if @job.job_calc_type == "pad" %>
 						<%= money_from_cents(@job.specific_offlevel(@type)[:zero][0]) %>
-					<% else %>
+					<% elsif @job.job_calc_type != "adhoc" %>
 						<%= money_from_cents @job.price_in_cents %>
 					<% end %>
 				</strong>
@@ -111,7 +111,7 @@
 			</td>
 			<td colspan=1 style="text-align: right;">
 				<strong>
-						<%= money_from_cents @job.adhoc_job.total_price %>
+						<%= money_from_cents(@job.adhoc_job.total_price + @job.additional_price) %>
 				</strong>
 			</td>
 		</tr>
@@ -218,7 +218,7 @@
 					<% end %>
 				<% end %>
 				<% if @job.job_calc_type == "adhoc" %>
-				<p><strong><%= money_from_cents(@job.price_in_cents) %></strong></p>
+					<p><strong><%= money_from_cents(@job.price_in_cents) %></strong></p>
 				<% end %>
 			</div>
 		</td>
