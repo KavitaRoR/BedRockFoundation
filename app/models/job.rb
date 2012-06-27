@@ -126,7 +126,7 @@ class Job < ActiveRecord::Base
     if job_calc_type == "adhoc"
       self.foundation.kind
     elsif job_calc_type == "pad"
-      "#{self.job_type.kind} Rock Pad for #{self.foundation.kind}"
+      "#{self.job_type.kind} #{self.foundation.kind}"
     elsif foundation_kind.downcase.include?("concrete")
       foundation_kind
     else
