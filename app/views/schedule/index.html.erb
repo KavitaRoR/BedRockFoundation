@@ -21,7 +21,7 @@
     	<a href="/schedule/?until=29.w"><%= (Time.current + 29.weeks).strftime("%m/%d") %> - <%= (Time.current + 31.weeks).strftime("%m/%d") %></a> 
     	</div>
 	
-		<h1>Today: <%= Time.current.strftime("%m/%d") %></h1>
+		<h1>Today: <%= Time.current.strftime("%m/%d %H:%M") %> - <%= @query_start_date.strftime("%m/%d %H:%M") %></h1>
 			<div id="today-marker"></div>
 			<% ((@query_start_date)..(@query_start_date + 2.weeks)).each do |day| %>
 				<%= render :partial => "day_table", :locals => {:day => day} %>
