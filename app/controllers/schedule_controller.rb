@@ -92,7 +92,7 @@ class ScheduleController < ApplicationController
 
 
   def parse_date_until(string_date, default_date = Time.current)
-    return (default_date) if string_date.nil?
+    return (Date.strptime((default_date).strftime("%m/%d/%Y"))) if string_date.nil?
     qty = string_date.split(".").first.to_i
     span = string_date.split(".").last
     days = case span
