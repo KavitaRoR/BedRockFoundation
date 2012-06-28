@@ -75,19 +75,19 @@ class ScheduleController < ApplicationController
   end
 
   def printable
-    @query_future_date = parse_date_until(params[:until]) || (Date.today + 2.weeks)
+    @query_future_date = parse_date_until(params[:until]) || (Time.current.beginning_of_day + 2.weeks)
     @crews = if params[:crew].nil?
       Crew.find(:all, :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
     else
       Crew.find(:all, :conditions => ["id = ?", params[:crew]], :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
     end
-    @contracts = Contract.where("scheduled_date > ?", (Time.now - 1.day)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
+    @contracts = Contract.where("scheduled_date > ?", (Time.current - 1.day)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
   end
   
   def consolidated_printable
     @query_future_date = parse_date_until(params[:until],(Date.today + 2.weeks))
     @crews = Crew.find(:all, :conditions => ["id = ?", current_user.crew_id], :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
-    @contracts = Contract.where("scheduled_date > ?", (Time.now - 1.day)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
+    @contracts = Contract.where("scheduled_date > ?", (Time.current - 1.day)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
   end
 
 
@@ -104,7 +104,7 @@ class ScheduleController < ApplicationController
       30
     end
     # You CANNOT subtract 8 hours from here without further parsing.  This leads to an eternal loopback on Time#succ 
-    return Date.strptime((Time.now - 8.hours).strftime("%m/%d/%Y"), "%m/%d/%Y") + (days*qty).days
+    return Date.strptime((Time.current - 8.hours).strftime("%m/%d/%Y"), "%m/%d/%Y") + (days*qty).days
   end
   
   def get_contract_details
