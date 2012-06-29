@@ -61,6 +61,7 @@ class EstimatesController < ApplicationController
   
   def off_level_to_show
     arr = []
+    params[:offlevel] = {} unless params[:offlevel]
     params[:offlevel].each do |k,v|
       if v == "1"
         case k
