@@ -87,7 +87,7 @@ class ScheduleController < ApplicationController
   def consolidated_printable
     @query_future_date = parse_date_until(params[:until],(Time.current.to_date + 2.weeks))
     @crews = Crew.find(:all, :conditions => ["id = ?", current_user.crew_id], :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
-    @contracts = Contract.where("scheduled_date > ?", (Time.current - 1.day)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
+    @contracts = Contract.where("scheduled_date > ?", (Time.current.to_date - 1.day)).includes(:estimate, {:estimate => :job}).order("scheduled_date ASC")
   end
 
 
