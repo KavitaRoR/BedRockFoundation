@@ -24,7 +24,7 @@
 		<select class='date-select' name="day">
 			<option value=''>Select a Day</option>
 			<% for d in 0..100 %>
-				<option value='<%= (Date.today + d.days).beginning_of_day.to_i %>'><%= (Date.today + d.days).strftime("%m/%d/%Y") %></option>
+				<option value='<%= (Time.current.to_date + d.days).beginning_of_day.to_i %>'><%= (Time.current.to_date + d.days).strftime("%m/%d/%Y") %></option>
 			<% end %>
 		</select>
 		<select class='crew-select' name="crew_id">

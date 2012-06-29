@@ -1,6 +1,6 @@
 <div class="jquery_tab">
     <div class="content_block">
-    	<h2>Bedrock Schedule from: <%= Date.today.strftime("%F") %> until: <%= @query_future_date.strftime("%F") %></h2>
+    	<h2>Bedrock Schedule from: <%= Time.current.to_date.strftime("%F") %> until: <%= @query_future_date.strftime("%F") %></h2>
 
     	<div id="filter_links">
     		<% until_string = ("until=" + params[:until]) unless params[:until].nil? || params[:until].empty? %>
@@ -9,7 +9,7 @@
     		<a href="/schedule/consolidated_printable?until=3.w">3 weeks</a> | 
     		<a href="/schedule/consolidated_printable?until=4.w">4 weeks</a>  
     	</div>
-		<% last_day = @contracts.last.scheduled_date rescue Date.today + 5.day %>
+		<% last_day = @contracts.last.scheduled_date rescue Time.current.to_date + 5.day %>
 
 		<% ((Time.current.to_date)..(@query_future_date)).each do |day| %>
 			<%= render :partial => "day_printable", :locals => {:day => day} %>
