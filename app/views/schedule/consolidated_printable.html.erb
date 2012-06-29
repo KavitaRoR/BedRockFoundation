@@ -11,7 +11,7 @@
     	</div>
 		<% last_day = @contracts.last.scheduled_date rescue Date.today + 5.day %>
 
-		<% ((Date.today)..(@query_future_date)).each do |day| %>
+		<% ((Time.current.to_date)..(@query_future_date)).each do |day| %>
 			<%= render :partial => "day_printable", :locals => {:day => day} %>
 		<% end %>
 
