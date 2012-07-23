@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120723181904) do
+ActiveRecord::Schema.define(:version => 20120723193504) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(:version => 20120723181904) do
 
   create_table "estimates", :force => true do |t|
     t.integer  "job_id"
-    t.integer  "job_type_id"
+    t.integer  "job_type_id",             :default => 2
     t.text     "flashvars"
     t.datetime "date_of_email_to_client"
     t.string   "token"
