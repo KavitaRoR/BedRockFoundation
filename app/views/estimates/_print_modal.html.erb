@@ -212,10 +212,11 @@
 			<strong>Total:</strong>
 			<div style="border: 1px solid black; width:150px; height: 35px; text-align:center; line-height: 4px;">
 				<% if @estimate.show_total_on_print %>
-					<% if @job.job_type.kind == @type || @job.job_calc_type == "adhoc" %>
+					<% if @job.job_type.kind == @type || @job.job_calc_type != "adhoc" %>
 						<p><strong><%= money_from_cents(@job.price_in_cents) %></strong></p>
 						<!-- Price in Cents only -->
-						
+						<!-- <%= @job.job_type.kind %> -->
+						<!-- <%= @type %> -->
 					<% else %>
 						<p><strong><%= "#{money_from_cents(@job.price_in_cents + @job.specific_offlevel(@type)[:zero][0] - @job.specific_offlevel(@job.job_type.kind)[:zero][0])}" %></strong></p>
 						<!-- Price in Cents plus offlevel differential -->
