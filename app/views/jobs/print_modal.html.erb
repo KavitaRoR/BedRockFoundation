@@ -18,12 +18,12 @@
 		<% end %>
 
 		<% if @estimate.date_of_email_to_client %>
-			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link"  class="button big blue-gradient icon-mail">Re-Send Estimate to Customer</a><br />
+			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality].split(" ")[0] %>" id="email-link"  class="button big blue-gradient icon-mail">Re-Send Estimate to Customer</a><br />
 			<small>(Sent <%= @estimate.date_of_email_to_client.strftime("%m/%d/%Y at %I:%m %p") %>)</small>
 			<br /><br />
 			
 		<% else %>
-			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality] %>" id="email-link"  class="button big blue-gradient icon-mail">Email to Customer</a>
+			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality].split(" ")[0] %>" id="email-link"  class="button big blue-gradient icon-mail">Email to Customer</a>
 
 		<% end %>
 		<%= link_to "PRINT", "#", :class => "button big green-gradient icon-printer", :id => "print-link" %>

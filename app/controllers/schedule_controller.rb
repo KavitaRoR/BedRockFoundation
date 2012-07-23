@@ -91,6 +91,7 @@ class ScheduleController < ApplicationController
   end
 
 
+
   def parse_date_until(string_date, default_date = Time.current.to_date)
     return (default_date) if string_date.nil?
     qty = string_date.split(".").first.to_i

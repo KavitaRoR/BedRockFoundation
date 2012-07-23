@@ -215,7 +215,7 @@ class Job < ActiveRecord::Base
     end
     return str.gsub("4\"× 6\" pressure", "6\"× 6\" pressure") if self.border_sixbysix
     if foundation_kind.downcase.include?("concrete")
-      str = ContentDatum.find_by_key(job_calc_type).value
+      str = ContentDatum.find_by_key(job_calc_type).value rescue ""
     end
     
     return str
