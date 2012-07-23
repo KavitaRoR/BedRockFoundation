@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625143147) do
+ActiveRecord::Schema.define(:version => 20120723181904) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(:version => 20120625143147) do
     t.integer  "invoice_number"
     t.datetime "date_of_client_view"
     t.string   "off_level_to_show",       :default => "12,18,24,30,36"
+    t.boolean  "show_total_on_print",     :default => true
   end
 
   create_table "foundation_calculators", :force => true do |t|

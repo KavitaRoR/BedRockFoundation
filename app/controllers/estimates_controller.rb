@@ -61,6 +61,7 @@ class EstimatesController < ApplicationController
   
   def off_level_to_show
     arr = []
+    show_total_on_print_var = false
     params[:offlevel] = {} unless params[:offlevel]
     params[:offlevel].each do |k,v|
       if v == "1"
@@ -75,10 +76,13 @@ class EstimatesController < ApplicationController
           arr << "30"
         when "thirtysix"
           arr << "36"
+        when "show_total_on_print"
+          show_total_on_print_var = true
         end
       end
     end
     str = arr.join(",")
+    Estimate.find(params[:offlevel][:estimate_id].to_i).update_attribute(:show_total_on_print, show_total_on_print_var)
     begin
       logger.debug("Estimate id: #{params[:offlevel][:estimate_id]} with str: #{str.inspect}")
       Estimate.find(params[:offlevel][:estimate_id].to_i).update_attribute(:off_level_to_show, str)

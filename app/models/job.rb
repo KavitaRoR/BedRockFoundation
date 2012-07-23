@@ -24,6 +24,8 @@ class Job < ActiveRecord::Base
   
   serialize :labor_schedule
   
+  
+  
   def self.serialized_attr_accessor(*args)
     for day in 1..10
       args.each do |method_name|
@@ -272,6 +274,15 @@ class Job < ActiveRecord::Base
   
   def foundation_kind_short
     return self.foundation_calculator.shortcode rescue ""
+  end
+  
+  
+  def addition_prices_totaled
+    addition_total = 0
+    self.job_additions.each do |ja|
+      addition_total += ja.addition_price_in_cents
+    end
+    addition_total
   end
   
   protected

@@ -54,6 +54,8 @@
 			<%= f.check_box "twentyfour" %>24"
 			<%= f.check_box "thirty" %>30"
 			<%= f.check_box "thirtysix" %>36"<br />
+			<input name="offlevel[show_total_on_print]" type="hidden" value="0">
+			<input id="offlevel_show_total_on_print" name="offlevel[show_total_on_print]" type="checkbox" value="1" <%= "checked='checked'" if @estimate.show_total_on_print %>>Show Contract Total?<br />
 			<%= f.submit "Save Options" %>
 		<% end %>
 		<script type="text/javascript">
