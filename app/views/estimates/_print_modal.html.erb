@@ -212,7 +212,7 @@
 			<strong>Total:</strong>
 			<div style="border: 1px solid black; width:150px; height: 35px; text-align:center; line-height: 4px;">
 				<% if @estimate.show_total_on_print %>
-					<% if @job.job_type.kind == @type || @job.job_calc_type != "adhoc" || @job.foundation_kind.downcase.include?("concrete") %>
+					<% if @job.job_type.kind == @type || @job.job_calc_type == "adhoc" || @job.foundation_kind.downcase.include?("concrete") %>
 						<p><strong><%= money_from_cents(@job.price_in_cents) %></strong></p>
 						<!-- Price in Cents only -->
 						<!-- <%= @job.job_type.kind %> -->
