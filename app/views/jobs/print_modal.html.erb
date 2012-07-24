@@ -44,7 +44,7 @@
 			<a href="/estimates/push_to_sold/<%= @job.id %>/<%= @type %>" target="_parent" class="button big orange-gradient icon-right">Move to Production Schedule</a>
 		<% end %>
 		<br /><br />
-		<small style="font-size: 12px;">http://app.bedrockfoundations.com/e/<%= @estimate.token %></small>
+		<small style="font-size: 12px;"><a href="mailto:<%= @job.contact.email %>?bcc=support@wearefound.com&subject=Your+estimate+from+Bedrock+Foundations&body=http://app.bedrockfoundations.com/e/<%= @estimate.token %>">http://app.bedrockfoundations.com/e/<%= @estimate.token %></a></small>
 		
 	</div>
 	<div id="off-level" style="float:right;">
