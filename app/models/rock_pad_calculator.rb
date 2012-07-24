@@ -20,7 +20,7 @@ class RockPadCalculator
     @truck_cost_per_mile = (findVar("rockpad_truck_cost_per_mile") * 100) || 200
     @truck_mileage_per_gallon = findVar("rockpad_truck_mileage_per_gallon") || 9
     @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot") * 100) || 200
-    @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot_gt_16") * 100) || 400 if @width >= 16
+    @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot_gt_16") * 100) || 400 if @width >= 16 rescue 0
     @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot_6x6") * 100) || 500 if sixbysix
     @rock_per_ton = (findVar("rockpad_rock_per_ton") * 100) || 2000
     @trex_price_per_foot = (findVar("rockpad_trex_price_per_foot") * 100) || 500
