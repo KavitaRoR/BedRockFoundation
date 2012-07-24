@@ -6,7 +6,7 @@ class EstimatesController < ApplicationController
     @job = Job.find(params[:id])
     begin
       if @job.job_calc_type == "adhoc" || @job.foundation_kind.downcase.include?("concrete")
-        @estimate = Estimate.find(:last, :conditions => {:job_id => params[:id]}
+        @estimate = Estimate.find(:last, :conditions => {:job_id => params[:id]})
         
       else
         @job_type = JobType.find(:first, conditions: {kind: params[:type].capitalize})
