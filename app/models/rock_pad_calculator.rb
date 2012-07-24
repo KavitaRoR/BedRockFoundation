@@ -69,15 +69,15 @@ class RockPadCalculator
   end
   
   def square_footage
-    @length * @width
+    @length * @width rescue 0
   end
   
   def cubic_footage
-    @length * @width * @depth
+    @length * @width * @depth rescue 0
   end
   
   def perimeter
-    (@length + @width) * 2
+    (@length + @width) * 2 rescue 0
   end
   
   def trex_additional_cost
@@ -105,11 +105,14 @@ class RockPadCalculator
   end
   
   def my_depth
-    @depth
+    @depth rescue 0
   end
   
   def board_rows
-    return (@depth * 2) + 1 if @fill_type != "Excavate"
+    begin
+      return (@depth * 2) + 1 if @fill_type != "Excavate" 
+    rescue
+    end
     return 1
   end 
 
