@@ -28,6 +28,7 @@
 		<% end %>
 		<%= link_to "PRINT", "#", :class => "button big green-gradient icon-printer", :id => "print-link" %>
 		<br />
+		<small>link to estimate: http://app.bedrockfoundations.com/e/<%= @estimate.token %></small>
 		<br />
 		<% if @estimate.sold? %>
 			<% if @estimate.job_type.kind == @type %>

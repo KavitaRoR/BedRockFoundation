@@ -24,6 +24,7 @@ class EstimatesController < ApplicationController
         redirect_to :back, error: "Something went wrong emailing.  Try verifying the contact's email address."
       end
     rescue Exception => e
+      @estimate.update_attribute(:date_of_email_to_client, Time.now)
       logger.debug("Huge Problem Emailing estimate: #{e.message}")
       redirect_to :back, notice: "An Error occurred."
     end
