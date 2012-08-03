@@ -25,10 +25,11 @@
 		<%= todo.current_situation rescue "" %>
 	</td>
 	<td>
+		<% unless todo.status_flag.blank? %>
+		 <span class="button tiny orange-gradient"><%= todo.status_flag %></span> 
+		<% end %>
+		<span class="button white-bg tiny icon-right"><b><%= todo.assignee.name %></b></span>
 			<%=h todo.followup_date.strftime('%m/%d at %I:%M %p ') rescue "not set" %>
-			<% unless todo.status_flag.blank? %>
-			 <span class="button tiny orange-gradient"><%= todo.status_flag %></span> 
-			<% end %>
 			<br />
 			<%= link_to todo.contact.email, "mailto:todo.contact.email" %>
 	</td>
