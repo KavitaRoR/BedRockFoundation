@@ -1,5 +1,5 @@
   <tr class="<%= cycle("", "alt", :name => "row_class") -%> bg-<%= todo.row_highlight_color %>">
-    	<th class="spec"><%= link_to todo.contact.name, (todo.contact rescue ""), class: "button tiny black-gradient glossy icon-eye" %>
+    	<th class="spec"><%= link_to todo.contact.name, (todo.contact rescue ""), class: "button tiny black-gradient glossy icon-eye", %>
 		
 		<br /><%= todo.contact.created_at.strftime("%m/%d/%Y") %> | <%= todo.contact.campaign.name rescue todo.contact.company %>
 		</th>
@@ -29,9 +29,11 @@
 			<% unless todo.status_flag.blank? %>
 			 <span class="button tiny orange-gradient"><%= todo.status_flag %></span> 
 			<% end %>
+			<br />
+			<%= link_to todo.contact.email, "mailto:todo.contact.email" %>
 	</td>
 	<td>
 		<%= todo.notes rescue "" %>
 	</td>
-  <td><%= link_to "", "/dashboard/clear_todo/#{todo.id}", class:"button icon-cross red-gradient" %></td>
+  <td><%= link_to "", "/dashboard/clear_todo/#{todo.id}", class:"button round compact icon-tick red-gradient" %></td>
 </tr>
