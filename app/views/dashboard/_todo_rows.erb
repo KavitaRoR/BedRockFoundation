@@ -1,5 +1,5 @@
   <tr class="<%= cycle("", "alt", :name => "row_class") -%> bg-<%= todo.row_highlight_color %>">
-    	<th class="spec"><%= link_to todo.contact.name, (todo.contact rescue ""), class: "button tiny black-gradient glossy icon-eye", %>
+    	<th class="spec"><%= link_to todo.contact.name, (todo.contact rescue ""), class: "button tiny black-gradient glossy icon-eye" %>
 		
 		<br /><%= todo.contact.created_at.strftime("%m/%d/%Y") %> | <%= todo.contact.campaign.name rescue todo.contact.company %>
 		</th>
