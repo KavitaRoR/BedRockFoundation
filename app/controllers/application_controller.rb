@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   
+  layout Proc.new { |controller| current_user && current_user.permissions_levels.to_s.include?("Admin") ? "application" : 'foreman' }
+  
   helper :all
   # before_filter :blackbird_override
   protect_from_forgery 

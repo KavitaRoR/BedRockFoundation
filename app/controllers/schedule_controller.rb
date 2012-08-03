@@ -2,7 +2,7 @@ class ScheduleController < ApplicationController
   
   before_filter :authenticate_user!
   
-  layout "foreman", :only => [:consolidated_printable]
+  
   def index
     @query_start_date = parse_date_until(params[:until])
     @crews = Crew.find(:all, :include => [:contracts, {:contracts => [:estimate, {:estimate => :job}]}], :order => "ordering ASC")

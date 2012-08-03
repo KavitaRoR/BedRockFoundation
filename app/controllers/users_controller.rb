@@ -28,6 +28,16 @@ class UsersController < ApplicationController
     end
   end
   
+  def become
+    return unless current_user
+    begin
+      sign_in(:user, User.find(params[:id]))
+      redirect_to "/" # or user_root_url
+    rescue
+      redirect_to "/users", :error => "Becoming someone else did not work"
+    end
+  end
+  
   def edit
     @user = User.find(params[:id])
   end
