@@ -35,5 +35,5 @@
 	<%= f.label :crew %><br />
 	<%= f.select :crew_id, Crew.all.collect{|c| [c.crew_name, c.id]}, :include_blank => true %>
 	<br />
-	<%= f.submit "Create" %>
+	<%= f.submit "Save this User", class: "button big green-gradient" %>
 <% end %>

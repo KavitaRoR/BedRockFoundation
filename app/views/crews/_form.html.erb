@@ -11,6 +11,7 @@
     </div>
   <% end %>
 
+
   <div class="field">
     <%= f.label :crew_name %><br />
     <%= f.text_field :crew_name %>
@@ -35,7 +36,58 @@
     <%= f.label :ordering %><br />
     <%= f.number_field :ordering %>
   </div>
+
+  <div class="field">
+    <%= f.label :background_color %><br />
+    <%= f.text_field :background_color %>
+  </div>
+	<div style="position: relative">
+		<div id="demo-box" style="position: absolute; width: 200px; height: 100px; border: 1px solid #aaa; background: #eee; left: 300px; padding: 10px 20px;">
+			<p>This is the crew box</p>
+		</div>
+	</div>
+	
+  <div class="field">
+    <%= f.label :border_color %><br />
+    <%= f.text_field :border_color %>
+  </div>
+  <div class="field">
+    <%= f.label :text_color %><br />
+    <%= f.text_field :text_color %>
+  </div>
+<br />
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Save this Crew", class: "button big green-gradient" %>
   </div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		function changeBoxColor(){
+			bg = "#eee";
+			brdr = "#aaa";
+			txt = "#000";
+			
+			if ($("#crew_background_color").val() != ""){				
+				bg = $("#crew_background_color").val();
+			}
+			if ($("#crew_border_color").val() != ""){
+				brdr = $("#crew_border_color").val();
+			}
+			if ($("#crew_text_color").val() != ""){
+				txt = $("#crew_text_color").val();
+			}
+			$("#demo-box").css({'background-color': bg, 'border-color': brdr, 'color': txt});
+		}
+		
+		$("#crew_background_color").keyup(function(){
+			changeBoxColor();
+		})
+		$("#crew_border_color").keyup(function(){
+			changeBoxColor();
+		})
+		$("#crew_text_color").keyup(function(){
+			changeBoxColor();
+		})
+	})
+</script>

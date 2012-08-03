@@ -1,15 +1,13 @@
 <h1>Listing crews</h1>
-
+<%= link_to 'Add a new Crew', new_crew_path, class: "button green-gradient huge icon-plus" %>
+<br /><br />
 <table>
   <tr>
     <th>Crew name</th>
     <th>Crew base address</th>
-    <th>Lat</th>
-    <th>Lng</th>
+    <th>Lat/Lng</th>
     <th>Crew size</th>
     <th>Velocity</th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
 
@@ -17,17 +15,14 @@
   <tr>
     <td><%= crew.crew_name %></td>
     <td><%= crew.crew_base_address %></td>
-    <td><%= crew.lat %></td>
-    <td><%= crew.lng %></td>
+    <td><%= crew.lat %>, <%= crew.lng %></td>
     <td><%= crew.crew_size %></td>
     <td><%= crew.velocity %></td>
-    <td><%= link_to 'Show', crew %></td>
-    <td><%= link_to 'Edit', edit_crew_path(crew) %></td>
-    <td><%= link_to 'Destroy', crew, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Edit', edit_crew_path(crew), class: "button blue-gradient" %>
+    &nbsp; <%= link_to 'Destroy', crew, confirm: 'Are you sure?', method: :delete, class: "button red-gradient round icon-cross compact" %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Crew', new_crew_path %>

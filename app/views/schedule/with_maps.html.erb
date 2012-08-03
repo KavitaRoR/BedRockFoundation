@@ -39,6 +39,19 @@
 	<%= render :partial => 'persistence' %>
 <% end %>
 
+<style type="text/css" media="screen">
+	<% for crew in Crew.find(:all) %>
+
+
+	#top .crew_<%= crew.ordering %> .schedule_button.full {
+		background: <%= crew.background_color %> url(<%= asset_path 'highlight_line.gif' %>) repeat-x top left;
+		border:1px solid <%= crew.border_color %>;
+		color: <%= crew.text_color %>;
+	}
+
+	<% end %>
+</style>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#show-previous-button").click(function() {

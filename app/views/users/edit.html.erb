@@ -1,6 +1,6 @@
 <h1>Editing <%= @user.name %></h1>
 <p>If you would like to see what the app looks like logged in as <%= @user.name %>,
-	<%= link_to "Then Spoof #{@user.name}", "/users/become/#{@user.id}", class: "button grey-gradient tiny" %>
+	<%= link_to "Then Spoof #{@user.name}", "/users/become/#{@user.id}", class: "button white-gradient compact icon-right" %>
 
 <%= form_for @user do |f| %>
 	<%= f.label :name %><br />
@@ -27,5 +27,5 @@
 	<%= f.label :crew %><br />
 	<%= f.select :crew_id, Crew.all.collect{|c| [c.crew_name, c.id]}, :include_blank => true %><br />
 	<br />
-	<%= f.submit "Update", class: "button green-gradient" %>
+	<%= f.submit "Save this User", class: "button green-gradient" %>
 <% end %>
