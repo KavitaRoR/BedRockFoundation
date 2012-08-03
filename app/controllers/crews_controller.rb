@@ -4,7 +4,7 @@ class CrewsController < ApplicationController
   # GET /crews
   # GET /crews.json
   def index
-    @crews = Crew.all
+    @crews = Crew.find(:all, :order => "ordering ASC")
 
     respond_to do |format|
       format.html # index.html.erb

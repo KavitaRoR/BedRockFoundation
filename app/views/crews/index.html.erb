@@ -13,7 +13,7 @@
 
 <% @crews.each do |crew| %>
   <tr>
-    <td><%= crew.crew_name %></td>
+    <td><div style="background-color: <%= crew.background_color %>; border: 1px solid <%= crew.border_color %>; color: <%= crew.text_color %>; padding: 5px 10px;"><%= crew.crew_name %></div></td>
     <td><%= crew.crew_base_address %></td>
     <td><%= crew.lat %>, <%= crew.lng %></td>
     <td><%= crew.crew_size %></td>
