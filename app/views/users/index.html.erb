@@ -1,7 +1,8 @@
-<h1>All Users</h1>
-<%= link_to "Create a new User", new_user_registration_path %>
+<h1>Listing the System Users</h1>
+<%= link_to "Create a new User", new_user_registration_path, class: "button green-gradient huge" %>
 <br />
-<table>
+<br />
+	<table>
 	<thead>
 		<th>Name</th>
 		<th>Email</th>
@@ -16,7 +17,7 @@
 				<td><%= u.email %></td>
 				<td><%= u.crew.crew_name rescue "" %></td>
 				<td><%= u.permissions_levels %></td>
-				<td><%= link_to "Edit", edit_user_path(u) %> | <%= link_to "Delete", user_registration_path(u), :method => :destroy, :confirm => "Are you sure?" %></td>
+				<td><%= link_to "Edit", edit_user_path(u), class: "button blue-gradient" %> &nbsp; <%= link_to "X", user_registration_path(u), :method => :destroy, :confirm => "Are you sure?", class: "button red-gradient" %></td>
 			</tr>
 		<% end %>
 	</tbody>
