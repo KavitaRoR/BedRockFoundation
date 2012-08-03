@@ -210,8 +210,10 @@ class RockPadCalculator
       findVar("rockpad_hours_500_to_600") || 5
     when 600..699
       findVar("rockpad_hours_600_to_700") || 6
-    when 700.799
+    when 700..799
       findVar("rockpad_hours_700_to_800") || 7
+    when 800..10000
+      (findVar("rockpad_hours_700_to_800").to_i + 2) || 9
     else
       0
     end
