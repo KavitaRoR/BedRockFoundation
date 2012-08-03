@@ -7,6 +7,7 @@ class Contact < ActiveRecord::Base
   belongs_to :shed_company
   
   before_create :geocode_address
+  after_create :create_initial_todo
   before_save :geocode_address
 
   def name 
@@ -44,6 +45,12 @@ class Contact < ActiveRecord::Base
         errors.add(:address_1, "Could not Geocode address")
       end
     end
+  end
+  
+  def create_initial_todo
+    Status.create(:contact_id => self.id, :revenue_potential => "???",
+		:revenue_result => "???", :percentage_probability => 27,
+		:projected_sale_amount => "???", :expected_close_date => Time.now, :current_situation => "", :row_highlight_color => "", :notes => "Created account in the system. Please follow up", :followup_date => Time.now, :next_action_id => 1, :assigned_by => self.created_by, :assigned_to => 2)
   end
 
 end

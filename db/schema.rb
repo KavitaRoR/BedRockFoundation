@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120723193504) do
+ActiveRecord::Schema.define(:version => 20120803123207) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20120723193504) do
     t.string   "email"
     t.integer  "contact_status_id", :default => 1, :null => false
     t.integer  "shed_company_id"
+    t.integer  "created_by"
   end
 
   create_table "content_data", :force => true do |t|

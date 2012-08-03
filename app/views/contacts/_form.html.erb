@@ -41,5 +41,5 @@
   <dt><%= f.label :campaign_id, "How did the customer learn about Bedrock Foundations?" %></dt>
 	<dd><%= f.select :campaign_id, Campaign.find(:all, :order => "name ASC").collect{|c| [c.name, c.id]}, :include_blank => "Other" %></dd>
 </dl>
-<p><%= f.submit "Save" %></p>
+<p><%= f.submit "Save this Person", class: "button big green-gradient" %></p>
 <% end %>

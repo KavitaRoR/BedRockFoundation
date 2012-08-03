@@ -29,10 +29,10 @@ class ContactsController < ApplicationController
   
   def create
     @contact = Contact.new(params[:contact])
+    @contact.created_by = current_user.id
     if @contact.save
       flash[:notice] = "Successfully created contact."
-      redirect_to "/contacts/#{@contact.id}" and return if params[:commit] == "Save"
-      redirect_to new_contact_url
+      redirect_to "/contacts/#{@contact.id}" and return
     else
       render :action => 'new'
     end
