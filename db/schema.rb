@@ -13,6 +13,31 @@
 
 ActiveRecord::Schema.define(:version => 20120803130326) do
 
+  create_table "answer_instances", :force => true do |t|
+    t.integer  "original_answer_id"
+    t.integer  "question_instance_id"
+    t.text     "answer_text"
+    t.integer  "point_value"
+    t.boolean  "correct"
+    t.integer  "position"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "question_id"
+  end
+
+  create_table "answers", :force => true do |t|
+    t.text     "answer_text"
+    t.integer  "point_value"
+    t.boolean  "correct"
+    t.integer  "position"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "question_id"
+  end
+
+  add_index "answers", ["id"], :name => "index_answers_on_id"
+  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
     t.string   "late"
@@ -21,12 +46,69 @@ ActiveRecord::Schema.define(:version => 20120803130326) do
     t.integer  "position"
   end
 
+  create_table "banks", :force => true do |t|
+    t.string   "bank_name"
+    t.string   "author_note"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "campaigns", :force => true do |t|
     t.string   "name"
     t.date     "started_on"
     t.integer  "cost_in_cents"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "candidate_batches", :force => true do |t|
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "batch_file_name"
+    t.string   "batch_content_type"
+    t.integer  "batch_file_size"
+    t.datetime "batch_updated_at"
+  end
+
+  create_table "candidates", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email",                                       :null => false
+    t.string   "encrypted_password",                          :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",           :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.integer  "failed_attempts",         :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "authentication_token"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.string   "ym_id"
+    t.text     "ym_custom_exam_fields"
+    t.integer  "record_id"
+    t.string   "username"
+    t.string   "middle_name"
+    t.string   "schedule_request_status", :default => "none"
+  end
+
+  add_index "candidates", ["email"], :name => "index_candidates_on_email", :unique => true
+  add_index "candidates", ["reset_password_token"], :name => "index_candidates_on_reset_password_token", :unique => true
+
+  create_table "contact_instances", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone_number"
+    t.string   "email"
+    t.text     "comment"
+    t.integer  "candidate_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "contact_statuses", :force => true do |t|
@@ -57,6 +139,14 @@ ActiveRecord::Schema.define(:version => 20120803130326) do
     t.integer  "contact_status_id", :default => 1, :null => false
     t.integer  "shed_company_id"
     t.integer  "created_by"
+  end
+
+  create_table "content_blocks", :force => true do |t|
+    t.string   "block_name"
+    t.string   "slug"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "content_data", :force => true do |t|
@@ -103,6 +193,16 @@ ActiveRecord::Schema.define(:version => 20120803130326) do
     t.boolean  "block_off"
   end
 
+  create_table "emails", :force => true do |t|
+    t.string   "subject"
+    t.string   "from"
+    t.string   "bcc"
+    t.text     "body"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "internal_code"
+  end
+
   create_table "estimates", :force => true do |t|
     t.integer  "job_id"
     t.integer  "job_type_id",             :default => 2
@@ -116,6 +216,99 @@ ActiveRecord::Schema.define(:version => 20120803130326) do
     t.datetime "date_of_client_view"
     t.string   "off_level_to_show",       :default => "12,18,24,30,36"
     t.boolean  "show_total_on_print",     :default => true
+  end
+
+  create_table "exam_assignments", :force => true do |t|
+    t.integer  "candidate_id"
+    t.integer  "exam_id"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.string   "schedule_request_status", :default => "not yet"
+    t.datetime "schedule_request_date"
+    t.boolean  "available",               :default => true
+  end
+
+  create_table "exam_bank_assignments", :force => true do |t|
+    t.integer  "exam_id"
+    t.integer  "bank_id"
+    t.integer  "question_count"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "exam_instance_retakes", :force => true do |t|
+    t.integer  "exam_instance_id"
+    t.integer  "exam_assignment_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  create_table "exam_instances", :force => true do |t|
+    t.integer  "exam_id"
+    t.string   "exam_name"
+    t.text     "keywords"
+    t.datetime "availability_from"
+    t.datetime "availability_to"
+    t.text     "instructions"
+    t.text     "author_notes"
+    t.integer  "mastery_score"
+    t.text     "pass_message"
+    t.text     "fail_message"
+    t.integer  "time_allowed_in_minutes"
+    t.boolean  "track_time"
+    t.boolean  "review_answers_page"
+    t.text     "pre_honor_code"
+    t.text     "post_honor_code"
+    t.integer  "questions_per_page"
+    t.boolean  "shuffle_questions"
+    t.boolean  "shuffle_answers"
+    t.boolean  "published"
+    t.datetime "published_date"
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.integer  "candidate_id"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.string   "exam_type",               :default => "practice"
+    t.integer  "final_score"
+    t.string   "exam_mode"
+    t.string   "ym_custom_field_name"
+    t.string   "ym_custom_field_label"
+    t.string   "password_used"
+  end
+
+  create_table "exam_passwords", :force => true do |t|
+    t.string   "password"
+    t.integer  "exam_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "exams", :force => true do |t|
+    t.string   "exam_name"
+    t.text     "keywords"
+    t.datetime "availability_from"
+    t.datetime "availability_to"
+    t.text     "instructions"
+    t.text     "author_notes"
+    t.integer  "mastery_score"
+    t.text     "pass_message"
+    t.text     "fail_message"
+    t.integer  "time_allowed_in_minutes"
+    t.boolean  "track_time"
+    t.boolean  "review_answers_page"
+    t.text     "pre_honor_code"
+    t.text     "post_honor_code"
+    t.integer  "questions_per_page"
+    t.boolean  "shuffle_questions"
+    t.boolean  "shuffle_answers"
+    t.boolean  "published"
+    t.datetime "published_date"
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.string   "exam_type",               :default => "practice"
+    t.string   "ym_custom_field_name"
+    t.string   "ym_custom_field_label"
   end
 
   create_table "foundation_calculators", :force => true do |t|
@@ -257,12 +450,86 @@ ActiveRecord::Schema.define(:version => 20120803130326) do
     t.integer  "position"
   end
 
+  create_table "question_assignments", :force => true do |t|
+    t.integer  "question_id"
+    t.integer  "exam_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "question_banks", :force => true do |t|
+    t.integer  "question_id"
+    t.integer  "bank_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "question_instances", :force => true do |t|
+    t.integer  "original_question_id"
+    t.integer  "exam_instance_id"
+    t.string   "question_name"
+    t.string   "external_id"
+    t.text     "keywords"
+    t.text     "question_text"
+    t.text     "question_hint"
+    t.text     "author_note"
+    t.text     "question_feedback"
+    t.datetime "created_at",                                                                  :null => false
+    t.datetime "updated_at",                                                                  :null => false
+    t.string   "question_status"
+    t.string   "question_type"
+    t.boolean  "flagged_for_review",                                       :default => false
+    t.integer  "chosen_answer_instance_id"
+    t.integer  "position"
+    t.decimal  "diff",                      :precision => 10, :scale => 0
+  end
+
+  create_table "question_taxonomies", :force => true do |t|
+    t.integer  "taxonomy_id"
+    t.integer  "question_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "questions", :force => true do |t|
+    t.string   "question_name"
+    t.string   "external_id"
+    t.text     "keywords"
+    t.text     "question_text"
+    t.text     "question_hint"
+    t.text     "author_note"
+    t.text     "question_feedback"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.string   "question_status",   :default => "written"
+    t.string   "question_type"
+    t.float    "diff"
+  end
+
   create_table "rock_pad_variables", :force => true do |t|
     t.string   "key"
     t.decimal  "value",       :precision => 10, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
+  end
+
+  create_table "schedule_requests", :force => true do |t|
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "location"
+    t.string   "country"
+    t.string   "organization"
+    t.string   "proctor_type"
+    t.string   "proctor_name"
+    t.string   "proctor_email"
+    t.integer  "exam_id"
+    t.datetime "exam_date"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "candidate_id"
   end
 
   create_table "shed_companies", :force => true do |t|
@@ -289,6 +556,16 @@ ActiveRecord::Schema.define(:version => 20120803130326) do
     t.datetime "expected_close_date"
     t.string   "revenue_result"
     t.string   "current_situation"
+  end
+
+  create_table "taxonomies", :force => true do |t|
+    t.string   "taxon_name"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "trucks", :force => true do |t|
