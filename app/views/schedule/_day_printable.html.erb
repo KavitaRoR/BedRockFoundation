@@ -33,19 +33,19 @@
 					<div style="">
 						<span class="schedule_button full wrapped with-mid-padding align-center" id="con-<%= con.id %>">
 							<span class="schedule_button_heading">
-								<%= con.estimate.job.contact.name %>
+								<%= con.estimate.job.contact.name rescue "This JOB has been deleted" %>
 							</span>
 							<b>Rock Pad <%= "##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %></b><br />
 							<%= con.estimate.job.width rescue ""%> x 
 							<%= con.estimate.job.length rescue ""%> 
 							<%= con.estimate.job_type.kind rescue ""%><br />
-							<%= con.estimate.job.contact.name %> <br /><br />
+							<%= con.estimate.job.contact.name rescue "This JOB has been deleted" %> <br /><br />
 							<%= link_to "View the Estimate", "/jobs/foreman_print_modal/#{con.estimate.job.id}/?type=#{con.estimate.job.job_type.kind.downcase}", :class => "button white-gradient glossy icon-printer", :target => "_blank" %>
 							<br />
 							<br />
-							<%= con.estimate.job.address_1 %>
-								 <%= "<br />" + con.estimate.job.address_2 if !con.estimate.job.address_2.empty? %><br />
-							<%= con.estimate.job.city %>, <%= con.estimate.job.province %> <%= con.estimate.job.zip %>
+							<%= con.estimate.job.address_1 rescue "" %>
+								 <%= "<br />" + con.estimate.job.address_2 if !con.estimate.job.address_2.empty? rescue "" %><br />
+							<%= con.estimate.job.city rescue "" %>, <%= con.estimate.job.province rescue "" %> <%= con.estimate.job.zip rescue "" %>
 						</span>
 					</div>
 					<br />
