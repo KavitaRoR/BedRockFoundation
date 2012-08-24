@@ -5,6 +5,6 @@ class EstimateMailer < ActionMailer::Base
     logger.debug("In Mailer")
     @estimate = estimate
     logger.debug("#{@estimate.job.contact.first_name} #{@estimate.job.contact.last_name} #{@estimate.job.contact.email}" )
-    mail :to => "#{@estimate.job.contact.email}", :bcc => "stoltz@bedrockfoundations.com", :from => "stoltz@bedrockfoundations.com", :subject => "Your Estimate from Bed Rock Foundations"
+    mail :to => "#{@estimate.job.contact.email}", :bcc => "stoltz@bedrockfoundations.com, timothy@wearefound.com", :from => "stoltz@bedrockfoundations.com", :subject => "Your Estimate from Bed Rock Foundations"
   end
 end
