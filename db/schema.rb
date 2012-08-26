@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120803130326) do
+ActiveRecord::Schema.define(:version => 20120826164449) do
 
   create_table "answer_instances", :force => true do |t|
     t.integer  "original_answer_id"
@@ -209,13 +209,13 @@ ActiveRecord::Schema.define(:version => 20120803130326) do
     t.text     "flashvars"
     t.datetime "date_of_email_to_client"
     t.string   "token"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.boolean  "sold",                    :default => false
     t.integer  "invoice_number"
     t.datetime "date_of_client_view"
-    t.string   "off_level_to_show",       :default => "12,18,24,30,36"
-    t.boolean  "show_total_on_print",     :default => true
+    t.string   "off_level_to_show"
+    t.boolean  "show_total_on_print",     :default => false
   end
 
   create_table "exam_assignments", :force => true do |t|

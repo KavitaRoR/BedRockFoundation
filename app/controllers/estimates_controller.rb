@@ -90,6 +90,10 @@ class EstimatesController < ApplicationController
           arr << "30"
         when "thirtysix"
           arr << "36"
+        when "fourtyeight"
+          arr << "48"
+        when "sixty"
+          arr << "60"
         when "show_total_on_print"
           show_total_on_print_var = true
         end

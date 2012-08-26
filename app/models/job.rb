@@ -159,16 +159,20 @@ class Job < ActiveRecord::Base
     buildup_stan_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2, "Build-Up", self.erosion_control_lft).board_cost_extra
     buildup_stan_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2.5, "Build-Up", self.erosion_control_lft).board_cost_extra
     buildup_stan_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 3, "Build-Up", self.erosion_control_lft).board_cost_extra
+    buildup_stan_48 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 4, "Build-Up", self.erosion_control_lft).board_cost_extra
+    buildup_stan_60 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 5, "Build-Up", self.erosion_control_lft).board_cost_extra
     excavate_stan_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 0, "Excavate", self.erosion_control_lft).excavation_labor
     excavate_stan_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1, "Excavate", self.erosion_control_lft).excavation_labor
     excavate_stan_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1.5, "Excavate", self.erosion_control_lft).excavation_labor
     excavate_stan_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2, "Excavate", self.erosion_control_lft).excavation_labor
     excavate_stan_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2.5, "Excavate", self.erosion_control_lft).excavation_labor
     excavate_stan_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 3, "Excavate", self.erosion_control_lft).excavation_labor
+    excavate_stan_48 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 4, "Excavate", self.erosion_control_lft).excavation_labor
+    excavate_stan_60 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 5, "Excavate", self.erosion_control_lft).excavation_labor
     
     return {
-      buildup_standard: {zero: buildup_stan_0, twelve: buildup_stan_12, eighteen: buildup_stan_18, twentyfour: buildup_stan_24, thirty: buildup_stan_30, thirtysix: buildup_stan_36},
-      excavate_standard: {zero: excavate_stan_0, twelve: excavate_stan_12, eighteen: excavate_stan_18, twentyfour: excavate_stan_24, thirty: excavate_stan_30, thirtysix: excavate_stan_36},
+      buildup_standard: {zero: buildup_stan_0, twelve: buildup_stan_12, eighteen: buildup_stan_18, twentyfour: buildup_stan_24, thirty: buildup_stan_30, thirtysix: buildup_stan_36, fourtyeight: buildup_stan_48, sixty: buildup_stan_60},
+      excavate_standard: {zero: excavate_stan_0, twelve: excavate_stan_12, eighteen: excavate_stan_18, twentyfour: excavate_stan_24, thirty: excavate_stan_30, thirtysix: excavate_stan_36, fourtyeight: excavate_stan_48, sixty: excavate_stan_60},
     }
   end
   
@@ -181,8 +185,10 @@ class Job < ActiveRecord::Base
     kind_24 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 2, self.off_level_fill_type, self.erosion_control_lft).total_price + ((additional_price - discount) * 100)
     kind_30 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 2.5, self.off_level_fill_type, self.erosion_control_lft).total_price + ((additional_price - discount) * 100)
     kind_36 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 3, self.off_level_fill_type, self.erosion_control_lft).total_price + ((additional_price - discount) * 100)
+    kind_48 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 4, self.off_level_fill_type, self.erosion_control_lft).total_price + ((additional_price - discount) * 100)
+    kind_60 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 5, self.off_level_fill_type, self.erosion_control_lft).total_price + ((additional_price - discount) * 100)
     return {
-      zero: [kind_0, 0], twelve: [kind_12, 12], eighteen: [kind_18, 18], twentyfour: [kind_24, 24], thirty: [kind_30, 30], thirtysix: [kind_36, 36]
+      zero: [kind_0, 0], twelve: [kind_12, 12], eighteen: [kind_18, 18], twentyfour: [kind_24, 24], thirty: [kind_30, 30], thirtysix: [kind_36, 36], fourtyeight: [kind_48, 48], sixty: [kind_60, 60]
     }
   end
   
@@ -193,8 +199,10 @@ class Job < ActiveRecord::Base
     kind_24 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 2, self.off_level_fill_type, self.erosion_control_lft).extra_slope_costs
     kind_30 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 2.5, self.off_level_fill_type, self.erosion_control_lft).extra_slope_costs
     kind_36 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 3, self.off_level_fill_type, self.erosion_control_lft).extra_slope_costs
+    kind_48 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 4, self.off_level_fill_type, self.erosion_control_lft).extra_slope_costs
+    kind_60 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 5, self.off_level_fill_type, self.erosion_control_lft).extra_slope_costs
     return {
-      zero: [kind_0, 0], twelve: [kind_12, 12], eighteen: [kind_18, 18], twentyfour: [kind_24, 24], thirty: [kind_30, 30], thirtysix: [kind_36, 36]
+      zero: [kind_0, 0], twelve: [kind_12, 12], eighteen: [kind_18, 18], twentyfour: [kind_24, 24], thirty: [kind_30, 30], thirtysix: [kind_36, 36], fourtyeight: [kind_48, 48], sixty: [kind_60, 60]
     }
   end
   
