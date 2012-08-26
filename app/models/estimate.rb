@@ -18,10 +18,10 @@ class Estimate < ActiveRecord::Base
       c = Contract.new
       c.estimate_id = self.id
       c.save
-      puts "hi" 
+      # puts "hi" 
       self.job.statuses.last.update_attribute("done", true)
       self.job.statuses.create({:notes => "Sold!", :assigned_by => creator.id, :assigned_to => creator.id, :done => true, :next_action_id => 7})
-      puts "bye"
+      # puts "bye"
       self.update_attribute(:sold, true)
 
       return true
