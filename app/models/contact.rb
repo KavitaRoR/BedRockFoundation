@@ -22,6 +22,10 @@ class Contact < ActiveRecord::Base
     jobs.any?{|j| j.price_in_cents > 499999}
   end
   
+  def has_sold_contract?
+    jobs.any?{|j| j.contract? }
+  end
+  
   
   def address_oneline
     [address_1,address_2,city,province,zip].reject{|f| f.blank? }.join(", ")

@@ -34,6 +34,9 @@
 			<%= link_to todo.contact.email, "mailto:todo.contact.email" %>
 	</td>
 	<td>
+		<% if todo.contact.has_sold_contract? %>
+			<div class="button red-bg tiny icon-tick full-width">SOLD</div><br />
+		<% end %>
 		<%= todo.notes rescue "" %>
 	</td>
   <td><%= link_to "", "/dashboard/clear_todo/#{todo.id}", class:"button round compact icon-tick red-gradient" %></td>

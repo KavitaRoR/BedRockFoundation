@@ -22,7 +22,7 @@ end
 puts "****** done with jobs ******"
 begin
   Estimate.all.each do |est|
-    if est.push_to_sold
+    if est.push_to_sold(User.first)
       puts "Completed Est: #{est.id}"
     else
       puts "Failed Est; #{est.id}"

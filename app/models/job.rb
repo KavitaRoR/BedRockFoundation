@@ -61,15 +61,25 @@ class Job < ActiveRecord::Base
   end
   
   def estimate?
-    current_scheduled_at.nil?
+    self.estimates.count > 0
   end
 
   def contract?
-    !current_scheduled_at.nil? && current_scheduled_at > Time.now
+    if self.estimates.count > 0
+      if self.estimates.any?{|e| e.contract }
+        return true
+      end
+    end
+    return false
   end
 
   def completed?
-    !current_scheduled_at.nil? && current_scheduled_at < Time.now
+    if contract?
+      if self.estimate.contract.scheduled_date < Time.now
+        return true
+      end
+    end
+    return false
   end
   
   def referencing
