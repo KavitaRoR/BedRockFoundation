@@ -7,7 +7,7 @@ gem 'mail'
 gem 'gmaps4rails'
 gem 'will_paginate'
 gem 'exception_notification'
-# gem 'newrelic_rpm'
+gem 'newrelic_rpm'
 gem 'ruby-prof'
 gem 'therubyracer'
 group :development do
