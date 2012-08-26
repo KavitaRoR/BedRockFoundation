@@ -1,0 +1,9 @@
+<div id="estimate" style="width:750px; height:970px; margin:0px auto;">
+	<h2><%= link_to "Edit this Estimate or Customer", 
+		@estimate.job.contact, 
+		class: "button blue-gradient icon-left" %></h2>
+
+	<hr />
+	<%= render :partial => "estimates/print_modal" %>
+</div>
+

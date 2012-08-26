@@ -1,6 +1,6 @@
 class EstimatesController < ApplicationController
   before_filter :authenticate_user!, except: [:client_estimate]
-  layout 'client', :only => [:client_estimate]
+  layout 'client', :only => [:client_estimate, :view_estimate]
   
   def email_estimate
     @job = Job.find(params[:id])
@@ -39,6 +39,14 @@ class EstimatesController < ApplicationController
     @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
     @type = @estimate.job_type.kind
     
+  end
+  
+  def view_estimate
+    @estimate = Estimate.find_by_token(params[:token])    
+    @job = @estimate.job
+    @job_type = @estimate.job_type
+    @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
+    @type = @estimate.job_type.kind
   end
   
   def push_to_sold
