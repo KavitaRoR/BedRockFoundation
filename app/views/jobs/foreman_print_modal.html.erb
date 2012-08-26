@@ -1,16 +1,8 @@
-<%= javascript_include_tag "jquery-1.7.1.min" %>
-<style>
-	@media only print
-	{
-		#links {
-			display:none;
-		}
-	}
-</style>
+
 <div id="estimate" style="width:750px; height:970px;">
-	<div style="float:left; width:50%;" id="links">
+	<div style="float:left;" id="links" class="noprint">
 		<br />
-		<a href="#" id="print-link">&raquo; <%= image_tag "print.png", width:"110px", height:"45px" %></a><br />
+		<a href="#" id="print-link" class="button huge green-gradient icon-printer"> Print</a><br />
 		<br />
 		<% if @estimate.sold? %>
 			<% if @estimate.job_type.kind == @type %>
@@ -24,12 +16,12 @@
 				A <%= @estimate.job_type.kind.capitalize %> estimate has been sold for this job. <br /><%= link_to "Click to view that estimate", "/jobs/#{@job.id}/print/?type=#{@estimate.job_type.kind}" %>
 			<% end %>
 		<% else %>
-			<a href="/estimates/push_to_sold/<%= @job.id %>/<%= @type %>" target="_parent">Move to Production Schedule</a>
+			<!-- <a href="/estimates/push_to_sold/<%= @job.id %>/<%= @type %>" target="_parent">Move to Production Schedule</a> -->
 		<% end %>
 	</div>
 	
 	<div style="clear:both;"></div>
-	<hr />
+	<hr class="noprint" />
 		<%= render :partial => "estimates/print_foreman_modal" %>
 </div>
 <script type="text/javascript">
