@@ -52,7 +52,7 @@
 				<% end %>
 				
 				<% unless block_it_off %>
-				<%= c.job_max_per_day %>
+				<%#= c.job_max_per_day %>
 				<% (1..c.job_max_per_day).each do |it| %>
 					<% con = @contracts.select{|co| (co.scheduled_date.beginning_of_day rescue false) == day.beginning_of_day && co.crew == c && co.position_in_day == it } %>
 	
