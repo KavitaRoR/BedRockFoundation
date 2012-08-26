@@ -17,7 +17,7 @@
   </tr>
 	</thead>
 	<tbody>
-  <% for contact in @contacts %>
+  <% for contact in @contacts.sort_by{|dude| dude.last_name } %>
     <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
       <th class="spec"><%= link_to contact.name, contact %></th>
 			<td><%= contact.contact_status.status_name %></td>
