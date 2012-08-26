@@ -163,22 +163,22 @@ class Job < ActiveRecord::Base
   end
   
   def pad_job_type_offset
-    buildup_stan_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 0, "Build-Up", self.erosion_control_lft, self).board_cost_extra
-    buildup_stan_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1, "Build-Up", self.erosion_control_lft, self).board_cost_extra
-    buildup_stan_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1.5, "Build-Up", self.erosion_control_lft, self).board_cost_extra
-    buildup_stan_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2, "Build-Up", self.erosion_control_lft, self).board_cost_extra
-    buildup_stan_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2.5, "Build-Up", self.erosion_control_lft, self).board_cost_extra
-    buildup_stan_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 3, "Build-Up", self.erosion_control_lft, self).board_cost_extra
-    buildup_stan_48 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 4, "Build-Up", self.erosion_control_lft, self).board_cost_extra
-    buildup_stan_60 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 5, "Build-Up", self.erosion_control_lft, self).board_cost_extra
-    excavate_stan_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 0, "Excavate", self.erosion_control_lft, self).excavation_labor
-    excavate_stan_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1, "Excavate", self.erosion_control_lft, self).excavation_labor
-    excavate_stan_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1.5, "Excavate", self.erosion_control_lft, self).excavation_labor
-    excavate_stan_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2, "Excavate", self.erosion_control_lft, self).excavation_labor
-    excavate_stan_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2.5, "Excavate", self.erosion_control_lft, self).excavation_labor
-    excavate_stan_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 3, "Excavate", self.erosion_control_lft, self).excavation_labor
-    excavate_stan_48 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 4, "Excavate", self.erosion_control_lft, self).excavation_labor
-    excavate_stan_60 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 5, "Excavate", self.erosion_control_lft, self).excavation_labor
+    buildup_stan_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 0, "Build-Up", self.erosion_control_lft, self).extra_slope_costs
+    buildup_stan_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1, "Build-Up", self.erosion_control_lft, self).extra_slope_costs
+    buildup_stan_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1.5, "Build-Up", self.erosion_control_lft, self).extra_slope_costs
+    buildup_stan_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2, "Build-Up", self.erosion_control_lft, self).extra_slope_costs
+    buildup_stan_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2.5, "Build-Up", self.erosion_control_lft, self).extra_slope_costs
+    buildup_stan_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 3, "Build-Up", self.erosion_control_lft, self).extra_slope_costs
+    buildup_stan_48 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 4, "Build-Up", self.erosion_control_lft, self).extra_slope_costs
+    buildup_stan_60 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 5, "Build-Up", self.erosion_control_lft, self).extra_slope_costs
+    excavate_stan_0 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 0, "Excavate", self.erosion_control_lft, self).extra_slope_costs
+    excavate_stan_12 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1, "Excavate", self.erosion_control_lft, self).extra_slope_costs
+    excavate_stan_18 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 1.5, "Excavate", self.erosion_control_lft, self).extra_slope_costs
+    excavate_stan_24 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2, "Excavate", self.erosion_control_lft, self).extra_slope_costs
+    excavate_stan_30 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 2.5, "Excavate", self.erosion_control_lft, self).extra_slope_costs
+    excavate_stan_36 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 3, "Excavate", self.erosion_control_lft, self).extra_slope_costs
+    excavate_stan_48 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 4, "Excavate", self.erosion_control_lft, self).extra_slope_costs
+    excavate_stan_60 = RockPadCalculator.new(self.distance, self.width, self.length,"Standard", self.border_sixbysix, 5, "Excavate", self.erosion_control_lft, self).extra_slope_costs
     
     return {
       buildup_standard: {zero: buildup_stan_0, twelve: buildup_stan_12, eighteen: buildup_stan_18, twentyfour: buildup_stan_24, thirty: buildup_stan_30, thirtysix: buildup_stan_36, fourtyeight: buildup_stan_48, sixty: buildup_stan_60},

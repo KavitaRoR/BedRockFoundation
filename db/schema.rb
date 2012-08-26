@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120826203105) do
+ActiveRecord::Schema.define(:version => 20120826223131) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -207,6 +207,7 @@ ActiveRecord::Schema.define(:version => 20120826203105) do
     t.text     "labor_schedule"
     t.integer  "calculation_location_id",                                            :default => 5
     t.integer  "wire_mesh_linear_feet",                                              :default => 0
+    t.integer  "additional_buildup_labor",                                           :default => 0
   end
 
   add_index "jobs", ["id"], :name => "index_jobs_on_id"
