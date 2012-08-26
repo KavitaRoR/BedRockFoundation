@@ -109,6 +109,11 @@
 			<td><%= money_from_cents @job.pad_job.working_labor_cost %></td>
 		</tr>
 		<tr>
+			<td>Additional Buildup Labor</td>
+			<td></td>
+			<td><%= money_from_cents (@job.additional_buildup_labor*100) %></td>
+		</tr>
+		<tr>
 			<td>Materials</td>
 			<td></td>
 			<td><%= money_from_cents @job.pad_job.total_material_cost %></td>

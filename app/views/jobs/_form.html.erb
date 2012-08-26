@@ -198,6 +198,10 @@
 			<td class="off_level_fill_type"><%= f.select :off_level_fill_type, [["Excavate","Excavate"], ["Build-Up","Build-Up"], ["Wall", "Wall"]], :include_blank => true, :default => @job.off_level_fill_type %></td>
 		</tr>
 		<tr>
+			<td><%= f.label :additional_buildup_labor %></td>
+			<td><%= f.text_field :additional_buildup_labor, :class => "integer" %></td>
+		</tr>
+		<tr>
 			<td><%= f.label :additional_price %></td>
 			<td><%= f.text_field :additional_price, :class => "integer" %></td>
 		</tr>

@@ -56,8 +56,13 @@ class RockPadCalculator
   end
   
   def extra_slope_costs
+    puts "\n\n @fill_type = #{@fill_type}"
+    puts "\n\n board_cost_extra = #{board_cost_extra}"
+    puts "@job.additional_buildup_labor = #{@job.additional_buildup_labor}"
+    puts "board_cost_extra + @job.additional_buildup_labor = #{board_cost_extra + (@job.additional_buildup_labor*100)}"
     return excavation_labor if @fill_type == "Excavate"
-    return board_cost_extra
+    return board_cost_extra if board_cost_extra.to_i == 0
+    return (board_cost_extra + (@job.additional_buildup_labor* 100))
   end
   
   def erosion_control_cost
