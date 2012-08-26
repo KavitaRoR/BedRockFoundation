@@ -7,8 +7,9 @@ class RockPadCalculator
     return @vars.select{|v| v.key == key}.first.value rescue 0
   end
   
-  def initialize(dist=30, w=0, l=0, kind="Standard", sixbysix=false, d=0.5, fill_type="Build-Up", ec_lft=0)
+  def initialize(dist=30, w=0, l=0, kind="Standard", sixbysix=false, d=0.5, fill_type="Build-Up", ec_lft=0, job)
     @vars = RockPadVariable.all
+    @job = job
     @length = l
     @width = w
     @depth = d.to_f
@@ -196,6 +197,19 @@ class RockPadCalculator
     return driving_labor_cost
   end
   
+  def wire_mesh_per_foot
+    roll = findVar("rockpad_wire_mesh_per_roll") || 365
+    feet = findVar("rockpad_wire_mesh_length") || 300
+    roll.to_f / feet.to_f
+  end 
+  
+  def wire_mesh_cost
+    puts "wire_mesh_per_foot = #{wire_mesh_per_foot}"
+    puts "@job.wire_mesh_linear_feet = #{@job.wire_mesh_linear_feet}"
+    puts "#{wire_mesh_per_foot * @job.wire_mesh_linear_feet.to_f}"
+    wire_mesh_per_foot * @job.wire_mesh_linear_feet.to_f * 100
+  end
+  
   def working_labor_hours
     hours = case square_footage
     when 0..199
@@ -231,9 +245,9 @@ class RockPadCalculator
   
   def total_material_cost
     case @kind
-      when "Standard" then weed_fabric_cost + board_cost + rock_cost + rebar_cost + erosion_control_cost
-      when "Economy" then rock_cost + erosion_control_cost
-      when "Elite" then weed_fabric_cost + board_cost + rock_cost + rebar_cost + trex_additional_cost + erosion_control_cost
+      when "Standard" then weed_fabric_cost + board_cost + rock_cost + rebar_cost + erosion_control_cost + wire_mesh_cost
+      when "Economy" then rock_cost + erosion_control_cost + wire_mesh_cost
+      when "Elite" then weed_fabric_cost + board_cost + rock_cost + rebar_cost + trex_additional_cost + erosion_control_cost + wire_mesh_cost
     end
   end
   
