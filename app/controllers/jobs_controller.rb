@@ -51,7 +51,7 @@ class JobsController < ApplicationController
     @estimate.job.statuses.create({:notes => "Sold!", :assigned_by => current_user.id, :assigned_to => current_user.id, :done => true, :next_action_id => 7})
     @type = params[:type].capitalize
     
-    render :layout => false
+    render :layout => 'client'
   end
   
   def new

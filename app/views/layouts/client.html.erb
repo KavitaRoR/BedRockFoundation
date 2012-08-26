@@ -6,6 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 		<title>Bedrock Foundations Scheduling System</title>
 		<%= stylesheet_link_tag 'shortcodes', 'colors', 'client' %>
+		<%= stylesheet_link_tag 'printable', :media => "print" %>
 		
 		<%#= stylesheet_link_tag "stylesheets/style_all.css", "stylesheets/style2.css" %>
 		<!--[if IE 6]>
@@ -18,7 +19,7 @@
 		<%= javascript_include_tag "javascripts/jquery.js", 'javascripts/jquery.simplemodal.1.4.2.min', 'javascripts/jquery-ui.js', 'javascripts/jquery.wysiwyg.js', 'javascripts/jquery.flash.js', 'javascripts/custom.js' %>
 	</head>
 	<body>
-		<div style="width:600px; margin:0px auto;">
+		<div id="printer_center">
 			<p class="notice"><%= notice %></p>
 			<p class="alert"><%= alert %></p>
 			
