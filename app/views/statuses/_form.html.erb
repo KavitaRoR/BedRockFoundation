@@ -34,7 +34,7 @@
   <dt><%= f.label :notes %></dt>
 	<dd><%= f.text_area :notes, :class => "text" %></dd>
   <dt><%= f.label :assigned_to %></dt>
-	<dd><%= f.select :assigned_to, User.all.collect{|u| [u.name, u.id]} %></dd>
+	<dd><%= f.select :assigned_to, User.all.reject{|u| u.id == 1 }.collect{|u| [u.name, u.id]} %></dd>
   <dt><%= f.label :row_highlight_color %></dt>
 	<dd><%= f.select :row_highlight_color, ["none", "green", "yellow", "red", "blue", "black"] %></dd>
 </dl>
