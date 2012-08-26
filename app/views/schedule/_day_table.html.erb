@@ -52,11 +52,10 @@
 				<% end %>
 				
 				<% unless block_it_off %>
-				<%= c.job_max_per_day %>
+				<%#= c.job_max_per_day %>
 				<% (1..c.job_max_per_day).each do |it| %>
 					<% con = @contracts.select{|co| (co.scheduled_date.beginning_of_day rescue false) == day.beginning_of_day && co.crew == c && co.position_in_day == it } %>
-					<%= it %>
-	
+				
 					<% if con.empty? %>
 						<a id="empty-<%= c.id %>-<%= it %>-<%= day.beginning_of_day.to_i %>" class="schedule_button empty" href="#" onclick="return false;">
 							<span class="schedule_button_heading">Empty Slot #<%= it %></span>
@@ -76,7 +75,7 @@
 						</a>
 						<br />
 					<% else %>
-					<a href="#" class="button red-gradient">OOPS <%= con.first.estimate.job.nil? %></a>
+					<a href="#" class="button red-gradient">OOPS</a>
 					<% end %>
 				<% end %>
 				<% end %>
