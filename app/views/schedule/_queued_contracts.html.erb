@@ -52,6 +52,11 @@
       	jQuery(this).find("div.crew_tiny_map").remove();
       });
   }
+		CM_ATTR = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://cloudmade.com">CloudMade</a>';
+
+		CM_URL = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/{styleId}/256/{z}/{x}/{y}.png';
 
   function createDailyMap(dailyrow) {
   		// alert("create crew maps")
@@ -60,21 +65,60 @@
       	// var crew_base = jQuery(this).find("a.crew_base").attr("rel").split(",");
       	var randomnumber = Math.floor(Math.random()*999999999);
       	jQuery(dailyrow).find("td").append("<div id='daily_map_"+randomnumber+"' class='daily_map' style='width: 96%; height: 500px;'></div>");
-      	map = new mxn.Mapstraction('daily_map_'+randomnumber, 'leaflet');
-      	var the_center = new mxn.LatLonPoint(39.9831616,-75.8238355);
-      	map.setCenterAndZoom(the_center, 8);
+ 		//      	map = new mxn.Mapstraction('daily_map_'+randomnumber, 'leaflet');
+ 		//       	var the_center = new mxn.LatLonPoint(39.9831616,-75.8238355);
+ 		//       	map.setCenterAndZoom(the_center, 8);
+ 		// 
+ 		// // marker.addData({'infoBubble': 'This is a popup'})
+ 		//  	    // marker.openBubble();
+ 		//  	    map.addSmallControls();
+ 		//  	    jQuery(dailyrow).find("a.job_site").each(function() {
+ 		//  	    	var loc = jQuery(this).attr("rel").split(",");
+ 		//  	    	var spot = new mxn.LatLonPoint(loc[0], loc[1]);
+ 		//  	    	var marker = new mxn.Marker(spot);
+ 		// 	    	marker.setIcon("/assets/images/marker-"+loc[2]+".png");
+ 		//  	    	map.addMarker(marker);
+ 		//  	    });
+ 		//  	    jQuery(dailyrow).find("div.map_links").hide();
+ 		// 
+ 
+		var map = L.map('daily_map_'+randomnumber).setView([39.9831616,-75.8238355], 8);
 
-		// marker.addData({'infoBubble': 'This is a popup'})
- 	    // marker.openBubble();
- 	    map.addSmallControls();
  	    jQuery(dailyrow).find("a.job_site").each(function() {
- 	    	var loc = jQuery(this).attr("rel").split(",");
- 	    	var spot = new mxn.LatLonPoint(loc[0], loc[1]);
- 	    	var marker = new mxn.Marker(spot);
-	    	marker.setIcon("/assets/images/marker-"+loc[2]+".png");
- 	    	map.addMarker(marker);
- 	    });
- 	    jQuery(dailyrow).find("div.map_links").hide();
+			loc = jQuery(this).attr("rel").split(",");
+			
+			L.tileLayer(CM_URL, {attribution: CM_ATTR, styleId: 22677}).addTo(map);
+			var MapIcon = L.Icon.extend({
+				options: {
+					iconUrl: "/assets/images/marker-"+loc[2]+".png",
+					// shadowUrl: '../docs/images/leaf-shadow.png',
+					iconSize: [25, 41],
+					// shadowSize: [50, 64],
+					iconAnchor: [22, 41],
+					// shadowAnchor: [4, 62],
+					popupAnchor: [-3, -76]
+				}
+			});
+
+			// var greenIcon = new LeafIcon(),
+			// 	redIcon = new LeafIcon({iconUrl: '../docs/images/leaf-red.png'}),
+			// 	orangeIcon = new LeafIcon({iconUrl: '../docs/images/leaf-orange.png'});
+
+			// var marker1 = new L.Marker(new L.LatLng(51.5, -0.09), {icon: greenIcon}),
+			// 	marker2 = new L.Marker(new L.LatLng(51.495, -0.083), {icon: redIcon}),
+			// 	marker3 = new L.Marker(new L.LatLng(51.49, -0.1), {icon: orangeIcon});
+		
+			greenIcon = new MapIcon(),
+			marker1 = new L.Marker(new L.LatLng(loc[0], loc[1]), {icon: greenIcon});
+
+			marker1.bindPopup(loc[3] + " - <a href='/estimates/view_estimate/" + loc[4] + "' target='_blank'>"+loc[5]+"</a>");
+		// marker2.bindPopup("I am a red leaf.");
+		// marker3.bindPopup("I am an orange leaf.");
+
+			map.addLayer(marker1);
+		});
+		jQuery(dailyrow).find("div.map_links").hide();
+ 	    
 
       // });
 

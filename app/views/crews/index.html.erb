@@ -8,6 +8,7 @@
     <th>Lat/Lng</th>
     <th>Crew size</th>
     <th>Velocity</th>
+    <th>order</th>
     <th></th>
   </tr>
 
@@ -18,6 +19,7 @@
     <td><%= crew.lat %>, <%= crew.lng %></td>
     <td><%= crew.crew_size %></td>
     <td><%= crew.velocity %></td>
+    <td><%= crew.ordering %> <%= crew.background_color %></td>
     <td><%= link_to 'Edit', edit_crew_path(crew), class: "button blue-gradient" %>
     &nbsp; <%= link_to 'Destroy', crew, confirm: 'Are you sure?', method: :delete, class: "button red-gradient round icon-cross compact" %></td>
   </tr>

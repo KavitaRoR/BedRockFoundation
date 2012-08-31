@@ -1,0 +1,19 @@
+---
+applications:
+  .:
+    name: bedrock
+    framework:
+      name: rails3
+      info:
+        mem: 256M
+        description: Rails Application
+        exec: !!null 
+    infra: aws
+    url: bedrock
+    mem: 512M
+    instances: 1
+    services:
+      bedrock-mysql-38246:
+        type: mysql
+      mongodb-2307e:
+        type: mongodb

@@ -85,18 +85,24 @@
 		<tr class="crew_maps">
 			<% @crews.each do |c| %>
 				<td class="crew_map_<%= c.ordering %>">
-					<% jobs = [] %>
+					<% jobs = []
+					 	ests = []
+					%>
 					<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day && co.crew_id == c.id }.each do |z| 
 						jobs << z.estimate.job
+						ests << z.estimate
 					end %>
 					<div class="map_links">
 						<a href="http://maps.google.com/maps?q=<%= c.lat %>,<%= c.lng %>"
 							rel="<%= c.lat %>,<%= c.lng %>" target="_blank" class="crew_base">
 							Home Base</a><br />
-						<% for job in jobs %>
+						<% for z in ests
+							job = z.job
+						 %>
+						
 						<% unless job.nil? %>
 						<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
-							rel="<%= job.lat %>,<%= job.lng %>" target="_blank" class="job_site">
+							rel="<%= job.lat %>,<%= job.lng %>,<%= c.ordering %>,<%= c.crew_name %>,<%= z.token %>,<%= job.contact.last_name %>" target="_blank" class="job_site">
 							<%= job.lat %>,<%= job.lng %></a><br />
 						<% end %>
 						<% end %>
@@ -114,7 +120,7 @@
 					<% job = z.estimate.job %>
 					<% unless job.nil? %>
 					<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
-						rel="<%= job.lat %>,<%= job.lng %>,<%= z.crew.ordering %>" target="_blank" class="job_site">
+						rel="<%= job.lat %>,<%= job.lng %>,<%= z.crew.ordering %>,<%= z.crew.crew_name %>,<%= z.estimate.token %>,<%= job.contact.last_name %>" target="_blank" class="job_site">
 						<%= job.lat %>,<%= job.lng %></a><br />
 					<% end %>
 				<% end %>
