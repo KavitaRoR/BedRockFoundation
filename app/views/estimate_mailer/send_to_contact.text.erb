@@ -1,7 +1,16 @@
 Dear <%= @estimate.job.contact.first_name %> <%= @estimate.job.contact.last_name %>,
-	<% vars = YAML::load(@estimate.flashvars).with_indifferent_access %>
+	<% vars = YAML::load(@estimate.flashvars).with_indifferent_access; @job = @estimate.job; @type = @estimate.job_type.kind %>
+	<% if @job.job_calc_type == "pad" %>
+I've completed an estimate for a <%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} Foundation" %>
+		<%=raw "<br />&nbsp;&nbsp;&nbsp;-#{@options_for_job[:off_level_fill_type]}" if @type != "Economy" %>
+	<% elsif @job.job_calc_type == "adhoc" %>
+I've completed an estimate for the following:
+	
+<%= @job.foundation.kind %>
+	<% else %>
+I've completed an estimate for a <%= "#{@job.width}' x #{@job.length}'" %> <%= @job.foundation.kind %> - <%= @job.foundation_calculator.description %>
+	<% end %>
 
-I've completed an estimate for a <%= vars[:job_width] %>' x <%= vars[:job_length] %>' <%= vars[:foundation_kind] %> Foundation.
 	
 If you have any problems accessing the estimate, please feel free to call me with any questions, comments, or concerns.
 	
