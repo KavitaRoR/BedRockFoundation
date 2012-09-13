@@ -3,7 +3,18 @@
 		@estimate.job.contact, 
 		class: "button blue-gradient icon-left" %></h2>
 
+	<a href="#" id="print-link" class="button huge green-gradient icon-printer"> Print</a><br />
 	<hr />
+	
 	<%= render :partial => "estimates/print_modal" %>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#print-link").click(function() {
+			window.print();
+		})
+	})
+</script>
+
 
