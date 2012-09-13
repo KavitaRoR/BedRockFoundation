@@ -40,7 +40,7 @@
 							<%= con.estimate.job.length rescue ""%> 
 							<%= con.estimate.job_type.kind rescue ""%><br />
 							<%= con.estimate.job.contact.name rescue "This JOB has been deleted" %> <br /><br />
-							<%= link_to "View the Estimate", "/jobs/foreman_print_modal/#{con.estimate.job.id}/?type=#{con.estimate.job.job_type.kind.downcase}", :class => "button white-gradient glossy icon-printer", :target => "_blank" %>
+							<%= link_to "View the Estimate", "/estimates/view_estimate/#{con.estimate.token}", :class => "button white-gradient glossy icon-printer", :target => "_blank" %>
 							<br />
 							<br />
 							<%= con.estimate.job.address_1 rescue "" %>
