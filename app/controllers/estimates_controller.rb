@@ -1,6 +1,8 @@
 class EstimatesController < ApplicationController
   before_filter :authenticate_user!, except: [:client_estimate]
   layout 'client', :only => [:client_estimate, :view_estimate]
+  include WepayRails::Payments
+  
   
   def email_estimate
     @job = Job.find(params[:id])
@@ -38,6 +40,22 @@ class EstimatesController < ApplicationController
     @job_type = @estimate.job_type
     @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
     @type = @estimate.job_type.kind
+    
+    checkout_params_full = {
+        :amount => 1000,
+        :short_description => "Short Description",
+        :long_description => "Long Description",
+        :mode => 'iframe'
+    }
+    @checkoutfull = init_checkout(checkout_params_full)
+
+    checkout_params_thirds = {
+        :amount => 350,
+        :short_description => "Short Description",
+        :long_description => "Long Description",
+        :mode => 'iframe'
+    }
+    @checkoutthirds = init_checkout(checkout_params_thirds)
     
   end
   
