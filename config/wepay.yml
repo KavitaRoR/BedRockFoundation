@@ -1,0 +1,54 @@
+production:
+  client_id: 155974
+  client_secret: 70db478d0c
+  account_id: 1312835
+  access_token: 
+  root_callback_uri: "http://app.bedrockfoundations.com"
+  after_checkout_redirect_uri: "http://app.bedrockfoundations.com/purchase/finalize"
+  scope: [refund_payments,collect_payments,view_balance,view_user]
+  wepay_ui_endpoint: "https://stage.wepay.com/v2"
+  wepay_api_endpoint: "https://stage.wepayapi.com/v2"
+  fee_payer: Payee
+  checkout_type: GOODS
+  charge_tax: false
+  app_fee: 0
+  auto_capture: true
+  require_shipping: false
+  shipping_fee: 0
+  charge_tax: false
+development:
+  client_id: 155974
+  client_secret: 70db478d0c
+  account_id: 1312835
+  access_token: 6ee19d131d2de11ae2c0a3fdafeee0cfa2facf6db602eb1a1d73ba3f14f8685c
+  root_callback_uri: "http://localhost:3000"
+  after_checkout_redirect_uri: "http://localhost:3000/purchase/finalize"
+  scope: [refund_payments,collect_payments,view_balance,view_user]
+  wepay_ui_endpoint: "https://stage.wepay.com/v2"
+  wepay_api_endpoint: "https://stage.wepayapi.com/v2"
+  fee_payer: Payee
+  checkout_type: GOODS
+  charge_tax: false
+  app_fee: 0
+  auto_capture: true
+  require_shipping: false
+  shipping_fee: 0
+  charge_tax: false
+test:
+  client_id: 155974
+  client_secret: 70db478d0c
+  account_id: 1312835
+  access_token: 6ee19d131d2de11ae2c0a3fdafeee0cfa2facf6db602eb1a1d73ba3f14f8685c
+  root_callback_uri: "http://localhost:3000"
+  after_checkout_redirect_uri: "http://localhost:3000/purchase/finalize"
+  scope: [refund_payments,collect_payments,view_balance,view_user]
+  wepay_ui_endpoint: "https://stage.wepay.com/v2"
+  wepay_api_endpoint: "https://wepayapi.com/v2"
+  fee_payer: Payee
+  checkout_type: GOODS
+  charge_tax: false
+  app_fee: 0
+  auto_capture: true
+  require_shipping: false
+  shipping_fee: 0
+  charge_tax: false

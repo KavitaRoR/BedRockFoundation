@@ -7,5 +7,27 @@
 	</p>
 	<hr />
 	<%= render :partial => "estimates/print_modal" %>
+	
+	<script type="text/javascript" src="https://www.wepay.com/js/iframe.wepay.js">
+	</script>
+
+	<div id="checkout_div_id"></div>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#payinfull").click(function() {
+				WePay.iframe_checkout("checkout_div_id", "<%= @checkoutfull.checkout_uri %>");
+			})
+			$("#payinthirds").click(function() {
+				WePay.iframe_checkout("checkout_div_id", "<%= @checkoutthirds.checkout_uri %>");
+			})
+		})
+	</script>
+	<a href="javascript:void(0);" id="payinfull" class="button green-gradient icon-money huge">
+		Pay this invoice in full
+	</a>
+	<a href="javascript:void(0);" id="payinthirds" class="button grey-gradient icon-money huge">
+		Pay this invoice in 3 monthly payments
+	</a>
 </div>
 
