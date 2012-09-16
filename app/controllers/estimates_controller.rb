@@ -41,21 +41,28 @@ class EstimatesController < ApplicationController
     @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
     @type = @estimate.job_type.kind
     
-    checkout_params_full = {
-        :amount => 1000,
-        :short_description => "Short Description",
-        :long_description => "Long Description",
-        :mode => 'iframe'
-    }
-    @checkoutfull = init_checkout(checkout_params_full)
+    if Rails.env.development?
+    
+      checkout_params_full = {
+          :amount => 3,
+          :short_description => "Short Description",
+          :long_description => "Long Description",
+          :mode => 'iframe'
+      }
+      @checkoutfull = init_checkout(checkout_params_full)
 
-    checkout_params_thirds = {
-        :amount => 350,
-        :short_description => "Short Description",
-        :long_description => "Long Description",
-        :mode => 'iframe'
-    }
-    @checkoutthirds = init_checkout(checkout_params_thirds)
+      checkout_params_thirds = {
+          :amount => 1,
+          # :period   => 'monthly',
+          # :end_time => '2013-12-25',
+          # :mode     => 'regular',
+          # :auto_recur  => true, 
+          :short_description => "Short Description",
+          :long_description => "Long Description",
+          :mode => 'iframe'
+      }
+      @checkoutthirds = init_checkout(checkout_params_thirds)
+    end
     
   end
   

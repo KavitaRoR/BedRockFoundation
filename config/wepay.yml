@@ -21,8 +21,8 @@ development:
   client_secret: 70db478d0c
   account_id: 1312835
   access_token: bd43ab0bd83de58ffa4b73be7b25bb2546dbd9d700691a91b5ca2d054e4ac232
-  root_callback_uri: "http://localhost:3000"
-  after_checkout_redirect_uri: "http://localhost:3000/purchase/finalize"
+  root_callback_uri: "http://app.bedrockfoundations.com"
+  after_checkout_redirect_uri: "http://app.bedrockfoundations.com/purchase/finalize"
   scope: [refund_payments,collect_payments,view_balance,view_user]
   wepay_ui_endpoint: "https://stage.wepay.com/v2"
   wepay_api_endpoint: "https://stage.wepayapi.com/v2"
