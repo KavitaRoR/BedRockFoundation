@@ -2,7 +2,7 @@ production:
   client_id: 155974
   client_secret: 70db478d0c
   account_id: 1312835
-  access_token: 
+  access_token: bd43ab0bd83de58ffa4b73be7b25bb2546dbd9d700691a91b5ca2d054e4ac232
   root_callback_uri: "http://app.bedrockfoundations.com"
   after_checkout_redirect_uri: "http://app.bedrockfoundations.com/purchase/finalize"
   scope: [refund_payments,collect_payments,view_balance,view_user]
@@ -20,7 +20,7 @@ development:
   client_id: 155974
   client_secret: 70db478d0c
   account_id: 1312835
-  access_token: 6ee19d131d2de11ae2c0a3fdafeee0cfa2facf6db602eb1a1d73ba3f14f8685c
+  access_token: bd43ab0bd83de58ffa4b73be7b25bb2546dbd9d700691a91b5ca2d054e4ac232
   root_callback_uri: "http://localhost:3000"
   after_checkout_redirect_uri: "http://localhost:3000/purchase/finalize"
   scope: [refund_payments,collect_payments,view_balance,view_user]
