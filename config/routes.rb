@@ -1,4 +1,6 @@
 Abundant::Application.routes.draw do
+  WepayRails.routes(self)
+
   resources :foundation_calculators
 
   resources :job_additions
