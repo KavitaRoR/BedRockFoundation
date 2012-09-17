@@ -29,12 +29,12 @@
 	</script>
 <% if @estimate.show_payment_buttons %>
 		<div id="payment_buttons" style="margin: 30px; text-align: center;" class="button-height">
-		<a href="#checkoutdiv" id="payinfull" class="button green-gradient icon-price-tag huge glossy">
+		<a href="#checkoutdiv" id="payinfull" class="button green-gradient icon-price-tag big glossy">
 			Pay this in full <%= money_from_cents((@price * 100).ceil - (total_paid *100).ceil)  %>
 		</a>
 		<% if @estimate.show_recurring_payment %>
 		or
-		<a href="#checkoutdiv" id="payinthirds" class="button green-gradient icon-price-tag huge">
+		<a href="#checkoutdiv" id="payinthirds" class="button green-gradient icon-price-tag big">
 			Pay in 3 monthly payments of $<%= @recurring_price %>
 		</a>
 		<% end %>
