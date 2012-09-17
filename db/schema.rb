@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120916212944) do
+ActiveRecord::Schema.define(:version => 20120917002532) do
 
   create_table "answer_instances", :force => true do |t|
     t.integer  "original_answer_id"
@@ -216,6 +216,8 @@ ActiveRecord::Schema.define(:version => 20120916212944) do
     t.datetime "date_of_client_view"
     t.string   "off_level_to_show"
     t.boolean  "show_total_on_print",     :default => false
+    t.boolean  "show_recurring_payment",  :default => false
+    t.boolean  "show_payment_buttons",    :default => false
   end
 
   create_table "exam_assignments", :force => true do |t|
