@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120917002532) do
+ActiveRecord::Schema.define(:version => 20120917032521) do
 
   create_table "answer_instances", :force => true do |t|
     t.integer  "original_answer_id"
@@ -625,7 +625,7 @@ ActiveRecord::Schema.define(:version => 20120917002532) do
     t.boolean  "auto_capture"
     t.boolean  "require_shipping"
     t.text     "shipping_address"
-    t.decimal  "tax",               :precision => 10, :scale => 0
+    t.decimal  "tax",               :precision => 10, :scale => 2
     t.string   "security_token"
     t.string   "access_token"
     t.string   "mode"
