@@ -48,11 +48,15 @@ class EstimatesController < ApplicationController
     end
     
     @price = price_in_cents.to_f / 100
+    paid_so_far = 0
+    for wcr in @estimate.wepay_checkout_records.select{|w| w.state == "captured" || w.state == "authorized"} 
+      paid_so_far += wcr.amount
+    end
     
     @recurring_price = "%.2f" % (@price.ceil.to_f * 1.1 * 0.33)
     
       checkout_params_full = {
-          :amount => @price,
+          :amount => @price - paid_so_far,
           :short_description => "Short Description",
           :long_description => "Long Description",
           :reference_id => @estimate.id,
