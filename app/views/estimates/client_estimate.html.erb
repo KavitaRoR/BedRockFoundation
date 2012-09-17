@@ -11,32 +11,33 @@
 	<script type="text/javascript" src="https://www.wepay.com/js/iframe.wepay.js">
 	</script>
 
-	<%  if Rails.env.development? %>
-	<div id="payment_buttons" style="margin: 50px;">
-	<a href="javascript:void(0);" id="payinfull" class="button green-gradient icon-money huge">
-		Pay this invoice in full
-	</a>
-	<a href="javascript:void(0);" id="payinthirds" class="button grey-gradient icon-money huge">
-		Pay this invoice in 3 monthly payments
-	</a>
-	</div>
+		<div id="payment_buttons" style="margin: 50px;">
+		<a href="#checkoutdiv" id="payinfull" class="button green-gradient icon-money huge">
+			Pay this invoice in full
+		</a>
+		<% if Rails.env.development? && false %>
+		<a href="#checkoutdiv" id="payinthirds" class="button grey-gradient icon-money huge">
+			Pay this invoice in 3 monthly payments
+		</a>
+		<% end %>
+		</div>
 
 
-	<div id="checkout_div_id" style="margin: 50px;"></div>
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#payinfull").click(function() {
-				WePay.iframe_checkout("checkout_div_id", "<%= @checkoutfull.checkout_uri %>");
-				$("#payment_buttons").fadeOut();
+		<div id="checkout_div_id" style="margin: 50px; height:305px;"></div>
+		<a name"checkoutdiv">&nbsp;</a>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#payinfull").click(function() {
+					WePay.iframe_checkout("checkout_div_id", "<%= @checkoutfull.checkout_uri %>");
+					$("#payment_buttons").fadeOut();
+				})
+				<% if Rails.env.development? %>
+				$("#payinthirds").click(function() {
+					WePay.iframe_checkout("checkout_div_id", "<%= @checkoutthirds.checkout_uri %>");
+					$("#payment_buttons").fadeOut();
+				})
+				<% end %>
 			})
-			$("#payinthirds").click(function() {
-				WePay.iframe_checkout("checkout_div_id", "<%= @checkoutthirds.checkout_uri %>");
-				$("#payment_buttons").fade();
-			})
-		})
-	</script>
-	
-	<% end %>
+		</script>
 </div>
 

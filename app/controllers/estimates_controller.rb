@@ -41,7 +41,6 @@ class EstimatesController < ApplicationController
     @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
     @type = @estimate.job_type.kind
     
-    if Rails.env.development?
     
       checkout_params_full = {
           :amount => 3,
@@ -50,6 +49,8 @@ class EstimatesController < ApplicationController
           :mode => 'iframe'
       }
       @checkoutfull = init_checkout(checkout_params_full)
+
+    if Rails.env.development?
 
       checkout_params_thirds = {
           :amount => 1,
