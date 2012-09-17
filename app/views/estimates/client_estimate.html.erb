@@ -1,4 +1,7 @@
 <div id="estimate" style="width:750px; height:970px; margin:0px auto;">
+	<% if notice %>
+	<p id="notice" class="message align-center black-gradient"><%= notice %></p>
+	<% end %>
 	<h2>&nbsp;</h2>
 	<p>
 		<%= @estimate.job.contact.first_name %>,<br />
@@ -7,17 +10,32 @@
 	</p>
 	<hr />
 	<%= render :partial => "estimates/print_modal" %>
+	<hr />
+	
+	<div class="noprint">
+	<% if @estimate.wepay_checkout_records.length > 0 && @estimate.show_payment_buttons %>
+	<h2>Payments already made</h2>
+		<% total_paid = 0 %>
+		<% for wcr in @estimate.wepay_checkout_records.select{|w| w.state == "captured" || w.state == "authorized"} %>
+		<div class="wrapped relative">
+			<span class="ribbon"><span class="ribbon-inner">Paid</span></span>
+			<h3>A payment in the amount of $<%= wcr.amount %> was made on <%= wcr.updated_at.strftime("%m/%d/%Y") %></h3>
+		</div>
+		<% total_paid += wcr.amount %>
+		<% end %>
+	<% end %>
 	
 	<script type="text/javascript" src="https://www.wepay.com/js/iframe.wepay.js">
 	</script>
-<% if @estimate.show_total_on_print %>
-		<div id="payment_buttons" style="margin: 50px;">
+<% if @estimate.show_payment_buttons %>
+		<div id="payment_buttons" style="margin: 30px; text-align: center;" class="button-height">
 		<a href="#checkoutdiv" id="payinfull" class="button green-gradient icon-price-tag huge glossy">
-			Pay this in full $<%= @price %>
+			Pay this in full <%= money_from_cents((@price * 100).ceil - (total_paid *100).ceil)  %>
 		</a>
-		<% if Rails.env.development? && false %>
-		<a href="#checkoutdiv" id="payinthirds" class="button grey-gradient icon-money huge">
-			Pay this invoice in 3 monthly payments
+		<% if @estimate.show_recurring_payment %>
+		or
+		<a href="#checkoutdiv" id="payinthirds" class="button green-gradient icon-price-tag huge">
+			Pay in 3 monthly payments of $<%= @recurring_price %>
 		</a>
 		<% end %>
 		</div>
@@ -39,5 +57,6 @@
 				<% end %>
 			})
 		</script>
+	</div>
 </div>
 

@@ -26,6 +26,9 @@ Abundant::Application.routes.draw do
   match "/schedule/(:action)" => "schedule"
   match 'jobs/foreman_print_modal/(:id)' => 'jobs#foreman_print_modal'
   match "/users/become/(:id)" => 'users#become'
+  namespace :purchase do
+    match "/finalize" => 'finalize#index'
+  end
 
   resources :rock_pad_variables, :next_actions, :pad_jobs, :statuses, :foundations, :pad_sizes, :trucks, :rock_pad_variables, :jobs, :contacts, :campaigns, :locations, :schedule, :shed_companies, :crews, :content_data, :crew_dashboard, :users
   

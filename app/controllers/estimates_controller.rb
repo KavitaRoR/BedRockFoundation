@@ -49,28 +49,30 @@ class EstimatesController < ApplicationController
     
     @price = price_in_cents.to_f / 100
     
+    @recurring_price = "%.2f" % (@price.ceil.to_f * 1.1 * 0.33)
+    
       checkout_params_full = {
           :amount => @price,
           :short_description => "Short Description",
           :long_description => "Long Description",
+          :reference_id => @estimate.id,
           :mode => 'iframe'
       }
       @checkoutfull = init_checkout(checkout_params_full)
 
-    if Rails.env.development?
 
       checkout_params_thirds = {
-          :amount => 1,
+          :amount => @recurring_price,
           # :period   => 'monthly',
           # :end_time => '2013-12-25',
           # :mode     => 'regular',
           # :auto_recur  => true, 
           :short_description => "Short Description",
           :long_description => "Long Description",
+          :reference_id => @estimate.id,
           :mode => 'iframe'
       }
       @checkoutthirds = init_checkout(checkout_params_thirds)
-    end
     
   end
   
@@ -107,8 +109,8 @@ class EstimatesController < ApplicationController
   def off_level_to_show
     arr = []
     show_total_on_print_var = false
-    show_payment_buttons = false
-    show_recurring_payment = false
+    show_payment_buttons_var = false
+    show_recurring_payment_var = false
     params[:offlevel] = {} unless params[:offlevel]
     params[:offlevel].each do |k,v|
       if v == "1"

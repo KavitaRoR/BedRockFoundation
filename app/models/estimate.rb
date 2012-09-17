@@ -3,6 +3,8 @@ class Estimate < ActiveRecord::Base
   has_one :contract
   belongs_to :job_type
   
+  has_many :wepay_checkout_records, :foreign_key => :reference_id
+  
   before_create :generate_invoice_number
   
   def name
