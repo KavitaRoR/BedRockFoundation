@@ -49,7 +49,7 @@
 					WePay.iframe_checkout("checkout_div_id", "<%= @checkoutfull.checkout_uri %>");
 					$("#payment_buttons").fadeOut();
 				})
-				<% if Rails.env.development? %>
+				<% if @estimate.show_recurring_payment %>
 				$("#payinthirds").click(function() {
 					WePay.iframe_checkout("checkout_div_id", "<%= @checkoutthirds.checkout_uri %>");
 					$("#payment_buttons").fadeOut();
