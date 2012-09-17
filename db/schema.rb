@@ -332,11 +332,11 @@ ActiveRecord::Schema.define(:version => 20120917002532) do
     t.string   "short_description"
     t.text     "long_description"
     t.string   "currency"
-    t.decimal  "amount",            :precision => 10, :scale => 0
-    t.decimal  "app_fee",           :precision => 10, :scale => 0
+    t.decimal  "amount",            :precision => 10, :scale => 2
+    t.decimal  "app_fee",           :precision => 10, :scale => 2
     t.string   "fee_payer"
-    t.decimal  "gross",             :precision => 10, :scale => 0
-    t.decimal  "fee",               :precision => 10, :scale => 0
+    t.decimal  "gross",             :precision => 10, :scale => 2
+    t.decimal  "fee",               :precision => 10, :scale => 2
     t.string   "reference_id"
     t.text     "redirect_uri"
     t.text     "callback_uri"
