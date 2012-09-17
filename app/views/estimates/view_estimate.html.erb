@@ -7,6 +7,19 @@
 	<hr />
 	
 	<%= render :partial => "estimates/print_modal" %>
+	
+	<hr />
+	<div class="noprint">
+	<% if @estimate.wepay_checkout_records.length > 0 && @estimate.show_payment_buttons %>
+	<h2>Payments already made</h2>
+		<% for wcr in @estimate.wepay_checkout_records.select{|w| w.state == "captured" || w.state == "authorized"} %>
+		<div class="wrapped relative">
+			<span class="ribbon"><span class="ribbon-inner">Paid</span></span>
+			<h3>A payment in the amount of $<%= wcr.amount %> was made on <%= wcr.updated_at.strftime("%m/%d/%Y") %></h3>
+		</div>
+		<% end %>
+	<% end %>
+	</div>
 </div>
 
 <script type="text/javascript">

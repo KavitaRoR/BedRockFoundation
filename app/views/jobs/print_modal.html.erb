@@ -61,6 +61,11 @@
 			<%= f.check_box "sixty" %>60"<br />
 			<input name="offlevel[show_total_on_print]" type="hidden" value="0">
 			<input id="offlevel_show_total_on_print" name="offlevel[show_total_on_print]" type="checkbox" value="1" <%= "checked='checked'" if @estimate.show_total_on_print %>>Show Contract Total?<br />
+			<input name="offlevel[show_payment_buttons]" type="hidden" value="0">
+			<input id="offlevel_show_payment_buttons" name="offlevel[show_payment_buttons]" type="checkbox" value="1" <%= "checked='checked'" if @estimate.show_payment_buttons %>>Allow Online Payment?<br />
+			<input name="offlevel[show_recurring_payment]" type="hidden" value="0">
+			<input id="offlevel_show_recurring_payment" name="offlevel[show_recurring_payment]" type="checkbox" value="1" <%= "checked='checked'" if @estimate.show_recurring_payment %>>Allow 3-pay Recurring?<br />
+
 			<%= f.submit "Save Options" %>
 		<% end %>
 		<script type="text/javascript">

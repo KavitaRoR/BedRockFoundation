@@ -41,29 +41,38 @@ class EstimatesController < ApplicationController
     @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
     @type = @estimate.job_type.kind
     
+    price_in_cents = if @job.job_type.kind == @type || @job.job_calc_type == "adhoc" || @job.foundation_kind.downcase.include?("concrete")
+		  @job.price_in_cents
+	  else
+	    @job.price_in_cents + @job.specific_offlevel(@type)[:zero][0] - @job.specific_offlevel(@job.job_type.kind)[:zero][0]
+    end
+    
+    @price = price_in_cents.to_f / 100
+    
+    @recurring_price = "%.2f" % (@price.ceil.to_f * 1.1 * 0.33)
     
       checkout_params_full = {
-          :amount => 3,
+          :amount => @price,
           :short_description => "Short Description",
           :long_description => "Long Description",
+          :reference_id => @estimate.id,
           :mode => 'iframe'
       }
       @checkoutfull = init_checkout(checkout_params_full)
 
-    if Rails.env.development?
 
       checkout_params_thirds = {
-          :amount => 1,
+          :amount => @recurring_price,
           # :period   => 'monthly',
           # :end_time => '2013-12-25',
           # :mode     => 'regular',
           # :auto_recur  => true, 
           :short_description => "Short Description",
           :long_description => "Long Description",
+          :reference_id => @estimate.id,
           :mode => 'iframe'
       }
       @checkoutthirds = init_checkout(checkout_params_thirds)
-    end
     
   end
   
@@ -100,6 +109,8 @@ class EstimatesController < ApplicationController
   def off_level_to_show
     arr = []
     show_total_on_print_var = false
+    show_payment_buttons_var = false
+    show_recurring_payment_var = false
     params[:offlevel] = {} unless params[:offlevel]
     params[:offlevel].each do |k,v|
       if v == "1"
@@ -120,11 +131,18 @@ class EstimatesController < ApplicationController
           arr << "60"
         when "show_total_on_print"
           show_total_on_print_var = true
+        when "show_recurring_payment"
+          show_recurring_payment_var = true
+        when "show_payment_buttons"
+          show_payment_buttons_var = true
         end
       end
     end
     str = arr.join(",")
     Estimate.find(params[:offlevel][:estimate_id].to_i).update_attribute(:show_total_on_print, show_total_on_print_var)
+    Estimate.find(params[:offlevel][:estimate_id].to_i).update_attribute(:show_recurring_payment, show_recurring_payment_var)
+    Estimate.find(params[:offlevel][:estimate_id].to_i).update_attribute(:show_payment_buttons, show_payment_buttons_var)
+    
     begin
       logger.debug("Estimate id: #{params[:offlevel][:estimate_id]} with str: #{str.inspect}")
       Estimate.find(params[:offlevel][:estimate_id].to_i).update_attribute(:off_level_to_show, str)
