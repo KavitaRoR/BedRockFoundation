@@ -8,11 +8,11 @@ class CreateWepayCheckoutRecords < ActiveRecord::Migration
             t.string :short_description
             t.text :long_description
             t.string :currency
-            t.decimal :amount
-            t.decimal :app_fee
+            t.decimal :amount, :precision => 10, :scale => 2
+            t.decimal :app_fee, :precision => 10, :scale => 2
             t.string :fee_payer
-            t.decimal :gross
-            t.decimal :fee
+            t.decimal :gross, :precision => 10, :scale => 2
+            t.decimal :fee, :precision => 10, :scale => 2
             t.string :reference_id
             t.text :redirect_uri
             t.text :callback_uri
@@ -24,7 +24,7 @@ class CreateWepayCheckoutRecords < ActiveRecord::Migration
             t.boolean :auto_capture
             t.boolean :require_shipping
             t.text :shipping_address
-            t.decimal :tax
+            t.decimal :tax, :precision => 10, :scale => 2
             t.string :security_token
             t.string :access_token
             t.string :mode
