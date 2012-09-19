@@ -24,6 +24,8 @@
 		<% total_paid += wcr.amount %>
 		<% end %>
 	<% end %>
+	
+	
 	<% if @payment_buttons %>
 	
 	<script type="text/javascript" src="https://www.wepay.com/js/iframe.wepay.js">
@@ -31,7 +33,7 @@
 <% if @estimate.show_payment_buttons %>
 		<div id="payment_buttons" style="margin: 30px; text-align: center;" class="button-height">
 		<a href="#checkoutdiv" id="payinfull" class="button green-gradient icon-price-tag big glossy">
-			<% if total_paid.nil? total_paid = 0 %>
+			<%  total_paid = 0 if total_paid.nil? %>
 			Pay this in full <%= money_from_cents((@price * 100).ceil - (total_paid *100).ceil)  %>
 		</a>
 		<% if @estimate.show_recurring_payment %>
