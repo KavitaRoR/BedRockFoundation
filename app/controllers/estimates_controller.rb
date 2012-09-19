@@ -55,6 +55,8 @@ class EstimatesController < ApplicationController
     
     @recurring_price = "%.2f" % (@price.ceil.to_f * 1.1 * 0.33)
     
+    if ((@price - paid_so_far) > 1)
+    
       checkout_params_full = {
           :amount => @price - paid_so_far,
           :short_description => "Short Description",
@@ -77,6 +79,10 @@ class EstimatesController < ApplicationController
           :mode => 'iframe'
       }
       @checkoutthirds = init_checkout(checkout_params_thirds)
+      @payment_buttons = true
+    else
+      @payment_buttons = false
+    end
     
   end
   
