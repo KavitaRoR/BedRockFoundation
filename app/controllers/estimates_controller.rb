@@ -41,6 +41,12 @@ class EstimatesController < ApplicationController
     @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
     @type = @estimate.job_type.kind
     
+    wepay_vars
+    
+  end
+  
+  
+  def wepay_vars
     price_in_cents = if @job.job_type.kind == @type || @job.job_calc_type == "adhoc" || @job.foundation_kind.downcase.include?("concrete")
 		  @job.price_in_cents
 	  else
@@ -83,8 +89,8 @@ class EstimatesController < ApplicationController
     else
       @payment_buttons = false
     end
-    
   end
+  
   
   def view_estimate
     @estimate = Estimate.find_by_token(params[:token])    
@@ -92,6 +98,7 @@ class EstimatesController < ApplicationController
     @job_type = @estimate.job_type
     @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
     @type = @estimate.job_type.kind
+    wepay_vars
   end
   
   def push_to_sold

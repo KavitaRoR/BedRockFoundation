@@ -1,25 +1,71 @@
 <div id="estimate" style="width:750px; height:970px; margin:0px auto;">
-	<h2><%= link_to "Edit this Estimate or Customer", 
-		@estimate.job.contact, 
-		class: "button blue-gradient icon-left" %></h2>
+	<div class="noprint">
+		<h2><%= link_to "Edit this Estimate or Customer", 
+			@estimate.job.contact, 
+			class: "button blue-gradient icon-left" %></h2>
 
-	<a href="#" id="print-link" class="button huge green-gradient icon-printer"> Print</a><br />
+		<a href="#" id="print-link" class="button huge green-gradient icon-printer"> Print</a><br />
+	</div>
 	<hr />
 	
 	<%= render :partial => "estimates/print_modal" %>
 	
 	<hr />
-	<div class="noprint">
-	<% if @estimate.wepay_checkout_records.length > 0 && @estimate.show_payment_buttons %>
-	<h2>Payments already made</h2>
-		<% for wcr in @estimate.wepay_checkout_records.select{|w| w.state == "captured" || w.state == "authorized"} %>
-		<div class="wrapped relative">
-			<span class="ribbon"><span class="ribbon-inner">Paid</span></span>
-			<h3>A payment in the amount of $<%= wcr.amount %> was made on <%= wcr.updated_at.strftime("%m/%d/%Y") %></h3>
-		</div>
+
+
+		<div class="noprint">
+		<% if @estimate.wepay_checkout_records.length > 0 && @estimate.show_payment_buttons %>
+		<h2>Payments already made</h2>
+			<% total_paid = 0 %>
+			<% for wcr in @estimate.wepay_checkout_records.select{|w| w.state == "captured" || w.state == "authorized"} %>
+			<div class="wrapped relative">
+				<span class="ribbon"><span class="ribbon-inner">Paid</span></span>
+				<h3>A payment in the amount of $<%= wcr.amount %> was made on <%= wcr.updated_at.strftime("%m/%d/%Y") %></h3>
+			</div>
+			<% total_paid += wcr.amount %>
+			<% end %>
 		<% end %>
+
+
+		<% if @payment_buttons %>
+
+		<script type="text/javascript" src="https://www.wepay.com/js/iframe.wepay.js">
+		</script>
+	<% if @estimate.show_payment_buttons %>
+			<div id="payment_buttons" style="margin: 30px; text-align: center;" class="button-height">
+			<a href="#checkoutdiv" id="payinfull" class="button green-gradient icon-price-tag big glossy">
+				<%  total_paid = 0 if total_paid.nil? %>
+				Pay this in full <%= money_from_cents((@price * 100).ceil - (total_paid *100).ceil)  %>
+			</a>
+			<% if @estimate.show_recurring_payment %>
+			or
+			<a href="#checkoutdiv" id="payinthirds" class="button green-gradient icon-price-tag big">
+				Pay in 3 monthly payments of $<%= @recurring_price %>
+			</a>
+			<% end %>
+			</div>
 	<% end %>
-	</div>
+
+			<div id="checkout_div_id" style="margin: 50px; height:305px;"></div>
+			<a name"checkoutdiv">&nbsp;</a>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$("#payinfull").click(function() {
+						WePay.iframe_checkout("checkout_div_id", "<%= @checkoutfull.checkout_uri %>");
+						$("#payment_buttons").fadeOut();
+					})
+					<% if @estimate.show_recurring_payment %>
+					$("#payinthirds").click(function() {
+						WePay.iframe_checkout("checkout_div_id", "<%= @checkoutthirds.checkout_uri %>");
+						$("#payment_buttons").fadeOut();
+					})
+					<% end %>
+				})
+			</script>
+		<% end %>
+		</div>
+
+
 </div>
 
 <script type="text/javascript">
