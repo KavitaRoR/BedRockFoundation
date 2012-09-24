@@ -9,7 +9,7 @@ production:
   wepay_ui_endpoint: "https://www.wepay.com/v2"
   wepay_api_endpoint: "https://wepayapi.com/v2"
   fee_payer: Payee
-  checkout_type: SERVICES
+  checkout_type: SERVICE
   charge_tax: false
   app_fee: 0
   auto_capture: true
