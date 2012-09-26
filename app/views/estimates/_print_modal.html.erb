@@ -51,8 +51,8 @@
 		<tr>
 			<td colspan=3>
 				<% if @job.job_calc_type == "pad" %>
-					<%= "#{@options_for_job[:job_width]}' x #{@options_for_job[:job_length]}' - #{@options_for_job[:job_quality]} Foundation" %>
-					<%=raw "<br />&nbsp;&nbsp;&nbsp;-#{@options_for_job[:off_level_fill_type]}" if @type != "Economy" %>
+					<%= "#{@job.width}' x #{@job.length}' - #{@job.job_quick_title} Foundation" %>
+					<%=raw "<br />&nbsp;&nbsp;&nbsp;-#{@job.off_level_fill_type}" if @type != "Economy" %>
 				<% elsif @job.job_calc_type == "adhoc" %>
 					<%= @job.foundation.kind %>
 				<% else %>
