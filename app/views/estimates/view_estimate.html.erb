@@ -15,7 +15,7 @@
 
 		<div class="noprint">
 		<% if @estimate.wepay_checkout_records.length > 0 && @estimate.show_payment_buttons %>
-		<h2>Payments already made</h2>
+		<h2>Payments</h2>
 			<% total_paid = 0 %>
 			<% for wcr in @estimate.wepay_checkout_records.select{|w| w.state == "captured" || w.state == "authorized"} %>
 			<div class="wrapped relative">
@@ -24,6 +24,7 @@
 			</div>
 			<% total_paid += wcr.amount %>
 			<% end %>
+			<%= "<p>No payments have been made yet</p>" if total_paid == 0 %>
 		<% end %>
 
 
