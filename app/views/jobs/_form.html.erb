@@ -268,7 +268,7 @@
 			<tr>
 				<td colspan=3>
 					<b><%= f.label :calculation_location_id, "Location to base the Distance Estimate Calculations:" %></b>
-					<%= f.select :calculation_location_id, Location.find(:all, :order => "abbreviation ASC", :conditions => "use_for_estimates = 'yes'").map{|l| [l.name, l.id]}, {:selected => 5}  %>
+					<%= f.select :calculation_location_id, Location.find(:all, :order => "abbreviation ASC", :conditions => "use_for_estimates = 'yes'").map{|l| [l.name, l.id]}, {:selected => (@job.calculation_location_id || 5)}  %>
 				</td>
 			</tr>
 			

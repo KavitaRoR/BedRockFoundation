@@ -36,9 +36,7 @@
 								<%= con.estimate.job.contact.name rescue "This JOB has been deleted" %>
 							</span>
 							<b>Rock Pad <%= "##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %></b><br />
-							<%= con.estimate.job.width rescue ""%> x 
-							<%= con.estimate.job.length rescue ""%> 
-							<%= con.estimate.job_type.kind rescue ""%><br />
+							<%= con.estimate.job.size_and_type rescue ""%> <br />
 							<%= con.estimate.job.contact.name rescue "This JOB has been deleted" %> <br /><br />
 							<%= link_to "View the Estimate", "/estimates/view_estimate/#{con.estimate.token}", :class => "button white-gradient glossy icon-printer", :target => "_blank" %>
 							<br />
