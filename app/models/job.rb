@@ -63,6 +63,12 @@ class Job < ActiveRecord::Base
   def estimate?
     self.estimates.count > 0
   end
+  
+  def size_and_type
+    return "#{self.width}' x #{self.length}' - #{self.job_shortcode}" if self.job_shortcode != "Adhoc"
+    return "#{self.width}' x #{self.length}' - #{self.foundation.kind rescue 'unknown'}" if !self.width.blank?
+    return "Adhoc - #{self.foundation.kind rescue 'unknown'}"
+  end
 
   def contract?
     if self.estimates.count > 0
