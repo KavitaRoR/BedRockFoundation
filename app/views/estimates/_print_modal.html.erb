@@ -62,9 +62,9 @@
 			<td colspan=1 style="text-align: right;">
 				<strong>
 					<% if @job.job_calc_type == "pad" %>
-						<%= money_from_cents(@job.specific_offlevel(@type)[:zero][0]) %>
+						<%= money_from_cents(@job.specific_offlevel(@type)[:zero][0] + (@job.discount * 100)) %>
 					<% elsif @job.job_calc_type != "adhoc" %>
-						<%= money_from_cents(@job.price_in_cents - @job.addition_prices_totaled - (@job.pad_job.extra_slope_costs rescue 0)) %>
+						<%= money_from_cents(@job.price_in_cents - @job.addition_prices_totaled - (@job.pad_job.extra_slope_costs rescue 0)  + (@job.discount * 100)) %>
 					<% end %>
 				</strong>
 			</td>
@@ -185,12 +185,6 @@
 			<% end %>
 		<% end %>
 	<% end %>
-	<% if @estimate.job.discount && @estimate.job.discount != 0.00 %>
-		<tr>
-			<td colspan=3><strong>Discount:</strong></td>
-			<td style="text-align: right;"><strong>-<%= money_from_cents (@estimate.job.discount * 100) %></strong></td>
-		</tr>
-	<% end %>
 	<% if @job.description && @job.description != "" && @job.job_calc_type != "adhoc" %>
 		<tr>
 			<td colspan=4>
@@ -202,19 +196,24 @@
 	<tr>
 		<td colspan=4><hr /></td>
 	</tr>
-
 	<tr>
-		<td colspan=4>&nbsp;</td>
+		<td colspan=4></td>
 	</tr>
 	<tr>
 		<td colspan=3>
 		<p style="font-size: 0.8em;">	
+			<br />
 			<strong>Make checks payable to:</strong><br /> 
 			Bed Rock Foundations<br /> 
 			461 Old Wilmington Rd.<br />
 			Coatesville, PA 19320</p>
 		</td>
 		<td colspan=1>
+			<% if @estimate.job.discount && @estimate.job.discount != 0.00 %>
+				<p style="font-family: 'Helvetica', Arial, sans-serif; font-style: italic; font-size: 12px; color: #C03; text-align:left; width:150px;">
+					Special Discount: <strong>-<%= money_from_cents (@estimate.job.discount * 100) %></strong>
+				</p>
+			<% end %>
 			<strong>Total:</strong>
 			<div style="border: 1px solid black; width:150px; height: 35px; text-align:center; line-height: 4px;">
 				<% if @estimate.show_total_on_print %>
