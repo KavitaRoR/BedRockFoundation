@@ -210,8 +210,8 @@
 		</td>
 		<td colspan=1>
 			<% if @estimate.job.discount && @estimate.job.discount != 0.00 %>
-				<p style="font-family: 'Helvetica', Arial, sans-serif; font-style: italic; font-size: 12px; color: #C03; text-align:left; width:150px;">
-					Special Discount: <strong>-<%= money_from_cents (@estimate.job.discount * 100) %></strong>
+				<p style="font-family: 'Helvetica', Arial, sans-serif; font-style: italic; font-size: 12px; color: #C03; text-align:right; width:150px;">
+					Special Discount: <strong><%= money_from_cents (@estimate.job.discount * 100) %></strong>
 				</p>
 			<% end %>
 			<strong>Total:</strong>
