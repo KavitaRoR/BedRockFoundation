@@ -185,6 +185,12 @@
 			<% end %>
 		<% end %>
 	<% end %>
+	<% if @estimate.job.discount && @estimate.job.discount != 0.00 %>
+		<tr>
+			<td colspan=3><strong>Discount:</strong></td>
+			<td style="text-align: right;"><strong>-<%= money_from_cents (@estimate.job.discount * 100) %></strong></td>
+		</tr>
+	<% end %>
 	<% if @job.description && @job.description != "" && @job.job_calc_type != "adhoc" %>
 		<tr>
 			<td colspan=4>
