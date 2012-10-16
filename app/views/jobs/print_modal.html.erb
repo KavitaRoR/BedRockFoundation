@@ -68,7 +68,7 @@
 			<input name="offlevel[show_payment_buttons]" type="hidden" value="0">
 			<input id="offlevel_show_payment_buttons" name="offlevel[show_payment_buttons]" type="checkbox" value="1" <%= "checked='checked'" if @estimate.show_payment_buttons %>>Allow Online Payment?<br />
 			<input name="offlevel[show_recurring_payment]" type="hidden" value="0">
-			<input id="offlevel_show_recurring_payment" name="offlevel[show_recurring_payment]" type="checkbox" value="1" <%= "checked='checked'" if @estimate.show_recurring_payment %>>Allow 3-pay Recurring?<br />
+			<input id="offlevel_show_recurring_payment" name="offlevel[show_recurring_payment]" type="checkbox" value="1" <%= "checked='checked'" if @estimate.show_recurring_payment %>>Allow Pay Half?<br />
 
 			<%= f.submit "Save Options" %>
 		<% end %>

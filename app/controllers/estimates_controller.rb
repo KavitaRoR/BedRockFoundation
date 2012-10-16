@@ -59,7 +59,7 @@ class EstimatesController < ApplicationController
       paid_so_far += wcr.amount
     end
     
-    @recurring_price = "%.2f" % (@price.ceil.to_f * 1.1 * 0.33)
+    @recurring_price = "%.2f" % (@price.ceil.to_f * 1.0 * 0.5)
     
     if ((@price - paid_so_far) > 1)
     
