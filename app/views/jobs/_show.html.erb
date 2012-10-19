@@ -38,7 +38,7 @@ partialz = "adhoc" if @job.foundation_calc.include?("adhoc")
 
 <h2 style="margin-top:50px;">Remove this <%= @job.estimate_or_contract.downcase %> from the system</h2>
 <p>This will remove all history and status from the database, please be sure you want to do this as it could have other repercussions.</p>
-<%= button_to "Destroy", @job, :confirm => 'Are you sure?', :method => :delete, class: "button red-gradient glossy icon-cross" %>
+<%= button_to "Destroy", @job, :confirm => 'Are you sure?', :method => :delete, class: "button red-gradient glossy icon-cross-round" %>
 <br /><br />
 </div>
 
