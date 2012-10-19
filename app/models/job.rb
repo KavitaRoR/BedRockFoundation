@@ -74,6 +74,14 @@ class Job < ActiveRecord::Base
   def has_bundles?
     Job.count(:all, :conditions => ["bundle_with_job_id = ?",self.id]) != 0
   end
+  
+  def bundle_total
+    bundle_tot = 0
+    for bundle in Job.find(:all, :conditions => ["bundle_with_job_id = ?",self.id])
+      bundle_tot += bundle.price_in_cents
+    end
+    bundle_tot
+  end
 
   def contract?
     if self.estimates.count > 0

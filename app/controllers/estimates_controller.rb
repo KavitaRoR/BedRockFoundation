@@ -52,6 +52,7 @@ class EstimatesController < ApplicationController
 	  else
 	    @job.price_in_cents + @job.specific_offlevel(@type)[:zero][0] - @job.specific_offlevel(@job.job_type.kind)[:zero][0]
     end
+    price_in_cents += @job.bundle_total
     
     @price = price_in_cents.to_f / 100
     paid_so_far = 0
