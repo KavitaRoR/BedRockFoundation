@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121019084541) do
+ActiveRecord::Schema.define(:version => 20121019105359) do
 
   create_table "answer_instances", :force => true do |t|
     t.integer  "original_answer_id"
@@ -188,9 +188,10 @@ ActiveRecord::Schema.define(:version => 20121019084541) do
     t.string   "reason"
     t.datetime "day"
     t.integer  "contract_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.boolean  "block_off"
+    t.integer  "working_with_crew_id"
   end
 
   create_table "emails", :force => true do |t|
