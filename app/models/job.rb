@@ -12,6 +12,7 @@ class Job < ActiveRecord::Base
   has_many :estimates
   has_many :job_additions
   belongs_to :location_for_calculation, :foreign_key => 'calculation_location_id', :class_name => "Location"
+  belongs_to :job, :foreign_key => "bundle_with_job_id"
   
   
   after_create :create_initial_status

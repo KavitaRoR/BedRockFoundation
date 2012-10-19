@@ -1,7 +1,4 @@
 <%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
-<div style="width:50%;">
-	<%= @job.description %>
-</div>
 
 <% 
 partialz = @job.foundation_calc.to_slug
@@ -11,6 +8,8 @@ partialz = "adhoc" if @job.foundation_calc.include?("adhoc")
 
 
 <div style="float:right; width: 40%;">     
+	<%= render partial: "/jobs/bundle_with", locals: {job: @job} %>	
+
 	
 	<%= render partial: "/jobs/print_estimate_#{partialz}", locals: {job: @job} %>	
 

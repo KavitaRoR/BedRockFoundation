@@ -1,0 +1,15 @@
+	
+	<h2>Bundle Estimates Together</h2>
+	<div>
+		<% if !@job.bundle_with_job_id.nil? %>
+			<p>This Estimate has been bundled with:<br />
+				<strong><%= Job.find(@job.bundle_with_job_id).referencing %></strong>
+			</p>
+		<% else %>
+			<p>This Estimate has the following estimates bundled with it:<br />
+				<% for bundle in Job.find(:all, :conditions => ["bundle_with_job_id = ?",@job.id]) %>
+				<strong><%= bundle.referencing %></strong> <%= money_from_cents(bundle.price_in_cents) %><br />
+				<% end %>
+			</p>
+		<% end %>
+	</div>
