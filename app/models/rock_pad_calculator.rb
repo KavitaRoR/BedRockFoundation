@@ -24,6 +24,10 @@ class RockPadCalculator
     @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot_gt_16") * 100) || 400 if @width >= 16 rescue 0
     @board_cost_per_foot = (findVar("rockpad_board_cost_per_foot_6x6") * 100) || 500 if sixbysix
     @rock_per_ton = (findVar("rockpad_rock_per_ton") * 100) || 2000
+    @rock_depth = 0.5
+    if job.gravel_base_depth_in_inches
+      @rock_depth = ((job.gravel_base_depth_in_inches.to_f) / (12.to_f))
+    end
     @trex_price_per_foot = (findVar("rockpad_trex_price_per_foot") * 100) || 500
     @weed_fabric_per_roll = (findVar("rockpad_weed_fabric_per_roll") * 100) || 36500
     @rebar_piece = (findVar("rockpad_rebar_piece") * 100) || 100

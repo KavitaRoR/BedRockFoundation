@@ -115,7 +115,7 @@
 		
 		<tr class="concrete floating graduated gibraltar">
 			<td><%= f.label :concrete_thickness_in_inches, "Concrete Slab Thickness (in inches)" %></td>  
-			<td><%= f.select :concrete_thickness_in_inches, [['4"', "4"], ['6"', '6']] %></td>
+			<td><%= f.select :concrete_thickness_in_inches, [['4"', "4"], ['6"', '6'], ['8"', '8'], ['10"', '10']] %></td>
 		</tr>
 		<tr class="concrete gibraltar">
 			<td><%= f.label :gibraltar_concrete_footer_in_inches, "Gibraltar Footer Thickness (in inches)" %></td>  
@@ -127,7 +127,7 @@
 		</tr>
 		<tr class="concrete floating graduated gibraltar piers">
 			<td><%= f.label :gravel_base_depth_in_inches, "Gravel Base Thickness (in inches)" %></td>  
-			<td><%= f.select :gravel_base_depth_in_inches, [['4"', "4"], ['6"', '6']] %></td>
+			<td><%= f.select :gravel_base_depth_in_inches, [['4"', "4"], ['6"', '6'], ['8"', '8'], ['10"', '10']] %></td>
 		</tr>
 		<tr class="concrete floating graduated gibraltar">
 			<td><%= f.label :vapor_barrier %></td>  
@@ -161,6 +161,9 @@
 						<td><%= f.text_field "day_#{day}_men".to_sym, :class => "integer", :style => "width:40px; text-align:center;" %></td>
 						<td><%= f.text_field "day_#{day}_hours".to_sym, :class => "integer", :style => "width:40px; text-align:center;" %></td>
 						<td><%= f.text_field "day_#{day}_trucks".to_sym, :class => "integer", :style => "width:40px; text-align:center;" %></td>
+					</tr><tr>
+						<td>Description: </td>
+						<td colspan="3"><%= f.text_area "day_#{day}_desc".to_sym, :class => "integer", :style => "width:96%; text-align:left;height: 2.5em;" %></td>
 					</tr>
 					<% end %>
 				</table>
@@ -169,7 +172,7 @@
 		<% end %>
 		
 		
-		<tr>
+		<!-- <tr>
 			<td><%= f.label :accessible_with_machine %></td>
 			<td><%= f.text_field :accessible_with_machine, :class => "string" %></td>
 		</tr>
@@ -184,7 +187,7 @@
 		<tr class="rock_pad">
 			<td><%= f.label :timber_wall %></td>
 			<td><%= f.text_field :timber_wall, :class => "string" %></td>
-		</tr>
+		</tr> -->
 		<tr class="rock_pad">
 			<td><%= f.label :job_type_id, "Job Type" %></td>
 		  <td><%= f.select :job_type_id, JobType.all.collect{|j| [j.kind, j.id] } %></td>
