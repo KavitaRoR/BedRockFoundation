@@ -42,7 +42,7 @@
 		<% @cstatus = @contact.statuses.last %>
 		<% if @cstatus %>
 			<% @status = Status.new(:contact_id => @contact.id, :revenue_potential => @cstatus.revenue_potential,
-			:revenue_result => @cstatus.revenue_result, :percentage_probability => @cstatus.percentage_probability,
+			:revenue_result => @cstatus.revenue_result, :percentage_probability => @cstatus.percentage_probability, :assigned_to => @cstatus.assigned_to, 
 			:projected_sale_amount => @cstatus.projected_sale_amount, :expected_close_date => @cstatus.expected_close_date, :current_situation => @cstatus.current_situation, :row_highlight_color => @cstatus.row_highlight_color, :notes => @cstatus.notes, :followup_date => @cstatus.followup_date, :next_action_id => @cstatus.next_action_id) %>
 		<% else %>
 			<% @status = Status.new(:contact_id => @contact.id) %>
