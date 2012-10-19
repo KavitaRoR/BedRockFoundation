@@ -70,6 +70,10 @@ class Job < ActiveRecord::Base
     return "#{self.width}' x #{self.length}' - #{self.foundation.kind rescue 'unknown'}" if !self.width.blank?
     return "Adhoc - #{self.foundation.kind rescue 'unknown'}"
   end
+  
+  def has_bundles?
+    Job.count(:all, :conditions => ["bundle_with_job_id = ?",self.id]) != 0
+  end
 
   def contract?
     if self.estimates.count > 0
