@@ -193,6 +193,17 @@
 			</td>
 		</tr>
 	<% end %>
+
+
+
+	<% bundle_total = 0 %>
+	<% if @job.has_bundles? %>	
+		<% for bundle in Job.find(:all, :conditions => ["bundle_with_job_id = ?",@job.id]) %>
+		<%	bundle_total += bundle.price_in_cents %>
+		<%= render partial: "estimates/print_bundle", locals: {job: bundle} %>
+		<% end %>
+	<% end %>
+
 	<tr>
 		<td colspan=4><hr /></td>
 	</tr>
@@ -217,13 +228,14 @@
 			<strong>Total:</strong>
 			<div style="border: 1px solid black; width:150px; height: 35px; text-align:center; line-height: 4px;">
 				<% if @estimate.show_total_on_print %>
+
 					<% if @job.job_type.kind == @type || @job.job_calc_type == "adhoc" || @job.foundation_kind.downcase.include?("concrete") %>
-						<p><strong><%= money_from_cents(@job.price_in_cents) %></strong></p>
+						<p><strong><%= money_from_cents(bundle_total + @job.price_in_cents) %></strong></p>
 						<!-- Price in Cents only -->
 						<!-- <%= @job.job_type.kind %> -->
 						<!-- <%= @type %> -->
 					<% else %>
-						<p><strong><%= "#{money_from_cents(@job.price_in_cents + @job.specific_offlevel(@type)[:zero][0] - @job.specific_offlevel(@job.job_type.kind)[:zero][0])}" %></strong></p>
+						<p><strong><%= "#{money_from_cents(bundle_total + @job.price_in_cents + @job.specific_offlevel(@type)[:zero][0] - @job.specific_offlevel(@job.job_type.kind)[:zero][0])}" %></strong></p>
 						<!-- Price in Cents plus offlevel differential -->
 					<% end %>					
 				<% end %>
