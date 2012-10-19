@@ -146,7 +146,12 @@
 		<% else %>
 		<tr class="concrete adhoc floating graduated gibraltar piers">
 			<td colspan="2">
-					
+				<p style="text-align:center">
+				<a href="javascript:void(0);" class="acthourslink button green-gradient tiny">Show Actual hours</a>
+				<a href="javascript:void(0);" class="acthourslink button red-gradient tiny">Hide Actual hours</a>
+				<a href="javascript:void(0);" class="desclink button green-gradient tiny">Show Descriptions</a>
+				<a href="javascript:void(0);" class="desclink button red-gradient tiny">Hide Descriptions</a>
+				</p>
 				<table width="100%" border="0" cellpadding="4">
 					<tr>
 						<td>Laborers Needed</td>
@@ -161,11 +166,33 @@
 						<td><%= f.text_field "day_#{day}_men".to_sym, :class => "integer", :style => "width:40px; text-align:center;" %></td>
 						<td><%= f.text_field "day_#{day}_hours".to_sym, :class => "integer", :style => "width:40px; text-align:center;" %></td>
 						<td><%= f.text_field "day_#{day}_trucks".to_sym, :class => "integer", :style => "width:40px; text-align:center;" %></td>
-					</tr><tr>
+					</tr><tr style="text-align: center;" class="daydesc">
 						<td>Description: </td>
 						<td colspan="3"><%= f.text_area "day_#{day}_desc".to_sym, :class => "integer", :style => "width:96%; text-align:left;height: 2.5em;" %></td>
+					</tr><tr style="text-align: center;" class="actualhours">
+						<td colspan="2">Actual Hours Worked: </td>
+						<td><%= f.text_field "day_#{day}_actual_hours".to_sym, :class => "integer", :style => "width:40px; text-align:center;" %></td>
+						<td>&nbsp;</td>
 					</tr>
 					<% end %>
+					<script type="text/javascript" charset="utf-8">
+						$(document).ready(function() {
+							$(".actualhours").hide();
+							$('.acthourslink.red-gradient').hide();
+							$('.acthourslink').click(function(){
+								$(".actualhours").toggle("slow");
+								$('.acthourslink.green-gradient').toggle();
+								$('.acthourslink.red-gradient').toggle();
+							});
+							$('.desclink.green-gradient').hide();
+							$('.desclink').click(function(){
+								$(".daydesc").toggle("slow");
+								$('.desclink.green-gradient').toggle();
+								$('.desclink.red-gradient').toggle();
+							})
+							
+						});
+					</script>
 				</table>
 			</td>
 		</tr>

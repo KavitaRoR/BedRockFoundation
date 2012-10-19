@@ -44,7 +44,7 @@ class Job < ActiveRecord::Base
     end
   end
 
-  serialized_attr_accessor :men, :hours, :trucks, :desc
+  serialized_attr_accessor :men, :hours, :trucks, :desc, :actual_hours
   
   def name
     return id if contact.nil?

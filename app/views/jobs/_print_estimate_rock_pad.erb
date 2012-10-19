@@ -23,6 +23,7 @@
 	}
 	</script>
 <% end %>
+<% if current_user.permissions_levels.to_s.include?("Admin") %>
 
 <br />
 <h2>Type &amp; Off-Level Amounts</h2>
@@ -106,3 +107,5 @@
 		</tr>
 	</thead>
 </table>
+<% end %>
+<!-- End the build up vs excavate table -->

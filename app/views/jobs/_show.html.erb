@@ -1,4 +1,4 @@
-<%= link_to "(edit estimate details)", edit_job_path(@job) %><br /><br />
+<%= link_to "Edit estimate details", edit_job_path(@job), class: "button blue-gradient glossy" %><br /><br />
 
 <% 
 partialz = @job.foundation_calc.to_slug
@@ -7,16 +7,19 @@ partialz = "adhoc" if @job.foundation_calc.include?("adhoc")
 %>
 
 
-<div style="float:right; width: 40%;">     
-	<%= render partial: "/jobs/bundle_with", locals: {job: @job} %>	
-
-	
+<div style="float:right; width: 40%;">
+	<% if current_user.permissions_levels.to_s.include?("Admin") %>
+		<%= render partial: "/jobs/bundle_with", locals: {job: @job} %>	
+	<% end %>
 	<%= render partial: "/jobs/print_estimate_#{partialz}", locals: {job: @job} %>	
 
 </div>
 <div style="width:50%;">
+	<% if current_user.permissions_levels.to_s.include?("Admin") %>
 	<%= render partial: "/jobs/estimate_table_#{partialz}", locals: {job: @job} %>
-
+	<% else %>
+		<h2>Total Price: <b><%= money_from_cents @job.price_in_cents %></b></h2>
+	<% end %>
 </div>
 <h2>Communication History</h2>
 
@@ -35,7 +38,7 @@ partialz = "adhoc" if @job.foundation_calc.include?("adhoc")
 
 <h2 style="margin-top:50px;">Remove this <%= @job.estimate_or_contract.downcase %> from the system</h2>
 <p>This will remove all history and status from the database, please be sure you want to do this as it could have other repercussions.</p>
-<%= button_to "Destroy", @job, :confirm => 'Are you sure?', :method => :delete %>
+<%= button_to "Destroy", @job, :confirm => 'Are you sure?', :method => :delete, class: "button red-gradient glossy icon-cross" %>
 <br /><br />
 </div>
 
