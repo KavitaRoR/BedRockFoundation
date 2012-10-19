@@ -23,8 +23,10 @@
 						    <%= f.text_field :reason %>
 						  </div>
 						  <div class="field">
-						    <%= f.check_box :block_off %> <%= f.label :block_off, "Block off the day" %>
-						    
+						    <%= f.select :working_with_crew_id, Crew.find(:all, :order => "ordering ASC").collect{|c| [c.crew_name, c.id]}, :include_blank => "Select who to work with:" %>
+						  </div>
+						  <div class="field">
+						    <%= f.check_box :block_off %> <%= f.label :block_off, "Block off the day" %>						    
 						  </div>
 						  <div class="actions">
 						    <%= f.submit "Save this note", class:"button compact green-gradient", style:"width:auto;" %>

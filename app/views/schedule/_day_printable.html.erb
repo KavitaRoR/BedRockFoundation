@@ -16,13 +16,26 @@
 			<% block_it_off = false %>
 			<% block = DayCrewBlock.find_all_by_crew_id_and_day(c.id, day.beginning_of_day) %>
 			<% unless block.nil? %>
-			<% for blox in block%>
-				<span class="margin-bottom wrapped orange-bg black with-mid-padding align-center"><%=raw "<small>day blocked off for:</small><br />" if blox.block_off %>
-				
-				<b><%= blox.reason %></b></span>
-			<div class="destroy"><%= button_to 'Destroy', blox, confirm: 'Are you sure you want to delete this note?', method: :delete %></div>
-			<% block_it_off = true if blox.block_off %>
+				<% for blox in block%>
+					<span class="margin-bottom wrapped orange-bg black with-mid-padding align-center"><%=raw "<small>day blocked off for:</small><br />" if blox.block_off %>
+					<% if !blox.working_with_crew_id.nil? %>
+					You will be working with
+					<h2 style="color: #630;"><%= Crew.find(blox.working_with_crew_id).crew_name %></h2>
+					<% end %>
+					<b><%= blox.reason %></b></span>
+				<div class="destroy"><%= button_to 'Destroy', blox, confirm: 'Are you sure you want to delete this note?', method: :delete %></div>
+				<% block_it_off = true if blox.block_off %>
+				<% end %>
 			<% end %>
+
+			<% helpblocks = DayCrewBlock.find_all_by_working_with_crew_id_and_day(c.id, day.beginning_of_day) %>
+			<% unless helpblocks.nil? %>
+				<% for blox in helpblocks%>
+					<span class="margin-bottom wrapped white-gradient black with-mid-padding align-center"><%=raw "<small>day blocked off for:</small><br />" if blox.block_off %>
+					<h2 style="color: #357;"><%= blox.crew.crew_name %></h2>will be working with you<br />
+					<b><%= blox.reason %></b></span>
+				<div class="destroy"><%= button_to 'Destroy', blox, confirm: 'Are you sure you want to delete this note?', method: :delete %></div>
+				<% end %>
 			<% end %>
 
 
