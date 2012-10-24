@@ -1,10 +1,12 @@
 <div class="jquery_tab">
 
     <div class="content_block">
-        <h2 class="jquery_tab_title">Edit this Contact</h2>
+        <h2 class="jquery_tab_title">Edit this Contact  &nbsp; &nbsp;
+		</h2>
+		<%= link_to "or just see their history", "/contacts/#{@contact.id}", class: "button icon-left white-gradient" %>
+
 
 <%= render :partial => 'form' %>
-
 
 
 </div></div>

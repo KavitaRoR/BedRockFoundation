@@ -99,6 +99,7 @@ class EstimatesController < ApplicationController
     @job_type = @estimate.job_type
     @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
     @type = @estimate.job_type.kind
+    session[:return_to] = "/estimates/view_estimate/#{params[:token]}"
     wepay_vars
   end
   

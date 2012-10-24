@@ -46,6 +46,7 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
     if @contact.update_attributes(params[:contact])
       flash[:notice] = "Successfully updated contact."
+      return if has_session_return_to?
       redirect_to @contact if session[:look] == 'show'
       redirect_to contacts_url if session[:look] == 'index'
     else

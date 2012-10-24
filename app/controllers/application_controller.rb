@@ -6,6 +6,17 @@ class ApplicationController < ActionController::Base
   helper :all
   # before_filter :blackbird_override
   protect_from_forgery 
+  
+  def has_session_return_to?
+    if session[:return_to].nil? or session[:return_to].blank?
+      return false
+    else 
+      url = session[:return_to]
+      session[:return_to] = nil
+      redirect_to url
+      return true
+    end
+  end
  
   protected
  

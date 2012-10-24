@@ -1,8 +1,12 @@
 <div id="estimate" style="width:750px; height:970px; margin:0px auto;">
 	<div class="noprint">
-		<h2><%= link_to "Edit this Estimate or Customer", 
-			@estimate.job.contact, 
-			class: "button blue-gradient icon-left" %></h2>
+		<h2><%= link_to "Edit this Estimate", 
+			"/jobs/#{@estimate.job.id}/edit", 
+			class: "button blue-gradient icon-left" %> &nbsp; &nbsp;
+			<%= link_to "Edit Customer Information", 
+				"/contacts/#{@estimate.job.contact.id}/edit", 
+				class: "button blue-gradient icon-pencil" %>
+			</h2>
 
 		<a href="#" id="print-link" class="button huge green-gradient icon-printer"> Print</a><br />
 	</div>

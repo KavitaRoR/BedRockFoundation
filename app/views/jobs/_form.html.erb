@@ -10,7 +10,7 @@
 		</div>
 	<% end %>
 
-<%= link_to "Go Back to Contact", "/contacts/#{@job.contact_id}" %><br />
+<%= link_to "Go Back to Customer Info", "/contacts/#{@job.contact_id}", class: "button white-gradient icon-left" %><br />
 <br />
 <%= f.label :description %><br />
 <%= f.text_area :description, :class => "text" %>

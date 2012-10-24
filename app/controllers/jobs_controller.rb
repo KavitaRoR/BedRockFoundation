@@ -77,6 +77,7 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
     if @job.update_attributes(params[:job])
       flash[:notice] = "Successfully updated job."
+      return if has_session_return_to?
       redirect_to @job.contact
     else
       render :action => 'edit'

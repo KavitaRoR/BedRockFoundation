@@ -19,6 +19,7 @@ class Job < ActiveRecord::Base
   before_create :geocode_address
   before_save :geocode_address
   before_save :calculate_pad_costs
+  before_save :remove_off_level_to_show
   
   scope :by_recent, :order => "updated_at DESC"
   
@@ -386,4 +387,9 @@ class Job < ActiveRecord::Base
       self.material_cost_in_cents = self.adhoc_job.total_material_cost
     end
     
+    def remove_off_level_to_show
+      if self.off_level_amount_in_inches
+        self.estimates.first.update_attribute "off_level_to_show", ""
+      end
+    end
 end
