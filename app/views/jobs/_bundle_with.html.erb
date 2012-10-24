@@ -28,3 +28,13 @@
 	<% end %>
 </div>
 <% end %>
+
+
+<% if !@job.estimates.select{|e| e.sold? }.empty? %>
+	<div class="job-sold">
+		This job has been marked as sold!<br />
+		<%= link_to "Click here to view the contract on the schedule", "/schedule" %>
+		<br />
+		<%= link_to "Print the original estimate", "#{print_modal_job_url(@job)}/?type=#{@job.job_type.kind.downcase}", :class => "iframe" %>
+	</div>
+<% end %>
