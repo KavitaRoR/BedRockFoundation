@@ -9,6 +9,8 @@ class ContactsController < ApplicationController
   def show
     @contact = Contact.find(params[:id])
     session[:look] = 'show'
+    session[:return_to] = nil
+    
   end
   
   def status
