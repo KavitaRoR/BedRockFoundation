@@ -122,7 +122,7 @@
 					<% job = z.estimate.job %>
 					<% unless job.nil? %>
 					<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
-						rel="<%= job.lat %>,<%= job.lng %>,<%= z.crew.ordering %>,<%= z.crew.crew_name %>,<%= z.estimate.token %>,<%= job.contact.last_name %>" target="_blank" class="job_site">
+						rel="<%= job.lat %>,<%= job.lng %>,<%= z.crew.ordering %>,<%= z.position_in_day %>,<%= z.crew.crew_name %>,<%= z.estimate.token %>,<%= job.contact.last_name %>" target="_blank" class="job_site">
 						<%= job.lat %>,<%= job.lng %></a><br />
 					<% end %>
 				<% end %>
