@@ -2,7 +2,7 @@ production:
   client_id: 195863
   client_secret: 9264a2c014
   account_id: 418399
-  access_token: 68b0f02192aeed76617a9e51236b83f2cee01962c9153638e16d4ba8ce64e22e
+  access_token: 5e65448294f38840f290f8d1510a4e24b642d775e80767c17335f2fb20e8e753
   root_callback_uri: "http://app.bedrockfoundations.com"
   after_checkout_redirect_uri: "http://app.bedrockfoundations.com/purchase/finalize"
   scope: [refund_payments,collect_payments,view_balance,view_user]
