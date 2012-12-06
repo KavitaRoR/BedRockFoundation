@@ -15,6 +15,8 @@ class ConcreteJobCalculator
     @concrete_price_per_yard = job.concrete_price_per_yard
     @padkind = job.foundation_calculator.kind.downcase rescue "graduated"
     @distance = dist
+    @concrete_block_courses = job.gibraltar_courses_of_block
+    @concrete_gibraltar_footer = job.gibraltar_concrete_footer_in_inches
     @concrete_thickness = job.concrete_thickness_in_inches
     @concrete_edge_thickness_in_inches = job.concrete_edge_thickness_in_inches
     @concrete_piers_depth_in_inches = job.concrete_piers_depth_in_inches
@@ -72,10 +74,11 @@ class ConcreteJobCalculator
   
   def concrete_amount
     thick = @concrete_thickness.to_f / 36
+    gibraltar_footer_thick = @concrete_gibraltar_footer.to_f / 36
     puts "Thick = #{thick}"
     cubic_yards_of_concrete = case 
     when @padkind.include?('gibraltar')
-      ((@length.to_f - 1.3333) / 3) * ((@width.to_f - 1.3333) / 3) * thick
+      ((@length.to_f - 1.3333) / 3) * ((@width.to_f - 1.3333) / 3) * gibraltar_footer_thick
       # @length * @width @ thick
     when @padkind.include?('graduated')
       edge = @concrete_edge_thickness_in_inches.to_f / 36
@@ -95,7 +98,7 @@ class ConcreteJobCalculator
     
   
   def cement_block_quantity
-    num_courses = 4 
+    num_courses = @concrete_block_courses 
     # should be between 1 and 8 courses
     @padkind.include?('gibraltar') ? (((perimeter.to_f * 12) / 16) * num_courses) : 0
   end
