@@ -9,6 +9,7 @@ class Contact < ActiveRecord::Base
   before_create :geocode_address
   after_create :create_initial_todo
   before_save :geocode_address
+  after_save :update_estimates_in_the_hopper
 
   def name 
     return company if !company.blank?
@@ -47,6 +48,14 @@ class Contact < ActiveRecord::Base
         self.distance = geo.distance_from(base, :units => :miles)
       else
         errors.add(:address_1, "Could not Geocode address")
+      end
+    end
+  end
+
+  def update_estimates_in_the_hopper
+    for job in self.jobs
+      for est in job.estimates
+        est.update_addresses_if_necessary!
       end
     end
   end

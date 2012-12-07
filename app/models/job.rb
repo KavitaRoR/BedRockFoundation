@@ -241,9 +241,9 @@ class Job < ActiveRecord::Base
     number_to_currency (cents.to_f / 100)
   end
   
-  def job_description_for_flash(kind)
+  def job_description_for_flash(kind="Standard")
     str = ""
-    kind = kind.capitalize
+    kind = kind.capitalize rescue "Standard"
     if kind == "Economy"
       str = ContentDatum.find_by_key("rockpad_estimate_economy").value
     elsif kind == "Standard"

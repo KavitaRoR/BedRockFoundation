@@ -32,6 +32,34 @@ class Estimate < ActiveRecord::Base
       return false
     end
   end
+
+  def loadflashvars
+    logger.info flashvars
+    myvars = YAML::load(flashvars).with_indifferent_access
+    logger.info "@@@ #{myvars[:job_type]}"
+    myvars
+  end
+
+  def update_addresses_if_necessary!
+    if self.job.contact.updated_at > self.updated_at
+      if self.contract && self.contract.scheduled_date < (Date.today + 1.day)
+        #do nothing
+        logger.info "***** THIS DID NOT UPDATE"
+        logger.info self.id
+        logger.info self.contract.scheduled_date rescue " No Contract"
+      else
+        logger.info "***** THIS IS UPDATING"
+        logger.info self.id
+        logger.info loadflashvars[:job_type]
+        logger.info self.contract.scheduled_date rescue " No Contract"
+
+        self.flashvars = self.job.options_for_print(loadflashvars[:job_type]).with_indifferent_access
+        self.save
+        logger.info flashvars
+      end
+    end
+  end
+
   
   protected
   def generate_invoice_number
