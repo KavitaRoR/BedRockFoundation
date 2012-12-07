@@ -110,7 +110,7 @@
 			<td>&nbsp;</td>
 		</tr>
 	<% end %>
-	<% if @estimate.job.job_additions.count > 0 %>
+	<% if job.job_additions.count > 0 %>
 		<tr>
 			<td colspan=3>
 				<strong>Additional Items:</strong>
@@ -121,7 +121,7 @@
 				<hr style="color:#aaa;" />
 			</td>
 		</tr>
-		<% @estimate.job.job_additions.each do |a| %>
+		<% job.job_additions.each do |a| %>
 			<tr>
 				<td colspan=3>
 					<span style="font-size:0.8em;"><%= a.addition_description %></span>
@@ -130,7 +130,7 @@
 					<strong>+<%= money_from_cents a.addition_price_in_cents %></strong>
 				</td>
 			</tr>
-			<% if a != @estimate.job.job_additions.last %>
+			<% if a != job.job_additions.last %>
 				<tr>
 					<td colspan=4>
 						<hr style="color:#aaa;" />
