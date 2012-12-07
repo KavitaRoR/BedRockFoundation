@@ -17,9 +17,10 @@
   </tr>
 	</thead>
 	<tbody>
-  <% for contact in @contacts.sort_by{|dude| dude.last_name } %>
+  <% for contact in @contacts %>
     <tr class="<%= cycle("", "alt", :name => "row_class") -%>">
-      <th class="spec"><%= link_to contact.name, contact %></th>
+      <th class="spec"><%= link_to contact.name, contact %><br />
+        <%= contact.company.blank? ? "" : "<small>for #{contact.company}</small>".html_safe %></th>
 			<td><%= contact.contact_status.status_name %></td>
       <td><%=h contact.phone %></td>
       <td><%=h contact.address_oneline %><br />

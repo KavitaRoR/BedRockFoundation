@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   before_filter :authenticate_user!
   def index
     @page_title = "All Contacts"
-    @contacts = Contact.find(:all, :order => "created_at DESC")
+    @contacts = Contact.find(:all, :order => "last_name ASC")
     session[:look] = 'index'
   end
   
