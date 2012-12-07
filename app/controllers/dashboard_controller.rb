@@ -6,7 +6,8 @@ class DashboardController < ApplicationController
   end
   
   def index 
-    @all_todos = Status.find(:all, :conditions => {:assigned_to => current_user.id, :done => nil}, :include => [:contact, :job, :next_action, {:contact => :jobs}], :order => "followup_date DESC")
+    # @all_todos = Status.find(:all, :conditions => {:assigned_to => current_user.id, :done => nil}, :include => [:contact, :job, :next_action, {:contact => :jobs}], :order => "followup_date DESC")
+    @all_todos = Status.find(:all, :conditions => {:done => nil}, :include => [:contact, :job, :next_action, {:contact => :jobs}], :order => "followup_date DESC")
     id_group = {}
     @all_todos.each do |t|
       if t.contact
