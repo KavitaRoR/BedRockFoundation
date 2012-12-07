@@ -16,7 +16,7 @@ gem 'wepay-rails'
 group :development do
   gem 'heroku'
   gem 'mysql2'
-  gem 'thin'
+#  gem 'thin'
 end
 
 # Gems used only for assets and not required
