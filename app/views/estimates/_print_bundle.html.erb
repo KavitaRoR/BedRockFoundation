@@ -14,12 +14,13 @@
 					<%= "#{job.width}' x #{job.length}'" %> <%= job.foundation.kind %> - <%= job.foundation_calculator.description %>
 				<% end %>
 			</td>
-			<td colspan=1 style="text-align: right;">
+			<td colspan="1" style="text-align: right;">
 				<strong>
+					<% disco = (job.discount.nil?) ? 0 : job.discount %>
 					<% if job.job_calc_type == "pad" %>
-						<%= money_from_cents(job.specific_offlevel(job.foundation.kind)[:zero][0] + ((job.discount || 0) * 100)) %>
+						<%= money_from_cents(job.specific_offlevel(job.foundation.kind)[:zero][0] + (disco * 100)) %>
 					<% elsif job.job_calc_type != "adhoc" %>
-						<%= money_from_cents(job.price_in_cents - job.addition_prices_totaled - (job.pad_job.extra_slope_costs rescue 0)  + ((job.discount || 0) * 100)) %>
+						<%= money_from_cents(job.price_in_cents - job.addition_prices_totaled - (job.pad_job.extra_slope_costs rescue 0)  + (disco * 100)) %>
 					<% end %>
 				</strong>
 			</td>
