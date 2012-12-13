@@ -196,6 +196,11 @@
 
 
 
+
+
+
+<!-- BUNDLE TOGETHER BUILDINGS -->
+
 	<% bundle_total = 0 %>
 	<% if @job.has_bundles? %>	
 		<% for bundle in Job.find(:all, :conditions => ["bundle_with_job_id = ?",@job.id]) %>
@@ -203,6 +208,18 @@
 		<%= render partial: "estimates/print_bundle", locals: {job: bundle} %>
 		<% end %>
 	<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<tr>
 		<td colspan=4><hr /></td>

@@ -7,7 +7,7 @@
 			<td colspan=3>
 				<% if job.job_calc_type == "pad" %>
 					<%= "#{job.width}' x #{job.length}' - #{job.job_quick_title} Foundation" %>
-					<%=raw "<br />&nbsp;&nbsp;&nbsp;-#{job.off_level_fill_type}" if @type != "Economy" %>
+					<%=raw "<br />&nbsp;&nbsp;&nbsp;-#{job.off_level_fill_type}" if job.foundation.type != "Economy" %>
 				<% elsif job.job_calc_type == "adhoc" %>
 					<%= job.foundation.kind %>
 				<% else %>
@@ -17,7 +17,7 @@
 			<td colspan=1 style="text-align: right;">
 				<strong>
 					<% if job.job_calc_type == "pad" %>
-						<%= money_from_cents(job.specific_offlevel(@type)[:zero][0] + (job.discount * 100)) %>
+						<%= money_from_cents(job.specific_offlevel(job.foundation.type)[:zero][0] + (job.discount * 100)) %>
 					<% elsif job.job_calc_type != "adhoc" %>
 						<%= money_from_cents(job.price_in_cents - job.addition_prices_totaled - (job.pad_job.extra_slope_costs rescue 0)  + (job.discount * 100)) %>
 					<% end %>
@@ -26,17 +26,17 @@
 		</tr>
 
 	<% end %>
-	<% if job.job_calc_type == "pad" && @type != "Economy" %>
+	<% if job.job_calc_type == "pad" && job.foundation.kind != "Economy" %>
 		<% if @estimate.job.border_sixbysix %>
 			<tr>
 				<td colspan=3>
-					With 6" x 6" timbers <%= "& #{job.trex_color} composite capping" if @type == "Elite" %>
+					With 6" x 6" timbers <%= "& #{job.trex_color} composite capping" if job.foundation.type == "Elite" %>
 				</td>
 			</tr>
 		<% else %>
 			<tr>
 				<td colspan=3>
-					With 4" x 6" timbers <%= "& #{job.trex_color} composite capping" if @type == "Elite" %>
+					With 4" x 6" timbers <%= "& #{job.trex_color} composite capping" if job.foundation.type == "Elite" %>
 				</td>
 			</tr>
 		<% end %>
@@ -55,7 +55,7 @@
 		<tr>
 			<td colspan=4 style="font-size: 0.8em;">
 				<strong>Description:</strong>
-				 <%= job.job_description_for_flash(@type) %>
+				 <%= job.job_description_for_flash(job.foundation.kind) %>
 			</td>
 		</tr>
 	<% elsif job.job_calc_type == "adhoc" %>
@@ -100,9 +100,9 @@
 			</td>
 			<td colspan=2>
 				<ul style="list-style-type:none; text-align:left; width:120px;">
-					<% job.specific_offlevel_diff(@type).each do |k, v| %>
+					<% job.specific_offlevel_diff(job.foundation.type).each do |k, v| %>
 						<% if k != :zero && @estimate.off_level_to_show.include?(v[1].to_s) %>
-							<li><strong><%= v[1] %>"</strong> +<%= money_from_cents(v[0] - job.specific_offlevel_diff(@type)[:zero][0]) %></li>
+							<li><strong><%= v[1] %>"</strong> +<%= money_from_cents(v[0] - job.specific_offlevel_diff(job.foundation.type)[:zero][0]) %></li>
 						<% end %>
 					<% end %>
 				<ul>
