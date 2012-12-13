@@ -1,4 +1,5 @@
 	<% @type = job.economy_or_elite %>
+	<% Rails.logger.info "@type = #{@type}" %>
 	<tr>
 		<td colspan=4><hr /></td>
 	</tr>
@@ -7,11 +8,16 @@
 			<td colspan=3>
 				<% if job.job_calc_type == "pad" %>
 					<%= "#{job.width}' x #{job.length}' - #{job.job_quick_title} Foundation" %>
+					<% Rails.logger.info "#{job.width}' x #{job.length}' - #{job.job_quick_title} Foundation" %>
+
 					<%=raw "<br />&nbsp;&nbsp;&nbsp;-#{job.off_level_fill_type}" if @type != "Economy" %>
 				<% elsif job.job_calc_type == "adhoc" %>
 					<%= job.foundation.kind %>
+					<% Rails.logger.info job.foundation.kind %>
+
 				<% else %>
 					<%= "#{job.width}' x #{job.length}'" %> <%= job.foundation.kind %> - <%= job.foundation_calculator.description %>
+					<% Rails.logger.info "#{job.width}' x #{job.length}' #{job.foundation.kind} - #{job.foundation_calculator.description}" %>
 				<% end %>
 			</td>
 			<td colspan=1 style="text-align: right;">
