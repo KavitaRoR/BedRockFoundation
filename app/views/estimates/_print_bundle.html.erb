@@ -1,5 +1,6 @@
 	<% estimate = Estimate.find(:last, 
-				:conditions => {:job_id => job.id, :job_type_id => job_type.id}) %>
+				:conditions => {:job_id => job.id, 
+				:job_type_id => JobType.where(:kind => job.economy_or_elite.capitalize).first.id}) %>
 	<tr>
 		<td colspan=4><hr /></td>
 	</tr>
