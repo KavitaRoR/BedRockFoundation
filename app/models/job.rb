@@ -16,8 +16,10 @@ class Job < ActiveRecord::Base
   
   
   after_create :create_initial_status
-  before_create :geocode_address
-  before_save :geocode_address
+  before_create :geocode_address_for_create
+  before_update :set_empty_distance, if: Proc.new{ |f| f.location_id_changed? }
+  # before_update :geocode_address, if: Proc.new{ |f| f.distance.nil?  }
+  # validate :geocode_address, if: Proc.new{ |f| f.distance.nil?  }
   before_save :calculate_pad_costs
   before_save :remove_off_level_to_show
   
@@ -322,6 +324,11 @@ class Job < ActiveRecord::Base
     end
     addition_total
   end
+
+  def set_empty_distance
+    logger.info( "in empty distance" )
+    self.distance = nil
+  end
   
   protected
   
@@ -329,6 +336,32 @@ class Job < ActiveRecord::Base
       statuses.create({:notes => "Created new Estimate", :assigned_by => @creator.id, :assigned_to => @creator.id, :done => true})
     end
     def geocode_address
+      base = Geokit::Geocoders::MultiGeocoder.geocode(location_for_calculation.address_oneline)
+        
+      if base.success
+        if !self.address_1.blank?
+          addr = self.address_oneline
+        else  
+          cont = Contact.find(self.contact_id)
+          self.lat, self.lng, self.distance = cont.lat, cont.lng, cont.distance
+          self.address_1, self.address_2, self.city, self.province, self.zip = cont.address_1, cont.address_2, cont.city, cont.province, cont.zip
+        end 
+        geo = Geokit::Geocoders::MultiGeocoder.geocode(address_oneline)
+        errors.add(:address_1, "Could not Geocode address") if !geo.success
+        raise "Geocode Error" if !geo.success
+        if geo.success
+          self.lat, self.lng = geo.lat,geo.lng 
+          self.distance = geo.distance_from(base, :units=>:miles)
+        end
+      else
+        # reuse the contact's current geodata
+        cont = Contact.find(self.contact_id)
+        self.lat, self.lng, self.distance = cont.lat, cont.lng, cont.distance
+        self.address_1, self.address_2, self.city, self.province, self.zip, self.calculation_location_id = cont.address_1, cont.address_2, cont.city, cont.province, cont.zip, 5
+      end
+    end
+
+    def geocode_address_for_create
       base = Geokit::Geocoders::MultiGeocoder.geocode(location_for_calculation.address_oneline)
         
       if base.success
@@ -352,6 +385,7 @@ class Job < ActiveRecord::Base
         self.address_1, self.address_2, self.city, self.province, self.zip, self.calculation_location_id = cont.address_1, cont.address_2, cont.city, cont.province, cont.zip, 5
       end
     end
+
     def calculate_pad_costs
       if self.foundation_kind.include?("concrete")
         self.calculate_concrete_pad_costs

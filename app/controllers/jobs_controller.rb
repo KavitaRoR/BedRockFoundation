@@ -75,13 +75,20 @@ class JobsController < ApplicationController
   
   def update
     @job = Job.find(params[:id])
-    if @job.update_attributes(params[:job])
-      flash[:notice] = "Successfully updated job."
-      return if has_session_return_to?
-      redirect_to @job.contact
-    else
-      render :action => 'edit'
+    unless params[:manual_edit]
+      @job.geocode_address
     end
+      if @job.update_attributes(params[:job])
+        flash[:notice] = "Successfully updated job."
+        return if has_session_return_to?
+        redirect_to @job.contact
+      else
+        render :action => 'edit'
+      end
+    rescue
+      @job.errors.add(:base, "Geo Location failed. Distance may not be correct!")
+      @allow_manual_edit = true
+      render action: 'edit'
   end
   
   def destroy
