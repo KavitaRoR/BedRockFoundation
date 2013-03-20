@@ -16,6 +16,7 @@
 <%= f.text_area :description, :class => "text" %>
 
 <table style="float:left;">
+
 	<thead></thead>
 	<tbody>
 		<tr>
@@ -265,6 +266,15 @@
 	<p>Leave this empty if the customer address is the same</p>
 	<table>
 		<tbody>
+			<% unless params[:action] == "new" %>
+				<tr>
+					<td>
+						<%= f.label :distance %><br />
+						<%= f.text_field :distance, class: "string" %>
+					</td>
+				</tr>					
+			<% end %>
+			
 			<tr>
 				<td>
 					<%= f.label :address_1 %><br />
@@ -320,6 +330,9 @@
 			</tbody>
 		</table> -->
 <p>
+	<% unless @allow_manual_edit.nil? %>
+		<%= hidden_field_tag :manual_edit, true %>
+	<% end %>
 	<%= f.submit "Save & Calculate this Estimate", class:"button green-gradient glossy" %>
 </p>
 <% end %>
