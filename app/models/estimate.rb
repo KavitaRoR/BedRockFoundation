@@ -6,6 +6,8 @@ class Estimate < ActiveRecord::Base
   has_many :wepay_checkout_records, :foreign_key => :reference_id
   
   before_create :generate_invoice_number
+  after_create :remove_off_level_to_show
+
   
   def name
     job.name
@@ -59,6 +61,13 @@ class Estimate < ActiveRecord::Base
       end
     end
   end
+
+    def remove_off_level_to_show
+      if self.job.off_level_amount_in_inches
+        self.update_attribute "off_level_to_show", ""
+        self.show_payment_buttons = true
+      end
+    end
 
   
   protected
