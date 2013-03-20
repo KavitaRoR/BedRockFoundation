@@ -347,6 +347,7 @@ class Job < ActiveRecord::Base
           self.address_1, self.address_2, self.city, self.province, self.zip = cont.address_1, cont.address_2, cont.city, cont.province, cont.zip
         end 
         geo = Geokit::Geocoders::MultiGeocoder.geocode(address_oneline)
+        logger.info( "********** geo successful? - #{geo.success} ***********" )
         errors.add(:address_1, "Could not Geocode address") if !geo.success
         raise "Geocode Error" if !geo.success
         if geo.success
