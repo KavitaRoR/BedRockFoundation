@@ -21,7 +21,7 @@ class Job < ActiveRecord::Base
   # before_update :geocode_address, if: Proc.new{ |f| f.distance.nil?  }
   # validate :geocode_address, if: Proc.new{ |f| f.distance.nil?  }
   before_save :calculate_pad_costs
-  before_save :remove_off_level_to_show
+  # before_save :remove_off_level_to_show
   
   scope :by_recent, :order => "updated_at DESC"
   
@@ -422,7 +422,7 @@ class Job < ActiveRecord::Base
     end
     
     def remove_off_level_to_show
-      if self.off_level_amount_in_inches
+      if self.off_level_amount_in_inches && self.estimates.first
         self.estimates.first.update_attribute "off_level_to_show", ""
         self.estimates.first.show_payment_buttons = true
       end
