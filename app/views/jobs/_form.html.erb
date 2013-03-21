@@ -267,12 +267,14 @@
 	<table>
 		<tbody>
 			<% unless params[:action] == "new" %>
-				<tr>
-					<td>
-						<%= f.label :distance %><br />
-						<%= f.text_field :distance, class: "string" %>
-					</td>
-				</tr>					
+				<% unless @allow_manual_edit.nil? %>
+					<tr>
+						<td>
+							<%= f.label :distance %><br />
+							<%= f.text_field :distance, class: "string" %>
+						</td>
+					</tr>		
+				<% end %>			
 			<% end %>
 			
 			<tr>
