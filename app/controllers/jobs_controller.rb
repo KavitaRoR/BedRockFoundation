@@ -75,10 +75,10 @@ class JobsController < ApplicationController
   
   def update
     @job = Job.find(params[:id])
-    unless params[:manual_edit]
-      @job.geocode_address
-    end
       if @job.update_attributes(params[:job])
+        unless params[:manual_edit]
+          @job.geocode_address
+        end
         flash[:notice] = "Successfully updated job."
         return if has_session_return_to?
         redirect_to @job.contact
