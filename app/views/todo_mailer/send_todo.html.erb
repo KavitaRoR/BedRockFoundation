@@ -1,0 +1,18 @@
+<p>
+	Dear <%= @status.assignee.name %>,
+</p>
+
+<p>
+	The following item has been assigned to you by <%= @status.creator.name %>.
+</p>
+
+<p>
+	Next Action: <%= @next_action.name %><br />
+	Date Due: <%= @status.expected_close_date.strftime( '%-m/%-d/%Y' ) %><br /><br />
+	Notes:<br />
+	<%= @status.notes %>
+</p>
+
+<p>
+	<%= link_to "	View info on this contact", @url  %>
+</p>

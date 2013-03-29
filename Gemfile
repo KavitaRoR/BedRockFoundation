@@ -12,7 +12,6 @@ gem 'ruby-prof'
 gem 'therubyracer'
 gem 'wepay-rails'
 
-
 group :development do
   gem 'heroku'
   gem 'mysql2'
