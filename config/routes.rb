@@ -22,6 +22,8 @@ Abundant::Application.routes.draw do
   match "/e/:token" => "estimates#client_estimate"
   match "/estimates/push_to_sold/:id/:type" => "estimates#push_to_sold"
   match "/estimates/off_level_to_show" => "estimates#off_level_to_show"
+  post "/estimates/add_note" => "estimates#add_note"
+  match "/estimates/view_notes/:token" => "estimates#view_notes"
   match "/users/create" => "users#create"
   match "/schedule/(:action)" => "schedule"
   match 'jobs/foreman_print_modal/(:id)' => 'jobs#foreman_print_modal'

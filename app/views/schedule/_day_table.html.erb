@@ -43,12 +43,11 @@
 				<% block = DayCrewBlock.find_all_by_crew_id_and_day(c.id, day.beginning_of_day) %>
 				<% unless block.nil? %>
 				<% for blox in block%>
-				<a class="crew_block_button" href="#" onclick="return false;">
+				<div class="crew_block_button closable" id="crew_block_<%= blox.id %>">
+					<div class="close_btn" data-id='<%= "#{blox.id}" %>'></div>
 					<span class="schedule_button_heading"><%=raw "<small>day blocked off for:</small><br />" if blox.block_off %>
-					
 					<b><%= blox.reason %></b></span>
-				</a>
-				<div class="destroy"><%= button_to 'Destroy', blox, confirm: 'Are you sure you want to delete this note?', method: :delete %></div>
+				</div>
 				<% block_it_off = true if blox.block_off %>
 				<% end %>
 				<% end %>

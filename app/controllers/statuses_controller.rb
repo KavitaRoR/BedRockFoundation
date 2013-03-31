@@ -17,7 +17,10 @@ class StatusesController < ApplicationController
   
   def create
     @status = Status.new(params[:status])
-    if @status.save      
+    if @status.save 
+      unless @status.assigned_to == @status.assigned_by
+        TodoMailer.send_todo( @status ).deliver
+      end     
       flash[:notice] = "Successfully created status."
       redirect_to @status.job.contact and return if @status.job
       redirect_to @status.contact
@@ -34,6 +37,9 @@ class StatusesController < ApplicationController
   def update
     @status = Status.find(params[:id])
     if @status.update_attributes(params[:status])
+      unless @status.assigned_to == @status.assigned_by
+        TodoMailer.send_todo( @status ).deliver
+      end
       flash[:notice] = "Successfully updated status."
       redirect_to @status if session[:look] == 'show'
       redirect_to statuses_url if session[:look] == 'index'

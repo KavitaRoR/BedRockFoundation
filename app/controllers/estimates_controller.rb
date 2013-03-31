@@ -102,6 +102,21 @@ class EstimatesController < ApplicationController
     session[:return_to] = "/estimates/view_estimate/#{params[:token]}"
     wepay_vars
   end
+
+  def add_note
+    @estimate = Estimate.find_by_token( params[:estimate][:token] )
+    @estimate.additional_notes = params[:estimate][:additional_notes]
+    @estimate.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def view_notes
+    @estimate = Estimate.find_by_token( params[:token] )
+    @notes = @estimate.additional_notes
+    render layout: 'client'
+  end
   
   def push_to_sold
     @job = Job.find(params[:id])

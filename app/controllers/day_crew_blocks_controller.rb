@@ -78,6 +78,7 @@ class DayCrewBlocksController < ApplicationController
     @day_crew_block.destroy
 
     respond_to do |format|
+      format.js
       format.html { redirect_to :back }
       format.json { head :no_content }
     end
