@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328183320) do
+ActiveRecord::Schema.define(:version => 20130329150548) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -323,6 +323,7 @@ ActiveRecord::Schema.define(:version => 20130328183320) do
     t.datetime "updated_at",                            :null => false
     t.string   "permissions_levels"
     t.integer  "crew_id"
+    t.text     "email_signature"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

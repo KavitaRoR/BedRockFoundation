@@ -11,6 +11,8 @@ I've completed an estimate for the following:
 I've completed an estimate for a <%= "#{@job.width}' x #{@job.length}'" %> <%= @job.foundation.kind %> - <%= @job.foundation_calculator.description %>
 	<% end %>
 
+	<%= @footer %>
+
 	
 If you have any problems accessing the estimate, please feel free to call me with any questions, comments, or concerns.
 	
@@ -18,9 +20,12 @@ To view your estimate follow this link below to view it.
 
 http://app.bedrockfoundations.com/e/<%= @estimate.token %> 
 
+<% if @user.email_signature.nil? %>
+	Yours truly,
 
-Yours truly,
-
-Eli Stoltzfus
-Bedrock Foundations DBA Abundant Life Landscaping LLC.
-<%= @estimate.job.location.phone rescue "717-587-7062" %>
+	Eli Stoltzfus
+	Bedrock Foundations DBA Abundant Life Landscaping LLC.
+	<%= @estimate.job.location.phone rescue "717-587-7062" %>
+<% else %>
+	<%= @user.email_signature %>
+<% end %>

@@ -1,29 +1,53 @@
-<p>Dear <%= @estimate.job.contact.first_name %> <%= @estimate.job.contact.last_name %>,</p>
-	<% vars = YAML::load(@estimate.flashvars).with_indifferent_access; @job = @estimate.job; @type = @estimate.job_type.kind %>
-	<% if @job.job_calc_type == "pad" %>
-	<p>
-I've completed an estimate for a <%= "#{vars[:job_width]}' x #{vars[:job_length]}' - #{vars[:job_quality]} Foundation" %>
-		<%=raw "#{vars[:off_level_fill_type]}" if @type != "Economy" %></p>
-	<% elsif @job.job_calc_type == "adhoc" %>
-<p>I've completed an estimate for the following:</p>
-	
-	<p><%= @job.foundation.kind %></p>
-	
-	<% else %>
-	<p>
-I've completed an estimate for a <%= "#{@job.width}' x #{@job.length}'" %> <%= @job.foundation.kind %> - <%= @job.foundation_calculator.description %></p>
-	<% end %>
+<table align="center" cellspacing="0" cellpadding="0" style="width: 632px; border-left: 3px solid #5c1606; border-right: 3px solid #5c1606; border-bottom: 3px solid #5c1606;">
+	<tr>
+		<td valign="top" style="width: 638px; height: 176px;">
+		  <table style="width: 638px; height: 176px;" cellspacing="0" cellpadding="0">
+		  	<tr>
+		  		<td style="width: 638px;">
+		  			<%= image_tag "#{root_url}assets/images/email/logo.gif", width: 638, height: 176 %>
+		  		</td>
+		  	</tr>
+		  </table>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top" style="text-align:justify; padding: 15px; width: 638px;">
+			<p>Dear <%= @estimate.job.contact.first_name %> <%= @estimate.job.contact.last_name %>,</p>
+				<% vars = YAML::load(@estimate.flashvars).with_indifferent_access; @job = @estimate.job; @type = @estimate.job_type.kind %>
+				<% if @job.job_calc_type == "pad" %>
+				<p>
+			I've completed an estimate for a <%= "#{vars[:job_width]}' x #{vars[:job_length]}' - #{vars[:job_quality]} Foundation" %>
+					<%=raw "#{vars[:off_level_fill_type]}" if @type != "Economy" %></p>
+				<% elsif @job.job_calc_type == "adhoc" %>
+			<p>I've completed an estimate for the following:</p>
+				
+				<p><%= @job.foundation.kind %></p>
+				
+				<% else %>
+					<p>
+				   I've completed an estimate for a <%= "#{@job.width}' x #{@job.length}'" %> <%= @job.foundation.kind %> - <%= @job.foundation_calculator.description %></p>
+				<% end %>
+				<p><%= @footer %></p>	
+			<p>If you have any problems accessing the estimate, please feel free to call me with any questions, comments, or concerns.</p>
+			<p>To view your estimate follow this link below to view it. </p>
 
-	
-<p>If you have any problems accessing the estimate, please feel free to call me with any questions, comments, or concerns.</p>
-<p>To view your estimate follow this link below to view it. </p>
+			<p style="width: 600px;"><a href="http://app.bedrockfoundations.com/e/<%= @estimate.token %>">View your Estimate</a>
+			<br />http://app.bedrockfoundations.com/e/<%= @estimate.token %> 
+			</p>
+			<% if @user.email_signature.nil? %>
+				<p>Yours truly,</p>
 
-<p><a href="http://app.bedrockfoundations.com/e/<%= @estimate.token %>">View your Estimate</a>
-<br />http://app.bedrockfoundations.com/e/<%= @estimate.token %> 
-</p>
-
-<p>Yours truly,</p>
-
-<p>Eli Stoltzfus<br />
-Bedrock Foundations DBA Abundant Life Landscaping LLC.<br />
-<%= @estimate.job.location.phone rescue "717-587-7062" %></p>
+				<p>Eli Stoltzfus<br />
+				Bedrock Foundations DBA Abundant Life Landscaping LLC.<br />
+				<%= @estimate.job.location.phone rescue "717-587-7062" %></p>
+			<% else %>
+				<%= @user.email_signature.html_safe %>
+			<% end %>
+		</td>
+	</tr>
+	<tr>
+		<td style="width: 638px;" valign="bottom">
+			<%= image_tag "#{root_url}assets/images/email/grass_bottom_bg.gif", width: 638, height: 101, border: 0, align: "bottom" %>
+		</td>
+	</tr>
+</table>
