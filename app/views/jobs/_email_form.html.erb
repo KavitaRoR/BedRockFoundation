@@ -1,0 +1,29 @@
+<div style="display:none;" id="email_estimate_form">
+	<%= form_tag(controller: :estimates, action: :email_estimate) do %>
+		<%= hidden_field_tag :job_id, @job.id %>
+		<%= hidden_field_tag :type, type %>
+		<table style="float:left; width: 300px;">
+			<tr>
+				<td>
+					<%= label_tag :subject, "Subject:" %><br />
+					<%= text_field_tag :subject, "Your Estimate from Bed Rock Foundation", style: "width: 300px;" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :from, "From:" %><br />
+					<%= select_tag :from, options_for_select( User.all.collect{|u| ["#{u.name} <#{u.email}>", u.id]}, current_user.id ) %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :footer, "Additional Text:" %><br />
+	  			<%= text_area_tag :footer, '', style: "width: 400px; height: 50px;" %>
+				</td>
+			</tr>
+			<tr>
+				<td><%= submit_tag button_txt, class: "button big blue-gradient icon-mail" %></td>
+			</tr>
+		</table>
+	<% end %>
+</div>

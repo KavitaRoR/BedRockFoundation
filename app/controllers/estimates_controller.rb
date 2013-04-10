@@ -5,22 +5,22 @@ class EstimatesController < ApplicationController
   
   
   def email_estimate
-    @job = Job.find(params[:id])
+    @job = Job.find(params[:job_id])
     begin
       if @job.job_calc_type == "adhoc" || @job.foundation_kind.downcase.include?("concrete")
-        @estimate = Estimate.find(:last, :conditions => {:job_id => params[:id]})
+        @estimate = Estimate.find(:last, :conditions => {:job_id => params[:job_id]})
         
       else
         @job_type = JobType.find(:first, conditions: {kind: params[:type].capitalize})
-        @estimate = Estimate.find(:last, :conditions => {:job_id => params[:id], :job_type_id => @job_type.id})
+        @estimate = Estimate.find(:last, :conditions => {:job_id => params[:job_id], :job_type_id => @job_type.id})
 
         if !@estimate
-          @estimate = Estimate.create(job_id: params[:id], job_type_id: @job_type.id, flashvars: @job.options_for_print(params[:type].capitalize).with_indifferent_access, token: SecureRandom.hex(6))
+          @estimate = Estimate.create(job_id: params[:job_id], job_type_id: @job_type.id, flashvars: @job.options_for_print(params[:type].capitalize).with_indifferent_access, token: SecureRandom.hex(6))
         end
       end
       
       @estimate.update_attribute(:date_of_email_to_client, Time.now)
-      if EstimateMailer.send_to_contact(@estimate).deliver
+      if EstimateMailer.send_to_contact( @estimate, params ).deliver
         redirect_to :back, notice: "Mail Successfully sent to #{@estimate.job.contact.email}"
       else
         redirect_to :back, error: "Something went wrong emailing.  Try verifying the contact's email address."

@@ -16,7 +16,7 @@ Abundant::Application.routes.draw do
   match '/contacts/contact_active/:id' => "contacts#contact_active"
   match '/contacts/contact_dead/:id' => "contacts#contact_dead"
   match '/contacts/destroy/:id' => "contacts#destroy"
-  match '/estimates/email/:id/:type' => "estimates#email_estimate"
+  post  '/estimates/email' => "estimates#email_estimate"
   match "/estimates/client_estimate/:token" => "estimates#client_estimate"
   match "/estimates/view_estimate/:token" => "estimates#view_estimate"
   match "/e/:token" => "estimates#client_estimate"

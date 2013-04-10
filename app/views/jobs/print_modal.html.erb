@@ -18,12 +18,13 @@
 		<% end %>
 
 		<% if @estimate.date_of_email_to_client %>
-			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality].split(" ")[0] %>" id="email-link"  class="button big blue-gradient icon-mail">Re-Send Estimate to Customer</a><br />
+			<%= render partial: "/jobs/email_form", locals: { button_txt: "Re-Send Estimate to Customer", type: params[:type] } %>
+			<a href="javascript:void(0);" id="email-link"  class=" button big blue-gradient icon-mail">Re-Send Estimate to Customer</a><br />
 			<small>(Sent <%= @estimate.date_of_email_to_client.strftime("%m/%d/%Y at %I:%m %p") %>)</small>
 			<br /><br />
-			
 		<% else %>
-			<a href="/estimates/email/<%= @job.id %>/<%= @options_for_job[:job_quality].split(" ")[0] %>" id="email-link"  class="button big blue-gradient icon-mail">Email to Customer</a>
+			<%= render partial: "/jobs/email_form", locals: { button_txt: "Email to Customer", type: params[:type] } %>
+			<a href="javascript:void(0);" id="email-link"  class="button big blue-gradient icon-mail">Email to Customer</a>
 
 		<% end %>
 		<%= link_to "PRINT", "#", :class => "button big green-gradient icon-printer", :id => "print-link" %>
@@ -114,5 +115,11 @@
 		$("#print-link").click(function() {
 			window.print();
 		})
+	
+		$( "#email-link" ).click( function( e ) {
+			$( this ).hide();
+			$( "#email_estimate_form" ).slideToggle( "slow", function(){
+			});
+		});		
 	})
 </script>

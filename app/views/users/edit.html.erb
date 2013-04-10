@@ -27,5 +27,8 @@
 	<%= f.label :crew %><br />
 	<%= f.select :crew_id, Crew.all.collect{|c| [c.crew_name, c.id]}, :include_blank => true %><br />
 	<br />
+	<%= f.label :email_signature %><br />
+	<%= f.text_area :email_signature, style: "width: 350px; height: 150px;" %>
+	<br />
 	<%= f.submit "Save this User", class: "button green-gradient" %>
 <% end %>
