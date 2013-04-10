@@ -4,14 +4,14 @@
 		<%= day.strftime("%A %B %d, %Y") %>
 	</h2>
 	
-	<table class="table_liquid" cellspacing="0">
+	<table class="table_liquid" cellspacing="0" style="border-left: 1px solid gray">
 		<caption></caption>
 		<tr>
 			<% @crews.each do |c| %>
 				<th class="crew_name">
 					<b><%= c.crew_name %></b>
 					<div class="daycrewblock">
-						<b class="note_toggle">note</b>
+						<b class="note_toggle">Add a Note</b>
 						<% @day_crew_block = DayCrewBlock.new %>
 						<% @day_crew_block.crew_id = c.id %>
 						<% @day_crew_block.day = day.beginning_of_day %>

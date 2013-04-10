@@ -209,6 +209,12 @@ body{
 		width:100%;
 	
 		}
+		
+		#bg_wrapper.hiddenClass {
+			
+		background:none !important;
+			}
+			
 			/*----------------------------------------
 			2.2.1) Main
 			----------------------------------------*/
@@ -284,6 +290,13 @@ body{
 				padding-top:30px;
 				position:relative;
 				}
+				
+			#content.hiddenClass {
+				margin-left:30px;
+				margin-right:30px;
+				padding-top:30px;
+				position:relative;
+					}
 				
 			
 				
@@ -857,7 +870,7 @@ div.status_update h3 span {
 #top #queued_contracts {
 position: fixed; 
 background: rgba(0, 10, 22, 0.6); 
-top: 5px; left: 5px; 
+top: 5px; left: 270px; 
 padding: 10px 10px; 
 color: #fff; 
 z-index: 9999; 
@@ -943,7 +956,9 @@ display: block;
 
 th.crew_name b {
 	float:left;
+	clear:both;
 }
+
 
 div.daycrewblock form { 
 	clear: both;
@@ -967,9 +982,12 @@ div.daycrewblock form input[type="checkbox"]{
 }
 
 div.daycrewblock b { 
-	float: right;
+	text-align: center;
+	text-decoration: underline;
 }
 
+
+div.daycrewblock b.note_toggle:hover {cursor: pointer; cursor: hand	}
 
 .crew_block_button{
 	float:left;

@@ -29,6 +29,7 @@
 	</head>
 	<body>
 		<div id="top">
+			<a style="margin-top:10px; margin-left: 10px; color: #fff;" href="#" class="tog">hide/show Navigation</a>
 			<div id="head">
 				<h1 class="logo">
 					<a href="/">Bedrock Foundations Scheduling System</a>
@@ -37,6 +38,7 @@
 				<p class="alert"><%= alert %></p>
 				
 				<div class="head_memberinfo">
+					<br/>
 					<% if current_user %>
 						<span class='memberinfo_span'>
 							Welcome <a href=""><%= current_user.name %></a>
@@ -69,5 +71,18 @@
 		</div><!-- end top -->
 		<%= yield :js_bottom %>
 		<%= yield :scripts %>
+		
+		<script type="text/javascript" charset="utf-8">
+
+			jQuery(function() {
+
+				jQuery("#top a.tog").click(function() {
+					jQuery("#sidebar").toggle();
+					jQuery("#nav").toggle();
+					jQuery("#bg_wrapper").toggleClass("hiddenClass");
+					jQuery("#content").toggleClass("hiddenClass");
+				});
+			});
+				</script>
 	</body>
 </html>
