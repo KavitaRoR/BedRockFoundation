@@ -1,0 +1,27 @@
+<div class="jquery_tab">
+	<div class="content_block">
+		<h2 class="jquery_tab_title">Money Owed</h2>
+		<%= render partial: 'reports/money_owed', 
+			locals: { campaigns: @campaigns } %>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$( document ).ready( function( ) {
+		
+		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+
+		$( "a.referral_contacts" ).click( function() {
+			$( "#customer_campaign_" + $( this ).data( "id" ) ).slideToggle( "slow", function(){
+				var campaign_id = this.id.split( "_" )[2];
+				$.ajax({
+					url: "/reports/customers/" + campaign_id,
+					success: function(){
+						$( "#customer_campaign_" + campaign_id ).css( { height: "auto" } );
+					}
+				});
+			});
+		 });
+
+	});
+</script>

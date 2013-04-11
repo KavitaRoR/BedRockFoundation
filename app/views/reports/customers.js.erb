@@ -1,0 +1,1 @@
+$( "#customer_campaign_<%= @campaign_id %>" ).html( "<%= escape_javascript( render partial: 'customer_rows', locals: { customer_list: @customer_list } )%>" );

@@ -1,0 +1,45 @@
+<% if campaigns.empty? %>
+	No report data available
+<% else %>
+	<div class="center">
+		<strong>Report for <%= campaigns.first.name %></strong>
+	</div>
+	<table class="table_liquid" cellspacing="0">
+		<thead>
+	  <tr style="text-align:'center';">
+	    <th>Customer Name</th>
+	    <th>Invoice #</th>
+	    <th>Date Sold</th>
+	    <th>Total Amount</th>
+	    <th>Commission Owed</th>
+	  </tr>
+		</thead>
+		<tbody>
+			<% campaigns.each do |campaign| %>
+				<tr class="<%= cycle("", "alt", :name => "row_class") -%>">
+					<td>
+						<%= campaign.contact_name %>
+						<div style="display:none;height: 300px;" id="customer_campaign_<%= campaign.id %>">
+							<div align="center">
+								<%= image_tag "ajax-loader.gif", size: "32x32" %>
+							</div>
+						</div>
+					</td>
+					<td><%= campaign.invoice_number %></td>
+					<td><%= campaign.contract_date.strftime( '%-m/%-d/%Y' ) %></td>
+					<td><%= money_from_cents( campaign.price_in_cents ) %></td>
+					<td><%= money_from_cents( commission_owed( campaign.price_in_cents ) ) %></td>
+				</tr>
+			<% end %>
+			<tr>
+				<td colspan="5">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align: right;"><strong>Totals:</strong></td>
+				<td><%= money_from_cents( campaigns.sum( :price_in_cents ) ) %></td>
+				<td><%= money_from_cents( commission_owed( campaigns.sum( :price_in_cents ) ) ) %></td>
+			</tr>
+			
+		</tbody>
+	</table>
+<% end %>

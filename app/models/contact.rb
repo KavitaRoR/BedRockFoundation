@@ -11,6 +11,8 @@ class Contact < ActiveRecord::Base
   before_save :geocode_address
   after_save :update_estimates_in_the_hopper
 
+  scope :last_name, order( :last_name )
+
   def name 
     return company if !company.blank?
     return "**NO NAME**" if first_name.blank? && last_name.blank?

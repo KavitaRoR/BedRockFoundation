@@ -30,4 +30,5 @@
 	$('input[@title]').example(function() {
 		return $(this).attr('title');
 	});
+
 })

@@ -1,0 +1,26 @@
+<table class="table_liquid" cellspacing="0">
+	<thead>
+  <tr style="text-align:'center';">
+    <th>Referral Name</th>
+  </tr>
+	</thead>
+	<tbody>
+		<% campaigns.each do |campaign| %>
+			<tr class="<%= cycle("", "alt", :name => "row_class") -%>">
+				<td>
+					<% if campaign.contacts.count > 0 %>						
+						<%= link_to( image_tag( 'icons/add.png', size: '16x16'), 
+							"javascript:void(0);", "data-id" => "#{campaign.id}", 
+							 class: "referral_sales" )  %>
+					<% end %>
+					<%= campaign.name %>
+					<div style="display:none;height: 300px;" id="company_campaign_<%= campaign.id %>">
+						<div align="center">
+							<%= image_tag "ajax-loader.gif", size: "32x32" %>
+						</div>
+					</div>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
