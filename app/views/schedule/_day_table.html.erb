@@ -102,9 +102,13 @@
 						 %>
 						
 						<% unless job.nil? %>
-						<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
-							rel="<%= job.lat %>,<%= job.lng %>,<%= c.ordering %>,<%= c.crew_name %>,<%= z.token %>,<%= job.contact.last_name %>" target="_blank" class="job_site">
-							<%= job.lat %>,<%= job.lng %></a><br />
+							<% if job.lat.nil? or job.lng.nil? %>
+								Could not map location for <%= job.contact.name %><br />
+							<% else %>
+								<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
+									rel="<%= job.lat %>,<%= job.lng %>,<%= c.ordering %>,<%= c.crew_name %>,<%= z.token %>,<%= job.contact.last_name %>" target="_blank" class="job_site">
+									<%= job.lat %>,<%= job.lng %></a><br />
+							<% end %>
 						<% end %>
 						<% end %>
 					</div>
@@ -120,9 +124,13 @@
 				<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day }.each do |z| %>
 					<% job = z.estimate.job %>
 					<% unless job.nil? %>
-					<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
-						rel="<%= job.lat %>,<%= job.lng %>,<%= z.crew.ordering %>,<%= z.position_in_day %>,<%= z.crew.crew_name %>,<%= z.estimate.token %>,<%= job.contact.last_name %>" target="_blank" class="job_site">
-						<%= job.lat %>,<%= job.lng %></a><br />
+						<% if job.lat.nil? or job.lng.nil? %>
+							Could not map location for <%= job.contact.name %><br />
+						<% else %>
+							<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
+								rel="<%= job.lat %>,<%= job.lng %>,<%= z.crew.ordering %>,<%= z.position_in_day %>,<%= z.crew.crew_name %>,<%= z.estimate.token %>,<%= job.contact.last_name %>" target="_blank" class="job_site">
+								<%= job.lat %>,<%= job.lng %></a><br />
+						<% end %>
 					<% end %>
 				<% end %>
 				</div>
