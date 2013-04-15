@@ -4,6 +4,8 @@ class Estimate < ActiveRecord::Base
   belongs_to :job_type
   
   has_many :wepay_checkout_records, :foreign_key => :reference_id
+  has_many :square_payments
+  has_many :check_payments
   
   before_create :generate_invoice_number
   after_create :remove_off_level_to_show
@@ -69,7 +71,16 @@ class Estimate < ActiveRecord::Base
       end
     end
 
-  
+  def save_payment( params )
+    if params[:payment_type] == "SquarePayment"
+      self.square_payments.create!( 
+        receipt_number: params[:receipt_number], total: params[:total] )
+    else
+      self.check_payments.create!(
+        check_number: params[:check_number], total: params[:total] )
+    end  
+  end
+
   protected
   def generate_invoice_number
     str = Estimate.find(:all, :order => "invoice_number DESC").first.invoice_number

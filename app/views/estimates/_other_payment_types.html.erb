@@ -1,0 +1,83 @@
+<%= form_for( @estimate, url: '/estimates/pay_estimate', method: "post" ) do |f| %>
+	<%= f.hidden_field :token %>
+	<%= label_tag :payment_type, "Payment Type" %>
+	<%= select_tag :payment_type, 
+		options_for_select( [["Square", "SquarePayment"],["Check", "CheckPayment"]]), 
+		prompt: "Payment Type" %>
+
+	<div id="check_fields" style="display:none;">
+		<%= label_tag :check_number, "Check #" %>
+		<%= text_field_tag :check_number %>
+	</div>
+
+	<div id="square_fields" style="display:none;">
+		<%= label_tag :receipt_number, "Receipt #" %>
+		<%= text_field_tag :receipt_number %>
+	</div>
+
+	<%= label_tag :total, "Amount" %>
+	<%= text_field_tag :total, total_to_pay %>
+
+	<%= f.submit :submit, class: "button green-gradient big" %>
+
+<% end %>
+
+<style type="text/css">
+	.payment_form {
+		margin:0 auto;
+		width:400px;
+		padding:14px;
+		height: 250px;
+	}
+
+
+	#payment_div_id {
+		border:solid 2px #b7ddf2;
+		background:#ebf4fb;
+		height: 200px;
+	}
+	
+	#payment_div_id h1 {
+		font-size:14px;
+		font-weight:bold;
+		margin-bottom:8px;
+	}
+	
+	#payment_div_id p {
+		font-size:11px;
+		color:#666666;
+		margin-bottom:20px;
+		border-bottom:solid 1px #b7ddf2;
+		padding-bottom:10px;
+	}
+	
+	#payment_div_id label {
+		display:block;
+		font-weight:bold;
+		text-align:right;
+		width:140px;
+		float:left;
+	}
+	
+	#payment_div_id .small {
+		color:#666666;
+		display:block;
+		font-size:11px;
+		font-weight:normal;
+		text-align:right;
+		width:140px;
+	}
+	
+	#payment_div_id input, select {
+		float:left;
+		font-size:12px;
+		padding:4px 2px;
+		border:solid 1px #aacfe4;
+		width:200px;
+		margin:2px 0 20px 10px;
+	}
+	#payment_div_id .button {
+		float: right;
+		margin-right: 50px;
+	}	
+</style>

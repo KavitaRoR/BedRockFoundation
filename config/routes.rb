@@ -24,6 +24,7 @@ Abundant::Application.routes.draw do
   match "/estimates/push_to_sold/:id/:type" => "estimates#push_to_sold"
   match "/estimates/off_level_to_show" => "estimates#off_level_to_show"
   post "/estimates/add_note" => "estimates#add_note"
+  post "/estimates/pay_estimate" => "estimates#pay_estimate"
   match "/estimates/view_notes/:token" => "estimates#view_notes"
   match "/users/create" => "users#create"
   match "/schedule/(:action)" => "schedule"
