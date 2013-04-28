@@ -61,63 +61,12 @@ ActiveRecord::Schema.define(:version => 20130415140544) do
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
-  create_table "candidate_batches", :force => true do |t|
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.string   "batch_file_name"
-    t.string   "batch_content_type"
-    t.integer  "batch_file_size"
-    t.datetime "batch_updated_at"
-  end
-
-  create_table "candidates", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email",                                       :null => false
-    t.string   "encrypted_password",                          :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",           :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.integer  "failed_attempts",         :default => 0
-    t.string   "unlock_token"
-    t.datetime "locked_at"
-    t.string   "authentication_token"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
-    t.string   "ym_id"
-    t.text     "ym_custom_exam_fields"
-    t.integer  "record_id"
-    t.string   "username"
-    t.string   "middle_name"
-    t.string   "schedule_request_status", :default => "none"
-  end
-
-  add_index "candidates", ["email"], :name => "index_candidates_on_email", :unique => true
-  add_index "candidates", ["reset_password_token"], :name => "index_candidates_on_reset_password_token", :unique => true
-
-  create_table "contact_instances", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "phone_number"
-    t.string   "email"
-    t.text     "comment"
-    t.integer  "candidate_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-=======
   create_table "check_payments", :force => true do |t|
     t.string   "check_number"
     t.decimal  "total",        :precision => 10, :scale => 2, :default => 0.0
     t.integer  "estimate_id"
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
->>>>>>> 432b886201990f728e6c381b0230927eae1c1656
   end
 
   create_table "contact_statuses", :force => true do |t|
