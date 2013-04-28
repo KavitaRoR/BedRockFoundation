@@ -1,4 +1,5 @@
 Abundant::Application.routes.draw do
+
   WepayRails.routes(self)
 
   resources :foundation_calculators
@@ -16,21 +17,25 @@ Abundant::Application.routes.draw do
   match '/contacts/contact_active/:id' => "contacts#contact_active"
   match '/contacts/contact_dead/:id' => "contacts#contact_dead"
   match '/contacts/destroy/:id' => "contacts#destroy"
-  match '/estimates/email/:id/:type' => "estimates#email_estimate"
+  post  '/estimates/email' => "estimates#email_estimate"
   match "/estimates/client_estimate/:token" => "estimates#client_estimate"
   match "/estimates/view_estimate/:token" => "estimates#view_estimate"
   match "/e/:token" => "estimates#client_estimate"
   match "/estimates/push_to_sold/:id/:type" => "estimates#push_to_sold"
   match "/estimates/off_level_to_show" => "estimates#off_level_to_show"
   post "/estimates/add_note" => "estimates#add_note"
+  post "/estimates/pay_estimate" => "estimates#pay_estimate"
   match "/estimates/view_notes/:token" => "estimates#view_notes"
   match "/users/create" => "users#create"
   match "/schedule/(:action)" => "schedule"
   match 'jobs/foreman_print_modal/(:id)' => 'jobs#foreman_print_modal'
   match "/users/become/(:id)" => 'users#become'
+  match "/reports/customers/:id" => "reports#customers"
+  post  "/reports/search" => "reports#search"
   namespace :purchase do
     match "/finalize" => 'finalize#index'
   end
+  match "/reports" => "reports#index"
 
   resources :rock_pad_variables, :next_actions, :pad_jobs, :statuses, :foundations, :pad_sizes, :trucks, :rock_pad_variables, :jobs, :contacts, :campaigns, :locations, :schedule, :shed_companies, :crews, :content_data, :crew_dashboard, :users
   

@@ -1,0 +1,12 @@
+<ul class="campaign_customer_list">
+	<li class="header">Customer Name</li>
+	<li class="header">Invoice #</li>
+	<li class="header">Total Price</li>
+</ul>
+<% customer_list.last_name.select{ |c| c.has_sold_contract? }.each do |customer| %>
+	<ul class="campaign_customer_list" style="border-bottom: 1px solid #ccc;">
+		<li><%= customer.name %></li>
+		<li></li>
+		<li><%= "#{money_from_cents( customer.jobs.first.price_in_cents )}" %></li>
+	</ul>
+<% end %>

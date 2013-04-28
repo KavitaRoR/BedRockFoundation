@@ -10,7 +10,7 @@
 				<th class="crew_name">
 					<b><%= c.crew_name %></b>
 					<div class="daycrewblock">
-						<b class="note_toggle">note</b>
+						<b class="note_toggle">Add Note</b>
 						<% @day_crew_block = DayCrewBlock.new %>
 						<% @day_crew_block.crew_id = c.id %>
 						<% @day_crew_block.day = day.beginning_of_day %>
@@ -93,9 +93,13 @@
 							Home Base</a><br />
 						<% for job in jobs %>
 						<% unless job.nil? %>
-						<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
-							rel="<%= job.lat %>,<%= job.lng %>" target="_blank" class="job_site">
-							<%= job.lat %>,<%= job.lng %></a><br />
+							<% if job.lat.nil? or job.lng.nil? %>
+								Could not map location for <%= job.contact.name %><br />
+							<% else %>
+								<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
+									rel="<%= job.lat %>,<%= job.lng %>" target="_blank" class="job_site">
+									<%= job.lat %>,<%= job.lng %></a><br />
+							<% end %>	
 						<% end %>
 						<% end %>
 					</div>
@@ -111,9 +115,13 @@
 				<% @contracts.select{|co| co.scheduled_date.beginning_of_day == day.beginning_of_day }.each do |z| %>
 					<% job = z.estimate.job %>
 					<% unless job.nil? %>
-					<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
-						rel="<%= job.lat %>,<%= job.lng %>,<%= z.crew.ordering %>" target="_blank" class="job_site">
-						<%= job.lat %>,<%= job.lng %></a><br />
+						<% if job.lat.nil? or job.lng.nil? %>
+							Could not map location for <%= job.contact.name %><br />
+						<% else %>
+							<a href="http://maps.google.com/maps?q=<%= job.lat %>,<%= job.lng %>"
+								rel="<%= job.lat %>,<%= job.lng %>,<%= z.crew.ordering %>" target="_blank" class="job_site">
+								<%= job.lat %>,<%= job.lng %></a><br />
+						<% end %>
 					<% end %>
 				<% end %>
 				</div>

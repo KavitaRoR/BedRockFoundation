@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328183320) do
+ActiveRecord::Schema.define(:version => 20130415140544) do
 
   create_table "answer_instances", :force => true do |t|
     t.integer  "original_answer_id"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130328183320) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
   create_table "candidate_batches", :force => true do |t|
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
@@ -109,6 +110,14 @@ ActiveRecord::Schema.define(:version => 20130328183320) do
     t.integer  "candidate_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+=======
+  create_table "check_payments", :force => true do |t|
+    t.string   "check_number"
+    t.decimal  "total",        :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "estimate_id"
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
+>>>>>>> 432b886201990f728e6c381b0230927eae1c1656
   end
 
   create_table "contact_statuses", :force => true do |t|
@@ -545,6 +554,14 @@ ActiveRecord::Schema.define(:version => 20130328183320) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "square_payments", :force => true do |t|
+    t.string   "receipt_number"
+    t.decimal  "total",          :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "estimate_id"
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
+  end
+
   create_table "statuses", :force => true do |t|
     t.integer  "job_id"
     t.integer  "next_action_id"
@@ -600,6 +617,7 @@ ActiveRecord::Schema.define(:version => 20130328183320) do
     t.datetime "updated_at",                            :null => false
     t.string   "permissions_levels"
     t.integer  "crew_id"
+    t.text     "email_signature"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

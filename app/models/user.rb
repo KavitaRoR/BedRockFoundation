@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :crew_id, :permissions_levels
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :crew_id, :permissions_levels, :email_signature
   belongs_to :crew
 
   def is_admin?

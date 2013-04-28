@@ -1,0 +1,19 @@
+<%= form_tag "reports/search", remote: true do %>
+	<table style="width:400px;">
+		<tr>
+			<td style="border: none;">
+				Campaign: <%= select_tag :campaign, options_for_select( @campaigns ) %>
+			</td>
+			<td style="border: none;">
+				From: <%= text_field_tag :from, "#{3.months.ago.strftime( '%Y-%m-%d' )}", class: "datepicker" %>
+			</td>
+			<td style="border: none;">
+				To: <%= text_field_tag :to, "#{Time.now.end_of_month.strftime( '%Y-%m-%d' )}", class: "datepicker" %>
+			</td>
+			<td style="border: none;"><%= submit_tag :search, class: "blue-gradient button glossy" %></td>
+		</tr>
+	</table>
+<% end %>
+
+<div id="campaign_div"></div>
+	
