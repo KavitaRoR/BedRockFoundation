@@ -14,8 +14,5 @@
 /log/*.log
 /tmp
 *.DS_Store
-<<<<<<< HEAD
 .rvmrc
-=======
-.rvmrc
->>>>>>> 655256b3420afc97f4f2da6e35eeb85a1f1ccca4
+log/*
