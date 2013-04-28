@@ -91,10 +91,19 @@ class EstimatesController < ApplicationController
       @payment_buttons = false
     end
   end
+
+  def pay_estimate
+    @estimate = Estimate.find_by_token(params[:estimate][:token])
+      if @estimate.save_payment( params )
+        redirect_to "/estimates/client_estimate/#{params[:estimate][:token]}", notice: "Payment entered Successfully!"
+      else
+        redirect_to "/estimates/client_estimate/#{params[:estimate][:token]}", notice: "Unable to save payment"
+      end
+  end
   
   
   def view_estimate
-    @estimate = Estimate.find_by_token(params[:token])    
+    @estimate = Estimate.find_by_token(params[:estimate][:token])    
     @job = @estimate.job
     @job_type = @estimate.job_type
     @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130329150548) do
+ActiveRecord::Schema.define(:version => 20130415140544) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(:version => 20130329150548) do
     t.integer  "cost_in_cents"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "check_payments", :force => true do |t|
+    t.string   "check_number"
+    t.decimal  "total",        :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "estimate_id"
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
   end
 
   create_table "contact_statuses", :force => true do |t|
@@ -276,6 +284,14 @@ ActiveRecord::Schema.define(:version => 20130329150548) do
     t.string   "company"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "square_payments", :force => true do |t|
+    t.string   "receipt_number"
+    t.decimal  "total",          :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "estimate_id"
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
   end
 
   create_table "statuses", :force => true do |t|

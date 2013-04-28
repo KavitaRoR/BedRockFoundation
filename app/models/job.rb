@@ -399,6 +399,7 @@ class Job < ActiveRecord::Base
     
     def calculate_concrete_pad_costs
       self.discount = 0.00 if self.discount == nil
+      self.additional_price = 0.00 if self.additional_price == nil
       self.price_in_cents = self.concrete_job.total_price + (self.additional_price * 100) - (self.discount * 100)
       self.labor_cost_in_cents = self.concrete_job.total_labor_cost
       self.material_cost_in_cents = self.concrete_job.total_material_cost
@@ -406,6 +407,7 @@ class Job < ActiveRecord::Base
     
     def calculate_rock_pad_costs
       self.discount = 0.00 if self.discount == nil
+      self.additional_price = 0.00 if self.additional_price == nil
       self.price_in_cents = self.pad_job.total_price + self.pad_job.extra_slope_costs + (self.additional_price * 100) - (self.discount * 100)
       self.labor_cost_in_cents = self.pad_job.total_labor_cost
       self.material_cost_in_cents = self.pad_job.total_material_cost
@@ -413,6 +415,7 @@ class Job < ActiveRecord::Base
 
     def calculate_adhoc_job_costs
       self.discount = 0.00 if self.discount == nil
+      self.additional_price = 0.00 if self.additional_price == nil
       self.price_in_cents = self.adhoc_job.total_price + (self.additional_price * 100) - (self.discount * 100)
       self.labor_cost_in_cents = self.adhoc_job.total_labor_cost
       self.material_cost_in_cents = self.adhoc_job.total_material_cost

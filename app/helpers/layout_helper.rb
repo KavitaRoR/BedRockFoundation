@@ -20,9 +20,9 @@ module LayoutHelper
     args = args.map { |arg| arg == :defaults ? arg : arg.to_s }
     content_for(:head) { javascript_include_tag(*args) }
   end
-  def money_from_cents(cents)
+  def money_from_cents(cents, unit="$")
     return "$0" if cents == 0 || cents.nil?
-    number_to_currency (cents.to_f / 100)
+    number_to_currency( (cents.to_f / 100), unit: unit)
   end
   
   def class_current_if(str)

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  receipt_number: MyString
+  total: 9.99
+  estimate_id: 1
+
+two:
+  receipt_number: MyString
+  total: 9.99
+  estimate_id: 1
