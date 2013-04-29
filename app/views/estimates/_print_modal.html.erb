@@ -62,7 +62,7 @@
 			<td colspan="1" style="text-align: right;">
 				<strong>
 					<% if @job.job_calc_type == "pad" %>
-						<%= money_from_cents(@job.specific_offlevel(@type)[:zero][0] + (@job.discount * 100)) %>
+						<%= money_from_cents(@job.specific_offlevel(params[:type])[:zero][0] + (@job.discount * 100)) %>
 					<% elsif @job.job_calc_type != "adhoc" %>
 						<%= money_from_cents(@job.price_in_cents - @job.addition_prices_totaled - (@job.pad_job.extra_slope_costs rescue 0)  + (@job.discount * 100)) %>
 					<% end %>
@@ -145,9 +145,9 @@
 			</td>
 			<td colspan="2">
 				<ul style="list-style-type:none; text-align:left; width:120px;">
-					<% @job.specific_offlevel_diff(@type).each do |k, v| %>
+					<% @job.specific_offlevel_diff(params[:type]).each do |k, v| %>
 						<% if k != :zero && @estimate.off_level_to_show.include?(v[1].to_s) %>
-							<li><strong><%= v[1] %>"</strong> +<%= money_from_cents(v[0] - @job.specific_offlevel_diff(@type)[:zero][0]) %></li>
+							<li><strong><%= v[1] %>"</strong> +<%= money_from_cents(v[0] - @job.specific_offlevel_diff(params[:type])[:zero][0]) %></li>
 						<% end %>
 					<% end %>
 				<ul>
@@ -257,7 +257,7 @@
 							<% 	if @job.off_level_amount_in_inches.nil? || @job.off_level_amount_in_inches == 0
 									offleveldifferential = 0
 								else
-									offleveldifferential = @job.specific_offlevel(@type)[:zero][0] - @job.specific_offlevel(@job.job_type.kind)[:zero][0]
+									offleveldifferential = @job.specific_offlevel(params[:type])[:zero][0] - @job.specific_offlevel(@job.job_type.kind)[:zero][0]
 								end									
 							%>
 						<p><strong><%= "#{money_from_cents(bundle_total + @job.price_in_cents + offleveldifferential)}" %></strong></p>
