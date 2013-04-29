@@ -1,7 +1,7 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/extras/Scroller
 //= require dataTables/extras/TableTools
-
+//= require select2
 
 
 (function($) {
