@@ -1,3 +1,9 @@
+//= require dataTables/jquery.dataTables
+//= require dataTables/extras/Scroller
+//= require dataTables/extras/TableTools
+
+
+
 (function($) {
 	// BUTTONS
 	$('.fg-button').hover(

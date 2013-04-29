@@ -5,7 +5,7 @@
 		<meta name="description" content="Reflect Template" />
 		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 		<title>Bedrock Foundations Scheduling System</title>
-		<%= stylesheet_link_tag "stylesheets/style_all.css", "stylesheets/style2.css", 'gmaps4rails', 'jquery.fancybox-1.3.4', 'shortcodes', 'colors' %>
+		<%= stylesheet_link_tag 'application', "stylesheets/style_all.css", "stylesheets/style2.css", 'gmaps4rails', 'jquery.fancybox-1.3.4', 'shortcodes', 'colors' %>
 		<!--[if IE 6]>
 			<script src="/javascripts/ie6pngfix.js"></script>
 			<script>
@@ -29,14 +29,15 @@
 	</head>
 	<body>
 		<div id="top">
-			<a style="margin-top:10px; margin-left: 10px; color: #fff;" href="#" class="tog">hide/show Navigation</a>
+			<a style="margin-top:10px; margin-left: 10px; color: #fff; position: absolute;" href="#" class="tog">hide/show Navigation</a>
 			<div id="head">
-				<h1 class="logo">
-					<a href="/">Bedrock Foundations Scheduling System</a>
-				</h1>
+				<% if notice %>
 				<p class="notice"><%= notice %></p>
+				<% end %>
+				<% if alert %>
 				<p class="alert"><%= alert %></p>
-				
+				<% end %>
+
 				<div class="head_memberinfo">
 					<br/>
 					<% if current_user %>

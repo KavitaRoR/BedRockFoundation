@@ -19,7 +19,7 @@ class Job < ActiveRecord::Base
   before_create :geocode_address_for_create
   # before_update :geocode_address, if: Proc.new{ |f| f.distance.nil?  }
   # validate :geocode_address, if: Proc.new{ |f| f.distance.nil?  }
-  before_save :calculate_pad_costs
+  before_save :calculate_pad_costs, :save_schedule
   # before_save :remove_off_level_to_show
   
   scope :by_recent, :order => "updated_at DESC"
@@ -394,6 +394,18 @@ class Job < ActiveRecord::Base
       
       self.job_additions.each do |ja|
         self.price_in_cents = self.price_in_cents + ja.addition_price_in_cents
+      end
+    end
+
+    def save_schedule
+      if self.estimates.any? {|e| !e.contract.nil? }
+        begin 
+          self.current_scheduled_at = self.estimates.find{|e| !e.contract.nil? && !e.contract.scheduled_date.nil? }.contract.scheduled_date.beginning_of_day
+          if self.originally_scheduled_at.nil?
+            self.originally_scheduled_at = self.current_scheduled_at
+          end
+        rescue
+        end
       end
     end
     

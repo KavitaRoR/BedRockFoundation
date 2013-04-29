@@ -1,0 +1,28 @@
+<table id="datatable" class="display" data-source="<%= estimates_url(format: "json") %>">
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Estimate #</th>
+      <th>Schedule Date</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+
+</table>
+
+<% content_for :js_bottom do %>
+  <script>
+  $(document).ready(function(){
+    $("table#datatable").dataTable({
+      sPaginationType: "full_numbers",
+      bProcessing: true,
+      bServerSide: true,
+      sAjaxSource: $('table#datatable').data('source')
+    });
+    
+  })
+  </script>
+
+<% end %>

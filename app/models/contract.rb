@@ -5,6 +5,8 @@ class Contract < ActiveRecord::Base
   belongs_to :arrival_range
   
   # before_create :check_schedule
+
+  before_save :persist_scheduled_date
   
   def name
     self.estimate.job.name
@@ -12,6 +14,16 @@ class Contract < ActiveRecord::Base
 
   def location
     self.estimate.job.city_state
+  end
+
+  def persist_scheduled_date
+    if scheduled_date
+      estimate.job.current_scheduled_at = scheduled_date.beginning_of_day
+      if estimate.job.originally_scheduled_at
+        estimate.job.originally_scheduled_at = estimate.job.current_scheduled_at
+      end
+      estimate.job.save
+    end
   end
   
 

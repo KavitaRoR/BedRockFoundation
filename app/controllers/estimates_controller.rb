@@ -2,7 +2,17 @@ class EstimatesController < ApplicationController
   before_filter :authenticate_user!, except: [:client_estimate]
   layout 'client', :only => [:client_estimate, :view_estimate]
   include WepayRails::Payments
-  
+
+  def list
+
+  end
+    
+  def index
+    respond_to do |format|
+      format.html
+      format.json { render json: EstimatesDatatable.new(view_context) }
+    end
+  end
   
   def email_estimate
     @job = Job.find(params[:job_id])
