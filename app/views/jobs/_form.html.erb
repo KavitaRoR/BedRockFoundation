@@ -48,83 +48,7 @@
 				<p style="color:#FF0000; display:none;" id="your-wrong-area">Please enter a valid AREA.</p>
 			</td>
 		</tr>
-		<script type="text/javascript">
-			function isNumeric(n) {
-			  return !isNaN(parseFloat(n)) && isFinite(n);
-			}
-			
-			function validateFields(ele) {
-				var val = $(ele).val();
-				if (isNumeric(val)) {
-					return true
-				} else {
-					return false
-				}
-			}
-			
-			$(document).ready(function() {
 
-				$('.select2-concrete-prices').select2({
-						width: "150px", 
-						data:[<%= (80..200).step(5).map{|r|"{id:'#{r}',text:'$#{r}'}"}.join(",") %>], 
-						createSearchChoice: function(term) { return {id:term, text:"$"+term } }
-				});
-				$('.select2-courses-blocks').select2({
-						width: "150px", 
-						data:[<%= (0..20).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
-						createSearchChoice: function(term) { return {id:term, text:term} }
-				});
-				$('.select2-slab-thick').select2({
-						width: "150px", 
-						data:[<%= (0..20).step(2).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
-						createSearchChoice: function(term) { return {id:term, text:term} }
-				});
-				$('.select2-gib-footer-thick').select2({
-						width: "150px", 
-						data:[<%= (6..20).step(2).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
-						createSearchChoice: function(term) { return {id:term, text:term} }
-				});
-				$('.select2-gravel-base-thick').select2({
-						width: "150px", 
-						data:[<%= (0..20).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
-						createSearchChoice: function(term) { return {id:term, text:term} }
-				});
-				$('.select2-edge-thick').select2({
-						width: "150px", 
-						data:[<%= (12..30).step(6).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
-						createSearchChoice: function(term) { return {id:term, text:term} }
-				});
-
-				$("#job_width").keyup(function() {
-					if (validateFields($("#job_width"))) {
-						$("#your-wrong-width").fadeOut();
-						if (validateFields($("#job_length"))) {
-							$("#job_area").val($("#job_length").val() * $("#job_width").val())
-						}
-					} else {
-						$("#your-wrong-width").fadeIn();
-					}
-				})
-				$("#job_length").keyup(function() {
-					if (validateFields($("#job_length"))) {
-						$("#your-wrong-length").fadeOut();
-						if (validateFields($("#job_width"))) {
-							$("#job_area").val($("#job_length").val() * $("#job_width").val())
-						}
-					} else {
-						$("#your-wrong-length").fadeIn();
-					}
-				})
-				$("#job_area").keyup(function() {
-					if (validateFields($("#job_area"))) {
-						$("#your-wrong-area").fadeOut();
-					} else {
-						$("#your-wrong-area").fadeIn();
-					}
-				})
-				
-			})
-		</script>
 		<tr class="rock_pad">
 			<td><%= f.label :border_sixbysix, "Use 6x6 timbers?" %></td>
 			<td><%= f.check_box :border_sixbysix %>  (check for yes)</td>
@@ -228,24 +152,6 @@
 						<td>&nbsp;</td>
 					</tr>
 					<% end %>
-					<script type="text/javascript" charset="utf-8">
-						$(document).ready(function() {
-							$(".actualhours").hide();
-							$('.acthourslink.red-gradient').hide();
-							$('.acthourslink').click(function(){
-								$(".actualhours").toggle("slow");
-								$('.acthourslink.green-gradient').toggle();
-								$('.acthourslink.red-gradient').toggle();
-							});
-							$('.desclink.green-gradient').hide();
-							$('.desclink').click(function(){
-								$(".daydesc").toggle("slow");
-								$('.desclink.green-gradient').toggle();
-								$('.desclink.red-gradient').toggle();
-							})
-							
-						});
-					</script>
 				</table>
 			</td>
 		</tr>
@@ -391,7 +297,21 @@
 </p>
 <% end %>
 
-<script type="text/javascript">
+
+		<script type="text/javascript">
+			function isNumeric(n) {
+			  return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+			
+			function validateFields(ele) {
+				var val = $(ele).val();
+				if (isNumeric(val)) {
+					return true
+				} else {
+					return false
+				}
+			}
+
 	function hideAndShowAppropriate() {
 		var chosen = $("#job_foundation_calculator_id").val();
 		if (chosen == "2") {
@@ -422,7 +342,10 @@
 		}
 	}
 
-	$(document).ready(function() {
+			
+			
+			$(document).ready(function() {
+
 		hideAndShowAppropriate();
 		$("#job_job_type_id").change(function() {
 			if ($(this).val() == "1") {
@@ -435,5 +358,81 @@
 		})
 		
 		$("#job_foundation_calculator_id").change(hideAndShowAppropriate);
-	})
-</script>
+
+
+							$(".actualhours").hide();
+							$('.acthourslink.red-gradient').hide();
+							$('.acthourslink').click(function(){
+								$(".actualhours").toggle("slow");
+								$('.acthourslink.green-gradient').toggle();
+								$('.acthourslink.red-gradient').toggle();
+							});
+							$('.desclink.green-gradient').hide();
+							$('.desclink').click(function(){
+								$(".daydesc").toggle("slow");
+								$('.desclink.green-gradient').toggle();
+								$('.desclink.red-gradient').toggle();
+							})
+
+
+				$('.select2-concrete-prices').select2({
+						width: "150px", 
+						data:[<%= (80..200).step(5).map{|r|"{id:'#{r}',text:'$#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:"$"+term } }
+				});
+				$('.select2-courses-blocks').select2({
+						width: "150px", 
+						data:[<%= (0..20).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:term} }
+				});
+				$('.select2-slab-thick').select2({
+						width: "150px", 
+						data:[<%= (0..20).step(2).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:term} }
+				});
+				$('.select2-gib-footer-thick').select2({
+						width: "150px", 
+						data:[<%= (6..20).step(2).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:term} }
+				});
+				$('.select2-gravel-base-thick').select2({
+						width: "150px", 
+						data:[<%= (0..20).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:term} }
+				});
+				$('.select2-edge-thick').select2({
+						width: "150px", 
+						data:[<%= (12..30).step(6).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:term} }
+				});
+
+				$("#job_width").keyup(function() {
+					if (validateFields($("#job_width"))) {
+						$("#your-wrong-width").fadeOut();
+						if (validateFields($("#job_length"))) {
+							$("#job_area").val($("#job_length").val() * $("#job_width").val())
+						}
+					} else {
+						$("#your-wrong-width").fadeIn();
+					}
+				})
+				$("#job_length").keyup(function() {
+					if (validateFields($("#job_length"))) {
+						$("#your-wrong-length").fadeOut();
+						if (validateFields($("#job_width"))) {
+							$("#job_area").val($("#job_length").val() * $("#job_width").val())
+						}
+					} else {
+						$("#your-wrong-length").fadeIn();
+					}
+				})
+				$("#job_area").keyup(function() {
+					if (validateFields($("#job_area"))) {
+						$("#your-wrong-area").fadeOut();
+					} else {
+						$("#your-wrong-area").fadeIn();
+					}
+				})
+				
+			})
+		</script>
