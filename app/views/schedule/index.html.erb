@@ -3,7 +3,7 @@
     <div class="content_block">
 		<div id="filter_links">Weeks out: 
     	<a href="/schedule/?until=-6.w">prev 6w</a> | 
-    	<a href="/schedule/" style="color: #f90; font-weight: bold;">TODAY - <%= (Time.current + 4.weeks).strftime("%m/%d") %></a> | 
+    	<a href="/schedule/" style="color: #f90; font-weight: bold;">TODAY - <%= (Time.current + @num_weeks.weeks).strftime("%m/%d") %></a> | 
     	<a href="/schedule/?until=4.w"><%= (Time.current + 4.weeks).strftime("%m/%d") %> - <%= (Time.current + 8.weeks).strftime("%m/%d") %></a> | 
     	<a href="/schedule/?until=8.w"><%= (Time.current + 8.weeks).strftime("%m/%d") %> - <%= (Time.current + 12.weeks).strftime("%m/%d") %></a> | 
     	<a href="/schedule/?until=12.w"><%= (Time.current + 12.weeks).strftime("%m/%d") %> - <%= (Time.current + 16.weeks).strftime("%m/%d") %></a> | 
@@ -18,7 +18,7 @@
 	
 		<h1>Today: <%= Time.current.strftime("%m/%d %H:%M") %> - <%= @query_start_date.strftime("%m/%d %H:%M") %></h1>
 			<div id="today-marker"></div>
-			<% ((@query_start_date)..(@query_start_date + 4.weeks)).each do |day| %>
+			<% ((@query_start_date)..(@query_start_date + @num_weeks.weeks)).each do |day| %>
 				<%= render :partial => "day_table", :locals => {:day => day} %>
 			<% end %>
 		<% u = params[:until].split(".").first.to_i rescue 0 %>

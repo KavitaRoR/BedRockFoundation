@@ -4,11 +4,12 @@ class ScheduleController < ApplicationController
   
   
   def index
+    @num_weeks = 4
     @query_start_date = parse_date_until(params[:until])
     @crews = Crew.find(:all, :include => [:contracts, {:contracts => [:estimate, {:estimate => :job}]}], :order => "ordering ASC")
-    @contracts = Contract.where("scheduled_date > ? and scheduled_date < ?", @query_start_date, (@query_start_date + 4.weeks + 1.day)).includes(:estimate, :crew, {:estimate => [:job, {:job => :estimates, :job => :location, :job => :contact}] }).order("scheduled_date ASC")
+    @contracts = Contract.where("scheduled_date > ? and scheduled_date < ?", @query_start_date, (@query_start_date + @num_weeks.weeks + 1.day)).includes(:estimate, :crew, {:estimate => [:job, {:job => :estimates, :job => :location, :job => :contact}] }).order("scheduled_date ASC")
     @queued_contracts = Contract.where(:scheduled_date => nil).includes(:estimate, :crew, {:estimate => [:job, {:job => :contact, :job => :estimates, :job => :location}] }).sort{|x,y| x.estimate.invoice_number <=> y.estimate.invoice_number}
-    @daycrewblocks = DayCrewBlock.where("day > ? and day < ?", @query_start_date, @query_start_date + 4.weeks)
+    @daycrewblocks = DayCrewBlock.where("day > ? and day < ?", @query_start_date, @query_start_date + @num_weeks.weeks)
   end
   
   def with_maps
@@ -100,6 +101,9 @@ class ScheduleController < ApplicationController
     when "d"
       1
     when "w"
+      if qty < 1
+        @num_weeks = qty * -1
+      end
       7
     when "m"
       30
