@@ -4,7 +4,7 @@ development:
   host: localhost
   username: root
   password: 
-  socket: /tmp/mysql.sock
+  # socket: /tmp/mysql.sock
 production:
   adapter: mysql2
   database: bedrock_foundations_production

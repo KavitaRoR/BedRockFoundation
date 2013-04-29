@@ -113,7 +113,7 @@ class EstimatesController < ApplicationController
   
   
   def view_estimate
-    @estimate = Estimate.find_by_token(params[:estimate][:token])    
+    @estimate = Estimate.find_by_token(params[:token])    
     @job = @estimate.job
     @job_type = @estimate.job_type
     @options_for_job = YAML::load(@estimate.flashvars).with_indifferent_access
