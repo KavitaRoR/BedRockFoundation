@@ -6,9 +6,9 @@ class ScheduleController < ApplicationController
   def index
     @query_start_date = parse_date_until(params[:until])
     @crews = Crew.find(:all, :include => [:contracts, {:contracts => [:estimate, {:estimate => :job}]}], :order => "ordering ASC")
-    @contracts = Contract.where("scheduled_date > ? and scheduled_date < ?", @query_start_date, (@query_start_date + 2.weeks + 1.day)).includes(:estimate, :crew, {:estimate => [:job, {:job => :estimates, :job => :location, :job => :contact}] }).order("scheduled_date ASC")
+    @contracts = Contract.where("scheduled_date > ? and scheduled_date < ?", @query_start_date, (@query_start_date + 4.weeks + 1.day)).includes(:estimate, :crew, {:estimate => [:job, {:job => :estimates, :job => :location, :job => :contact}] }).order("scheduled_date ASC")
     @queued_contracts = Contract.where(:scheduled_date => nil).includes(:estimate, :crew, {:estimate => [:job, {:job => :contact, :job => :estimates, :job => :location}] }).sort{|x,y| x.estimate.invoice_number <=> y.estimate.invoice_number}
-    @daycrewblocks = DayCrewBlock.where("day > ? and day < ?", @query_start_date, @query_start_date + 2.weeks)
+    @daycrewblocks = DayCrewBlock.where("day > ? and day < ?", @query_start_date, @query_start_date + 4.weeks)
   end
   
   def with_maps
@@ -75,7 +75,7 @@ class ScheduleController < ApplicationController
   end
 
   def printable
-    @query_future_date = parse_date_until(params[:until]) || (Time.current.beginning_of_day + 2.weeks)
+    @query_future_date = parse_date_until(params[:until]) || (Time.current.beginning_of_day + 4.weeks)
     @crews = if params[:crew].nil?
       Crew.find(:all, :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
     else

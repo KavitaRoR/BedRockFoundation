@@ -2,33 +2,28 @@
 
     <div class="content_block">
 		<div id="filter_links">Weeks out: 
-    	<a href="/schedule/?until=-2.w">prev 2w</a> | 
-    	<a href="/schedule/" style="color: #f90; font-weight: bold;">TODAY - <%= (Time.current + 2.weeks).strftime("%m/%d") %></a> | 
-    	<a href="/schedule/?until=2.w"><%= (Time.current + 2.weeks).strftime("%m/%d") %> - <%= (Time.current + 3.weeks).strftime("%m/%d") %></a> | 
-    	<a href="/schedule/?until=3.w"><%= (Time.current + 3.weeks).strftime("%m/%d") %> - <%= (Time.current + 5.weeks).strftime("%m/%d") %></a> | 
-    	<a href="/schedule/?until=5.w"><%= (Time.current + 5.weeks).strftime("%m/%d") %> - <%= (Time.current + 7.weeks).strftime("%m/%d") %></a> | 
-    	<a href="/schedule/?until=7.w"><%= (Time.current + 7.weeks).strftime("%m/%d") %> - <%= (Time.current + 9.weeks).strftime("%m/%d") %></a> |
-    	<a href="/schedule/?until=9.w"><%= (Time.current + 9.weeks).strftime("%m/%d") %> - <%= (Time.current + 11.weeks).strftime("%m/%d") %></a> |
-    	<a href="/schedule/?until=11.w"><%= (Time.current + 11.weeks).strftime("%m/%d") %> - <%= (Time.current + 13.weeks).strftime("%m/%d") %></a> |
-    	<a href="/schedule/?until=13.w"><%= (Time.current + 13.weeks).strftime("%m/%d") %> - <%= (Time.current + 15.weeks).strftime("%m/%d") %></a> |
-    	<a href="/schedule/?until=15.w"><%= (Time.current + 15.weeks).strftime("%m/%d") %> - <%= (Time.current + 17.weeks).strftime("%m/%d") %></a> |
-    	<a href="/schedule/?until=17.w"><%= (Time.current + 17.weeks).strftime("%m/%d") %> - <%= (Time.current + 19.weeks).strftime("%m/%d") %></a> |
-    	<a href="/schedule/?until=19.w"><%= (Time.current + 19.weeks).strftime("%m/%d") %> - <%= (Time.current + 21.weeks).strftime("%m/%d") %></a> |
-    	<a href="/schedule/?until=21.w"><%= (Time.current + 21.weeks).strftime("%m/%d") %> - <%= (Time.current + 23.weeks).strftime("%m/%d") %></a> |
-    	<a href="/schedule/?until=23.w"><%= (Time.current + 23.weeks).strftime("%m/%d") %> - <%= (Time.current + 25.weeks).strftime("%m/%d") %></a> |
-    	<a href="/schedule/?until=25.w"><%= (Time.current + 25.weeks).strftime("%m/%d") %> - <%= (Time.current + 27.weeks).strftime("%m/%d") %></a> |
-    	<a href="/schedule/?until=27.w"><%= (Time.current + 27.weeks).strftime("%m/%d") %> - <%= (Time.current + 29.weeks).strftime("%m/%d") %></a> |
-    	<a href="/schedule/?until=29.w"><%= (Time.current + 29.weeks).strftime("%m/%d") %> - <%= (Time.current + 31.weeks).strftime("%m/%d") %></a> 
+    	<a href="/schedule/?until=-6.w">prev 6w</a> | 
+    	<a href="/schedule/" style="color: #f90; font-weight: bold;">TODAY - <%= (Time.current + 4.weeks).strftime("%m/%d") %></a> | 
+    	<a href="/schedule/?until=4.w"><%= (Time.current + 4.weeks).strftime("%m/%d") %> - <%= (Time.current + 3.weeks).strftime("%m/%d") %></a> | 
+    	<a href="/schedule/?until=8.w"><%= (Time.current + 8.weeks).strftime("%m/%d") %> - <%= (Time.current + 12.weeks).strftime("%m/%d") %></a> | 
+    	<a href="/schedule/?until=12.w"><%= (Time.current + 12.weeks).strftime("%m/%d") %> - <%= (Time.current + 16.weeks).strftime("%m/%d") %></a> | 
+    	<a href="/schedule/?until=16.w"><%= (Time.current + 16.weeks).strftime("%m/%d") %> - <%= (Time.current + 20.weeks).strftime("%m/%d") %></a> |
+    	<a href="/schedule/?until=20.w"><%= (Time.current + 20.weeks).strftime("%m/%d") %> - <%= (Time.current + 24.weeks).strftime("%m/%d") %></a> |
+    	<a href="/schedule/?until=24.w"><%= (Time.current + 24.weeks).strftime("%m/%d") %> - <%= (Time.current + 28.weeks).strftime("%m/%d") %></a> |
+    	<a href="/schedule/?until=28.w"><%= (Time.current + 28.weeks).strftime("%m/%d") %> - <%= (Time.current + 32.weeks).strftime("%m/%d") %></a> |
+    	<a href="/schedule/?until=32.w"><%= (Time.current + 32.weeks).strftime("%m/%d") %> - <%= (Time.current + 36.weeks).strftime("%m/%d") %></a> |
+    	<a href="/schedule/?until=36.w"><%= (Time.current + 36.weeks).strftime("%m/%d") %> - <%= (Time.current + 40.weeks).strftime("%m/%d") %></a> |
+    	<a href="/schedule/?until=40.w"><%= (Time.current + 40.weeks).strftime("%m/%d") %> - <%= (Time.current + 44.weeks).strftime("%m/%d") %></a> |
     	</div>
 	
 		<h1>Today: <%= Time.current.strftime("%m/%d %H:%M") %> - <%= @query_start_date.strftime("%m/%d %H:%M") %></h1>
 			<div id="today-marker"></div>
-			<% ((@query_start_date)..(@query_start_date + 2.weeks)).each do |day| %>
+			<% ((@query_start_date)..(@query_start_date + 4.weeks)).each do |day| %>
 				<%= render :partial => "day_table", :locals => {:day => day} %>
 			<% end %>
 		<% u = params[:until].split(".").first.to_i rescue 0 %>
 		<div style="margin-bottom: 40px;">
-			<a href="/schedule/?until=<%= u + 2 %>.w" class="button huge blue-gradient icon-right-fat">Show me the next 2 weeks </a>  </div>
+			<a href="/schedule/?until=<%= u + 4 %>.w" class="button huge blue-gradient icon-right-fat">Show me the next 4 weeks </a>  </div>
 	    
     </div>
 </div>
