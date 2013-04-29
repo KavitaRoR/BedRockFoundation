@@ -57,11 +57,15 @@ class Estimate < ActiveRecord::Base
         logger.info loadflashvars[:job_type]
         logger.info self.contract.scheduled_date rescue " No Contract"
 
-        self.flashvars = self.job.options_for_print(loadflashvars[:job_type]).with_indifferent_access
-        self.save
+        update_address_do_it!
         logger.info flashvars
       end
     end
+  end
+
+  def update_address_do_it!
+    self.flashvars = self.job.options_for_print(loadflashvars[:job_type]).with_indifferent_access
+    self.save
   end
 
     def remove_off_level_to_show
