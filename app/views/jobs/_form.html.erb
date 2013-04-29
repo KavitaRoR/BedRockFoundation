@@ -41,6 +41,13 @@
 				<p style="color:#FF0000; display:none;" id="your-wrong-length">Please enter a valid LENGTH.</p>
 			</td>
 		</tr>
+		<tr class="rock_pad concrete floating graduated gibraltar piers">
+			<td><%= f.label :area, "Area SQFT" %></td>
+			<td>
+				<%= f.text_field :area, :class => "integer" %>
+				<p style="color:#FF0000; display:none;" id="your-wrong-area">Please enter a valid AREA.</p>
+			</td>
+		</tr>
 		<script type="text/javascript">
 			function isNumeric(n) {
 			  return !isNaN(parseFloat(n)) && isFinite(n);
@@ -56,9 +63,44 @@
 			}
 			
 			$(document).ready(function() {
+
+				$('.select2-concrete-prices').select2({
+						width: "150px", 
+						data:[<%= (80..200).step(5).map{|r|"{id:'#{r}',text:'$#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:"$"+term } }
+				});
+				$('.select2-courses-blocks').select2({
+						width: "150px", 
+						data:[<%= (0..20).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:term} }
+				});
+				$('.select2-slab-thick').select2({
+						width: "150px", 
+						data:[<%= (0..20).step(2).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:term} }
+				});
+				$('.select2-gib-footer-thick').select2({
+						width: "150px", 
+						data:[<%= (6..20).step(2).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:term} }
+				});
+				$('.select2-gravel-base-thick').select2({
+						width: "150px", 
+						data:[<%= (0..20).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:term} }
+				});
+				$('.select2-edge-thick').select2({
+						width: "150px", 
+						data:[<%= (12..30).step(6).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						createSearchChoice: function(term) { return {id:term, text:term} }
+				});
+
 				$("#job_width").keyup(function() {
 					if (validateFields($("#job_width"))) {
 						$("#your-wrong-width").fadeOut();
+						if (validateFields($("#job_length"))) {
+							$("#job_area").val($("#job_length").val() * $("#job_width").val())
+						}
 					} else {
 						$("#your-wrong-width").fadeIn();
 					}
@@ -66,8 +108,18 @@
 				$("#job_length").keyup(function() {
 					if (validateFields($("#job_length"))) {
 						$("#your-wrong-length").fadeOut();
+						if (validateFields($("#job_width"))) {
+							$("#job_area").val($("#job_length").val() * $("#job_width").val())
+						}
 					} else {
 						$("#your-wrong-length").fadeIn();
+					}
+				})
+				$("#job_area").keyup(function() {
+					if (validateFields($("#job_area"))) {
+						$("#your-wrong-area").fadeOut();
+					} else {
+						$("#your-wrong-area").fadeIn();
 					}
 				})
 				
@@ -95,7 +147,7 @@
 		</tr>
 		<tr class="concrete floating graduated gibraltar piers">
 			<td><%= f.label :concrete_price_per_yard, "Concrete price (per cubic yard)" %></td>  
-			<td><%= f.select :concrete_price_per_yard, [['$80', "80"], ['$100', '100'], ['$120', '120'], ['$140', '140'], ['$160', '160'], ['$180', '180'], ['$200', '200']] %></td>
+			<td><%= f.text_field :concrete_price_per_yard, {class: "select2-concrete-prices"} %></td>
 		</tr>
 		<tr class="concrete piers">
 			<td><%= f.label :concrete_piers_diameter_in_inches %></td>  
@@ -111,24 +163,24 @@
 		</tr>
 		<tr class="concrete gibraltar">
 			<td><%= f.label :gibraltar_courses_of_block, "Courses of Blocks" %></td>  
-			<td><%= f.select :gibraltar_courses_of_block, [1,2,3,4,5,6,7,8] %></td>
+			<td><%= f.text_field :gibraltar_courses_of_block, {class: "select2-courses-blocks"} %></td>
 		</tr>
 		
 		<tr class="concrete floating graduated gibraltar">
 			<td><%= f.label :concrete_thickness_in_inches, "Concrete Slab Thickness (in inches)" %></td>  
-			<td><%= f.select :concrete_thickness_in_inches, [['4"', "4"], ['6"', '6'], ['8"', '8'], ['10"', '10']] %></td>
+			<td><%= f.text_field :concrete_thickness_in_inches, class: "select2-slab-thick" %></td>
 		</tr>
 		<tr class="concrete gibraltar">
 			<td><%= f.label :gibraltar_concrete_footer_in_inches, "Gibraltar Footer Thickness (in inches)" %></td>  
-			<td><%= f.select :gibraltar_concrete_footer_in_inches, [['8"', "8"],['10"', "10"],['12"','12']] %></td>
+			<td><%= f.text_field :gibraltar_concrete_footer_in_inches, class: "select2-gib-footer-thick" %></td>
 		</tr>
 		<tr class="concrete graduated">
 			<td><%= f.label :concrete_edge_thickness_in_inches, "Graduated Edge Thickness (in inches)" %></td>  
-			<td><%= f.select :concrete_edge_thickness_in_inches, [['12"', "12"], ['18"', "18"], ['24"', "24"], ['30"', "30"]] %></td>
+			<td><%= f.text_field :concrete_edge_thickness_in_inches, class: "select2-edge-thick" %></td>
 		</tr>
 		<tr class="concrete floating graduated gibraltar piers">
 			<td><%= f.label :gravel_base_depth_in_inches, "Gravel Base Thickness (in inches)" %></td>  
-			<td><%= f.select :gravel_base_depth_in_inches, [['4"', "4"], ['6"', '6'], ['8"', '8'], ['10"', '10']] %></td>
+			<td><%= f.text_field :gravel_base_depth_in_inches, class: "select2-gravel-base-thick" %></td>
 		</tr>
 		<tr class="concrete floating graduated gibraltar">
 			<td><%= f.label :vapor_barrier %></td>  

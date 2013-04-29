@@ -10,6 +10,7 @@ class RockPadCalculator
   def initialize(dist=30, w=0, l=0, kind="Standard", sixbysix=false, d=0.5, fill_type="Build-Up", ec_lft=0, job)
     @vars = RockPadVariable.all
     @job = job
+    @area = job.area
     @length = l
     @width = w
     @depth = d.to_f
@@ -79,11 +80,12 @@ class RockPadCalculator
   end
   
   def square_footage
+    return @area if @area > 0
     @length * @width rescue 0
   end
   
   def cubic_footage
-    @length * @width * @depth rescue 0
+    square_footage * @depth rescue 0
   end
   
   def perimeter
@@ -164,7 +166,7 @@ class RockPadCalculator
     footage_per_ton = findVar("rockpad_square_footage_per_ton") rescue 36
     cubic_footage_per_ton = footage_per_ton.to_f * 0.5
     
-    total_cubic_of_pad = @length.to_f * @width.to_f * rock_depth
+    total_cubic_of_pad = square_footage * rock_depth
     total_cubic_tonnage = total_cubic_of_pad / cubic_footage_per_ton
     
     # total_tonnage = (@length.to_f * @width.to_f / footage_per_ton.to_f)

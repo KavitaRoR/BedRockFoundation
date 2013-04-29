@@ -12,6 +12,7 @@ class AdhocJobCalculator
     @length = job.length || 0
     @width = job.width || 0
     @job = job
+    @area = job.area
     @concrete_price_per_yard = job.concrete_price_per_yard
     @padkind = job.foundation_calculator.kind.downcase rescue "graduated"
     @distance = dist
@@ -31,6 +32,7 @@ class AdhocJobCalculator
   end
   
   def square_footage
+    return @area if @area > 0
     @length * @width
   end
   
@@ -50,7 +52,7 @@ class AdhocJobCalculator
       return (@length - 1.3333) * (@width - 1.3333) * vapor_barrier_per_foot 
     when @padkind.include?('graduated')
       edge = findVar("concrete_edge_thickness_in_inches") / 12
-      return (@length - (edge * 2)) * (@width - (edge * 2)) * vapor_barrier_per_foot
+      return (square_footage - (edge * 2)) * vapor_barrier_per_foot
     when @padkind.include?('floating')
       return square_footage * vapor_barrier_per_foot
     when @padkind.include?('piers')
@@ -80,10 +82,10 @@ class AdhocJobCalculator
     when @padkind.include?('graduated')
       edge = @concrete_edge_thickness_in_inches.to_f / 36
       edge_amount = edge * edge * (perimeter / 3)
-      inside_amount = ((@length.to_f/3) - (edge*2)) * ((@width.to_f/3) - (edge*2)) * thick
+      inside_amount = ((square_footage/3) - (edge*2)) * thick
       inside_amount + edge_amount
     when @padkind.include?('floating')
-      (@length.to_f/3) * (@width.to_f/3) * thick
+      (square_footage/3) * thick
     when @padkind.include?('piers')
       cubic_area_per_pier = (@concrete_piers_depth_in_inches.to_f / 36) * (@concrete_piers_diameter_in_inches.to_f / 72) * Math::PI
       cubic_area_per_pier * findVar("concrete_number_of_piers")
@@ -140,7 +142,7 @@ class AdhocJobCalculator
     footage_per_ton = findVar("concrete_square_footage_per_ton") rescue 36
     cubic_footage_per_ton = footage_per_ton * 0.5
         
-    total_tonnage = (@length * @width / footage_per_ton) * 2 * rock_depth
+    total_tonnage = (square_footage / footage_per_ton) * 2 * rock_depth
     return total_tonnage 
   end
   
