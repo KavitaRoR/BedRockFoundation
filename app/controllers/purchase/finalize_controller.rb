@@ -11,6 +11,6 @@ class Purchase::FinalizeController < ApplicationController
     
     flash[:notice] = "You have successfully made a payment."
     
-    redirect_to "/e/#{@estimate.token}"
+    redirect_to "/e/#{@estimate.token}?type=#{estimate.job.job_type.kind}"
   end
 end

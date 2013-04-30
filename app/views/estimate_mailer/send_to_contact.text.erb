@@ -18,7 +18,7 @@ If you have any problems accessing the estimate, please feel free to call me wit
 	
 To view your estimate follow this link below to view it. 
 
-http://app.bedrockfoundations.com/e/<%= @estimate.token %> 
+http://app.bedrockfoundations.com/e/<%= @estimate.token %>?type=<%= @estimate.job.job_type.kind %>
 
 <% if @user.email_signature.nil? %>
 	Yours truly,

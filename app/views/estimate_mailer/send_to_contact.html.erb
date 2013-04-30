@@ -31,8 +31,8 @@
 			<p>If you have any problems accessing the estimate, please feel free to call me with any questions, comments, or concerns.</p>
 			<p>To view your estimate follow this link below to view it. </p>
 
-			<p style="width: 600px;"><a href="http://app.bedrockfoundations.com/e/<%= @estimate.token %>">View your Estimate</a>
-			<br />http://app.bedrockfoundations.com/e/<%= @estimate.token %> 
+			<p style="width: 600px;"><a href="http://app.bedrockfoundations.com/e/<%= @estimate.token %>?type=<%= @estimate.job.job_type.kind %>">View your Estimate</a>
+			<br />http://app.bedrockfoundations.com/e/<%= @estimate.token %>?type=<%= @estimate.job.job_type.kind %> 
 			</p>
 			<% if @user.email_signature.nil? %>
 				<p>Yours truly,</p>
