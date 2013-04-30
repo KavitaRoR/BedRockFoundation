@@ -58,9 +58,7 @@
 							<% end %>
 							<br />
 							<br />
-							<%= con.estimate.job.address_1 rescue "" %>
-								 <%= "<br />" + con.estimate.job.address_2 if !con.estimate.job.address_2.empty? rescue "" %><br />
-							<%= con.estimate.job.city rescue "" %>, <%= con.estimate.job.province rescue "" %> <%= con.estimate.job.zip rescue "" %>
+							<%= show_clickable_address( con ) %>
 						</span>
 						<% if current_user.is_admin? %>
 							<div class="estimate_notes">
