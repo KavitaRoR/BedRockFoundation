@@ -1,17 +1,17 @@
 <table align="center" cellspacing="0" cellpadding="0" style="width: 632px; border-left: 3px solid #5c1606; border-right: 3px solid #5c1606; border-bottom: 3px solid #5c1606;">
 	<tr>
-		<td valign="top" style="width: 638px; height: 176px;">
+		<td valign="top" style="width: 638px; height: 176px;" colspan="2">
 		  <table style="width: 638px; height: 176px;" cellspacing="0" cellpadding="0">
 		  	<tr>
 		  		<td style="width: 638px;">
-		  			<%= image_tag "#{root_url}assets/images/email/logo.gif", width: 638, height: 176 %>
+		  			<%= image_tag "#{root_url}assets/images/email/#{@logo}.gif", width: 638, height: 176 %>
 		  		</td>
 		  	</tr>
 		  </table>
 		</td>
 	</tr>
 	<tr>
-		<td valign="top" style="text-align:justify; padding: 15px; width: 638px;">
+		<td valign="top" style="text-align:justify; padding: 15px; width: 638px;" colspan="2">
 			<p>Dear <%= @estimate.job.contact.first_name %> <%= @estimate.job.contact.last_name %>,</p>
 				<% vars = YAML::load(@estimate.flashvars).with_indifferent_access; @job = @estimate.job; @type = @estimate.job_type.kind %>
 				<% if @job.job_calc_type == "pad" %>
@@ -34,19 +34,26 @@
 			<p style="width: 600px;"><a href="http://app.bedrockfoundations.com/e/<%= @estimate.token %>?type=<%= @estimate.job.job_type.kind %>">View your Estimate</a>
 			<br />http://app.bedrockfoundations.com/e/<%= @estimate.token %>?type=<%= @estimate.job.job_type.kind %> 
 			</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="text-align:justify; padding: 15px; width: 319px;">
 			<% if @user.email_signature.nil? %>
 				<p>Yours truly,</p>
 
 				<p>Eli Stoltzfus<br />
-				Bedrock Foundations DBA Abundant Life Landscaping LLC.<br />
+				Bedrock Foundations DBA<br /> Abundant Life Landscaping LLC.<br />
 				<%= @estimate.job.location.phone rescue "717-587-7062" %></p>
 			<% else %>
 				<%= @user.email_signature.html_safe %>
 			<% end %>
 		</td>
+		<td width="319" valign="top" align="left">
+			<%= image_tag "#{root_url}assets/images/sealed.png", width: 239, height: 200, border: 0, align: "bottom" %>
+		</td>
 	</tr>
 	<tr>
-		<td style="width: 638px;" valign="bottom">
+		<td style="width: 638px;" valign="bottom" colspan="2">
 			<%= image_tag "#{root_url}assets/images/email/grass_bottom_bg.gif", width: 638, height: 101, border: 0, align: "bottom" %>
 		</td>
 	</tr>

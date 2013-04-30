@@ -4,6 +4,12 @@
 		<%= hidden_field_tag :type, type %>
 		<table style="float:left; width: 300px;">
 			<tr>
+				<td><%= radio_button_tag :template_type, "bedrock", checked: true %><%= label_tag :template_type, "Send from Bedrock Foundations" %></td>
+			</tr>
+			<tr>
+				<td><%= radio_button_tag :template_type, "abundant" %><%= label_tag :template_type, "Send from Abundant Life Landscaping" %></td>
+			</tr>
+			<tr>
 				<td>
 					<%= label_tag :subject, "Subject:" %><br />
 					<%= text_field_tag :subject, "Your Estimate from Bed Rock Foundation", style: "width: 300px;" %>
