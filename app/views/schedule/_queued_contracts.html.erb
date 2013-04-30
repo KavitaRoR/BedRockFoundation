@@ -5,7 +5,7 @@
 	<% for con in @queued_contracts %>
 		<p id="qc-<%= con.id %>" class="queued_cons">
 		<%= link_to con.estimate.job.contact.name, 
-			"/estimates/view_estimate/#{con.estimate.token}", 
+			"/estimates/view_estimate/#{con.estimate.token}?type=#{con.estimate.job.job_type.kind}", 
 			target: "_blank" %>
 		<%= " - ##{con.estimate.job.location.abbreviation rescue ''} - #{con.estimate.invoice_number rescue '000'}" %>
 		<br />
@@ -111,7 +111,7 @@
 			greenIcon = new MapIcon(),
 			marker1 = new L.Marker(new L.LatLng(loc[0], loc[1]), {icon: greenIcon});
 
-			marker1.bindPopup(loc[4] + " - <a href='/estimates/view_estimate/" + loc[5] + "' target='_blank'>"+loc[6]+"</a>");
+			marker1.bindPopup(loc[4] + " - <a href='/estimates/view_estimate/" + loc[5] + "?type=<%= con.estimate.job.job_type.kind %>' target='_blank'>"+loc[6]+"</a>");
 		// marker2.bindPopup("I am a red leaf.");
 		// marker3.bindPopup("I am an orange leaf.");
 
