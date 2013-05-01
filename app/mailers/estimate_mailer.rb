@@ -8,7 +8,9 @@ class EstimateMailer < ActionMailer::Base
     if params[:template_type] == "bedrock"
     	@logo = "logo"
     else
-    	@logo = params[:template_type]
+    	# @logo = params[:template_type]
+    	# temp fix until we get the logo
+    	@logo = "logo"
     end
     
     @footer = params[:footer]
