@@ -7,7 +7,7 @@ class Estimate < ActiveRecord::Base
   has_many :square_payments
   has_many :check_payments
   
-  before_create :generate_invoice_number
+  before_create :generate_invoice_number, :generate_token
   after_create :remove_off_level_to_show
 
   
@@ -83,6 +83,18 @@ class Estimate < ActiveRecord::Base
       self.check_payments.create!(
         check_number: params[:check_number], total: params[:total] )
     end  
+  end
+
+  def generate_token
+    self.token = loop do
+      random_token = self.class.random_token
+      break random_token unless self.class.where(token: random_token).exists?
+    end
+  end
+
+  def self.random_token
+    chars = "23456789abcdefghjkmnprstuvwxyz"
+    9.times.map{chars[rand(chars.length-1)]}.join
   end
 
   protected
