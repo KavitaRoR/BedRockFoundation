@@ -10,7 +10,7 @@ begin
       end
       @estimate = Estimate.find(:last, :conditions => {:job_id => job.id, :job_type_id => (job.job_type_id rescue 1)})
       if !@estimate
-        @estimate = Estimate.create(job_id: job.id, job_type_id: job.job_type_id, flashvars: job.options_for_print((job.job_type.kind rescue "Standard")).with_indifferent_access, token: SecureRandom.hex(16))
+        @estimate = Estimate.create(job_id: job.id, job_type_id: job.job_type_id, flashvars: job.options_for_print((job.job_type.kind rescue "Standard")).with_indifferent_access)
       else
       end
     end
