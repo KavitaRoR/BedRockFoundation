@@ -50,11 +50,16 @@
 							</span>
 							<b>Rock Pad <%= "##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %></b><br />
 							<%= con.estimate.job.size_and_type rescue ""%> <br />
-							<%= con.estimate.job.contact.name rescue "This JOB has been deleted" %> <br /><br />
+							<%= con.estimate.job.contact.name rescue "This JOB has been deleted" %> <br />
+							<strong>Status: <%= con.estimate.job.job_status rescue "Waiting on status." %></strong>
 							<%= link_to "View the Estimate", "/estimates/view_estimate/#{con.estimate.token}?type=#{con.estimate.job.job_type.kind}", :class => "button white-gradient glossy icon-printer", :target => "_blank" %>
 							<% if current_user.is_foreman? and con.estimate.additional_notes %>
 								<br /><br />
 								<%= link_to "View Notes", "/estimates/view_notes/#{con.estimate.token}", class: "iframe button white-gradient glossy icon-read" %>
+							<% end %>
+							<% if current_user.is_foreman? %>
+								<br /><br />
+								<%= link_to "Change Job Status", edit_job_status_job_path( con.estimate.job ) , class: "iframe button white-gradient glossy icon-pencil", remote: true %>
 							<% end %>
 							<br />
 							<br />

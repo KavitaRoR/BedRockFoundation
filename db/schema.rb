@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130429045316) do
+ActiveRecord::Schema.define(:version => 20130501022947) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -222,6 +222,8 @@ ActiveRecord::Schema.define(:version => 20130429045316) do
     t.integer  "additional_buildup_labor",                                           :default => 0
     t.integer  "bundle_with_job_id"
     t.decimal  "area",                                :precision => 10, :scale => 2, :default => 0.0
+    t.string   "job_status"
+    t.text     "job_status_reason"
   end
 
   add_index "jobs", ["id"], :name => "index_jobs_on_id"

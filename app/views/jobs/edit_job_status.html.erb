@@ -1,0 +1,100 @@
+<%= stylesheet_link_tag 'colors' %>
+<%= javascript_include_tag "javascripts/jquery.js", 'javascripts/jquery.simplemodal.1.4.2.min', 'javascripts/jquery-ui.js' %>
+<div id="jobstatus_div_id"  class="jobstatus_form">
+	<%= form_for @job, url: update_job_status_job_path, format: :json,  remote: true do |f| %>
+		<%= f.label :job_status, "Status:" %>
+		<%= f.select :job_status, options_for_select( 
+															[["Needs Site Check", "Needs Site Check"], 
+															 ["Ready for Work","Ready for Work"],
+															 ["Completed", "Completed"],
+															 ["Site Check Completed", "Site Check Completed"],
+															 ["Need to Reschedule", "Need to Reschedule"]
+															] ), prompt: "Please select one" %>
+		<%= label_tag :job_status_reason, "" %>
+		<%= f.text_area :job_status_reason, 
+											style: "width: 200px; height: 120px;display:none;", placeholder: "Reason for Reschedule..." %>
+		<%= f.submit "Update Job Status", class: "button white-gradient glossy big" %>
+	<% end %>
+</div>
+
+<style type="text/css">
+	.jobstatus_form {
+		margin:0 auto;
+		width:400px;
+		padding:14px;
+		height: 250px;
+	}
+
+
+	#jobstatus_div_id {
+		height: 200px;
+	}
+	
+	#jobstatus_div_id h1 {
+		font-size:14px;
+		font-weight:bold;
+		margin-bottom:8px;
+	}
+	
+	#jobstatus_div_id p {
+		font-size:11px;
+		color:#666666;
+		margin-bottom:20px;
+		border-bottom:solid 1px #b7ddf2;
+		padding-bottom:10px;
+	}
+	
+	#jobstatus_div_id label {
+		display:block;
+		font-weight:bold;
+		text-align:right;
+		width:140px;
+		float:left;
+	}
+	
+	#jobstatus_div_id .small {
+		color:#666666;
+		display:block;
+		font-size:11px;
+		font-weight:normal;
+		text-align:right;
+		width:140px;
+	}
+	
+	#jobstatus_div_id input, select {
+		float:left;
+		font-size:12px;
+		padding:4px 2px;
+		border:solid 1px #aacfe4;
+		width:200px;
+		margin:2px 0 20px 10px;
+	}
+
+	#jobstatus_div_id textarea {
+		float:right;
+		font-size:12px;
+		padding:4px 2px;
+		border:solid 1px #aacfe4;
+		width:350px;
+		margin:2px 50px 20px 0;
+	}
+
+	#jobstatus_div_id .button {
+		float: right;
+		margin-right: 50px;
+	}	
+</style>
+
+<script	type="text/javascript">
+	$(document).ready(function(){
+		$( "#job_job_status" ).change( function() {
+			if ( $( this ).val() == "Need to Reschedule" ) {
+				$( "#job_job_status_reason" ).show().fadeIn();
+			} else {
+				$( "#job_job_status_reason" ).hide().fadeOut();
+			}
+
+		});
+	});
+</script>
+  

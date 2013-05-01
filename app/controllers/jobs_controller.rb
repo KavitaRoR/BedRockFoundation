@@ -98,4 +98,18 @@ class JobsController < ApplicationController
     redirect_to @job.contact and return if @job.contact
     redirect_to "/jobs"
   end
+
+  def edit_job_status
+  	@job = Job.find( params[:id] )
+  	render layout: false
+  end
+
+  def update_job_status
+  	@job = Job.find( params[:id] )
+  	@job.job_status = params[:job][:job_status]
+  	if params[:job][:job_status_reason]
+  		@job.job_status_reason = params[:job][:job_status_reason]
+  	end
+  	@job.save
+  end
 end

@@ -44,6 +44,8 @@ Abundant::Application.routes.draw do
     member do
       get 'print'
       get 'print_modal'
+      get 'edit_job_status'
+      put 'update_job_status'
     end
   end
   
