@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<title>Bedrock Foundations Scheduling System</title>
+		<%= stylesheet_link_tag 'redmond/ui.all','elfinder/elfinder.min', 'elfinder/theme', 'colors' %>
+		
+		<!--[if IE 6]>
+			<script src="/javascripts/ie6pngfix.js"></script>
+			<script>
+				DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+			</script>
+		<![endif]--> 
+		<%= javascript_include_tag "jquery-1.7.1.min", 'jquery-ui', 'elfinder/elfinder.min', 'elfinder/proxy/elFinderSupportVer1' %>
+		<%= csrf_meta_tag %>
+	</head>
+	<body>
+		<div>
+			<%= yield %>
+		</div>
+		<%= yield :js_bottom %>
+	</body>
+</html>

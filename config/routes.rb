@@ -1,5 +1,6 @@
 Abundant::Application.routes.draw do
 
+
   WepayRails.routes(self)
 
   resources :foundation_calculators
@@ -33,6 +34,11 @@ Abundant::Application.routes.draw do
   match "/users/become/(:id)" => 'users#become'
   match "/reports/customers/:id" => "reports#customers"
   post  "/reports/search" => "reports#search"
+  match "/library" => "document_library#index", as: "library"
+  match "/elfinder" => "document_library#elfinder"
+  match "/attach_files" => "document_library#attach_files", as: "attach_files"
+  post  "/add_files_to_job" => "document_library#add_files_to_job"
+  get   "/download_file/:id" => "document_library#download_file"
   namespace :purchase do
     match "/finalize" => 'finalize#index'
   end

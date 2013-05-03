@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130501022947) do
+ActiveRecord::Schema.define(:version => 20130503013538) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -227,6 +227,16 @@ ActiveRecord::Schema.define(:version => 20130501022947) do
   end
 
   add_index "jobs", ["id"], :name => "index_jobs_on_id"
+
+  create_table "library_files", :force => true do |t|
+    t.integer  "job_id"
+    t.string   "library_file"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "file_type"
+    t.float    "file_size"
+    t.string   "file_url"
+  end
 
   create_table "locations", :force => true do |t|
     t.string   "name"

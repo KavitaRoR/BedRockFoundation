@@ -1,0 +1,12 @@
+<h1>Document Library</h1>
+<div id='elfinder'></div>
+<script type="text/javascript">
+	$(document).ready(function() { 
+	  $('#elfinder').elfinder({ 
+	    url: '/elfinder',
+	    lang: 'en',
+	    transport : new elFinderSupportVer1(),
+	    height: 700
+	  });
+	})
+</script>

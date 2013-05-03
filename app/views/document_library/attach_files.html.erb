@@ -1,0 +1,56 @@
+<h1>Document Library</h1>
+<div id='elfinder' align="center"></div><br />
+<div id="file_container"></div>
+<script type="text/javascript">
+	$(document).ready(function() {
+	  $(document).on('click', "#attach_btn", function(e){
+	  	e.preventDefault();
+	  	$.ajax({
+	  		url: '/add_files_to_job',
+	  		type: 'POST',
+	  		data: {job_id: "<%= params[:job_id] %>",p: data },
+	  		success: function() {}
+	  	});
+	  });
+	  $('#elfinder').elfinder({ 
+	    url: '/elfinder',
+	    lang: 'en',
+	    transport : new elFinderSupportVer1(),
+ 			handlers : {
+        select : function(event, elfinderInstance) {
+        	var selected = event.data.selected;
+        	data = [];
+        	if (selected.length) {
+	        	$("#file_container").empty();
+	        	$("#file_container").html("<h3>The following files will be attached to Job <%= params[:job_id] %></h3>");
+	        	html = "<table>"
+	        	for (i=0; i < selected.length; i++) {
+	        		mime_type = elfinderInstance.file(selected[i]).mime
+	        		html += "<tr><td><strong>" + elfinderInstance.file(selected[i]).name + "</strong></td>"
+	        		html += "<td><img src='assets/" + doc_icon[mime_type] + "' /></td>"
+	        		html += "</tr>"
+	        		data.push({name:elfinderInstance.file(selected[i]).name,
+	        			file_type:elfinderInstance.file(selected[i]).mime,
+	        			file_size: elfinderInstance.file(selected[i]).size,
+	        			file_url: elfinderInstance.file(selected[i]).url});
+	        	}    
+	        	html += "<tr><td><input type='button' name='attach' id='attach_btn' value='Attach to job' class='button white-gradient' /></td></tr>"
+	          html += "</table>"
+	          $("#file_container").append(html);
+         }
+        }
+    	}
+	  });
+	  doc_icon = {
+	    'application/pdf': 'document_types/pdf_24.png',
+	    'application/msword': 'document_types/doc_24.png',
+	    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'document_types/docx_24.png',
+	    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'document_types/xlsx_24.png',
+	    'application/vnd.ms-excel': 'document_types/xlsx_24.png',
+	    'text/plain': 'document_types/text_24.png',
+	    'text/rtf': 'document_types/text_24.png',
+	    'application/zip':'document_types/zip_24.png'
+  	}
+  	
+	})
+</script>

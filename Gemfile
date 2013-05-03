@@ -11,6 +11,7 @@ gem 'newrelic_rpm'
 gem 'ruby-prof'
 gem 'therubyracer'
 gem 'wepay-rails'
+gem 'el_finder'
 
 group :development do
   gem 'heroku'

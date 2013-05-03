@@ -12,8 +12,14 @@ partialz = "adhoc" if @job.foundation_calc.include?("adhoc")
 		<%= render partial: "/jobs/bundle_with", locals: {job: @job} %>	
 	<% end %>
 	<%= render partial: "/jobs/print_estimate_#{partialz}", locals: {job: @job} %>	
-
+	<br />
+	<!-- Files -->
+	<h2>Files Attached to this job</h2>
+	<% if @job.library_files %>
+		<%= render partial: 'jobs/library_file', collection: @job.library_files %>
+	<% end %><br />
 </div>
+
 <div style="width:50%;">
 	<% if current_user.permissions_levels.to_s.include?("Admin") %>
 	<%= render partial: "/jobs/estimate_table_#{partialz}", locals: {job: @job} %>
@@ -21,6 +27,8 @@ partialz = "adhoc" if @job.foundation_calc.include?("adhoc")
 		<h2>Total Price: <b><%= money_from_cents @job.price_in_cents %></b></h2>
 	<% end %>
 </div>
+
+
 <h2>Communication History</h2>
 
 <% for update in @job.statuses.reverse %>

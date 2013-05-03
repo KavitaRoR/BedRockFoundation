@@ -213,8 +213,13 @@
 			Price: <%= money_from_cents a.addition_price_in_cents %><br />
 			Desc: <%= a.addition_description %><br />
 			<%= link_to "Delete this item", job_addition_path(a), :method => "DELETE" %> | <%= link_to "Edit this item", edit_job_addition_path(a) %>
-			<hr />
+			<hr /><br /><br />
 		<% end %>
+	<h3>Files Attached to this Job</h3>
+	<% if @job.library_files %>
+		<%= render partial: 'library_file', collection: @job.library_files %>
+	<% end %><br />
+	<%= link_to "Add Files", "/attach_files?job_id=#{@job.id}", class: "iframe"  %>
 	<% end %>
 </div>
 <div style="clear:both;"></div>
@@ -433,6 +438,15 @@
 						$("#your-wrong-area").fadeIn();
 					}
 				})
-				
+
+			$("a.iframe").fancybox({
+						'transitionIn'	:	'elastic',
+						'transitionOut'	:	'elastic',
+						'speedIn'		:	600, 
+						'speedOut'		:	200, 
+						'overlayShow'	:	false,
+						'width': 800,
+						'height': 700
+					});				
 			})
 		</script>
