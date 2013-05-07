@@ -88,7 +88,8 @@ class ConcreteJobCalculator
       inside_amount = ((square_footage/3) - (edge*2)) * thick
       inside_amount + edge_amount
     when @padkind.include?('floating')
-      (square_footage/3) * thick
+      # ((square_footage - 1.3333) / 3) * thick
+			(square_footage / depth_from_inches(@concrete_thickness).to_i)
     when @padkind.include?('piers')
       cubic_area_per_pier = (@concrete_piers_depth_in_inches.to_f / 36) * (@concrete_piers_diameter_in_inches.to_f / 72) * Math::PI
       cubic_area_per_pier * findVar("concrete_number_of_piers")
@@ -295,6 +296,24 @@ class ConcreteJobCalculator
 
   def their_price
     "$#{total_price.to_f / 100}"
+  end
+
+  def depth_from_inches( val )
+  	depth_table = {
+  		"1" => "324",
+  		"2" => "162",
+  		"3" => "108",
+  		"4" => "81",
+  		"5" => "65",
+  		"6" => "54",
+  		"7" => "47",
+  		"8" => "40",
+  		"9" => "36",
+  		"10" => "33",
+  		"11" => "30",
+  		"12" => "27"
+  	}
+  	return depth_table["#{val}"]
   end
   
 end
