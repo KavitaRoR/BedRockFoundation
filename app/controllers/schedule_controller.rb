@@ -77,6 +77,7 @@ class ScheduleController < ApplicationController
 
   def printable
     @query_future_date = parse_date_until(params[:until]) || (Time.current.beginning_of_day + 4.weeks)
+    @quarries = Quarry.all
     @crews = if params[:crew].nil?
       Crew.find(:all, :include => [:contracts, {:contracts => :estimate}], :order => "ordering ASC")
     else

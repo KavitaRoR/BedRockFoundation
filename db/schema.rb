@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503013538) do
+ActiveRecord::Schema.define(:version => 20130503183916) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -283,6 +283,20 @@ ActiveRecord::Schema.define(:version => 20130503013538) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
+  end
+
+  create_table "quarries", :force => true do |t|
+    t.string   "name"
+    t.string   "lat"
+    t.string   "lng"
+    t.integer  "distance"
+    t.string   "address_1"
+    t.string   "address_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "rock_pad_variables", :force => true do |t|

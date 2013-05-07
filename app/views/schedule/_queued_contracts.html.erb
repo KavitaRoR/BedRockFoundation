@@ -29,7 +29,7 @@
       	var the_center = new mxn.LatLonPoint(crew_base[0], crew_base[1]);
       	map.setCenterAndZoom(the_center, 6);
 	    var marker = new mxn.Marker(the_center);
-    	marker.setIcon("/assets/images/marker.png");
+    	marker.setIcon("/assets/images/rock-test.png");
     	marker.setIconSize(24,24);
 	    map.addMarker(marker);
 		// marker.addData({'infoBubble': 'This is a popup'})
@@ -90,9 +90,10 @@
 			L.tileLayer(CM_URL, {attribution: CM_ATTR, styleId: 76267}).addTo(map);
 			var MapIcon = L.Icon.extend({
 				options: {
-					iconUrl: "/assets/images/map/marker-"+loc[2]+"-"+loc[3]+".png",
+					// iconUrl: "/assets/images/map/marker-"+loc[2]+"-"+loc[3]+".png",
+					iconUrl: "/assets/images/map/rock-2.png",
 					// shadowUrl: '../docs/images/leaf-shadow.png',
-					iconSize: [25, 41],
+					iconSize: [77, 63],
 					// shadowSize: [50, 64],
 					iconAnchor: [22, 41],
 					// shadowAnchor: [4, 62],

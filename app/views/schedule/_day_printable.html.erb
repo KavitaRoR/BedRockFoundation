@@ -51,7 +51,7 @@
 							<b>Rock Pad <%= "##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %></b><br />
 							<%= con.estimate.job.size_and_type rescue ""%> <br />
 							<%= con.estimate.job.contact.name rescue "This JOB has been deleted" %> <br />
-							<strong>Status: <%= con.estimate.job.job_status rescue "Waiting on status." %></strong>
+							<strong>Status: <%= con.estimate.job.job_status rescue "Waiting on status." %></strong><br />
 							<%= link_to "View the Estimate", "/estimates/view_estimate/#{con.estimate.token}?type=#{con.estimate.job.job_type.kind}", :class => "button white-gradient glossy icon-printer", :target => "_blank" %>
 							<% if current_user.is_foreman? and con.estimate.additional_notes %>
 								<br /><br />
@@ -75,13 +75,17 @@
 								<% end %>
 							</div>
 						<% end %>
+						<div id="customer_map_<%= con.id %>" class="quarry_map"></div>
 					</div>
-
+					<% unless con.estimate.job.lat.nil? && con.estimate.job.lng.nil? %>
+						<script type="text/javascript">
+							$(document).ready(function(){
+								show_quarry_map(<%= con.estimate.job.lat %>,<%= con.estimate.job.lng %>, <%= con.id %>);							
+							});
+						</script>
+					<% end %>
 				<% end %>
 			<% end %>
-			</td>
-			<td width="*">
-				<!-- <div style="width: 500px; height: 400px;">Map goes here</div> -->
 			</td>
 			</tr>
 		</table>
@@ -94,7 +98,44 @@
 function is_touch_device() {
   return !!('ontouchstart' in window);
 }
+//<![CDATA[
+	function show_quarry_map(lat,lng,div_id) {
+		CM_ATTR = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://cloudmade.com">CloudMade</a>';
 
+		CM_URL = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/{styleId}/256/{z}/{x}/{y}.png';
+		var randomnumber = Math.floor(Math.random()*999999999);
+		$("#customer_map_" + div_id).append("<div id='quarry_map_"+randomnumber+"' class='q_map' style='width: 220px; height: 200px;'></div>");
+
+		var map = L.map('quarry_map_'+randomnumber).setView([lat,lng], 8);
+			
+		L.tileLayer(CM_URL, {attribution: CM_ATTR, styleId: 76267}).addTo(map);
+			 var MapIcon = L.Icon.extend({
+				options: {
+					iconUrl: "/assets/images/marker-2.png",
+					iconSize: [25, 41]
+				}
+			});
+			var RockIcon = L.Icon.extend({
+				options: {
+					iconUrl: "/assets/images/map/rock-2.png",
+					iconSize: [77, 63]
+				}
+			});
+		
+			greenIcon = new MapIcon(),
+			marker1 = new L.Marker(new L.LatLng(lat,lng), {icon: greenIcon});
+
+			map.addLayer(marker1);
+    <% @quarries.each do |quarry| %>
+				var rockIcon_<%= quarry.id %> = new RockIcon(),
+				marker_<%= quarry.id %> = new L.Marker(new L.LatLng(<%= quarry.lat %>,<%= quarry.lng %>), {icon: rockIcon_<%= quarry.id %>});
+				marker_<%= quarry.id %>.bindPopup("<%= quarry.name %><br /><%= quarry.address_block.html_safe %>");
+				map.addLayer(marker_<%= quarry.id %>);
+		<% end %>			
+	}
+//]]>
 $(document).ready(function() {
 	if (is_touch_device()) {
 		$("a.iframe").attr('target', '_blank');
@@ -109,6 +150,5 @@ $(document).ready(function() {
 			'height': 700
 		});
 		
-	}
-	
+	}	
 });</script>

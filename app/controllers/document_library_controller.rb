@@ -1,4 +1,5 @@
 class DocumentLibraryController < ApplicationController
+ before_filter :authenticate_user!
  skip_before_filter :verify_authenticity_token, :only => ['elfinder','add_files_to_job']
 
 def index
