@@ -1,6 +1,5 @@
 Abundant::Application.routes.draw do
 
-
   WepayRails.routes(self)
 
   resources :foundation_calculators
@@ -10,6 +9,8 @@ Abundant::Application.routes.draw do
   resources :day_crew_blocks
 
   resources :arrival_ranges
+
+  resources :quarries
 
   devise_for :users, :controllers => {:registrations => "users"}
 
