@@ -13,11 +13,12 @@ partialz = "adhoc" if @job.foundation_calc.include?("adhoc")
 	<% end %>
 	<%= render partial: "/jobs/print_estimate_#{partialz}", locals: {job: @job} %>	
 	<br />
-	<!-- Files -->
+	<!-- Files 
 	<h2>Files Attached to this job</h2>
-	<% if @job.library_files %>
-		<%= render partial: 'jobs/library_file', collection: @job.library_files %>
-	<% end %><br />
+	-->
+	<%# if @job.library_files %>
+		<%#= render partial: 'jobs/library_file', collection: @job.library_files %>
+	<%# end %><br />
 </div>
 
 <div style="width:50%;">

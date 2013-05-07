@@ -209,19 +209,19 @@
 		<% end %>
 	<% end %>
 	<tr><td><%= bundle_total %></td></tr>
-
-	<% if @job.library_files %>
+<!--
+	<%# if @job.library_files %>
 		<tr>
 			<td colspan="4"><hr /></td>
 		</tr>
 		<tr>
 		 <td colspan="4">
-			<%= render partial: 'jobs/library_file', 
+			<%#= render partial: 'jobs/library_file', 
 				collection: @job.library_files %>
 			</td>
 		</tr>
-	<% end %>
-
+	<%# end %>
+-->
 	<tr>
 		<td colspan="4"><hr /></td>
 	</tr>

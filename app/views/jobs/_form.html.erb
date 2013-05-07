@@ -215,11 +215,11 @@
 			<%= link_to "Delete this item", job_addition_path(a), :method => "DELETE" %> | <%= link_to "Edit this item", edit_job_addition_path(a) %>
 			<hr /><br /><br />
 		<% end %>
-	<h3>Files Attached to this Job</h3>
-	<% if @job.library_files %>
-		<%= render partial: 'library_file', collection: @job.library_files %>
-	<% end %><br />
-	<%= link_to "Add Files", "/attach_files?job_id=#{@job.id}", class: "iframe"  %>
+	<!-- <h3>Files Attached to this Job</h3> -->
+	<%# if @job.library_files %>
+		<%#= render partial: 'library_file', collection: @job.library_files %>
+	<%# end %><br />
+	<%#= link_to "Add Files", "/attach_files?job_id=#{@job.id}", class: "iframe"  %>
 	<% end %>
 </div>
 <div style="clear:both;"></div>
