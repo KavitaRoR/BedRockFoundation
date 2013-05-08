@@ -33,7 +33,7 @@ class RockPadCalculator
     @weed_fabric_per_roll = (findVar("rockpad_weed_fabric_per_roll") * 100) || 36500
     @rebar_piece = (findVar("rockpad_rebar_piece") * 100) || 100
     @erosion_control_per_lft = (findVar("rockpad_erosion_control_wire_price")) || 2.50
-    @kind = kind.capitalize
+    @kind = kind.try(:capitalize)
     @fill_type = fill_type
   end
   
