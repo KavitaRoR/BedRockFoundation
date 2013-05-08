@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @quarry.name %>
+</p>
+
+<p>
+  <b>Lat:</b>
+  <%= @quarry.lat %>
+</p>
+
+<p>
+  <b>Lng:</b>
+  <%= @quarry.lng %>
+</p>
+
+<p>
+  <b>Address 1:</b>
+  <%= @quarry.address_1 %>
+</p>
+
+<p>
+  <b>Address 2:</b>
+  <%= @quarry.address_2 %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @quarry.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @quarry.state %>
+</p>
+
+<p>
+  <b>Zip:</b>
+  <%= @quarry.zip %>
+</p>
+
+
+<%= link_to 'Edit', edit_quarry_path(@quarry) %> |
+<%= link_to 'Back', quarries_path %>
