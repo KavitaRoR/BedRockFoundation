@@ -208,31 +208,31 @@ class Job < ActiveRecord::Base
     }
   end
   
-  def specific_offlevel(kindstr=nil)
+  def specific_offlevel(kindstr="Standard")
     mykind = self.economy_or_elite 
     mykind = kindstr unless kindstr.nil? 
-    kind_0 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 0, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
-    kind_12 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 1, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
-    kind_18 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 1.5, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
-    kind_24 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 2, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
-    kind_30 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 2.5, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
-    kind_36 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 3, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
-    kind_48 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 4, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
-    kind_60 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.capitalize, self.border_sixbysix, 5, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
+    kind_0 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.try(:capitalize), self.border_sixbysix, 0, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
+    kind_12 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.try(:capitalize), self.border_sixbysix, 1, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
+    kind_18 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.try(:capitalize), self.border_sixbysix, 1.5, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
+    kind_24 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.try(:capitalize), self.border_sixbysix, 2, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
+    kind_30 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.try(:capitalize), self.border_sixbysix, 2.5, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
+    kind_36 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.try(:capitalize), self.border_sixbysix, 3, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
+    kind_48 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.try(:capitalize), self.border_sixbysix, 4, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
+    kind_60 = RockPadCalculator.new(self.distance, self.width, self.length, mykind.try(:capitalize), self.border_sixbysix, 5, self.off_level_fill_type, self.erosion_control_lft, self).total_price + ((additional_price - discount) * 100)
     return {
       zero: [kind_0, 0], twelve: [kind_12, 12], eighteen: [kind_18, 18], twentyfour: [kind_24, 24], thirty: [kind_30, 30], thirtysix: [kind_36, 36], fourtyeight: [kind_48, 48], sixty: [kind_60, 60]
     }
   end
   
-  def specific_offlevel_diff(kind)
-    kind_0 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 0, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
-    kind_12 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 1, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
-    kind_18 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 1.5, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
-    kind_24 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 2, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
-    kind_30 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 2.5, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
-    kind_36 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 3, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
-    kind_48 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 4, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
-    kind_60 = RockPadCalculator.new(self.distance, self.width, self.length, kind.capitalize, self.border_sixbysix, 5, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
+  def specific_offlevel_diff(kind="Standard")
+    kind_0 = RockPadCalculator.new(self.distance, self.width, self.length,  kind.try(:capitalize), self.border_sixbysix, 0, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
+    kind_12 = RockPadCalculator.new(self.distance, self.width, self.length, kind.try(:capitalize), self.border_sixbysix, 1, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
+    kind_18 = RockPadCalculator.new(self.distance, self.width, self.length, kind.try(:capitalize), self.border_sixbysix, 1.5, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
+    kind_24 = RockPadCalculator.new(self.distance, self.width, self.length, kind.try(:capitalize), self.border_sixbysix, 2, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
+    kind_30 = RockPadCalculator.new(self.distance, self.width, self.length, kind.try(:capitalize), self.border_sixbysix, 2.5, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
+    kind_36 = RockPadCalculator.new(self.distance, self.width, self.length, kind.try(:capitalize), self.border_sixbysix, 3, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
+    kind_48 = RockPadCalculator.new(self.distance, self.width, self.length, kind.try(:capitalize), self.border_sixbysix, 4, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
+    kind_60 = RockPadCalculator.new(self.distance, self.width, self.length, kind.try(:capitalize), self.border_sixbysix, 5, self.off_level_fill_type, self.erosion_control_lft, self).extra_slope_costs
     return {
       zero: [kind_0, 0], twelve: [kind_12, 12], eighteen: [kind_18, 18], twentyfour: [kind_24, 24], thirty: [kind_30, 30], thirtysix: [kind_36, 36], fourtyeight: [kind_48, 48], sixty: [kind_60, 60]
     }
