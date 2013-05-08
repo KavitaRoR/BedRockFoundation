@@ -69,7 +69,7 @@ class ScheduleController < ApplicationController
   def redirect_to_contact
     contract = Contract.find(params[:id])
     if contract && contract.estimate.job.contact
-      redirect_to "/e/#{contract.estimate.token}?type=#{contract.estimate.job.job_type.kind}"
+      redirect_to "/estimates/view_estimate/#{contract.estimate.token}?type=#{contract.estimate.job.job_type.kind}"
     else
       redirect_to "/schedule", error: "The contact was not found"
     end
