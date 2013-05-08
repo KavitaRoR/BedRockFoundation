@@ -34,6 +34,7 @@ class RockPadCalculator
     @rebar_piece = (findVar("rockpad_rebar_piece") * 100) || 100
     @erosion_control_per_lft = (findVar("rockpad_erosion_control_wire_price")) || 2.50
     @kind = kind.try(:capitalize)
+    @kind = "Standard" if @kind.nil?
     @fill_type = fill_type
   end
   
