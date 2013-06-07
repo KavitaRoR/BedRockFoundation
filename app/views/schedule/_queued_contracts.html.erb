@@ -111,7 +111,7 @@
 			greenIcon = new MapIcon(),
 			marker1 = new L.Marker(new L.LatLng(loc[0], loc[1]), {icon: greenIcon});
 
-			marker1.bindPopup(loc[4] + " - <a href='/estimates/view_estimate/" + loc[5] + "?type=<%= con.estimate.job.job_type.kind %>' target='_blank'>"+loc[6]+"</a>");
+			marker1.bindPopup(loc[4] + " - <a href='/estimates/view_estimate/" + loc[5] + "?type=<%= con.estimate.job.job_type.kind rescue 'standard' %>' target='_blank'>"+loc[6]+"</a>");
 		// marker2.bindPopup("I am a red leaf.");
 		// marker3.bindPopup("I am an orange leaf.");
 
