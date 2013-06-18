@@ -80,16 +80,19 @@ class ConcreteJobCalculator
     puts "Thick = #{thick}"
     cubic_yards_of_concrete = case 
     when @padkind.include?('gibraltar')
-      ((@length.to_f - 1.3333) / 3) * ((@width.to_f - 1.3333) / 3) * gibraltar_footer_thick
+      gib_square_footage = (@length.to_f - 1.3333) * (@width.to_f - 1.3333) * (@concrete_gibraltar_footer.to_f / 12)
+      gib_square_footage / 27
       # @length * @width @ thick
     when @padkind.include?('graduated')
-      edge = @concrete_edge_thickness_in_inches.to_f / 36
-      edge_amount = edge * edge * (perimeter / 3)
-      inside_amount = ((square_footage/3) - (edge*2)) * thick
-      inside_amount + edge_amount
+      edge_ft = @concrete_edge_thickness_in_inches.to_f / 12
+      edge_amount_sqft = perimeter * edge_ft
+      edge_amount_cuft = edge_amount_sqft * edge_ft
+      inside_amount_sqft = square_footage - edge_amount_sqft
+      inside_amount_cuft = inside_amount_sqft * (@concrete_thickness.to_f / 12)
+      (inside_amount_cuft + edge_amount_cuft) / 27
     when @padkind.include?('floating')
       # ((square_footage - 1.3333) / 3) * thick
-			(square_footage / depth_from_inches(@concrete_thickness).to_i)
+			(square_footage * (@concrete_thickness.to_f / 12)) / 27
     when @padkind.include?('piers')
       cubic_area_per_pier = (@concrete_piers_depth_in_inches.to_f / 36) * (@concrete_piers_diameter_in_inches.to_f / 72) * Math::PI
       cubic_area_per_pier * findVar("concrete_number_of_piers")
