@@ -9,6 +9,7 @@ class DashboardController < ApplicationController
     # @all_todos = Status.find(:all, :conditions => {:assigned_to => current_user.id, :done => nil}, :include => [:contact, :job, :next_action, {:contact => :jobs}], :order => "followup_date DESC")
     @all_todos = Status.todo(current_user.id)
     id_group = {}
+    logger.info("AllTodos.count = #{@all_todos.count}")
     @all_todos.each do |t|
       if t.contact
         if id_group.has_key?(t.contact.id)
@@ -22,6 +23,7 @@ class DashboardController < ApplicationController
     id_group.each do |k, v|
       @todos << Status.find(v, :include => [:contact, :job, :next_action, {:contact => :jobs}])
     end
+    logger.info("Todos.count = #{@todos.count}")
   end
   
   def todos 
