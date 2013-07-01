@@ -14,15 +14,9 @@ class Status < ActiveRecord::Base
   end
   
   def self.todo(user_id)
-    if user_id == 3
-      find(:all, :conditions => {:done => nil,:assigned_to => user_id}, 
-        :joins => [:contact, :job, :next_action, {:contact => :jobs}], 
-        :order => "followup_date DESC")
-    else
-       find(:all, :conditions => {:done => nil}, 
-        :include => [:contact, :job, :next_action, {:contact => :jobs}], 
-        :order => "followup_date DESC")
-    end       
+   find(:all, :conditions => {:done => nil}, 
+    :include => [:contact, :job, :next_action, {:contact => :jobs}], 
+    :order => "followup_date DESC")
   end
 
   def status_flag
