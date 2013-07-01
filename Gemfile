@@ -12,12 +12,14 @@ gem 'ruby-prof'
 gem 'therubyracer'
 gem 'wepay-rails'
 gem 'el_finder'
+gem "squeel"
 
 group :development do
   gem 'heroku'
   gem 'mysql2'
   gem 'pry'
-#  gem 'thin'
+  gem 'lol_dba'
+  gem 'thin'
 end
 
 # Gems used only for assets and not required
