@@ -4,6 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="description" content="Reflect Template" />
 		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<title>Bedrock Foundations Scheduling System</title>
 		<%= stylesheet_link_tag "stylesheets/style_all.css", "stylesheets/style2.css", 'gmaps4rails', 'jquery.fancybox-1.3.4', 'shortcodes', 'colors' %>
 		<!--[if IE 6]>
@@ -25,7 +26,7 @@
 		<% end %>
 		<script src="/assets/mxn/mxn.js?(leaflet)" type="text/javascript"></script> 
 
-		<%= javascript_include_tag "jquery-1.7.1.min", 'jquery.simplemodal.1.4.2.min', 'jquery-ui', 'jquery.flash', 'jquery.wysiwyg', 'tablesorter', 'jquery.tablesorter.pager', 'custom', "application", "jrails", "rails", 'gmaps4rails/gmaps4rails.base', 'gmaps4rails/gmaps4rails.googlemaps', 'jquery.easing-1.3.pack', 'jquery.mousewheel-3.0.4.pack', 'jquery.fancybox-1.3.4' %>
+		<%= javascript_include_tag 'jquery.simplemodal.1.4.2.min', 'jquery-ui', 'jquery.flash', 'jquery.wysiwyg', 'tablesorter', 'jquery.tablesorter.pager', 'custom', "application", "jrails", "rails", 'gmaps4rails/gmaps4rails.base', 'gmaps4rails/gmaps4rails.googlemaps', 'jquery.easing-1.3.pack', 'jquery.mousewheel-3.0.4.pack', 'jquery.fancybox-1.3.4' %>
 		<%= csrf_meta_tag %>
 		<%= yield :head %>
 	</head>

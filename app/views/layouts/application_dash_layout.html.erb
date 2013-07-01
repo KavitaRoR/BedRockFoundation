@@ -3,6 +3,7 @@
 <html>
   <head>
     <title><%= h(yield(:title) || "Untitled") %></title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
     <%= stylesheet_link_tag 'reset', 'dashboard', 'navigation_tabs', 'navigation_icons', 'forms_tables', "fg.menu" , "cupertino/ui.all", "shortcodes" %>
     <%#= stylesheet_link_tag  "fg.menu" , "flick/ui.all" %>
@@ -91,7 +92,7 @@
 
 	<%= render :partial => 'shared/google_analytics' %>
 	
-  <%= javascript_include_tag 'jquery', 'fg.menu', 'jquery.flash' %>
+  <%= javascript_include_tag 'fg.menu', 'jquery.flash' %>
   <%= javascript_include_tag "jquery-fx", "jquery-pages", "thickbox" %>
 	<%= javascript_include_tag 'tablesorter', 'jquery.tablesorter.pager','tablesorter_filter','jquery.example' , 'jquery.maskedinput', 'application_form_basics', "application" %>
 	
