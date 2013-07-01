@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503183916) do
+ActiveRecord::Schema.define(:version => 20130701022428) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -19,14 +19,6 @@ ActiveRecord::Schema.define(:version => 20130503183916) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "position"
-  end
-
-  create_table "campaigns", :force => true do |t|
-    t.string   "name"
-    t.date     "started_on"
-    t.integer  "cost_in_cents"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "check_payments", :force => true do |t|
@@ -67,6 +59,10 @@ ActiveRecord::Schema.define(:version => 20130503183916) do
     t.integer  "created_by"
   end
 
+  add_index "contacts", ["campaign_id"], :name => "index_contacts_on_campaign_id"
+  add_index "contacts", ["contact_status_id"], :name => "index_contacts_on_contact_status_id"
+  add_index "contacts", ["shed_company_id"], :name => "index_contacts_on_shed_company_id"
+
   create_table "content_data", :force => true do |t|
     t.string   "key"
     t.string   "description"
@@ -84,6 +80,10 @@ ActiveRecord::Schema.define(:version => 20130503183916) do
     t.datetime "updated_at",       :null => false
     t.integer  "arrival_range_id"
   end
+
+  add_index "contracts", ["arrival_range_id"], :name => "index_contracts_on_arrival_range_id"
+  add_index "contracts", ["crew_id"], :name => "index_contracts_on_crew_id"
+  add_index "contracts", ["estimate_id"], :name => "index_contracts_on_estimate_id"
 
   create_table "crews", :force => true do |t|
     t.string   "crew_name"
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(:version => 20130503183916) do
     t.integer  "working_with_crew_id"
   end
 
+  add_index "day_crew_blocks", ["crew_id"], :name => "index_day_crew_blocks_on_crew_id"
+
   create_table "estimates", :force => true do |t|
     t.integer  "job_id"
     t.integer  "job_type_id",             :default => 2
@@ -129,6 +131,9 @@ ActiveRecord::Schema.define(:version => 20130503183916) do
     t.boolean  "show_payment_buttons",    :default => true
     t.text     "additional_notes"
   end
+
+  add_index "estimates", ["job_id"], :name => "index_estimates_on_job_id"
+  add_index "estimates", ["job_type_id"], :name => "index_estimates_on_job_type_id"
 
   create_table "foundation_calculators", :force => true do |t|
     t.string   "kind"
@@ -153,6 +158,8 @@ ActiveRecord::Schema.define(:version => 20130503183916) do
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end
+
+  add_index "job_additions", ["job_id"], :name => "index_job_additions_on_job_id"
 
   create_table "job_types", :force => true do |t|
     t.string   "kind"
@@ -226,7 +233,16 @@ ActiveRecord::Schema.define(:version => 20130503183916) do
     t.text     "job_status_reason"
   end
 
+  add_index "jobs", ["bundle_with_job_id"], :name => "index_jobs_on_bundle_with_job_id"
+  add_index "jobs", ["calculation_location_id"], :name => "index_jobs_on_calculation_location_id"
+  add_index "jobs", ["contact_id"], :name => "index_jobs_on_contact_id"
+  add_index "jobs", ["foundation_calculator_id"], :name => "index_jobs_on_foundation_calculator_id"
+  add_index "jobs", ["foundation_id"], :name => "index_jobs_on_foundation_id"
   add_index "jobs", ["id"], :name => "index_jobs_on_id"
+  add_index "jobs", ["job_type_id"], :name => "index_jobs_on_job_type_id"
+  add_index "jobs", ["location_id"], :name => "index_jobs_on_location_id"
+  add_index "jobs", ["pad_size_id"], :name => "index_jobs_on_pad_size_id"
+  add_index "jobs", ["truck_id"], :name => "index_jobs_on_truck_id"
 
   create_table "library_files", :force => true do |t|
     t.integer  "job_id"
@@ -237,6 +253,8 @@ ActiveRecord::Schema.define(:version => 20130503183916) do
     t.float    "file_size"
     t.string   "file_url"
   end
+
+  add_index "library_files", ["job_id"], :name => "index_library_files_on_job_id"
 
   create_table "locations", :force => true do |t|
     t.string   "name"
@@ -341,6 +359,10 @@ ActiveRecord::Schema.define(:version => 20130503183916) do
     t.string   "current_situation"
   end
 
+  add_index "statuses", ["contact_id"], :name => "index_statuses_on_contact_id"
+  add_index "statuses", ["job_id"], :name => "index_statuses_on_job_id"
+  add_index "statuses", ["next_action_id"], :name => "index_statuses_on_next_action_id"
+
   create_table "trucks", :force => true do |t|
     t.string   "name"
     t.string   "phone"
@@ -349,6 +371,8 @@ ActiveRecord::Schema.define(:version => 20130503183916) do
     t.datetime "updated_at"
     t.integer  "crew_id"
   end
+
+  add_index "trucks", ["crew_id"], :name => "index_trucks_on_crew_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -369,6 +393,7 @@ ActiveRecord::Schema.define(:version => 20130503183916) do
     t.text     "email_signature"
   end
 
+  add_index "users", ["crew_id"], :name => "index_users_on_crew_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
