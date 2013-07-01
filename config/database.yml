@@ -1,6 +1,6 @@
 development:
   adapter: mysql2
-  database: abundant3_dev
+  database: bedrock_dev
   host: localhost
   username: root
   password: 

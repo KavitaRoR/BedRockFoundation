@@ -12,16 +12,16 @@ class DashboardController < ApplicationController
     logger.info("AllTodos.count = #{@all_todos.count}")
     @all_todos.each do |t|
       if t.contact
-        if id_group.has_key?(t.contact.id)
-          id_group[t.contact.id] = t.id if id_group[t.contact.id] < t.id
+        if id_group.has_key?(t.contact_id)
+          id_group[t.contact_id] = t.id if id_group[t.contact_id] < t.id
         else
-          id_group[t.contact.id] = t.id
+          id_group[t.contact_id] = t.id
         end
       end
     end
     @todos = []
     id_group.each do |k, v|
-      @todos << Status.find(v, :include => [:contact, :job, :next_action, {:contact => :jobs}])
+      @todos << Status.find(v, :include => [:job, :next_action, {:contact => :jobs}])
     end
     logger.info("Todos.count = #{@todos.count}")
   end

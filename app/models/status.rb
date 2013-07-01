@@ -6,17 +6,18 @@ class Status < ActiveRecord::Base
   scope :reverse, :order => "updated_at DESC"
   
   def creator
-    User.find(assigned_by)
+    @creator ||= User.find(assigned_by)
   end
   
   def assignee
-    User.find(assigned_to)
+    @assignee ||= User.find(assigned_to)
   end
   
   def self.todo(user_id)
-   find(:all, :conditions => {:done => nil}, 
-    :include => [:contact, :job, :next_action, {:contact => :jobs}], 
-    :order => "followup_date DESC")
+    logger.debug("USER ID: #{user_id}")
+    query = where(:done => nil).includes(:next_action).order("followup_date DESC")
+    # query = query.where(assigned_to: user_id) unless [1,2,7,nil].include?(user_id)
+    query
   end
 
   def status_flag
