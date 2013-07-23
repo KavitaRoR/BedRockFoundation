@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(:version => 20130701022428) do
     t.integer  "position"
   end
 
+  create_table "campaigns", :force => true do |t|
+    t.string   "name"
+    t.date     "started_on"
+    t.integer  "cost_in_cents"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "check_payments", :force => true do |t|
     t.string   "check_number"
     t.decimal  "total",        :precision => 10, :scale => 2, :default => 0.0

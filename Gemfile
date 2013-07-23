@@ -15,10 +15,10 @@ gem 'el_finder'
 gem "squeel"
 
 group :development do
-  gem 'heroku'
+  gem 'heroku', :require => false
   gem 'mysql2'
-  gem 'pry'
-  gem 'lol_dba'
+  gem 'pry', :require => false
+  gem 'lol_dba', :require => false
   gem 'thin'
 end
 
