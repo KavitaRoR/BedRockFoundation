@@ -292,25 +292,6 @@
 		
 		<% @job.job_additions.each do |job_add| %>
 			<%= render :partial => "job_addition", :locals => {:job_add => job_add} %>
-			<% if job_add.is_a_material_addition? %>
-				<%= form_for(job_add) do |j| %>
-					<div class="field">
-				    <%= j.label :addition_price_in_dollars, "Price in dollars" %><br />
-				    <%= j.text_field :addition_price_in_dollars %>
-				  </div>
-				  <div class="field">
-				    <%= j.label :addition_description, "Description" %><br />
-				    <%= j.text_field :addition_description %>
-				  </div>
-					<%= j.hidden_field :job_id, :value => (@job.id || job_add.job_id) %>
-					<div style="margin-top: 10px">
-					<%= j.submit "Save this item", class:"button green-gradient glossy" %>
-					<%= link_to "Edit", edit_job_addition_path(job_add), class: "button tiny blue-gradient" %>
-					<%= link_to "Delete", job_addition_path(job_add), :method => "DELETE", confirm: "Are you sure?", class: "button tiny red-gradient" %> 
-					</div>
-				<% end %>
-			<% else %>
-			<% end %>
 			<hr /><p>
 			<em style="margin: 7px 0; display: block;">Add another Additional Item or Material</em>
 		<%= link_to "an additional item", "/job_additions/new?job_id=#{@job.id}", class: "button small icon-plus green-gradient glossy" %></p>
