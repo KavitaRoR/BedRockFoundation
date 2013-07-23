@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  width: 9.99
+  height: 9.99
+  qty_per_pack: 9.99
+  price_per_pack: 9.99
+  position: 1
+
+two:
+  name: MyString
+  width: 9.99
+  height: 9.99
+  qty_per_pack: 9.99
+  price_per_pack: 9.99
+  position: 1

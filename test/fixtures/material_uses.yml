@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  material: 
+  job: 
+  job_addition: 
+  qty_estimated: 9.99
+  qty_purchased: 9.99
+  qty_used: 9.99
+
+two:
+  material: 
+  job: 
+  job_addition: 
+  qty_estimated: 9.99
+  qty_purchased: 9.99
+  qty_used: 9.99

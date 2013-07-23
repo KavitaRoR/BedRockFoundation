@@ -1,5 +1,9 @@
 Abundant::Application.routes.draw do
 
+  resources :material_uses
+
+  resources :materials
+
   WepayRails.routes(self)
 
   resources :foundation_calculators

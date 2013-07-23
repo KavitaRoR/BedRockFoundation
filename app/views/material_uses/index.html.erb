@@ -1,0 +1,33 @@
+<h1>Listing material_uses</h1>
+
+<table>
+  <tr>
+    <th>Material</th>
+    <th>Job</th>
+    <th>Job addition</th>
+    <th>Qty estimated</th>
+    <th>Qty purchased</th>
+    <th>Qty used</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @material_uses.each do |material_use| %>
+  <tr>
+    <td><%= material_use.material %></td>
+    <td><%= material_use.job %></td>
+    <td><%= material_use.job_addition %></td>
+    <td><%= material_use.qty_estimated %></td>
+    <td><%= material_use.qty_purchased %></td>
+    <td><%= material_use.qty_used %></td>
+    <td><%= link_to 'Show', material_use %></td>
+    <td><%= link_to 'Edit', edit_material_use_path(material_use) %></td>
+    <td><%= link_to 'Destroy', material_use, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Material use', new_material_use_path %>

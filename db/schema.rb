@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130701022428) do
+ActiveRecord::Schema.define(:version => 20130723111938) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(:version => 20130701022428) do
     t.decimal  "area",                                :precision => 10, :scale => 2, :default => 0.0
     t.string   "job_status"
     t.text     "job_status_reason"
+    t.decimal  "material_markup",                     :precision => 10, :scale => 2, :default => 1.2,        :null => false
   end
 
   add_index "jobs", ["bundle_with_job_id"], :name => "index_jobs_on_bundle_with_job_id"
@@ -277,6 +278,33 @@ ActiveRecord::Schema.define(:version => 20130701022428) do
     t.string   "use_for_estimates", :default => "no"
     t.string   "lat"
     t.string   "lng"
+  end
+
+  create_table "material_uses", :force => true do |t|
+    t.integer  "material_id",                                                     :null => false
+    t.integer  "job_id",                                                          :null => false
+    t.integer  "job_addition_id"
+    t.decimal  "qty_estimated",   :precision => 10, :scale => 2, :default => 1.0, :null => false
+    t.decimal  "qty_purchased",   :precision => 10, :scale => 2, :default => 1.0, :null => false
+    t.decimal  "qty_used",        :precision => 10, :scale => 2, :default => 1.0, :null => false
+    t.datetime "created_at",                                                      :null => false
+    t.datetime "updated_at",                                                      :null => false
+  end
+
+  add_index "material_uses", ["job_addition_id"], :name => "index_material_uses_on_job_addition_id"
+  add_index "material_uses", ["job_id"], :name => "index_material_uses_on_job_id"
+  add_index "material_uses", ["material_id"], :name => "index_material_uses_on_material_id"
+
+  create_table "materials", :force => true do |t|
+    t.string   "name"
+    t.string   "width",                                         :default => "1'"
+    t.string   "length",                                        :default => "1'"
+    t.string   "height",                                        :default => "1'"
+    t.decimal  "qty_per_pack",   :precision => 10, :scale => 2, :default => 10.0
+    t.decimal  "price_per_pack", :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "position",                                      :default => 100
+    t.datetime "created_at",                                                      :null => false
+    t.datetime "updated_at",                                                      :null => false
   end
 
   create_table "next_actions", :force => true do |t|

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @material.name %>
+</p>
+
+<p>
+  <b>Width:</b>
+  <%= @material.width %>
+</p>
+
+<p>
+  <b>Height:</b>
+  <%= @material.height %>
+</p>
+
+<p>
+  <b>Qty per pack:</b>
+  <%= @material.qty_per_pack %>
+</p>
+
+<p>
+  <b>Price per pack:</b>
+  <%= @material.price_per_pack %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%= @material.position %>
+</p>
+
+
+<%= link_to 'Edit', edit_material_path(@material) %> |
+<%= link_to 'Back', materials_path %>
