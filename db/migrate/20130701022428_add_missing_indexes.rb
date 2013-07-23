@@ -1,7 +1,7 @@
 class AddMissingIndexes < ActiveRecord::Migration
   def change
-    # add_index :job_additions, :job_id
-    # add_index :library_files, :job_id
+    add_index :job_additions, :job_id
+    add_index :library_files, :job_id
     add_index :jobs, :job_type_id
     add_index :jobs, :truck_id
     add_index :jobs, :contact_id
