@@ -14,7 +14,7 @@
 <%= link_to "Go Back to Customer Info", "/contacts/#{@job.contact_id}", class: "button white-gradient icon-left" %><br />
 <br />
 <%= f.label :description %><br />
-<%= f.text_area :description, :class => "text", :style => "width: 400px" %>
+<%= f.text_area :description, :class => "text", :style => "width: 384px" %>
 
 <table>
 
@@ -287,7 +287,7 @@
 <% end %>
 </div>
 
-<div style="float:left; padding:10px; 12px; margin-top: 400px;">
+<div style="float:left; padding:10px; 12px; margin-top: 300px;">
 	<h3>Additions to Job</h3>
 	<% if @job.id.nil? %>
 		You must create an estimate before you can add additional items.  Then edit the estimate to add 
@@ -296,10 +296,14 @@
 		
 		<% @job.job_additions.each do |job_add| %>
 			<%= render :partial => "job_addition", :locals => {:job_add => job_add} %>
-			<hr /><p>
-			<em style="margin: 7px 0; display: block;">Add another Additional Item or Material</em>
-		<%= link_to "an additional item", "/job_additions/new?job_id=#{@job.id}", class: "button small icon-plus green-gradient glossy" %></p>
+			<hr />
 		<% end %>
+		<p>
+			<em style="margin: 7px 0; display: block;">Add another Additional Item or Material</em>
+		<%= link_to "an additional item", "/job_additions/new?job_id=#{@job.id}", class: "button small icon-plus green-gradient glossy" %>
+		<%= link_to "a material", "/material_uses/new?job_id=#{@job.id}", class: "button small icon-plus green-gradient glossy" %>
+
+		</p>
 	<!-- <h3>Files Attached to this Job</h3> -->
 	<%# if @job.library_files %>
 		<%#= render partial: 'library_file', collection: @job.library_files %>
@@ -401,6 +405,11 @@
 						data:[<%= (0..20).step(2).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
 						createSearchChoice: function(term) { return {id:term, text:term} }
 				});
+				$('.select2-materials').select2({
+						width: "150px",
+						data:<%= Material.order("name ASC").map{|m| [m.list_label.html_safe, m.id]}.to_s %>,
+						createSearchChoice: function(term) { return {id:term, text:term} }
+				})
 				$('.select2-gib-footer-thick').select2({
 						width: "150px", 
 						data:[<%= (6..20).step(2).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 

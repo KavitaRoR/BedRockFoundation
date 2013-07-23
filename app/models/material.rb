@@ -12,6 +12,6 @@ class Material < ActiveRecord::Base
   end
 
   def dimensions
-    [width, length, height].compact.join("&times;")
+    [width, length, height].select{|f| f.present? }.join(" &times; ")
   end 
 end

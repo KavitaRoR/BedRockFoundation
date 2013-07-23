@@ -24,7 +24,7 @@ class MaterialUsesController < ApplicationController
   # GET /material_uses/new
   # GET /material_uses/new.json
   def new
-    @material_use = MaterialUse.new
+    @material_use = MaterialUse.new(:job_id => params[:job_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,7 +44,7 @@ class MaterialUsesController < ApplicationController
 
     respond_to do |format|
       if @material_use.save
-        format.html { redirect_to @material_use, notice: 'Material use was successfully created.' }
+        format.html { redirect_to "/jobs/#{@material_use.job.id}/edit", notice: 'Material addition was successfully created.' }
         format.json { render json: @material_use, status: :created, location: @material_use }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class MaterialUsesController < ApplicationController
 
     respond_to do |format|
       if @material_use.update_attributes(params[:material_use])
-        format.html { redirect_to @material_use, notice: 'Material use was successfully updated.' }
+        format.html { redirect_to "/jobs/#{@material_use.job.id}/edit", notice: 'Material addition was successfully saved.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -73,10 +73,11 @@ class MaterialUsesController < ApplicationController
   # DELETE /material_uses/1.json
   def destroy
     @material_use = MaterialUse.find(params[:id])
+    job = @material_use.job.id
     @material_use.destroy
 
     respond_to do |format|
-      format.html { redirect_to material_uses_url }
+        format.html { redirect_to "/jobs/#{job}/edit", notice: 'Material addition was successfully removed.' }
       format.json { head :no_content }
     end
   end

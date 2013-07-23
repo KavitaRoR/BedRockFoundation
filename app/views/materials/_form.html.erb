@@ -20,6 +20,10 @@
     <%= f.text_field :width %>
   </div>
   <div class="field">
+    <%= f.label :length %><br />
+    <%= f.text_field :length %>
+  </div>
+  <div class="field">
     <%= f.label :height %><br />
     <%= f.text_field :height %>
   </div>
@@ -31,11 +35,8 @@
     <%= f.label :price_per_pack %><br />
     <%= f.text_field :price_per_pack %>
   </div>
-  <div class="field">
-    <%= f.label :position %><br />
-    <%= f.number_field :position %>
-  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "button green-gradient glossy" %>
   </div>
 <% end %>

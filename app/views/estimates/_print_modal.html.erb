@@ -170,7 +170,7 @@
 		<% @estimate.job.job_additions.each do |a| %>
 			<tr>
 				<td colspan="3">
-					<span style="font-size:0.8em;"><%= a.addition_description %></span>
+					<span style="font-size:0.8em;"><%= a.addition_description.html_safe %></span>
 				</td>
 				<td style="text-align: right;">
 					<strong>+<%= money_from_cents a.addition_price_in_cents %></strong>

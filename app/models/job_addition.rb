@@ -1,6 +1,6 @@
 class JobAddition < ActiveRecord::Base
   belongs_to :job
-  # has_one :material_use
+  has_one :material_use
   
   before_destroy :update_job_price
 
@@ -15,7 +15,7 @@ class JobAddition < ActiveRecord::Base
   end 
 
   def is_a_material_addition?
-    false #material_use.present?
+    material_use.present?
   end
   
   protected

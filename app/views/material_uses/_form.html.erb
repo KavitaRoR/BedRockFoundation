@@ -12,30 +12,24 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :material %><br />
-    <%= f.text_field :material %>
-  </div>
-  <div class="field">
-    <%= f.label :job %><br />
-    <%= f.text_field :job %>
-  </div>
-  <div class="field">
-    <%= f.label :job_addition %><br />
-    <%= f.text_field :job_addition %>
+    <%= f.label :material_id, "Choose your Material" %><br />
+    <%= f.select :material_id, Material.order("name ASC").map{|m| [m.list_label.html_safe, m.id] } %>
+    <%= f.hidden_field :job_id %>
+    <%= f.hidden_field :job_addition_id %>
   </div>
   <div class="field">
     <%= f.label :qty_estimated %><br />
-    <%= f.text_field :qty_estimated %>
+    <%= f.text_field :qty_estimated, :class => "integer" %>
   </div>
   <div class="field">
     <%= f.label :qty_purchased %><br />
-    <%= f.text_field :qty_purchased %>
+    <%= f.text_field :qty_purchased, :class => "integer" %>
   </div>
   <div class="field">
     <%= f.label :qty_used %><br />
-    <%= f.text_field :qty_used %>
+    <%= f.text_field :qty_used, :class => "integer" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "button green-gradient glossy" %>
   </div>
 <% end %>

@@ -3,18 +3,26 @@ class MaterialUse < ActiveRecord::Base
   belongs_to :job
   belongs_to :job_addition
 
-  before_create :make_job_addition
-  after_save :update_job_addition
+  before_save :update_job_addition
+  before_destroy :delete_job_addition
 
-  def estimate_price
+  def estimated_price
     qty_estimated * material.price_per_unit * job.material_markup
   end
 
-  def make_job_addition
-    job_addition = JobAddition.create()
+  def description
+    "QTY: #{qty_estimated} of #{material.name} - #{material.dimensions}"
   end
 
   def update_job_addition
+    job_addition = JobAddition.new(:job_id => job_id) if job_addition.nil?
+    job_addition.addition_price_in_dollars = estimated_price
+    job_addition.addition_description = description
+    job_addition.save
+    self.job_addition_id = job_addition.id
+  end
 
+  def delete_job_addition
+    job_addition.destroy
   end
 end

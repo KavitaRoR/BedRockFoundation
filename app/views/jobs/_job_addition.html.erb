@@ -1,19 +1,29 @@
 
 <% if job_add.is_a_material_addition? %>
 	<%= form_for(job_add.material_use) do |j| %>
+
+		<h3>Estimated Price <%= number_to_currency job_add.material_use.estimated_price %> </h3>
 		<div class="field">
-	    <%= j.label :addition_price_in_dollars, "Price in dollars" %><br />
-	    <%= j.s :addition_price_in_dollars %>
+	    <%= j.label :material_id, "Select the Material" %><br />
+	    <%= j.select :material_id, Material.order("name ASC").map{|m| [m.list_label.html_safe, m.id]} %>
 	  </div>
 	  <div class="field">
-	    <%= j.label :addition_description, "Description" %><br />
-	    <%= j.text_field :addition_description %>
+	    <%= j.label :qty_estimated %><br />
+	    <%= j.text_field :qty_estimated, :class => "integer" %>
+	  </div>
+	  <div class="field">
+	    <%= j.label :qty_purchased %><br />
+	    <%= j.text_field :qty_purchased, :class => "integer" %>
+	  </div>
+	  <div class="field">
+	    <%= j.label :qty_used %><br />
+	    <%= j.text_field :qty_used, :class => "integer" %>
 	  </div>
 		<%= j.hidden_field :job_id, :value => (@job.id || job_add.job_id) %>
 		<div style="margin-top: 10px">
 		<%= j.submit "Save this item", class:"button green-gradient glossy" %>
-		<%= link_to "Edit", edit_job_addition_path(job_add), class: "button tiny blue-gradient" %>
-		<%= link_to "Delete", job_addition_path(job_add), :method => "DELETE", confirm: "Are you sure?", class: "button tiny red-gradient" %> 
+		<%= link_to "Edit", edit_material_use_path(job_add.material_use), class: "button tiny blue-gradient" %>
+		<%= link_to "Delete", material_use_path(job_add.material_use), :method => "DELETE", confirm: "Are you sure?", class: "button tiny red-gradient" %> 
 		</div>
 	<% end %>
 <% else %>
