@@ -21,6 +21,7 @@ private
       [
         link_to(estimate.contact.name,"/contacts/#{estimate.contact_id}"),
         h(estimate.id),
+        h(estimate.updated_at.strftime("%Y-%m-%d")),
         h(estimate.current_scheduled_at ? estimate.current_scheduled_at.strftime("%B %e, %Y") : ''),
         number_to_currency(estimate.price_in_cents.to_f/100)
       ]
@@ -49,7 +50,7 @@ private
   end
 
   def sort_column
-    columns = %w[contact_id id current_scheduled_at price_in_cents]
+    columns = %w[contact_id id updated_at current_scheduled_at price_in_cents]
     columns[params[:iSortCol_0].to_i]
   end
 

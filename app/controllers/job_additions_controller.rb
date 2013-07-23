@@ -48,7 +48,7 @@ class JobAdditionsController < ApplicationController
   end
 
   def update
-    params[:job_addition][:addition_price_in_cents] = params[:job_addition][:addition_price_in_cents].to_f * 100
+    params[:job_addition][:addition_price_in_cents] = params[:job_addition][:addition_price_in_cents].to_f * 100 if params[:job_addition][:addition_price_in_cents].present?
     @job_addition = JobAddition.find(params[:id])
 
     respond_to do |format|

@@ -1,3 +1,4 @@
+<div style="float: left; margin-right: 20px; width: 400px;">
 <%= form_for @job do |f| %>
 	<% if @job.errors.any? %>
 		<div id="error_explanation">
@@ -13,9 +14,9 @@
 <%= link_to "Go Back to Customer Info", "/contacts/#{@job.contact_id}", class: "button white-gradient icon-left" %><br />
 <br />
 <%= f.label :description %><br />
-<%= f.text_area :description, :class => "text" %>
+<%= f.text_area :description, :class => "text", :style => "width: 400px" %>
 
-<table style="float:left;">
+<table>
 
 	<thead></thead>
 	<tbody>
@@ -201,28 +202,7 @@
 		
 	</tbody>
 </table>
-<div style="float:left; padding:10px; 12px;">
-	<h3>Additions to Job</h3>
-	<% if @job.id.nil? %>
-		You must create an estimate before you can add additional items.  Then edit the estimate to add 
-		items here.
-	<% else %>
-		
-		<%= link_to "Add an additional item", "/job_additions/new?job_id=#{@job.id}" %><br /><br />
-		<% @job.job_additions.each do |a| %>
-			Price: <%= money_from_cents a.addition_price_in_cents %><br />
-			Desc: <%= a.addition_description %><br />
-			<%= link_to "Delete this item", job_addition_path(a), :method => "DELETE" %> | <%= link_to "Edit this item", edit_job_addition_path(a) %>
-			<hr /><br /><br />
-		<% end %>
-	<!-- <h3>Files Attached to this Job</h3> -->
-	<%# if @job.library_files %>
-		<%#= render partial: 'library_file', collection: @job.library_files %>
-	<%# end %><br />
-	<%#= link_to "Add Files", "/attach_files?job_id=#{@job.id}", class: "fbox fancybox.iframe"  %>
-	<% end %>
-</div>
-<div style="clear:both;"></div>
+
 <%= f.hidden_field(:contact_id, :value => (params[:for] || @contact.id)) rescue "" %>
 <hr />
 	<h3>Job site address</h3>
@@ -301,7 +281,48 @@
 	<%= f.submit "Save & Calculate this Estimate", class:"button green-gradient glossy" %>
 </p>
 <% end %>
+</div>
 
+<div style="float:left; padding:10px; 12px; margin-top: 400px;">
+	<h3>Additions to Job</h3>
+	<% if @job.id.nil? %>
+		You must create an estimate before you can add additional items.  Then edit the estimate to add 
+		items here.
+	<% else %>
+		
+		<% @job.job_additions.each do |job_add| %>
+			<%= render :partial => "job_addition", :locals => {:job_add => job_add} %>
+			<% if job_add.is_a_material_addition? %>
+				<%= form_for(job_add) do |j| %>
+					<div class="field">
+				    <%= j.label :addition_price_in_dollars, "Price in dollars" %><br />
+				    <%= j.text_field :addition_price_in_dollars %>
+				  </div>
+				  <div class="field">
+				    <%= j.label :addition_description, "Description" %><br />
+				    <%= j.text_field :addition_description %>
+				  </div>
+					<%= j.hidden_field :job_id, :value => (@job.id || job_add.job_id) %>
+					<div style="margin-top: 10px">
+					<%= j.submit "Save this item", class:"button green-gradient glossy" %>
+					<%= link_to "Edit", edit_job_addition_path(job_add), class: "button tiny blue-gradient" %>
+					<%= link_to "Delete", job_addition_path(job_add), :method => "DELETE", confirm: "Are you sure?", class: "button tiny red-gradient" %> 
+					</div>
+				<% end %>
+			<% else %>
+			<% end %>
+			<hr /><p>
+			<em style="margin: 7px 0; display: block;">Add another Additional Item or Material</em>
+		<%= link_to "an additional item", "/job_additions/new?job_id=#{@job.id}", class: "button small icon-plus green-gradient glossy" %></p>
+		<% end %>
+	<!-- <h3>Files Attached to this Job</h3> -->
+	<%# if @job.library_files %>
+		<%#= render partial: 'library_file', collection: @job.library_files %>
+	<%# end %><br />
+	<%#= link_to "Add Files", "/attach_files?job_id=#{@job.id}", class: "fbox fancybox.iframe"  %>
+	<% end %>
+</div>
+<div style="clear:both;"></div>
 
 		<script type="text/javascript">
 			function isNumeric(n) {
