@@ -7,8 +7,8 @@ class Material < ActiveRecord::Base
     "#{name} - #{dimensions} @ $#{price_per_pack} per #{qty_per_pack}"
   end
 
-  def price_per_unit
-    price_per_pack / qty_per_pack
+  def price_per_unit 
+    price_per_pack / qty_per_pack rescue 0
   end
 
   def dimensions

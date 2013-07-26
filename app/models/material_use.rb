@@ -7,7 +7,7 @@ class MaterialUse < ActiveRecord::Base
   before_destroy :delete_job_addition
 
   def estimated_price
-    qty_estimated * material.price_per_unit * job.material_markup
+    qty_estimated * material.price_per_unit * job.material_markup rescue "0"
   end
 
   def description

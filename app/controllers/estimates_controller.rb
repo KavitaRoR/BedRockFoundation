@@ -1,6 +1,6 @@
 class EstimatesController < ApplicationController
   before_filter :authenticate_user!, except: [:client_estimate]
-  layout 'client', :only => [:client_estimate, :view_estimate]
+  layout 'client', :only => [:client_estimate, :view_estimate, :estimate_no_longer_exists]
   include WepayRails::Payments
 
   def list
@@ -44,6 +44,7 @@ class EstimatesController < ApplicationController
   
   def client_estimate
     @estimate = Estimate.find_by_token(params[:token])
+    redirect_to :action => "estimate_no_longer_exists" and return if @estimate.nil? 
     @estimate.update_attribute(:date_of_client_view, Time.now)
     
     @job = @estimate.job
@@ -53,6 +54,10 @@ class EstimatesController < ApplicationController
     
     wepay_vars
     
+  end
+
+  def estimate_no_longer_exists
+    render :text => "This Estimate has been removed, please contact Bedrock at 717-587-7062"
   end
   
   
