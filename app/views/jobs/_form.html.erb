@@ -407,7 +407,7 @@
 				});
 				$('.select2-materials').select2({
 						width: "150px",
-						data:<%= Material.order("name ASC").map{|m| [m.list_label.html_safe, m.id]}.to_s %>,
+						data:[<%= Material.order("name ASC").map{|m| "{id:'#{m.id}',text:'#{m.list_label}'}"}.join(",") %>],
 						createSearchChoice: function(term) { return {id:term, text:term} }
 				})
 				$('.select2-gib-footer-thick').select2({
