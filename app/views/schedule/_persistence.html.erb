@@ -6,6 +6,15 @@
 		<span>Loading...</span>
 	</div>
 	<br />
+	<div id="deep-notes">
+		<%= form_for Estimate.new, url: "/estimates/add_note", remote: true do |f| %>
+			<%= f.hidden_field :token %>
+			<%= f.text_area :additional_notes, 
+				style: "width: 400px; height: 3em; float: left;", placeholder: "Additional notes..." %>
+			<%= f.submit "Update Notes", class: "button white-gradient glossy float-left", disable_with: "Saving..."  %>
+		<% end %>
+	</div>
+	<div class="clear-both">&nbsp;</div>
 	<div style="background-color:#fff; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px;">
 
 		<%= link_to "Un-Schedule from this Day", "#", :class => "button anthracite-gradient schedule_button2 delete icon-left", :onclick => "return false;" %>
@@ -158,6 +167,8 @@
 					}
 					
 					$("#deep-info").html(str);
+					$("#deep-notes textarea#estimate_additional_notes").val(result.additional_notes)
+					$("#deep-notes input#estimate_token").val(result.estimate_token)
 				})
 				
 				$(".schedule_button2.delete").click(function(){
