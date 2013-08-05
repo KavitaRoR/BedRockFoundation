@@ -43,10 +43,18 @@ class DayCrewBlocksController < ApplicationController
   # POST /day_crew_blocks.json
   def create
     @day_crew_block = DayCrewBlock.new(params[:day_crew_block])
+    result = if !params[:day_crew_block][:add_to_job].blank?
+      est = Estimate.find(params[:day_crew_block][:add_to_job])
+      est.additional_notes = "" if est.additional_notes.nil?
+      est.additional_notes += params[:day_crew_block][:reason].to_s + "\n"
+      est.save
+    else
+      @day_crew_block.save
+    end
 
     respond_to do |format|
-      if @day_crew_block.save
-        format.html { redirect_to :back, notice: 'Day crew block was successfully created.' }
+      if 
+        format.html { redirect_to :back, notice: 'Note was successfully created.' }
         format.json { render json: @day_crew_block, status: :created, location: @day_crew_block }
       else
         format.html { render action: "new" }

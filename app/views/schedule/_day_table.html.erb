@@ -26,6 +26,9 @@
 						    <%= f.select :working_with_crew_id, Crew.find(:all, :order => "ordering ASC").collect{|c| [c.crew_name, c.id]}, :include_blank => "Select who to work with:" %>
 						  </div>
 						  <div class="field">
+						    or: <%= f.select :add_to_job, [], {:include_blank => "Attach to a Job"}, {:class => "#{c.id}-#{day}-joblist"} %>
+						  </div>
+						  <div class="field">
 						    <%= f.check_box :block_off %> <%= f.label :block_off, "Block off the day" %>						    
 						  </div>
 						  <div class="actions">
@@ -73,7 +76,15 @@
 								<%= (con.estimate.job.off_level_fill_type rescue "") unless con.estimate.job.foundation_calculator_id != 1 %> - <%= con.arrival_range.early %> and <%= con.arrival_range.late %>
 								<% end %>
 							</span>
+							<% unless con.estimate.additional_notes.blank? %>
+							<div class="crew_block_button" style="width: auto; color: #000; margin: 0px 0px -7px; font-size: 10px;">
+								<%= con.estimate.additional_notes %>
+							</div>
+							<% end %>
 						</a>
+						<script>
+							$( "select.<%= "#{c.id}-#{day}" %>-joblist" ).append("<option value='<%= con.estimate.id %>'><%= con.estimate.job.contact.name %></option>>");
+						</script>
 						<br />
 					<% else %>
 					<a href="#" class="button red-gradient">OOPS</a>
