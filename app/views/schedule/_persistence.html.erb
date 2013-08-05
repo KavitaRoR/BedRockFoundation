@@ -72,6 +72,31 @@
 	</select>
 </div>
 
+<div id="editing_note" style="display:none; background-color:#ffeebb; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px; border: 2px solid #ff9922;">
+	<%= form_for(DayCrewBlock.last) do |f| %>
+	    <%= f.hidden_field :day %>
+	  <div class="field">
+	    <%= f.label :reason, "Edit your Note" %><br />
+	    <%= f.text_area :reason, style: "width: 400px; height: 4em;", placeholder: "Note contents..." %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :crew_id, "Crew this note is for" %><br />
+	    <%= f.select :crew_id, Crew.find(:all, :order => "ordering ASC").collect{|c| [c.crew_name, c.id]} %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :working_with_crew_id, "Working with Crew" %><br />
+	    <%= f.select :working_with_crew_id, Crew.find(:all, :order => "ordering ASC").collect{|c| [c.crew_name, c.id]}, :include_blank => "Select who to work with:" %>
+	  </div>
+	  <div class="field">
+	    <%= f.check_box :block_off %> <%= f.label :block_off, "Block off the day" %>						    
+	  </div>
+	  <br />
+	  <div class="actions">
+	    <%= f.submit "Save this note", class:"button green-gradient", style:"width:auto;" %>
+	  </div>
+	<% end %>
+</div>
+
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -91,6 +116,9 @@
 		$("#close-button").click(function() {
 			$.modal.close();
 		})
+		$("b.note-reason").click(function(){
+			editNotes($(this).data("id"))
+		});
 		
 		function doClicky(spec) {
 			if ($(spec).hasClass("empty")) {
@@ -198,6 +226,36 @@
 				
 				return false;
 			}
+		}
+		function editNotes(note_id){
+			$("#editing_note").modal({
+				opacity:60,
+				overlayCss: {backgroundColor:"#000"},
+				minWidth: '400px',
+				close: true,
+				overlayClose: true
+			});
+			container = $("#simplemodal-container #editing_note")
+			$.getJSON("/day_crew_blocks/"+note_id+".json", function(result) {
+				console.log(result)
+				container.find("form").attr("action", "/day_crew_blocks/"+result.id)
+				container.find("#day_crew_block_working_with_crew_id").val(result.working_with_crew_id)
+				container.find("#day_crew_block_day").val(result.day.split("T")[0])
+				container.find("#day_crew_block_reason").val(result.reason)
+				container.find("#day_crew_block_crew_id").val(result.crew_id)
+				if (result.block_off == "true" || result.block_off == true){
+					container.find("#day_crew_block_block_off").attr("checked", "checked")
+				} else {
+					container.find("#day_crew_block_block_off").removeAttr("checked")
+				}
+			})
+			$("#editing_note form input.button").click(function() {
+				$.post("/day_crew_blocks/"+note_id+".json", function(data) {
+					console.log(data)
+					$("b.note-reason:data(id:"+note_id+")").html(data.notes);
+					$.modal.close();
+				})
+			})
 		}
 		
 		function doReschedule(conid, spec, title) {

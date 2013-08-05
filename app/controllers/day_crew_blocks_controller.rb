@@ -53,7 +53,7 @@ class DayCrewBlocksController < ApplicationController
     end
 
     respond_to do |format|
-      if 
+      if result
         format.html { redirect_to :back, notice: 'Note was successfully created.' }
         format.json { render json: @day_crew_block, status: :created, location: @day_crew_block }
       else

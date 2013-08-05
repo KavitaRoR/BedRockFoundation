@@ -19,7 +19,7 @@
 					    	<%= f.hidden_field :crew_id %>
 						    <%= f.hidden_field :day %>
 						  <div class="field">
-						    <%= f.label :reason %><br />
+						    <%= f.label :reason, "Add a Note" %><br />
 						    <%= f.text_field :reason %>
 						  </div>
 						  <div class="field">
@@ -49,7 +49,7 @@
 				<div class="crew_block_button closable" id="crew_block_<%= blox.id %>">
 					<div class="close_btn" data-id='<%= "#{blox.id}" %>'></div>
 					<span class="schedule_button_heading"><%=raw "<small>day blocked off for:</small><br />" if blox.block_off %>
-					<b><%= blox.reason %></b></span>
+					<b class="note-reason" data-id='<%= "#{blox.id}" %>'><%= blox.reason %></b></span>
 				</div>
 				<% block_it_off = true if blox.block_off %>
 				<% end %>
