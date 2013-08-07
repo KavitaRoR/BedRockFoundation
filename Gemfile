@@ -20,7 +20,7 @@ group :development do
   gem 'pry', :require => false
   gem 'lol_dba', :require => false
   gem 'thin'
-  gem "letter_opener"
+  gem "letter_opener", :require => false
 end
 
 # Gems used only for assets and not required
