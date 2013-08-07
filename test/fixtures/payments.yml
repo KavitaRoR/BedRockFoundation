@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  amount: 9.99
+  reference: MyString
+  method: MyString
+  user_id: 1
+  deposited_at: 2013-08-06 23:20:20
+
+two:
+  amount: 9.99
+  reference: MyString
+  method: MyString
+  user_id: 1
+  deposited_at: 2013-08-06 23:20:20

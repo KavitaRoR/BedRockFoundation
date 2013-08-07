@@ -109,11 +109,12 @@ class EstimatesController < ApplicationController
 
   def pay_estimate
     @estimate = Estimate.find_by_token(params[:estimate][:token])
-      if @estimate.save_payment( params )
-        redirect_to "/e/#{params[:estimate][:token]}?type=#{@estimate.job_type.kind}", notice: "Payment entered Successfully!"
-      else
-        redirect_to "/e/#{params[:estimate][:token]}?type=#{@estimate.job_type.kind}", notice: "Unable to save payment"
-      end
+    payment = @estimate.payments.build(user_id: current_user.id, reference: params[:reference], amount: params[:amount], method: params[:method])
+    if payment.save
+      redirect_to "/e/#{params[:estimate][:token]}?type=#{@estimate.job_type.kind}", notice: "Payment entered Successfully!"
+    else
+      redirect_to "/e/#{params[:estimate][:token]}?type=#{@estimate.job_type.kind}", notice: "Unable to save payment"
+    end
   end
   
   

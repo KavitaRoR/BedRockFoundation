@@ -25,13 +25,7 @@
 		<a href="#checkoutdiv" id="payinfull" class="button green-gradient icon-price-tag big glossy">
 			<%  @total_paid = 0 if @total_paid.nil? %>
 			Pay this in full <%= money_from_cents((@price * 100).ceil - (@total_paid *100).ceil)  %>
-		</a><br />
-		<% if user_signed_in? %>
-			<a href="#checkoutdiv" id="pay_other" class="button green-gradient icon-price-tag big glossy">
-				<%  @total_paid = 0 if @total_paid.nil? %>
-				Other Payment Options <%= money_from_cents((@price * 100).ceil - (@total_paid *100).ceil)  %>
-			</a>
-		<% end %>
+		</a><br /><br />
 		<% if @estimate.show_recurring_payment %>
 		or
 		<a href="#checkoutdiv" id="payinthirds" class="button green-gradient icon-price-tag big">
@@ -39,6 +33,12 @@
 		</a>
 		<% end %>
 		</div>
+<% end %>
+<% if user_signed_in? %>
+	<a href="#checkoutdiv" id="pay_other" class="button green-gradient icon-price-tag big glossy">
+		<%  @total_paid = 0 if @total_paid.nil? %>
+		Enter a Payment <%= money_from_cents((@price * 100).ceil - (@total_paid *100).ceil)  %>
+	</a>
 <% end %>
 
 		<div id="checkout_div_id" style="margin: 50px; height:305px;"></div>
@@ -64,18 +64,7 @@
 					$("#payment_buttons").fadeOut();
 				})
 				<% end %>
-
-				$( "#payment_type" ).change( function() {
-					if ( $( this ).val() == "SquarePayment" ) {
-						$( "#square_fields" ).show().fadeIn();
-						$( "#check_fields" ).hide().fadeOut();
-					} else {
-						$( "#square_fields" ).hide().fadeOut();
-						$( "#check_fields" ).show().fadeIn();
-					}
-
-				});
-			})
+			});
 		</script>
 	<% end %>
 	</div>

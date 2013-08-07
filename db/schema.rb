@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130723111938) do
+ActiveRecord::Schema.define(:version => 20130807032020) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(:version => 20130723111938) do
     t.string   "off_level_to_show"
     t.boolean  "show_total_on_print",     :default => false
     t.boolean  "show_recurring_payment",  :default => false
-    t.boolean  "show_payment_buttons",    :default => true
+    t.boolean  "show_payment_buttons",    :default => false
     t.text     "additional_notes"
   end
 
@@ -337,6 +337,17 @@ ActiveRecord::Schema.define(:version => 20130723111938) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "estimate_id"
+    t.decimal  "amount",       :precision => 10, :scale => 2
+    t.string   "reference"
+    t.string   "method"
+    t.integer  "user_id"
+    t.datetime "deposited_at"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
   end
 
   create_table "quarries", :force => true do |t|

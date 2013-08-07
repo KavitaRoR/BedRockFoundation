@@ -440,7 +440,7 @@ class Job < ActiveRecord::Base
     def remove_off_level_to_show
       if self.off_level_amount_in_inches && self.estimates.first
         self.estimates.first.update_attribute "off_level_to_show", ""
-        self.estimates.first.show_payment_buttons = true
+        self.estimates.first.show_payment_buttons = false
       end
     end
 end

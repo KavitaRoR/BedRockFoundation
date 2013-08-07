@@ -1,22 +1,15 @@
 <%= form_for( @estimate, url: '/estimates/pay_estimate', method: "post" ) do |f| %>
 	<%= f.hidden_field :token %>
 	<%= label_tag :payment_type, "Payment Type" %>
-	<%= select_tag :payment_type, 
-		options_for_select( [["Square", "SquarePayment"],["Check", "CheckPayment"]]), 
-		prompt: "Payment Type" %>
+	<%= select_tag :method, 
+		options_for_select( Payment.method_defaults ), 
+		prompt: "-----" %>
 
-	<div id="check_fields" style="display:none;">
-		<%= label_tag :check_number, "Check #" %>
-		<%= text_field_tag :check_number %>
-	</div>
+		<%= label_tag :reference, "Ref. or Check #" %>
+		<%= text_field_tag :reference %>
 
-	<div id="square_fields" style="display:none;">
-		<%= label_tag :receipt_number, "Receipt #" %>
-		<%= text_field_tag :receipt_number %>
-	</div>
-
-	<%= label_tag :total, "Amount" %>
-	<%= text_field_tag :total, total_to_pay %>
+	<%= label_tag :amount, "Amount" %>
+	<%= text_field_tag :amount, total_to_pay %>
 
 	<%= f.submit :submit, class: "button green-gradient big" %>
 
