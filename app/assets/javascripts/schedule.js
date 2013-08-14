@@ -1,25 +1,44 @@
-var schedule = angular.module('schedule', ['firebase']);
+var schedule = angular.module('schedule', ['firebase', 'filters']);
 
 schedule.controller('ScheduleCtrl', ['$scope', 'angularFire', 'filterFilter',
   function ScheduleCtrl($scope, angularFire, filterFilter) {
     var contracts_url = 'https://bedrock.firebaseio.com/contracts';
     var contracts_promise = angularFire(contracts_url, $scope, 'contracts', {});
 
+    var crews_url = 'https://bedrock.firebaseio.com/crews';
+    var crews_promise = angularFire(crews_url, $scope, 'crews', {});
+
     var notes_url = 'https://bedrock.firebaseio.com/notes';
     var note_promise = angularFire(notes_url, $scope, 'notes', []);
 
     $scope.newNote = ''
     $scope.first_day = new Date();
-    $scope.days = getDayRange($scope.first_day, 1)
+    $scope.days = getDayRange($scope.first_day, 4)
+    $scope.slots = [1,2,3,4,5,6];
 
     contracts_promise.then(function(contracts) {
       startWatchContracts($scope, filterFilter);
     });
+    crews_promise.then(function(crews) {
+      startWatchCrews($scope, filterFilter);
+    });
+
     note_promise.then(function(notes) {
       startWatchNotes($scope, filterFilter);
     });
   }
 ]);
+
+
+function startWatchCrews($scope, filter) {
+  $scope.$watch('crews', function () {
+    console.log($scope.crews)
+    // $scope.remainingCount = filter($scope.todos, {completed: false}).length;
+    // $scope.completedCount = $scope.todos.length - $scope.remainingCount;
+    // $scope.allChecked = !$scope.remainingCount;
+  }, true);
+
+}
 
 function startWatchContracts($scope, filter) {
   $scope.$watch('contracts', function () {
@@ -122,3 +141,76 @@ function getWeekDay(day) {
   weekday[6]="Saturday";
   return weekday[day.getDay()];
 }
+
+
+angular.module('utils', [])
+  .factory('utils', function(){
+    return{
+      compareStr: function(stra, strb){
+        stra = ("" + stra).toLowerCase();
+        strb = ("" + strb).toLowerCase();
+        return stra.indexOf(strb) !== -1;
+      }
+    };
+  });
+
+angular.module('filters',['utils'])
+  .filter('crewFilter', function(utils){
+    
+    return function(input, crew_id){
+      if(!crew_id) return input;
+      var result = [];
+      
+      angular.forEach(input, function(contract){
+        if(contract.crew_id == crew_id){
+          result.push(contract);                    
+        }
+      });
+      return result;
+    };
+  })
+  .filter('dayFilter', function(utils){
+    
+    return function(input, day){
+      if(!day) return input;
+      var result = [];
+      
+      angular.forEach(input, function(contract){
+        if(contract.scheduled_day == day){
+          result.push(contract);                    
+        }
+      });
+      return result;
+    };
+  })
+  .filter('slotFilter', function(utils){
+    
+    return function(input, slot){
+      if(!slot) return input;
+      var result = [];
+      
+      angular.forEach(input, function(contract){
+        if(contract.slot == slot){
+          result.push(contract);                    
+        }
+      });
+      return result;
+    };
+  })
+  .filter('orderObjectBy', function(){
+    return function(input, attribute) {
+      if (!angular.isObject(input)) return input;
+
+      var array = [];
+      for(var objectKey in input) {
+          array.push(input[objectKey]);
+      }
+
+      array.sort(function(a, b){
+          a = parseInt(a[attribute]);
+          b = parseInt(b[attribute]);
+          return a - b;
+      });
+      return array;
+    }
+  });;

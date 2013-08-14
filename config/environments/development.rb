@@ -40,4 +40,6 @@ Abundant::Application.configure do
   config.time_zone = "Eastern Time (US & Canada)"
   
   config.FROM_EMAIL = "support@wearefound.com"
+
+  config.ember.variant = :development
 end
