@@ -1,0 +1,20 @@
+div.contract-notes {
+  display:none;
+}
+div.contract-notes.has {
+  display: block;
+  width: auto; 
+  background-color: #ff9; 
+  color: #000; 
+  margin: 0px 0px 0px; 
+  font-size: 10px; 
+  padding: 5px 10px;
+}
+div.scheduled_slot a.contract {
+  padding: 5px 10px; 
+  color: #111; 
+  display:block; 
+  font-size: 10px; 
+  background-color: #abe;
+  margin-bottom: 5px;
+}

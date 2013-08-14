@@ -1,0 +1,135 @@
+Let's build a grid (supposing 12 columns) with each crew representing one column.
+There are 5 or so empty slots for each crew (based on the crew.job_max_per_day), but I want to enable there to be one additional slot at the end in case that crew's schedule for that day fills up.
+
+If contract is viewed by someone logged in, then it does not record that count
+
+
+
+JSON Firebase Storage:
+
+Contract: (store Estimate and Contract fields as one object with 3 different states)  
+  state: [quoted, rejected, sold, scheduled]
+  crew_id: [1..8]
+  crew_name: STRING
+  scheduled_date: "yyyy-mm-dd"
+  arrival_range: "-----"
+  arrival_range_id: "1..n"
+  position_in_day: [1..5]
+  job_id: [1..n]
+  job_type_id: [1..n]
+  job_type: [Economy, Standard, Elite]
+  *** eliminate the FlashVars JSON, and spell it out here ***
+  contact_info:
+    name: STRING
+    address1: STRIMG
+    address2: STRING
+    phone_home: STRING
+    phone_cell: STRING
+    phone_work: STRING
+    email: STRING
+  base_location_info:
+    city: ["Coatesville, PA", "Burtonsville, MD", etc...]
+    phone: STRING
+  token: STRING **indexed**
+  created_at: DATETIME
+  updated_at: DATETIME
+  emailed_to_customer_at: 
+    [ 
+      DATETIME,
+      DATETIME,
+      DATETIME
+    ]
+  sold: BOOLEAN (revert to the state above)
+  invoice_number: [7000..12000]
+  viewed_by_customer_at:
+    [ 
+      DATETIME,
+      DATETIME,
+      DATETIME
+    ]
+  off_level_to_show_prices:
+    [
+      {
+        amount_off_level: [12,18,24,30,36,etc]
+        price: [0..$n]
+      }
+    ]
+  show_total_price: BOOLEAN
+  show_recurring_options: BOOLEAN
+  show_online_payment: BOOLEAN
+  additional_notes: TEXT
+  ----------------------JOB fields---------------------------
+  alternate_description: TEXT (from the job.description field)
+  duration_in_minutes: NOT USED
+  price: DECIMAL (from job.price_in_cents/100)
+  additional_price (hidden from customer, add to base price)
+  material_cost: DECIMAL (from job.material_cost_in_cents/100)
+  labor_cost: DECIMAL (from job.labor_cost_in_cents/100)
+  material_markup: DECIMAL (the multiplier for materials)
+  width: INT (in feet)
+  length: INT (in feet)
+  depth: DECIMAL (in feet)
+  area: DECIMAL (sq feet)
+  / distance_calculation_from_location_id: (from job.calculation_location_id)
+  labor_schedule: (each day)
+    [
+      {
+      men: INT
+      hours: INT
+      trucks: INT
+      description: STRING
+      actual_hours: INT
+      }
+    ]
+  / gibraltar_courses_of_block: INT
+  / concrete_piers_diameter_in_inches: INT
+  / concrete_piers_depth_in_inches: INT
+  / concrete_price_per_yard: INT
+  / number_of_piers: INT
+  / extra_man_days: INT
+  / days_on_job: INT
+  / gibraltar_concrete_footer_in_inches: INT
+  / gravel_base_depth_in_inches: INT
+  / vapor_barrier: BOOLEAN
+  / concrete_edge_thickness_in_inches: INT
+  / concrete_thickness_in_inches: INT
+  / foundation_calculator_id: INT
+  / trex_color: STRING
+  / erosion_control_lft: INT
+  / off_level_fill_type: STRING
+  off_level_amount_in_inches: DECIMAL
+  foundation_kind: (from job.foundation_id joins foundations table .kind)
+
+  latitude: DECIMAL
+  longitude: DECIMAL
+  shed_company: STRING
+  discount: DECIMAL
+  border_six_by_six: BOOLEAN
+  accessible_with_machine: BOOLEAN
+  additional_fill_dirt: 
+
+  job_additions:
+  [
+    {
+      description: STRING
+      price: DECIMAL
+    }
+  ]
+  library_files:
+  [
+    {
+    file_type: STRING
+    file_url: STRING
+    name: STRING (from library_file.library_file)
+    }
+  ]
+  payments:
+  [
+    {
+      payment_amount: DECIMAL
+      reference: STRING
+      method: STRING
+      user: [User.each || "customer"]
+      deposited_at: DATETIME
+    }
+  ]

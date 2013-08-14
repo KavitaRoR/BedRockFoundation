@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130807032020) do
+ActiveRecord::Schema.define(:version => 20130811203857) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20130807032020) do
     t.boolean  "show_recurring_payment",  :default => false
     t.boolean  "show_payment_buttons",    :default => false
     t.text     "additional_notes"
+    t.string   "firebase_token"
   end
 
   add_index "estimates", ["job_id"], :name => "index_estimates_on_job_id"

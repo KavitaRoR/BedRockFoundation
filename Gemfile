@@ -13,6 +13,7 @@ gem 'therubyracer'
 gem 'wepay-rails'
 gem 'el_finder'
 gem "squeel"
+gem 'firebase'
 
 group :development do
   gem 'heroku', :require => false
@@ -31,6 +32,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-ui-rails'
   gem "select2-rails"
+  gem 'angularjs-rails'
+  gem 'ember-rails'
+  gem 'ember-source', '1.0.0.rc6.4'
+  gem 'handlebars-source', '~> 1.0.12'
 end
 
 gem 'jquery-rails'

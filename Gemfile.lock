@@ -14,6 +14,8 @@ GEM
       rack-cache (~> 1.1)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.2)
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.0)
     activemodel (3.2.2)
       activesupport (= 3.2.2)
       builder (~> 3.0.0)
@@ -29,7 +31,12 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.3.4)
+    angularjs-rails (1.0.7)
     arel (3.0.2)
+    barber (0.4.2)
+      ember-source
+      execjs
+      handlebars-source
     bcrypt-ruby (3.0.1)
     builder (3.0.4)
     coderay (1.0.9)
@@ -48,19 +55,39 @@ GEM
       warden (~> 1.2.1)
     el_finder (1.1.7)
       image_size (>= 1.0.0)
+    ember-data-source (0.13)
+      ember-source
+    ember-rails (0.13.0)
+      active_model_serializers
+      barber (>= 0.4.1)
+      ember-data-source
+      ember-source
+      execjs (>= 1.2)
+      handlebars-source
+      railties (>= 3.1)
+    ember-source (1.0.0.rc6.4)
+      handlebars-source (= 1.0.12)
     erubis (2.7.0)
+    ethon (0.5.12)
+      ffi (>= 1.3.0)
+      mime-types (~> 1.18)
     eventmachine (1.0.0)
     exception_notification (3.0.1)
       actionmailer (>= 3.0.4)
     excon (0.20.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    ffi (1.9.0)
+    firebase (0.1.4)
+      json
+      typhoeus (>= 0.6.1)
     geokit (1.6.5)
       multi_json
     geokit-rails3 (0.1.5)
       geokit (~> 1.5)
       rails (~> 3.0)
     gmaps4rails (1.5.6)
+    handlebars-source (1.0.12)
     heroku (2.39.2)
       heroku-api (~> 0.3.7)
       launchy (>= 0.3.2)
@@ -170,6 +197,8 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
+    typhoeus (0.6.3)
+      ethon (~> 0.5.11)
     tzinfo (0.3.37)
     uglifier (2.0.1)
       execjs (>= 0.3.0)
@@ -184,12 +213,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angularjs-rails
   coffee-rails (~> 3.2.1)
   devise
   el_finder
+  ember-rails
+  ember-source (= 1.0.0.rc6.4)
   exception_notification
+  firebase
   geokit-rails3
   gmaps4rails
+  handlebars-source (~> 1.0.12)
   heroku
   jquery-rails
   jquery-ui-rails

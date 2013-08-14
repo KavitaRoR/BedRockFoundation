@@ -1,6 +1,7 @@
 class ScheduleController < ApplicationController
   
   before_filter :authenticate_user!
+  layout "application"
   
   
   def index
@@ -10,6 +11,13 @@ class ScheduleController < ApplicationController
     @contracts = Contract.where("scheduled_date > ? and scheduled_date < ?", @query_start_date, (@query_start_date + @num_weeks.weeks + 1.day)).includes(:estimate, :crew, {:estimate => [:job, {:job => :estimates, :job => :location, :job => :contact}] }).order("scheduled_date ASC")
     @queued_contracts = Contract.where(:scheduled_date => nil).includes(:estimate, :crew, {:estimate => [:job, {:job => :contact, :job => :estimates, :job => :location}] }).sort{|x,y| x.estimate.invoice_number <=> y.estimate.invoice_number}
     @daycrewblocks = DayCrewBlock.where("day > ? and day < ?", @query_start_date, @query_start_date + @num_weeks.weeks)
+  end
+
+  def fast
+    # Using AngularJS and Firebase to get mah Estimates
+    @crews = Crew.order("ordering ASC")
+
+    render :layout => 'schedule'
   end
   
   def with_maps

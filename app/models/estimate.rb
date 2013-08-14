@@ -9,6 +9,8 @@ class Estimate < ActiveRecord::Base
   before_create :generate_invoice_number, :generate_token
   after_create :remove_off_level_to_show
 
+  before_save :persist_to_firebase
+
   
   def name
     job.name
@@ -92,5 +94,13 @@ class Estimate < ActiveRecord::Base
     str = str.to_i + 1
     self.invoice_number = str
     
+  end
+
+  def persist_to_firebase
+    begin
+      FirebaseEstimates.persist(self)
+    rescue
+      puts "\n\n*****ERROR saving to Firebase*****\n\n"
+    end
   end
 end

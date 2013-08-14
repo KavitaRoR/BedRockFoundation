@@ -5,6 +5,8 @@ class Crew < ActiveRecord::Base
   
   before_create :geocode_address
   before_save :geocode_address
+  before_save :persist_to_firebase
+
   
   protected
   
@@ -18,4 +20,13 @@ class Crew < ActiveRecord::Base
       end
     end
   end
+  
+  def persist_to_firebase
+    begin
+      FirebaseCrews.persist(self)
+    rescue
+      puts "\n\n*****ERROR saving to Firebase*****\n\n"
+    end
+  end
+
 end
