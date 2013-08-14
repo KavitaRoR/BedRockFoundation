@@ -7,6 +7,8 @@ class Contract < ActiveRecord::Base
   # before_create :check_schedule
 
   before_save :persist_scheduled_date
+
+  after_save :persist_estimate
   
   def name
     self.estimate.job.name
@@ -29,6 +31,10 @@ class Contract < ActiveRecord::Base
 
   
   protected
+
+  def persist_estimate
+    estimate.save
+  end
   
   def check_schedule
     ScheduleDay.new.instantiate_day!
