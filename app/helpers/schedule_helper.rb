@@ -1,6 +1,9 @@
 module ScheduleHelper
 	def show_clickable_address( contract )
 		address = get_address( contract )
+		if contract.estimate.job.nil?
+			puts(contract.estimate.id + "<<<<")
+		end
 
 		if contract.estimate.job.lat.nil? && contract.estimate.job.lng.nil?
 			address.html_safe
