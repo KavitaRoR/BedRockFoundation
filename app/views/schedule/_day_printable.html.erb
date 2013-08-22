@@ -44,6 +44,7 @@
 			<% else %>
 				<% crew_cons.each do |con| %>
 					<div style="">
+						<% if !con.estimate.job.nil? %>
 						<span class="schedule_button full wrapped with-mid-padding align-center" id="con-<%= con.id %>">
 							<span class="schedule_button_heading">
 								<%= con.estimate.job.contact.name rescue "This JOB has been deleted" %>
@@ -76,6 +77,8 @@
 							</div>
 						<% end %>
 						<div id="customer_map_<%= con.id %>" class="quarry_map"></div>
+						<% else %>
+						<%= con.estimate.id %> Estimate has no JOB, been deleted <%= con.estimate.job_id %>
 					</div>
 					<% unless con.estimate.job.lat.nil? && con.estimate.job.lng.nil? %>
 						<script type="text/javascript">
