@@ -79,6 +79,7 @@
 						<div id="customer_map_<%= con.id %>" class="quarry_map"></div>
 						<% else %>
 						<%= con.estimate.id %> Estimate has no JOB, been deleted <%= con.estimate.job_id %>
+						<% end %>
 					</div>
 					<% unless con.estimate.job.lat.nil? && con.estimate.job.lng.nil? %>
 						<script type="text/javascript">
