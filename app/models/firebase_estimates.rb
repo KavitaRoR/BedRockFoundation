@@ -8,7 +8,7 @@ class FirebaseEstimates
     data = OpenStruct.new
 
     data.additional_notes = estimate.additional_notes
-    data.scheduled_day = estimate.contract.try(:scheduled_date).try(:strftime, "%Y-%m-%d")
+    data.day = estimate.contract.try(:scheduled_date).try(:strftime, "%Y-%m-%d")
     data.crew_id = estimate.contract.try(:crew_id)
     data.slot = estimate.contract.try(:position_in_day)
     data.size_and_type = estimate.job.size_and_type

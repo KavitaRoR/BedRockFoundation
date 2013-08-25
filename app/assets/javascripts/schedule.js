@@ -9,7 +9,7 @@ schedule.controller('ScheduleCtrl', ['$scope', 'angularFire', 'filterFilter',
     var crews_promise = angularFire(crews_url, $scope, 'crews', {});
 
     var notes_url = 'https://bedrock.firebaseio.com/notes';
-    var note_promise = angularFire(notes_url, $scope, 'notes', []);
+    var note_promise = angularFire(notes_url, $scope, 'notes', {});
 
     $scope.newNote = ''
     $scope.first_day = new Date();
@@ -161,9 +161,9 @@ angular.module('filters',['utils'])
       if(!crew_id) return input;
       var result = [];
       
-      angular.forEach(input, function(contract){
-        if(contract.crew_id == crew_id){
-          result.push(contract);                    
+      angular.forEach(input, function(item){
+        if(item.crew_id == crew_id){
+          result.push(item);                    
         }
       });
       return result;
@@ -175,9 +175,9 @@ angular.module('filters',['utils'])
       if(!day) return input;
       var result = [];
       
-      angular.forEach(input, function(contract){
-        if(contract.scheduled_day == day){
-          result.push(contract);                    
+      angular.forEach(input, function(item){
+        if(item.day == day){
+          result.push(item);                    
         }
       });
       return result;

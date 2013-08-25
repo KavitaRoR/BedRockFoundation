@@ -18,3 +18,14 @@ div.scheduled_slot a.contract {
   background-color: #abe;
   margin-bottom: 5px;
 }
+
+div.standalone.note {
+  padding: 5px 10px; background-color: #ffd; color: #111; border: 1px solid #cc9;
+
+}
+div.standalone.note a.iconly {
+  display: none;
+}
+div.standalone.note:hover a.iconly {
+  display: inline;
+}
