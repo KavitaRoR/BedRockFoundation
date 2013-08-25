@@ -22,7 +22,7 @@ class UsersController < ApplicationController
         permissions << "Crew Foreman"
       end
       @user.update_attribute(:permissions_levels, permissions.join(","))
-      redirect_to "/users/index"
+      redirect_to "/users"
     else
       redirect_to :back
     end
