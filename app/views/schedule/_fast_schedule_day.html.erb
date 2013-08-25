@@ -21,7 +21,7 @@
             <tr>
                 <td ng-repeat="crew in crews | orderObjectBy:'order'">
                   <section class="notes">
-                    <div ng-repeat="note in notes | filter:{crew_id:crew.id} | filter:{day:day.toJSON().split('T')[0]}" style="padding: 5px 10px; background-color: #ffd; color: #111; border: 1px solid #cc9;">
+                    <div ng-repeat="note in notes | crewFilter: crew.id | dayFilter:day.toJSON().split('T')[0]" style="padding: 5px 10px; background-color: #ffd; color: #111; border: 1px solid #cc9;">
                       <a href="#" class="btn btn-link iconly"><i class="icon16 i-quill-3"></i></a>
                       {{ note.reason }}
                     </div>

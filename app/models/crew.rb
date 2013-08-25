@@ -25,7 +25,7 @@ class Crew < ActiveRecord::Base
     begin
       FirebaseCrews.persist(self)
     rescue
-      puts "\n\n*****ERROR saving to Firebase*****\n\n"
+      puts "\n\n*****ERROR saving this crew to Firebase*****\n\n"
     end
   end
 

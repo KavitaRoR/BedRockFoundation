@@ -72,5 +72,4 @@ Abundant::Application.configure do
   config.time_zone = "Eastern Time (US & Canada)"
 
   config.FROM_EMAIL = "info@bedrockfoundations.com"
-  # config.ember.variant = :production  
 end

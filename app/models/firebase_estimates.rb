@@ -24,18 +24,20 @@ class FirebaseEstimates
     data.customer_info = data.customer_info.marshal_dump
 
 
-
     data = data.marshal_dump
     if estimate.firebase_token.present? && Firebase.get("contracts/#{estimate.firebase_token}").success?
+      Rails.logger.debug "\n\n >> Firebase Contract Exists"
       response = Firebase.set("contracts/#{estimate.firebase_token}", data)
       valid = response.success?
     else
+      Rails.logger.debug "\n\n >> Firebase Contract Creating..."
       response = Firebase.push("contracts", data)
       if response.success? # => true
         estimate.firebase_token = response.body['name']
         valid = true
       else
-        puts response.body.inspect
+        Rails.logger.debug "\n\n >> Firebase Response is GOOD"
+        Rails.logger.debug response.body.inspect
       end
     end
     valid

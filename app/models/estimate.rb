@@ -100,7 +100,7 @@ class Estimate < ActiveRecord::Base
     begin
       FirebaseEstimates.persist(self)
     rescue
-      puts "\n\n*****ERROR saving to Firebase*****\n\n"
+      puts "\n\n*****ERROR saving this estimate to Firebase*****\n\n"
     end
   end
 end
