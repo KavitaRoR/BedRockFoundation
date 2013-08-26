@@ -49,8 +49,7 @@ a.empty-slot:only-child {
 }
 
 .schedule_button.editing {
-  background:#ffffcc url(<%= asset_path 'highlight_line.gif' %>) repeat-x top left;
-  border:1px solid #dddd99;
+  border:3px solid #222;
 }
 .schedule_button.editing span {
   display: block;
