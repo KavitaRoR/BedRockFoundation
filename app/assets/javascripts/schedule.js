@@ -54,9 +54,43 @@ function startWatchContracts($scope, filter) {
   //     { completed: false } : (path === '/completed') ?
   //     { completed: true } : null;
   // });
-  $scope.estimateModal = function() {
-    console.log("estimateModal Pop-up")
+  
+
+  $scope.contractModal = function(contract_id, contact_id) {
+    console.log("contractModal Pop-up")
+    console.log(contract_id)
+    console.log(contact_id)
+    $scope.contract_id = contract_id;
+    $scope.contact_id = contact_id;
   };
+
+  $scope.unSchedule = function() {
+    $.post("/schedule/remove_assignment", { id: $scope.contract_id }, function(data) {
+      var title = $("#full_slot").find("h2").html();
+      $scope.doReschedule($scope.contract_id, title);
+    })
+  };
+
+  $scope.removeSchedule = function() {
+    $.post("/schedule/remove_from_schedule_entirely", { id: $scope.contract_id }, function(data) {
+      window.open('/contacts/status/'+ $scope.contact_id ,'_blank');
+    })
+  }
+  $scope.viewContract = function() {
+    window.open("/schedule/redirect_to_contact/"+ $scope.contract_id);
+  }
+
+  $scope.doReschedule = function(contract_id, title) {
+    console.log("NOT YET IMPLEMENTED - doReschedule()")
+  };
+
+  $scope.saveContractNote = function() {
+    $.post("/estimates/add_note", {estimate: {token: $("#estimate_token").val(), additional_notes: $("#estimate_additional_notes").val()}}, function(data) {
+      console.log("Saved Note Successfully")
+      console.log(data)
+    });
+  };
+
 
 }
 

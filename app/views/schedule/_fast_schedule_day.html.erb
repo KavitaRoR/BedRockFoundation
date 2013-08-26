@@ -34,7 +34,7 @@
             <tr ng-repeat="slot in slots">    
                 <td ng-repeat="crew in crews | orderObjectBy:'order'">
                   <div ng-repeat="contract in contracts | crewFilter: crew.id | dayFilter:day.toJSON().split('T')[0] | slotFilter: slot" class="scheduled_slot">
-                    <a class="contract schedule_button full" ng-click="contractModal()" id="contract-{{contract.contract_id}}-{{contract.customer_info.contact_id}}">
+                    <a class="contract schedule_button full" ng-click="contractModal(contract.contract_id, contract.customer_info.contact_id)" id="contract-{{contract.contract_id}}-{{contract.customer_info.contact_id}}" href="#full_slot" data-toggle="modal">
                     <b>{{ contract.customer_info.full_name }} <br /> #{{ contract.location_abbr }}-{{ contract.invoice_number }}</b><br />
                     <span style="font-wight: normal !important;">{{ contract.size_and_type }} <br />in {{ contract.customer_info.city }} , {{ contract.customer_info.province }}
                       <br>
@@ -88,9 +88,86 @@
           <%= f.label :block_off, "Block off the day", class: "inline" %> <%= f.check_box :block_off %>                 
         </div>
       <% end %>
+      </div>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
     <a href="#" class="btn btn-primary" ng-click="saveNote()" data-dismiss="modal">Save Note</a>
+  </div>
+</div>
+
+
+<div id="full_slot" style="display:none; width:800px; margin-left: -400px;" class="modal hide fade" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><i class="icon16 i-close-2"></i></button>
+    <h4>Details</h4>
+  </div>
+  <div class="modal-body">
+    <div class="paddingT15 paddingB15">    
+
+    <div id="deep-info">
+      <span>Loading...</span>
+    </div>
+    <br />
+    <div id="deep-notes">
+      <%= form_for Estimate.new, url: "/estimates/add_note" do |f| %>
+        <%= f.hidden_field :token %>
+        <%= f.text_area :additional_notes, 
+          style: "width: 400px; height: 3em; float: left;", placeholder: "Additional notes..." %>
+        <a href="#" class="btn btn-success" ng-click="saveContractNote()">
+          <i aria-hidden="true" class="i-pencil"></i></i>Save Notes</a>
+      <% end %>
+    </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a href="#" class="btn btn-inverse" data-dismiss="modal" ng-click="unSchedule()">
+      <i aria-hidden="true" class="i-user-cancel-2"></i>Un-Schedule from this Day</a>
+    <a href="#" class="btn btn-success" data-dismiss="modal" ng-click="viewContract()">
+      <i aria-hidden="true" class="i-binoculars"></i></i>View this Contract</a>
+    <a href="#" class="btn btn-danger" data-dismiss="modal" ng-click="removeSchedule()">
+      <i aria-hidden="true" class="i-user-cancel-2"></i>Remove from Schedule</a>
+  </div>
+</div>
+
+
+<div id="change_slot" style="display:none;" class="modal hide fade" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><i class="icon16 i-close-2"></i></button>
+    <h4>{{noteTitle}}</h4>
+  </div>
+  <div class="modal-body">
+    <p><b>Reschedule this contract or <a href="#" class="button tiny white-gradient glossy unschedulebtn icon-cross float-right">leave unscheduled</a></b></p>
+    <input type="hidden" value="0" name="contract_id" class="contract_id_field" />
+    <select class='date-select' name="day">
+      <option value=''>Select a Day</option>
+      <% for d in 0..100 %>
+        <option value='<%= (Time.current.to_date + d.days).beginning_of_day.to_i %>'><%= (Time.current.to_date + d.days).strftime("%m/%d/%Y") %></option>
+      <% end %>
+    </select>
+    <select class='crew-select' name="crew_id">
+      <option value=''>Select a Crew</option>
+      <% for c in Crew.find(:all, :order => "ordering ASC") %>
+        <option value='<%= c.id %>'><%= c.crew_name %></option>
+      <% end %>
+    </select>
+    <select class='arrival-select' name="arrival_range_id">
+      <option value=''>Arrival Time</option>
+      <% for ar in ArrivalRange.find(:all, :order => "position ASC") %>
+        <option value='<%= ar.id %>'><%= ar.early %> to <%= ar.late %></option>
+      <% end %>
+    </select>
+    <select class='position-select' name="position">
+      <option value=''>Select a Slot</option>
+      <% for pos in 1..5 %>
+        <option value='<%= pos %>'>Slot #<%= pos %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a href="#" class="button large save_reschedule green-gradient glossy icon-tick float-right" ng-click="rescheduleContract()" data-dismiss="modal">Reschedule this Contract</a>
+    <!-- <a href="#" class="btn btn-primary" ng-click="saveNote()" data-dismiss="modal">Save Note</a> -->
   </div>
 </div>

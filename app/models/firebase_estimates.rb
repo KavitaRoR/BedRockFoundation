@@ -44,4 +44,10 @@ class FirebaseEstimates
     end
     valid
   end 
+
+  def self.remove(estimate)
+    response = Firebase.delete("contracts/#{estimate.firebase_token}")
+    response.success?
+  end
+
 end

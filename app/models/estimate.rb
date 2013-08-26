@@ -10,6 +10,7 @@ class Estimate < ActiveRecord::Base
   after_create :remove_off_level_to_show
 
   before_save :persist_to_firebase
+  before_destroy :remove_from_firebase
 
   
   def name
@@ -88,6 +89,14 @@ class Estimate < ActiveRecord::Base
     9.times.map{chars[rand(chars.length-1)]}.join
   end
 
+  def remove_from_firebase
+    begin
+      FirebaseEstimates.remove(self)
+    rescue
+      puts "\n\n*****ERROR removing Estimate from Firebase*****\n\n"
+    end
+  end
+
   protected
   def generate_invoice_number
     str = Estimate.find(:all, :order => "invoice_number DESC").first.invoice_number
@@ -103,4 +112,5 @@ class Estimate < ActiveRecord::Base
       puts "\n\n*****ERROR saving this estimate to Firebase*****\n\n"
     end
   end
+
 end

@@ -9,7 +9,8 @@ class Contract < ActiveRecord::Base
   before_save :persist_scheduled_date
 
   after_save :persist_estimate
-  
+  before_destroy :remove_from_firebase
+
   def name
     self.estimate.job.name
   end
@@ -34,6 +35,10 @@ class Contract < ActiveRecord::Base
 
   def persist_estimate
     estimate.save
+  end
+
+  def remove_from_firebase
+    estimate.remove_from_firebase
   end
   
   def check_schedule

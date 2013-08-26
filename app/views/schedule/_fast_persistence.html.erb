@@ -1,68 +1,4 @@
 
-<!-- Full Slot Click Menu -->
-<div id="full_slot" class="contextMenu" style="display: none; background-color:#fff; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px; border: 2px solid #aaa;">
-	<h2></h2><a href="#" id="close-button" style="float:right; font-size:10px;">Close</a>
-	<div id="deep-info">
-		<span>Loading...</span>
-	</div>
-	<br />
-	<div id="deep-notes">
-		<%= form_for Estimate.new, url: "/estimates/add_note", remote: true do |f| %>
-			<%= f.hidden_field :token %>
-			<%= f.text_area :additional_notes, 
-				style: "width: 400px; height: 3em; float: left;", placeholder: "Additional notes..." %>
-			<%= f.submit "Update Notes", class: "button white-gradient glossy float-left", disable_with: "Saving..."  %>
-		<% end %>
-	</div>
-	<div class="clear-both">&nbsp;</div>
-	<div style="background-color:#fff; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px;">
-
-		<%= link_to "Un-Schedule from this Day", "#", :class => "button anthracite-gradient schedule_button2 delete icon-left", :onclick => "return false;" %>
-		<%= link_to "View this Contract", "#", :class => "button green-gradient schedule_button2 view icon-eye", :onclick => "return false;" %>
-		<%= link_to "Remove from Schedule", "#", :class => "button red-gradient schedule_button2 trash icon-cross", :onclick => "return false;" %>
-		
-   	  
-	</div>
-</div>
-
-<div id="change_slot" class="contextMenu" style="display: none; background-color:#fff; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px; border: 2px solid #aaa;">
-	<h2></h2>
-	<div >
-		<p><b>Reschedule this contract or <a href="#" class="button tiny white-gradient glossy unschedulebtn icon-cross float-right">leave unscheduled</a></b></p>
-		<input type="hidden" value="0" name="contract_id" class="contract_id_field" />
-		<select class='date-select' name="day">
-			<option value=''>Select a Day</option>
-			<% for d in 0..100 %>
-				<option value='<%= (Time.current.to_date + d.days).beginning_of_day.to_i %>'><%= (Time.current.to_date + d.days).strftime("%m/%d/%Y") %></option>
-			<% end %>
-		</select>
-		<select class='crew-select' name="crew_id">
-			<option value=''>Select a Crew</option>
-			<% for c in Crew.find(:all, :order => "ordering ASC") %>
-				<option value='<%= c.id %>'><%= c.crew_name %></option>
-			<% end %>
-		</select>
-		<select class='arrival-select' name="arrival_range_id">
-			<option value=''>Arrival Time</option>
-			<% for ar in ArrivalRange.find(:all, :order => "position ASC") %>
-				<option value='<%= ar.id %>'><%= ar.early %> to <%= ar.late %></option>
-			<% end %>
-		</select>
-		<select class='position-select' name="position">
-			<option value=''>Select a Slot</option>
-			<% for pos in 1..5 %>
-				<option value='<%= pos %>'>Slot #<%= pos %></option>
-			<% end %>
-		</select>
-	</div>
-	<br />
-	<div style="padding:6px 12px;">
-
-		<a href="#" class="button large save_reschedule green-gradient glossy icon-tick float-right">Reschedule this Contract</a>
-   	  
-	</div>
-</div>
-
 <div id="hidden_arrival_ranges" style="display:none;">
 	<select class='arrival-select' name="arrival_range_id">
 		<option value=''>Arrival Time</option>
@@ -91,27 +27,17 @@
 			doClicky(this)
 			event.preventDefault();
 		});
-		$("div.schedule-day").on('click', "a.crew_block_button", function(event) {
-			console.log("crew_block_button.click()");
-			$(this).parent().find("div.destroy").slideToggle();
-			event.preventDefault();
-		});
-		$("div.schedule-day").on('click', ".note_toggle", function(event) {
-			console.log("note_toggle.click()");
-			$(this).parent().find("form").slideToggle();
-			event.preventDefault();
-		});
+		// $("div.schedule-day").on('click', "a.crew_block_button", function(event) {
+		// 	console.log("crew_block_button.click()");
+		// 	$(this).parent().find("div.destroy").slideToggle();
+		// 	event.preventDefault();
+		// });
 		
-		$("div.schedule-day").on('click', "#close-button", function(event) {
-			console.log("close_button.click()");
-			$.modal.close();
-			event.preventDefault();
-		})
-		$("div.schedule-day").on('click', "b.note-reason", function(event){
-			console.log("note-reason.click()");
-			editNotes($(this).data("id"))
-			event.preventDefault();
-		});
+		// $("div.schedule-day").on('click', "#close-button", function(event) {
+		// 	console.log("close_button.click()");
+		// 	$.modal.close();
+		// 	event.preventDefault();
+		// })
 		
 		function doClicky(spec) {
 			if ($(spec).hasClass("empty")) {
@@ -168,15 +94,8 @@
 				console.log("ConId: "+ conId)
 				console.log("contactId: "+ contactId)
 				
-				$("#full_slot").find("h2").html($(spec).html());
-				$("#full_slot").modal({
-					opacity:60,
-					overlayCss: {backgroundColor:"#000"},
-					minWidth: '400px',
-					close: true,
-					overlayClose: true
-				});
-				
+				$("#full_slot").find("h4").html($(spec).html());
+				// $("#full_slot").modal("show")
 				$.getJSON("/schedule/get_contract_details", { id: conId }, function(result) {
 					var str = "";
 					str += result.shed_company + "<br />";
@@ -195,11 +114,14 @@
 					$("#deep-notes textarea#estimate_additional_notes").val(result.additional_notes)
 					$("#deep-notes input#estimate_token").val(result.estimate_token)
 				})
+				$(".schedule_button2.delete").off( "click", "**" )
+				$(".schedule_button2.trash").off( "click", "**" )
+				$(".schedule_button2.view").off( "click", "**" )
 				
 				$(".schedule_button2.delete").click(function(){
 					$.post("/schedule/remove_assignment", { id: conId }, function(data) {
 						var title = $("#full_slot").find("h2").html();
-						$.modal.close();
+						$("#full_slot").modal('hide')
 						the_clicked.removeClass("full").addClass("empty")
 						the_clicked.find("span").html(" ");
 						the_clicked.find("span:first").html("Empty Slot");
@@ -209,7 +131,7 @@
 				
 				$(".schedule_button2.trash").click(function() {
 					$.post("/schedule/remove_from_schedule_entirely", { id: conId }, function(data) {
-						$.modal.close();
+						$("#full_slot").modal('hide')
 						the_clicked.removeClass("full").addClass("empty")
 						the_clicked.find("span").html(" ");
 						the_clicked.find("span:first").html("Empty Slot");
@@ -221,39 +143,10 @@
 					window.open("/schedule/redirect_to_contact/"+ conId);
 				});
 				
-				return false;
+				// return false;
 			}
 		}
-		function editNotes(note_id){
-			$("#editing_note").modal({
-				opacity:60,
-				overlayCss: {backgroundColor:"#000"},
-				minWidth: '400px',
-				close: true,
-				overlayClose: true
-			});
-			container = $("#simplemodal-container #editing_note")
-			$.getJSON("/day_crew_blocks/"+note_id+".json", function(result) {
-				console.log(result)
-				container.find("form").attr("action", "/day_crew_blocks/"+result.id)
-				container.find("#day_crew_block_working_with_crew_id").val(result.working_with_crew_id)
-				container.find("#day_crew_block_day").val(result.day.split("T")[0])
-				container.find("#day_crew_block_reason").val(result.reason)
-				container.find("#day_crew_block_crew_id").val(result.crew_id)
-				if (result.block_off == "true" || result.block_off == true){
-					container.find("#day_crew_block_block_off").attr("checked", "checked")
-				} else {
-					container.find("#day_crew_block_block_off").removeAttr("checked")
-				}
-			})
-			$("#editing_note form input.button").click(function() {
-				$.post("/day_crew_blocks/"+note_id+".json", function(data) {
-					console.log(data)
-					$("b.note-reason:data(id:"+note_id+")").html(data.notes);
-					$.modal.close();
-				})
-			})
-		}
+
 		
 		function doReschedule(conid, spec, title) {
 			
