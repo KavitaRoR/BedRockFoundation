@@ -43,7 +43,7 @@ class DayCrewBlocksController < ApplicationController
   # POST /day_crew_blocks.json
   def create
     @day_crew_block = DayCrewBlock.new(params[:day_crew_block])
-    result = if !params[:day_crew_block][:add_to_job].blank?
+    result = if params[:day_crew_block] && !params[:day_crew_block][:add_to_job].blank?
       est = Estimate.find(params[:day_crew_block][:add_to_job])
       est.additional_notes = "" if est.additional_notes.nil?
       est.additional_notes += params[:day_crew_block][:reason].to_s + "\n"
@@ -69,9 +69,10 @@ class DayCrewBlocksController < ApplicationController
     @day_crew_block = DayCrewBlock.find(params[:id])
 
     respond_to do |format|
+      params[:day_crew_block].delete :day
       if @day_crew_block.update_attributes(params[:day_crew_block])
         format.html { redirect_to :back, notice: 'Day crew block was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render json: @day_crew_block }
       else
         format.html { render action: "edit" }
         format.json { render json: @day_crew_block.errors, status: :unprocessable_entity }

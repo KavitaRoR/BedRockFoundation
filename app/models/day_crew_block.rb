@@ -3,7 +3,8 @@ class DayCrewBlock < ActiveRecord::Base
 
   attr_accessor :add_to_job
 
-  before_save :persist_to_firebase
+  after_save :persist_to_firebase
+  before_destroy :remove_from_firebase
 
   private
   def persist_to_firebase
@@ -11,6 +12,14 @@ class DayCrewBlock < ActiveRecord::Base
       FirebaseNotes.persist(self)
     rescue
       puts "\n\n*****ERROR saving this dayCrewBlock to Firebase*****\n\n"
+    end
+  end
+
+  def remove_from_firebase
+    begin
+      FirebaseNotes.remove(self)
+    rescue
+      puts "\n\n*****ERROR removing dayCrewBlock to Firebase*****\n\n"
     end
   end
 

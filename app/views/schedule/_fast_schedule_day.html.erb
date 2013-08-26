@@ -1,4 +1,4 @@
-<div class="row-fluid" ng-repeat="day in days">
+<div class="row-fluid schedule-day" ng-repeat="day in days">
   <div class="span12">
     <div class="widget">
       <div class="widget-title">
@@ -22,19 +22,19 @@
                 <td ng-repeat="crew in crews | orderObjectBy:'order'">
                   <section class="notes">
                     <div ng-repeat="note in notes | dayFilter:day.toJSON().split('T')[0] | crewFilter: crew.id" class=" standalone note">
-                      <a href="#" class="btn btn-link iconly"><i class="icon16 i-quill-3"></i></a>
-                      {{ note.reason }}
+                      <a href="#editing_note" class="btn btn-link" ng-click="editNoteModal(note)" data-toggle="modal"><i class="icon16 i-quill-3"></i> {{ note.reason }} </a>
+                      
                     </div>
                   </section>
                   <footer>
-                    <a href="#noteModal" data-day="{{ day.toJSON().split('T')[0] }}" data-crew="{{crew.id}}" data-toggle="modal" ng-click="openNoteModal(day, crew.id)">add a note</a>
+                    <a href="#editing_note" data-day="{{ day.toJSON().split('T')[0] }}" data-crew="{{crew.id}}" data-toggle="modal" ng-click="newNoteModal(day, crew.id)">add a note</a>
                   </footer>
                 </td>
             </tr>
             <tr ng-repeat="slot in slots">    
                 <td ng-repeat="crew in crews | orderObjectBy:'order'">
                   <div ng-repeat="contract in contracts | crewFilter: crew.id | dayFilter:day.toJSON().split('T')[0] | slotFilter: slot" class="scheduled_slot">
-                    <a class="contract" ng-click="contractModal()" >
+                    <a class="contract schedule_button full" ng-click="contractModal()" id="contract-{{contract.contract_id}}-{{contract.customer_info.contact_id}}">
                     <b>{{ contract.customer_info.full_name }} <br /> #{{ contract.location_abbr }}-{{ contract.invoice_number }}</b><br />
                     <span style="font-wight: normal !important;">{{ contract.size_and_type }} <br />in {{ contract.customer_info.city }} , {{ contract.customer_info.province }}
                       <br>
@@ -46,7 +46,11 @@
                     </a>
                   </div>
 
-                  <a href="#" class="btn btn-default btn-mini empty-slot" ng-hide="contract.slot">Empty #{{slot}}</a>
+                  <a href="#" class="btn btn-default btn-mini empty-slot schedule_button empty"
+                    id="empty_{{crew.id}}_{{slot}}_{{day.toJSON().split('T')[0]}}">
+                    Empty #{{slot}}
+                    <span>&nbsp;</span>
+                  </a>
 
                 </td>
             </tr>
@@ -58,23 +62,35 @@
   </div><!-- End .span12  -->  
 </div><!-- End .row-fluid  -->
 
-<div id="noteModal" class="modal hide fade" style="display: none; " aria-hidden="true">
+<div id="editing_note" style="display:none;" class="modal hide fade" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><i class="icon16 i-close-2"></i></button>
-    <h4>Create a New Note</h4>
+    <h4>{{noteTitle}}</h4>
   </div>
   <div class="modal-body">
       <div class="paddingT15 paddingB15">    
-        <h4>Type in your Note</h4>
-        <textarea type="text" ng-model="newNote" placeholder="Enter your note here" style="width:522px; height:100px;"></textarea>
-        <p>
-          {{ newNote }}
-        </p>
-      </div>
 
+      <%= form_for(DayCrewBlock.last) do |f| %>
+          <%= f.hidden_field :day %>
+        <div class="field">
+          <%= f.label :reason, "Edit your Note" %>
+          <%= f.text_area :reason, style: "width: 400px; height: 3em;", placeholder: "Note contents..." %>
+        </div>
+        <div class="field">
+          <%= f.label :crew_id, "Crew this note is for" %>
+          <%= f.select :crew_id, Crew.find(:all, :order => "ordering ASC").collect{|c| [c.crew_name, c.id]} %>
+        </div>
+        <div class="field">
+          <%= f.label :working_with_crew_id, "Working with Crew" %>
+          <%= f.select :working_with_crew_id, Crew.find(:all, :order => "ordering ASC").collect{|c| [c.crew_name, c.id]}, :include_blank => "Select who to work with:" %>
+        </div>
+        <div class="field">
+          <%= f.label :block_off, "Block off the day", class: "inline" %> <%= f.check_box :block_off %>                 
+        </div>
+      <% end %>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <a href="#" class="btn btn-primary" ng-click="addNote()" data-dismiss="modal">Save changes</a>
+    <a href="#" class="btn btn-primary" ng-click="saveNote()" data-dismiss="modal">Save Note</a>
   </div>
 </div>

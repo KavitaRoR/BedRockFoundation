@@ -10,6 +10,7 @@ class FirebaseEstimates
     data.additional_notes = estimate.additional_notes
     data.day = estimate.contract.try(:scheduled_date).try(:strftime, "%Y-%m-%d")
     data.crew_id = estimate.contract.try(:crew_id)
+    data.contract_id = estimate.contract.id
     data.slot = estimate.contract.try(:position_in_day)
     data.size_and_type = estimate.job.size_and_type
     data.invoice_number = estimate.invoice_number
@@ -21,6 +22,7 @@ class FirebaseEstimates
     data.customer_info.full_name = estimate.job.contact.name rescue "deleted job"
     data.customer_info.city = estimate.job.contact.city
     data.customer_info.province = estimate.job.contact.province
+    data.customer_info.contact_id = estimate.job.contact_id
     data.customer_info = data.customer_info.marshal_dump
 
 

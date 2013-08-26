@@ -17,4 +17,8 @@ class FirebaseNotes
     response = Firebase.set("notes/ID-#{note.id}", data)
     response.success?
   end 
+  def self.remove(note)
+    response = Firebase.delete("notes/ID-#{note.id}")
+    response.success?
+  end
 end

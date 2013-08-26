@@ -12,8 +12,9 @@ schedule.controller('ScheduleCtrl', ['$scope', 'angularFire', 'filterFilter',
     var note_promise = angularFire(notes_url, $scope, 'notes', {});
 
     $scope.newNote = ''
+    $scope.noteTitle = 'Create a new Note'
     $scope.first_day = new Date();
-    $scope.days = getDayRange($scope.first_day, 4)
+    $scope.days = getDayRange($scope.first_day, 1)
     $scope.slots = [1,2,3,4,5,6];
 
     contracts_promise.then(function(contracts) {
@@ -72,35 +73,71 @@ function startWatchNotes($scope, filter) {
   //     { completed: true } : null;
   // });
 
-  $scope.addNote = function () {
-    console.log("AddNote")
-    if (!$scope.newNote.length) {
-      return;
-    }
+  $scope.noteModal = $("#editing_note");
 
-    $scope.notes.push({
-      day: $scope.current_note_day,
-      crew_id: $scope.current_note_crew_id,
-      reason: $scope.newNote
+  $scope.saveNote = function () {
+    console.log("SaveNote()")
+    console.log("saving to: " + $scope.posturl);
+
+    $.ajax({
+      url: $scope.posturl,
+      type: $scope.method,
+      data: { day_crew_block: {
+        working_with_crew_id: $("#day_crew_block_working_with_crew_id").val(),
+        crew_id: $("#day_crew_block_crew_id").val(),
+        day: $("#day_crew_block_day").val(),
+        reason: $("#day_crew_block_reason").val(),
+        block_off: $("#day_crew_block_block_off").is(':checked')
+      }}, 
+      success: function(response) {
+        console.log("Success Saving")
+        console.log(response)
+      }
     });
 
     $scope.newNote = '';
   };
 
-  $scope.openNoteModal = function (day, crew_id) {
+  $scope.newNoteModal = function (day, crew_id) {
     console.log("openNoteModal")
-    $scope.current_note_day = day.toJSON().split('T')[0];
-    $scope.current_note_crew_id = crew_id;
+    $scope.noteTitle = 'Create a new Note'
+    $scope.posturl = "/day_crew_blocks.json"
+    $scope.method = "POST"
+    var container = $($scope.noteModal);
+    container.find("#day_crew_block_day").val(day.toJSON().split('T')[0]);
+    container.find("#day_crew_block_crew_id").val(crew_id);
+    container.find("#day_crew_block_crew_id").change();
+  };
+  $scope.editNoteModal = function (note) {
+    console.log("editNoteModal")
+    console.log(note)
+    $scope.noteTitle = 'Edit this Note'
+    $scope.posturl = "/day_crew_blocks/"+note.id+".json"
+    $scope.method = "PUT"
+    var container = $($scope.noteModal);
+    $.getJSON("/day_crew_blocks/"+note.id+".json", function(result) {
+      console.log(result)
+      container.find("form").attr("action", "/day_crew_blocks/"+result.id)
+      container.find("#day_crew_block_working_with_crew_id").val(result.working_with_crew_id)
+      container.find("#day_crew_block_working_with_crew_id").change();
+      container.find("#day_crew_block_day").val(result.day.split("T")[0])
+      container.find("#day_crew_block_reason").val(result.reason)
+      container.find("#day_crew_block_crew_id").val(result.crew_id)
+      container.find("#day_crew_block_crew_id").change();
+      if (result.block_off == "true" || result.block_off == true){
+        container.find("#day_crew_block_block_off").attr("checked", "checked")
+      } else {
+        container.find("#day_crew_block_block_off").removeAttr("checked")
+      }
+    })
+
   };
 
-  $scope.editNote = function (note) {
-    $scope.editedNote = note;
-  };
 
   $scope.doneEditing = function (note) {
     $scope.editedNote = null;
     if (!note.reason) {
-      $scope.removeTodo(note);
+      $scope.removeNote(note);
     }
   };
 

@@ -23,9 +23,49 @@ div.standalone.note {
   padding: 5px 10px; background-color: #ffd; color: #111; border: 1px solid #cc9;
 
 }
-div.standalone.note a.iconly {
+div.standalone.note a:link {
+  color: #000;
+}
+div.standalone.note:hover a:link {
+  color: #369;
+}
+div.standalone.note a:hover {
+  color: #369;
+  text-decoration: none;
+}
+div.standalone.note a i {
+  display: none;
+  text-decoration: none;
+}
+div.standalone.note:hover a i {
+  display: inline;
+  color: #aa7;
+}
+a.empty-slot { 
   display: none;
 }
-div.standalone.note:hover a.iconly {
+a.empty-slot:only-child { 
+  display: block !important;
+}
+
+.schedule_button.editing {
+  background:#ffffcc url(<%= asset_path 'highlight_line.gif' %>) repeat-x top left;
+  border:1px solid #dddd99;
+}
+.schedule_button.editing span {
+  display: block;
+}
+
+.modal label.inline {
   display: inline;
+}
+.modal div.field {
+  margin-bottom: 1em;
+}
+.modal label {
+  margin-bottom: 3px !important;
+}
+.modal#editing_note div.modal-body, .modal#editing_note div.modal-footer {
+  background-color: #eea !important;
+  box-shadow: none;
 }

@@ -37,8 +37,14 @@ class ScheduleController < ApplicationController
     contract = Contract.find(params[:contract_id])
     
     if contract
+      day = params[:day]
+      if day.to_i.to_s != day
+        scheduled_day = Time.local(*day.split('-').each{|d| d.to_i})
+      else
+        scheduled_day = Time.at(day.to_i)
+      end
       # if Contract.find(:all, :conditions => { crew_id: params[:crew_id], position_in_day})
-      if contract.update_attributes({ crew_id: params[:crew_id], arrival_range_id: params[:arrival_id], position_in_day: params[:position], scheduled_date: Time.at(params[:day].to_i) })
+      if contract.update_attributes({ crew_id: params[:crew_id], arrival_range_id: params[:arrival_id], position_in_day: params[:position], scheduled_date: scheduled_day })
         render :json => { conId: contract.id, contactId: contract.estimate.job.contact_id, conName: contract.name, location: contract.location, size: "#{contract.estimate.job.size_and_type}", fill_type: (contract.estimate.job.off_level_fill_type rescue "Excavate"), arrival_time: "#{contract.arrival_range.early rescue ""} to #{contract.arrival_range.late rescue ""}" }
       else
         render :text => false

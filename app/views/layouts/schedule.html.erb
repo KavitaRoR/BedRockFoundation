@@ -78,9 +78,20 @@
   <script src="https://cdn.firebase.com/v0/firebase.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angularFire/0.2.0/angularfire.min.js"></script>
 
+  
   <!-- Init plugins -->
   <script src="/assets/genyx/js/app.js"></script><!-- Core js functions -->
   <script src="/assets/schedule.js"></script><!-- Core js functions -->
+
+  <% if Rails.env == "production" %>
+  <!--[if lte IE 8]><link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.ie.css" /><![endif]-->
+
+  <% else %>
+  <% end %>
+
+
+    <%= csrf_meta_tag %>
+
   <%= yield :head %>
 
   </head>
@@ -182,5 +193,9 @@
       </div> <!-- End .wrapper  -->
     </section>
   </div><!-- End .main  -->
+
+  <%= yield :js_bottom %>
+  <%= yield :scripts %>
+
   </body>
 </html>
