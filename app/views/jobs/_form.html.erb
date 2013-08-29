@@ -392,37 +392,37 @@
 
 				$('.select2-concrete-prices').select2({
 						width: "150px", 
-						data:[<%= (80..200).step(5).map{|r|"{id:'#{r}',text:'$#{r}'}"}.join(",") %>], 
+						data:[<%= (80..200).step(5).map{|r|"{id:'#{r}',text:'$#{j r}'}"}.join(",") %>], 
 						createSearchChoice: function(term) { return {id:term, text:"$"+term } }
 				});
 				$('.select2-courses-blocks').select2({
 						width: "150px", 
-						data:[<%= (0..20).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						data:[<%= (0..20).map{|r|"{id:'#{r}',text:'#{j r}'}"}.join(",") %>], 
 						createSearchChoice: function(term) { return {id:term, text:term} }
 				});
 				$('.select2-slab-thick').select2({
 						width: "150px", 
-						data:[<%= (0..20).step(2).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						data:[<%= (0..20).step(2).map{|r|"{id:'#{r}',text:'#{j r}'}"}.join(",") %>], 
 						createSearchChoice: function(term) { return {id:term, text:term} }
 				});
 				$('.select2-materials').select2({
 						width: "150px",
-						data:[<%= Material.order("name ASC").map{|m| "{id:'#{m.id}',text:'#{m.list_label}'}"}.join(",") %>],
+						data:[<%= Material.order("name ASC").map{|m| "{id:'#{m.id}',text:'#{j m.list_label}'}"}.join(",") %>],
 						createSearchChoice: function(term) { return {id:term, text:term} }
 				})
 				$('.select2-gib-footer-thick').select2({
 						width: "150px", 
-						data:[<%= (6..20).step(2).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						data:[<%= (6..20).step(2).map{|r|"{id:'#{r}',text:'#{j r}'}"}.join(",") %>], 
 						createSearchChoice: function(term) { return {id:term, text:term} }
 				});
 				$('.select2-gravel-base-thick').select2({
 						width: "150px", 
-						data:[<%= (0..20).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						data:[<%= (0..20).map{|r|"{id:'#{r}',text:'#{j r}'}"}.join(",") %>], 
 						createSearchChoice: function(term) { return {id:term, text:term} }
 				});
 				$('.select2-edge-thick').select2({
 						width: "150px", 
-						data:[<%= (12..30).step(6).map{|r|"{id:'#{r}',text:'#{r}'}"}.join(",") %>], 
+						data:[<%= (12..30).step(6).map{|r|"{id:'#{r}',text:'#{j r}'}"}.join(",") %>], 
 						createSearchChoice: function(term) { return {id:term, text:term} }
 				});
 
