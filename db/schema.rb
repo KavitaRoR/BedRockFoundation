@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130811203857) do
+ActiveRecord::Schema.define(:version => 20130923054115) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -279,6 +279,7 @@ ActiveRecord::Schema.define(:version => 20130811203857) do
     t.string   "use_for_estimates", :default => "no"
     t.string   "lat"
     t.string   "lng"
+    t.boolean  "on_map",            :default => true
   end
 
   create_table "material_uses", :force => true do |t|

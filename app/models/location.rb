@@ -2,7 +2,11 @@ class Location < ActiveRecord::Base
   
   before_create :geocode_address
   before_save :geocode_address
-  
+
+  def self.show_on_map
+    where(:on_map => true).where("lat is not NULL").where("lng is not NULL")
+  end
+
   def address_oneline
     [address_1,city,province,zip].reject{|f| f.blank? }.join(", ")
   end

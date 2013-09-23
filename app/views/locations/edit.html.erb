@@ -45,6 +45,10 @@
     <%= f.label :use_for_estimates, "Use in estimate distance calculations?" %><br />
     <%= f.select :use_for_estimates, ['no','yes'] %>
   </p>
+  <p>
+    <%= f.label :on_map, "Show on the Map" %><br />
+    <%= f.checkbox :on_map %>
+  </p>
 
   <p>
     <%= f.submit 'Save this Location', class:"button green-gradient glossy" %>
