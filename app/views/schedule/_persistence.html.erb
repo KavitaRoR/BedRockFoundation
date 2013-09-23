@@ -17,9 +17,10 @@
 	<div class="clear-both">&nbsp;</div>
 	<div style="background-color:#fff; border-radius: 15px; -moz-border-radius: 15px; padding:6px 12px;">
 
-		<%= link_to "Un-Schedule from this Day", "#", :class => "button anthracite-gradient schedule_button2 delete icon-left", :onclick => "return false;" %>
-		<%= link_to "View this Contract", "#", :class => "button green-gradient schedule_button2 view icon-eye", :onclick => "return false;" %>
-		<%= link_to "Remove from Schedule", "#", :class => "button red-gradient schedule_button2 trash icon-cross", :onclick => "return false;" %>
+		<%= link_to "Move Day", "#", :class => "button anthracite-gradient schedule_button2 delete icon-left", :onclick => "return false;" %>
+		<%= link_to "View this Contract", "#", :class => "button blue-gradient schedule_button2 view icon-eye", :onclick => "return false;" %>
+		<%= link_to "Remove", "#", :class => "button red-gradient schedule_button2 trash icon-cross", :onclick => "return false;" %>
+		<%= link_to "Mark as Done", "#", :class => "button green-gradient schedule_button2 done icon-tick", :onclick => "return false;" %>
 		
    	  
 	</div>
@@ -217,6 +218,12 @@
 						the_clicked.find("span").html(" ");
 						the_clicked.find("span:first").html("Empty Slot");
 						window.open('/contacts/status/'+contactId,'_blank');
+					})
+				});
+
+				$(".schedule_button2.done").click(function() {
+					$.post("/schedule/mark_as_done", { id: conId }, function(data) {
+						$.modal.close();
 					})
 				});
 				

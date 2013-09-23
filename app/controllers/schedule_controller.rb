@@ -79,6 +79,15 @@ class ScheduleController < ApplicationController
       render :text => false
     end
   end
+
+  def mark_as_done
+    contract = Contract.find(params[:id])
+    if contract && contract.update_attributes({marked_as_done_at: Time.now, marked_as_done_by: current_user.id})
+      render :text => true
+    else
+      render :text => false
+    end
+  end
   
   def redirect_to_contact
     contract = Contract.find(params[:id])

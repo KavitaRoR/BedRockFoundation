@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130923054115) do
+ActiveRecord::Schema.define(:version => 20130923060419) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -84,9 +84,11 @@ ActiveRecord::Schema.define(:version => 20130923054115) do
     t.integer  "crew_id"
     t.datetime "scheduled_date"
     t.integer  "position_in_day"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "arrival_range_id"
+    t.datetime "marked_as_done_at"
+    t.integer  "marked_as_done_by"
   end
 
   add_index "contracts", ["arrival_range_id"], :name => "index_contracts_on_arrival_range_id"

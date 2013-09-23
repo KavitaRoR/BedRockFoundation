@@ -56,7 +56,7 @@
 
 <div class="jquery_tab">
 	<div class="content_block">
-    <h2 class="jquery_tab_title"><%= @job.referencing %></h2>
+    <h2 class="jquery_tab_title"><%= image_tag @job.status_icon if @job.status_icon.present? %> <%= @job.referencing %></h2>
 		<%= render :partial => "jobs/show" %>
 </div>
 

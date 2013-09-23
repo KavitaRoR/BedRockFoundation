@@ -31,7 +31,12 @@ class Job < ActiveRecord::Base
   
   serialize :labor_schedule
   
-  
+
+
+  def status_icon
+    return "/assets/icons/_tango_22x22/status/weather-clear.png" if estimates.any? {|e| e.try(:contract).try(:marked_as_done_at) }
+    ""
+  end  
   
   def self.serialized_attr_accessor(*args)
     for day in 1..10
