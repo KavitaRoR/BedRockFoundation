@@ -27,6 +27,20 @@
 				<% block_it_off = true if blox.block_off %>
 				<% end %>
 			<% end %>
+			<% block = DayCrewBlock.where(day: day.beginning_of_day).where(working_with_crew_id: c.id) %>
+			<% unless block.nil? %>
+				<% for blox in block%>
+					<span class="margin-bottom wrapped orange-bg black with-mid-padding align-center"><%=raw "<small>day blocked off for:</small><br />" if blox.block_off %>
+					<% if !blox.crew_id.nil? %>
+					<h2 style="color: #630;"><%= Crew.find(blox.working_with_crew_id).crew_name %></h2>
+					Will be working with you
+					<% end %>
+					<b><%= blox.reason %></b></span>
+				<div class="destroy"><%= button_to 'Destroy', blox, confirm: 'Are you sure you want to delete this note?', method: :delete %></div>
+				<% block_it_off = true if blox.block_off %>
+				<% end %>
+			<% end %>
+
 
 			<% helpblocks = DayCrewBlock.find_all_by_working_with_crew_id_and_day(c.id, day.beginning_of_day) %>
 			<% unless helpblocks.nil? %>
