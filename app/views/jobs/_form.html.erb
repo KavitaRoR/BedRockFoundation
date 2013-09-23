@@ -21,6 +21,10 @@
 	<thead></thead>
 	<tbody>
 		<tr>
+			<td><%= f.label :indicator, "Current Job Success Indicator" %></td>
+			<td><%= f.select :indicator, [["No Indicator", ""],["Highly Probable - Green", "green"],["Maybe will sell - Yellow", "yellow"],["Not likely - Red", "red"]] %></td>
+		</tr>
+		<tr>
 			<td><%= f.label :material_markup %></td>
 			<td><%= f.text_field :material_markup, :class => "integer" %></td>
 		</tr>

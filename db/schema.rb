@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130923060419) do
+ActiveRecord::Schema.define(:version => 20130923062042) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -243,6 +243,7 @@ ActiveRecord::Schema.define(:version => 20130923060419) do
     t.string   "job_status"
     t.text     "job_status_reason"
     t.decimal  "material_markup",                     :precision => 10, :scale => 2, :default => 1.2,        :null => false
+    t.string   "indicator"
   end
 
   add_index "jobs", ["bundle_with_job_id"], :name => "index_jobs_on_bundle_with_job_id"

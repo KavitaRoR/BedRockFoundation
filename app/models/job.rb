@@ -35,6 +35,7 @@ class Job < ActiveRecord::Base
 
   def status_icon
     return "/assets/icons/_tango_22x22/status/weather-clear.png" if estimates.any? {|e| e.try(:contract).try(:marked_as_done_at) }
+    return "/assets/icons/_tango_22x22/actions/_indicator_#{indicator}.png" if indicator.present?
     ""
   end  
   
