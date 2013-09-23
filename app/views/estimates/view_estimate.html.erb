@@ -51,22 +51,7 @@
 			</div>
 	<% end %>
 
-			<div id="checkout_div_id" style="margin: 50px; height:305px;"></div>
-			<a name"checkoutdiv">&nbsp;</a>
-			<script type="text/javascript">
-				$(document).ready(function() {
-					$("#payinfull").click(function() {
-						WePay.iframe_checkout("checkout_div_id", "<%= @checkoutfull.checkout_uri %>");
-						$("#payment_buttons").fadeOut();
-					})
-					<% if @estimate.show_recurring_payment %>
-					$("#payinthirds").click(function() {
-						WePay.iframe_checkout("checkout_div_id", "<%= @checkoutthirds.checkout_uri %>");
-						$("#payment_buttons").fadeOut();
-					})
-					<% end %>
-				})
-			</script>
+
 		<% end %>
 		</div>
 

@@ -22,6 +22,7 @@ group :development do
   gem 'lol_dba', :require => false
   gem 'thin'
   gem "letter_opener", :require => false
+  gem 'taps', :require => false
 end
 
 # Gems used only for assets and not required
