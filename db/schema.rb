@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130923062042) do
+ActiveRecord::Schema.define(:version => 20130923063348) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20130923062042) do
     t.integer  "arrival_range_id"
     t.datetime "marked_as_done_at"
     t.integer  "marked_as_done_by"
+    t.integer  "rig_id"
   end
 
   add_index "contracts", ["arrival_range_id"], :name => "index_contracts_on_arrival_range_id"
@@ -365,6 +366,12 @@ ActiveRecord::Schema.define(:version => 20130923062042) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "rigs", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

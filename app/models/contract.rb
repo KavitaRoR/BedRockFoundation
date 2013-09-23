@@ -3,6 +3,7 @@ class Contract < ActiveRecord::Base
   # belongs_to :schedule_day
   belongs_to :crew
   belongs_to :arrival_range
+  belongs_to :rig
   
   # before_create :check_schedule
 

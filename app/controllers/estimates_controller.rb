@@ -137,6 +137,15 @@ class EstimatesController < ApplicationController
     end
   end
 
+  def save_rig
+    @estimate = Estimate.find_by_token( params[:estimate][:token] )
+    @estimate.contract.update_attribute("rig_id", params[:estimate][:rig_id])
+    @estimate.contract.save
+    respond_to do |format|
+      format.js
+    end    
+  end
+
   def view_notes
     @estimate = Estimate.find_by_token( params[:token] )
     @notes = @estimate.additional_notes

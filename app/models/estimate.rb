@@ -12,6 +12,7 @@ class Estimate < ActiveRecord::Base
   before_save :persist_to_firebase
   before_destroy :remove_from_firebase
 
+  attr_accessor :rig_id
   
   def name
     job.name

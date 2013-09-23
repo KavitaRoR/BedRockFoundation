@@ -153,7 +153,8 @@ class ScheduleController < ApplicationController
         :trex_color => "#{@estimate.job.trex_color || "no"}<strong> Trex</strong>", 
         shed_company: "<strong>Referrer: </strong>#{@estimate.job.contact.campaign.name rescue ""}",
         additional_notes: "#{@estimate.additional_notes}",
-        estimate_token: "#{@estimate.token}"
+        estimate_token: "#{@estimate.token}",
+        rig_id: "#{@contract.rig_id}"
       }
     else
       render :text => "no"

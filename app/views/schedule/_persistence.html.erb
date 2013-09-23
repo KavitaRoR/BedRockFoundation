@@ -6,6 +6,15 @@
 		<span>Loading...</span>
 	</div>
 	<br />
+	<div id="select-rig" style="margin-bottom: 1.5em;">
+		<%= form_for Estimate.new, url: "/estimates/save_rig", remote: true do |f| %>
+			<%= f.hidden_field :token %>
+			<%= f.select :rig_id, Rig.order("name ASC").map{|r| [r.name, r.id] }
+				 %>
+			<%= f.submit "Save Rig", class: "button white-gradient glossy float-left", disable_with: "Saving...", style: "float: none;"  %>
+		<% end %>
+	</div>
+	<br />
 	<div id="deep-notes">
 		<%= form_for Estimate.new, url: "/estimates/add_note", remote: true do |f| %>
 			<%= f.hidden_field :token %>
@@ -196,6 +205,8 @@
 					}
 					
 					$("#deep-info").html(str);
+					$("#select-rig select#estimate_rig_id").val(result.rig_id)
+					$("#select-rig input#estimate_token").val(result.estimate_token)
 					$("#deep-notes textarea#estimate_additional_notes").val(result.additional_notes)
 					$("#deep-notes input#estimate_token").val(result.estimate_token)
 				})
