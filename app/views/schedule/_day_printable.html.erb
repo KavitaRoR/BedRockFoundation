@@ -68,6 +68,9 @@
 						</span>
 						<% if current_user.is_admin? %>
 							<div class="estimate_notes">
+								<% if con.rig_id %>
+								<p>You will be driving: <b><%= con.rig.name %></b> </p>
+								<% end %>
 								<%= form_for con.estimate, url: "/estimates/add_note", remote: true do |f| %>
 									<%= f.text_area :additional_notes, 
 										style: "width: 200px; height: 120px;", placeholder: "Additional notes..." %><br />
