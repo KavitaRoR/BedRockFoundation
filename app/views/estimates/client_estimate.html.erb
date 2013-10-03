@@ -41,10 +41,30 @@
 	</a>
 <% end %>
 
+		<div id="checkout_div_id" style="margin: 50px; height:305px;"></div>
 		<div id="payment_div_id"  class="payment_form" style="margin: 50px;display:none;position:relative;top:-400px;">
 			<%= render partial: "other_payment_types", 
 				locals: { total_to_pay: money_from_cents( (@price * 100).ceil - (@total_paid *100).ceil, unit: "" ) } %>
 		</div>
+		<a name"checkoutdiv">&nbsp;</a>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#payinfull").click(function() {
+					WePay.iframe_checkout("checkout_div_id", "<%= @checkoutfull.checkout_uri %>");
+					$("#payment_buttons").fadeOut();
+				})
+				$( "#pay_other" ).click( function() {
+					$( "#payment_div_id" ).show().fadeIn();
+					$( "#payment_buttons" ).fadeOut();
+				});
+				<% if @estimate.show_recurring_payment %>
+				$("#payinthirds").click(function() {
+					WePay.iframe_checkout("checkout_div_id", "<%= @checkoutthirds.checkout_uri %>");
+					$("#payment_buttons").fadeOut();
+				})
+				<% end %>
+			});
+		</script>
 
 	<% end %>
 	</div>

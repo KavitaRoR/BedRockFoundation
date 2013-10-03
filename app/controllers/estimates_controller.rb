@@ -101,7 +101,7 @@ class EstimatesController < ApplicationController
           :mode => 'iframe'
       }
       @checkoutthirds = init_checkout(checkout_params_thirds)
-      @payment_buttons = false
+      @payment_buttons = true
     else
       @payment_buttons = false
     end
