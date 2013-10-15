@@ -22,6 +22,7 @@ class ConcreteJobCalculator
     @concrete_edge_thickness_in_inches = job.concrete_edge_thickness_in_inches
     @concrete_piers_depth_in_inches = job.concrete_piers_depth_in_inches
     @concrete_piers_diameter_in_inches = job.concrete_piers_diameter_in_inches
+    @concrete_number_of_piers = job.number_of_piers
     # @trips = @job.days_on_job rescue 3
     @laborers = (findVar("concrete_laborers") || 2)
     @laborer_rate = (findVar("concrete_laborer_rate") * 100) || 2000
@@ -80,10 +81,12 @@ class ConcreteJobCalculator
     puts "Thick = #{thick}"
     cubic_yards_of_concrete = case 
     when @padkind.include?('gibraltar')
+      puts "*** gibraltar"
       gib_square_footage = (@length.to_f - 1.3333) * (@width.to_f - 1.3333) * (@concrete_gibraltar_footer.to_f / 12)
       gib_square_footage / 27
       # @length * @width @ thick
     when @padkind.include?('graduated')
+      puts "*** graduated"
       edge_ft = @concrete_edge_thickness_in_inches.to_f / 12
       edge_amount_sqft = perimeter * edge_ft
       edge_amount_cuft = edge_amount_sqft * edge_ft
@@ -91,14 +94,21 @@ class ConcreteJobCalculator
       inside_amount_cuft = inside_amount_sqft * (@concrete_thickness.to_f / 12)
       (inside_amount_cuft + edge_amount_cuft) / 27
     when @padkind.include?('floating')
+      puts "*** floating"
       # ((square_footage - 1.3333) / 3) * thick
 			(square_footage * (@concrete_thickness.to_f / 12)) / 27
     when @padkind.include?('piers')
+      puts "*** PIERS"
       cubic_area_per_pier = (@concrete_piers_depth_in_inches.to_f / 36) * (@concrete_piers_diameter_in_inches.to_f / 72) * Math::PI
-      cubic_area_per_pier * findVar("concrete_number_of_piers")
+      total = cubic_area_per_pier * @concrete_number_of_piers
+      puts "number of piers = #{@concrete_number_of_piers}"
+      puts "per pier = #{cubic_area_per_pier}"
+      puts "total = #{total}"
+      total
     else
       0
     end
+    puts "total yards = #{cubic_yards_of_concrete}"
     cubic_yards_of_concrete
   end
     
@@ -122,7 +132,7 @@ class ConcreteJobCalculator
     when @padkind.include?('floating')
       square_footage / 2
     when @padkind.include?('piers')
-      6 * findVar("concrete_number_of_piers")
+      6 * @concrete_number_of_piers
     else
       0
     end

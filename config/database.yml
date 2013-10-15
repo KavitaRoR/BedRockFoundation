@@ -1,6 +1,6 @@
 development:
   adapter: mysql2
-  database: bedrock_dev
+  database: bedrock
   host: localhost
   username: root
   password: 
