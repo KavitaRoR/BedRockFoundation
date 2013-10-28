@@ -28,14 +28,19 @@
     <%= f.text_field :height %>
   </div>
   <div class="field">
-    <%= f.label :qty_per_pack %><br />
+    <%= f.label :qty_per_pack, "Quantity per (unit)" %><br />
     <%= f.text_field :qty_per_pack %>
   </div>
   <div class="field">
-    <%= f.label :price_per_pack %><br />
-    <%= f.text_field :price_per_pack %>
+    <%= f.label :price_per_pack, "Price for this (unit)" %><br />
+    <%= f.text_field :price_per_pack %> per <%= f.select :quantity_label, MaterialQuantityLabel.all.map{|m| m.name } %>
   </div>
 
+  <div class="field">
+    <%= f.label :apply_markup, "Apply Material Markup?" %>
+    <%= f.check_box :apply_markup %>
+  </div>
+  <br /><br />
   <div class="actions">
     <%= f.submit class: "button green-gradient glossy" %>
   </div>

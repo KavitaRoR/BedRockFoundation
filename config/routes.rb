@@ -1,5 +1,7 @@
 Abundant::Application.routes.draw do
 
+  resources :material_quantity_labels
+
   resources :rigs
 
   resources :payments

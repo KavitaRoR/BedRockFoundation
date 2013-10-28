@@ -1,0 +1,23 @@
+<h1>Listing material_quantity_labels</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @material_quantity_labels.each do |material_quantity_label| %>
+  <tr>
+    <td><%= material_quantity_label.name %></td>
+    <td><%= link_to 'Show', material_quantity_label %></td>
+    <td><%= link_to 'Edit', edit_material_quantity_label_path(material_quantity_label) %></td>
+    <td><%= link_to 'Destroy', material_quantity_label, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Material quantity label', new_material_quantity_label_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131028020238) do
+ActiveRecord::Schema.define(:version => 20131028041908) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -245,6 +245,7 @@ ActiveRecord::Schema.define(:version => 20131028020238) do
     t.text     "job_status_reason"
     t.decimal  "material_markup",                     :precision => 10, :scale => 2, :default => 1.2,        :null => false
     t.string   "indicator"
+    t.datetime "scheduled_to_end_at"
   end
 
   add_index "jobs", ["bundle_with_job_id"], :name => "index_jobs_on_bundle_with_job_id"
@@ -287,6 +288,12 @@ ActiveRecord::Schema.define(:version => 20131028020238) do
     t.decimal  "multiplier",        :precision => 5, :scale => 1, :default => 1.0
   end
 
+  create_table "material_quantity_labels", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "material_uses", :force => true do |t|
     t.integer  "material_id",                                                     :null => false
     t.integer  "job_id",                                                          :null => false
@@ -312,6 +319,9 @@ ActiveRecord::Schema.define(:version => 20131028020238) do
     t.integer  "position",                                      :default => 100
     t.datetime "created_at",                                                      :null => false
     t.datetime "updated_at",                                                      :null => false
+    t.string   "quantity_label"
+    t.string   "category"
+    t.boolean  "apply_markup",                                  :default => true
   end
 
   create_table "next_actions", :force => true do |t|

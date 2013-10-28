@@ -28,7 +28,7 @@
   <dt><%= f.label :expected_close_date %></dt>
 	<dd><%= f.date_select :expected_close_date %></dd>
   <dt><%= f.label :current_situation %></dt>
-	<dd><%= f.text_field :current_situation %></dd>
+	<dd><%= f.text_area :current_situation, rows: 3, style: "height: 4em;" %></dd>
   <dt><%= f.label :followup_date %></dt>
 	<dd><%= f.datetime_select :followup_date %></dd>
   <dt><%= f.label :notes %></dt>

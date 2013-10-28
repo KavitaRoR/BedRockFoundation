@@ -4,7 +4,23 @@ class Material < ActiveRecord::Base
 
 
   def list_label
-    "#{name} - #{dimensions} @ $#{price_per_pack} per #{qty_per_pack}"
+    "#{name} - #{dimensions} @ $#{price_per_pack} #{per}"
+  end
+
+  def list_label_no_price
+    "#{name} - #{dimensions}"
+  end
+
+  def per
+    if qty_per_pack == 1 || qty_per_pack == 0
+      if quantity_label != "each"       
+        "per #{quantity_label}"
+      else
+        "#{quantity_label}"
+      end
+    else
+      "per #{qty_per_pack} #{quantity_label}"
+    end
   end
 
   def price_per_unit 
