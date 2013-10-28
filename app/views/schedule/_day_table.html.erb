@@ -73,9 +73,9 @@
 								<div class="schedule-payments not-paid" title="No Payments Recorded">
 									<%= image_tag "/assets/icons/_tango_16x16/status/software-update-urgent.png" %> <%= con.estimate.job.contact.phone %>
 								</div>
-							<% elsif total_owed < 1 %>
+							<% elsif con.estimate.total_owed < 1 %>
 								<div class="schedule-payments paid">
-								<%= image_tag "/assets/icons/_tango_16x16/emotes/face-glasses.png" %>
+								<%= image_tag "/assets/icons/04_32x32.png" %>
 
 									Paid in full</div>
 							<% else %>
