@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="description" content="Reflect Template" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+		<title>Bedrock Foundations Scheduling System</title>
+		<%= stylesheet_link_tag 'shortcodes', 'colors', 'client' %>
+		<%= stylesheet_link_tag 'printable', :media => "print" %>
+		
+		<%#= stylesheet_link_tag "stylesheets/style_all.css", "stylesheets/style2.css" %>
+		<!--[if IE 6]>
+			<script src="/javascripts/ie6pngfix.js"></script>
+			<script>
+				DD_belatedPNG.fix('#head, a, a span, img, .message p, .click_to_close, .ie6fix');
+			</script>
+		<![endif]--> 
+		<style>
+			html, body {
+			    width: 100%;
+			    height: 100%;
+			}
+
+			#map-canvas {
+			    width: 100%;
+			    height: 100%;
+			    min-height: 600px;
+			    position: relative;
+			}
+
+			.map-content {
+			    z-index: 10;
+			    position: absolute;
+			    top: 50px;
+			    left: 50px;
+			    width: 390px;
+			    background-color: black;
+			    color: #FFF;
+			}
+
+		</style>        
+		<%= javascript_include_tag 'javascripts/jquery.simplemodal.1.4.2.min', 'javascripts/jquery-ui.js', 'javascripts/jquery.wysiwyg.js', 'javascripts/jquery.flash.js', 'javascripts/custom.js' %>
+	</head>
+	<body style="margin: 0; padding: 0;">
+		<div id="">
+			<p class="notice"><%= notice %></p>
+			<p class="alert"><%= alert %></p>
+			
+			<%= yield %>
+		</div>
+		<%= yield :js_bottom %>
+	</body>
+</html>

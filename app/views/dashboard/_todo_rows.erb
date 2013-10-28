@@ -25,6 +25,7 @@
 		<%= todo.current_situation rescue "" %>
 	</td>
 	<td>
+		<b><%= todo.next_action.try(:name) %></b><br />
 		<% unless todo.status_flag.blank? %>
 		 <span class="button tiny orange-gradient"><%= todo.status_flag %></span> 
 		<% end %>

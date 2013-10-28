@@ -44,6 +44,11 @@
 						<span>
 							<%= link_to "Logout", destroy_user_session_url, :method => :delete %>
 						</span>
+						<% if !session[:spoof_user_id].blank? %>
+						<span>
+							<%= link_to "Un-spoof", "/users/become", :method => :delete %>
+						</span>
+						<% end %>
 						<% else %> 
 						<span class="memberinfo_span">
 							<%= link_to "Login", new_user_session_url %>

@@ -2,6 +2,8 @@ class Status < ActiveRecord::Base
   belongs_to :next_action
   belongs_to :job
   belongs_to :contact
+
+  after_create :remove_from_dash
   
   scope :reverse, :order => "updated_at DESC"
   
@@ -28,6 +30,17 @@ class Status < ActiveRecord::Base
       flag = "Today"
     end
     flag
+  end
+
+  protected
+
+  def remove_from_dash
+    if next_action_id == 5 || next_action_id == 7
+      Status.where(:contact_id => self.contact_id).each do |s|
+        s.done = true
+        s.save
+      end
+    end
   end
   
   

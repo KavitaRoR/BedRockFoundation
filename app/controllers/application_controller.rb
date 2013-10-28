@@ -17,6 +17,15 @@ class ApplicationController < ActionController::Base
       return true
     end
   end
+
+  alias_method :devise_current_user, :current_user
+  def current_user
+    if session[:spoof_user_id].blank?
+      devise_current_user
+    else
+      User.find(session[:spoof_user_id])
+    end   
+  end
  
   protected
  

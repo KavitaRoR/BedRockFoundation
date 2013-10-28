@@ -1,0 +1,44 @@
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjBNNu1wAcPhVWss484Ld_W9fd6AZtehg&sensor=true">
+</script>
+<script type="text/javascript">
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng(40.250176,-77.338115),
+      zoom: 7,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapOptions);
+
+    var quarryLayer = new google.maps.KmlLayer({
+      url: 'https://maps.google.com/maps/ms?msid=217100386350189279145.0004e151398a45c3e0aee&msa=0&output=kml'
+    });
+    quarryLayer.setMap(map);
+
+    var concreteLayer = new google.maps.KmlLayer({
+      url: 'https://maps.google.com/maps/ms?msid=217100386350189279145.0004e1547933f2a309731&msa=0&output=kml'
+    });
+    concreteLayer.setMap(map);
+
+    geocoder = new google.maps.Geocoder();
+    geocoder.geocode( { 'address': '<%= @q %>'}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert('Google could not locate the Customer Address: ' + status);
+      }
+    });
+
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+
+<div id="map-canvas" />
+

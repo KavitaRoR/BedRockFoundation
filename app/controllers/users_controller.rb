@@ -31,8 +31,12 @@ class UsersController < ApplicationController
   def become
     return unless current_user
     begin
-      sign_in(:user, User.find(params[:id]))
-      redirect_to "/" # or user_root_url
+      if params[:id]
+        session[:spoof_user_id] = params[:id]
+      else
+        session[:spoof_user_id] = nil
+      end
+      redirect_to :back
     rescue
       redirect_to "/users", :error => "Becoming someone else did not work"
     end

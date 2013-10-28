@@ -11,8 +11,12 @@
 		</div>
 	<% end %>
 
-<%= link_to "Go Back to Customer Info", "/contacts/#{@job.contact_id}", class: "button white-gradient icon-left" %><br />
+<%= link_to "Go Back to Customer Info", "/contacts/#{@job.contact_id}", class: "button white-gradient icon-left" %>
+<%= link_to "Open Google Map", "/maps/google?q=#{CGI::escape(@job.address_oneline)}", class: "button blue-gradient icon-arrow", target: "_blank" %>
 <br />
+<br />
+
+
 <%= f.label :description %><br />
 <%= f.text_area :description, :class => "text", :style => "width: 384px" %>
 

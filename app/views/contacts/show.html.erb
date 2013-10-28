@@ -1,6 +1,9 @@
 <div class="jquery_tab">
 	<div class="content_block">
-		<h2 class="jquery_tab_title">Name: <%= @contact.name %></h2><span style="float:right;"><%= link_to "Edit Contact Info", edit_contact_url(@contact), class: "blue-gradient button glossy" %></span>
+		<h2 class="jquery_tab_title">Name: <%= @contact.name %></h2><span style="float:right;"><%= link_to "Edit Contact Info", edit_contact_url(@contact), class: "blue-gradient button glossy" %>
+		<%= link_to "Open Google Map", "/maps/google?q=#{CGI::escape(@contact.address_oneline)}", class: "button orange-gradient icon-arrow", target: "_blank" %>
+
+	</span>
 		<p>
 			<b>Status: </b><%=h @contact.status.status_name %><br />
 		  <b>Company: </b> <%= @contact.company if !@contact.company.blank? %><br />

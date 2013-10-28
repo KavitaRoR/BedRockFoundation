@@ -63,6 +63,8 @@ Abundant::Application.routes.draw do
       put 'update_job_status'
     end
   end
+
+  match "/maps/google" => "maps#google"
   
   root :to => 'passthrough#index'
 

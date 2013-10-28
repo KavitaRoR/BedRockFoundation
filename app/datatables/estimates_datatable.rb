@@ -19,7 +19,7 @@ private
   def data
     estimates.map do |estimate|
       [
-        link_to(estimate.contact.name,"/contacts/#{estimate.contact_id}"),
+        link_to(estimate.contact.name,"/contacts/#{estimate.contact_id}", class: "button blue-gradient"),
         h(estimate.id),
         h(estimate.updated_at.strftime("%Y-%m-%d")),
         h(estimate.current_scheduled_at ? estimate.current_scheduled_at.strftime("%B %e, %Y") : ''),
