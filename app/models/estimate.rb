@@ -22,6 +22,29 @@ class Estimate < ActiveRecord::Base
     job.city_state
   end
 
+  def total_paid
+    paid_so_far = 0
+    for wcr in self.wepay_checkout_records.select{|w| w.state == "captured" || w.state == "authorized"} 
+      paid_so_far += wcr.amount
+    end
+    for payment in self.payments
+      paid_so_far += payment.amount
+    end
+    paid_so_far
+  end
+
+  def total_owed
+    price_in_cents = if self.job.job_type.kind == self.job_type.kind || self.job.job_calc_type == "adhoc" || self.job.foundation_kind.downcase.include?("concrete")
+      self.job.price_in_cents
+    else
+      self.job.price_in_cents + self.job.specific_offlevel(self.job_type.kind)[:zero][0] - self.job.specific_offlevel(self.job.job_type.kind)[:zero][0]
+    end
+    price_in_cents += self.job.bundle_total
+    
+    @price = price_in_cents.to_f / 100
+    @price - total_paid
+  end
+
   def push_to_sold(creator)
     begin
       c = Contract.new

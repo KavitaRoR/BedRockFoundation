@@ -38,6 +38,10 @@ class Job < ActiveRecord::Base
     return "/assets/icons/_tango_22x22/actions/_indicator_#{indicator}.png" if indicator.present?
     ""
   end  
+
+  def days_on_site
+    (1..10).select{|d| d if self.labor_schedule["day_#{d}_hours".to_sym] != "" }.last
+  end
   
   def self.serialized_attr_accessor(*args)
     for day in 1..10

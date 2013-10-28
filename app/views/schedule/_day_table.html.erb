@@ -69,6 +69,20 @@
 					<% elsif con.first.estimate.job %>
 						<% con = con.first %>
 						<a class="schedule_button full" href="#" onclick="return false;">
+							<% if con.estimate.payments.empty? %>
+								<div class="schedule-payments not-paid" title="No Payments Recorded">
+									<%= image_tag "/assets/icons/_tango_16x16/status/software-update-urgent.png" %> <%= con.estimate.job.contact.phone %>
+								</div>
+							<% elsif total_owed < 1 %>
+								<div class="schedule-payments paid">
+								<%= image_tag "/assets/icons/_tango_16x16/emotes/face-glasses.png" %>
+
+									Paid in full</div>
+							<% else %>
+								<div class="schedule-payments not-paid" title="Not Paid in Full">
+									<%= image_tag "/assets/icons/_tango_16x16/status/software-update-urgent.png" %>
+									<b>$<%= con.estimate.total_paid %> paid to date.</b> <%= con.estimate.job.contact.phone %></div>
+							<% end %>
 							<span class="schedule_button_heading" id="con-<%= con.id %>-<%= con.estimate.job.contact_id %>"><%= "#{con.estimate.job.contact.name rescue "deleted job"} - ##{con.estimate.job.location.abbreviation rescue ""}-#{con.estimate.invoice_number rescue "000" }" %></span>
 							<span><%= con.estimate.job.size_and_type rescue "deleted" %> in <%= con.estimate.job.city_state rescue "deleted" %>
 								<% unless con.arrival_range.nil? %>
