@@ -6,6 +6,9 @@
 			<%= link_to "Edit Customer Information", 
 				"/contacts/#{@estimate.job.contact.id}/edit", 
 				class: "button blue-gradient icon-pencil" %>
+
+			<%= link_to "Open Google Map", "/maps/google?q=#{CGI::escape(@estimate.job.address_oneline)}", class: "button orange-gradient icon-arrow", target: "_blank" %>
+
 			</h2>
 
 		<a href="#" id="print-link" class="button huge green-gradient icon-printer"> Print</a><br />
