@@ -300,7 +300,15 @@ class ConcreteJobCalculator
   
   def total_price
     # puts "Total Price : #{total_labor_cost} * #{(findVar("rockpad_labor_cost_markup")+100) / 100} + #{total_material_cost} * #{(findVar("rockpad_material_cost_markup")+100) / 100}"
-    (total_labor_cost * (findVar("concrete_labor_cost_markup")+100) / 100 || 1.25) + (total_material_cost * (findVar("concrete_material_cost_markup")+100) / 100 || 1.15)
+    total = (total_labor_cost * (findVar("concrete_labor_cost_markup")+100) / 100 || 1.25) + (total_material_cost * (findVar("concrete_material_cost_markup")+100) / 100 || 1.15)
+    begin      
+      if @job.location_for_calculation.try(:multiplier)
+        total = total * @job.location_for_calculation.try(:multiplier)
+      end
+      return total
+    rescue
+      return total
+    end
   end
   
   def my_cost
