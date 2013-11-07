@@ -221,16 +221,12 @@
 	<p>Leave this empty if the customer address is the same</p>
 	<table>
 		<tbody>
-			<% unless params[:action] == "new" %>
-				<% unless @allow_manual_edit.nil? %>
-					<tr>
-						<td>
-							<%= f.label :distance %><br />
-							<%= f.text_field :distance, class: "string" %>
-						</td>
-					</tr>		
-				<% end %>			
-			<% end %>
+			<tr>
+				<td>
+					<%= f.label :distance %><br />
+					<%= f.text_field :distance, class: "string" %>
+				</td>
+			</tr>		
 			
 			<tr>
 				<td>
