@@ -14,6 +14,7 @@ gem 'wepay-rails'
 gem 'el_finder'
 gem "squeel"
 gem 'firebase'
+gem 'geocoder'
 
 group :development do
   gem 'heroku', :require => false

@@ -41,8 +41,8 @@ class Contact < ActiveRecord::Base
   protected
   def geocode_address
     if self.valid? && address_1 != "" && !address_1.nil?
-      geo = Geokit::Geocoders::MultiGeocoder.geocode(self.address_oneline)
-      base = Geokit::Geocoders::MultiGeocoder.geocode "461 Old Wilmington Rd, Coatesville, PA"
+      geo = Geocoder.search(self.address_oneline)
+      base = Geocoder.search "461 Old Wilmington Rd, Coatesville, PA"
 
       if geo.success
         self.lat = geo.lat
