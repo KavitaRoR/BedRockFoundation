@@ -7,7 +7,7 @@
 
       </tr>
 
-		<% @todos.select{|t| t.contact.big_potential_deal? && t.next_action_id && t.contact_id && t.next_action.requires_phone_call && t.done != true && (t.assigned_to == current_user.id || [1,2,7].include?(current_user.id) ) }.sort{|x,y| x.followup_date <=> y.followup_date }.each do |todo| %>
+		<% @todos.select{|t| t.contact.big_potential_deal? }.sort{|x,y| x.followup_date <=> y.followup_date }.each do |todo| %>
 		<%= render :partial => "todo_rows", :locals => {:todo => todo} %>
 		<% end %>
 		
@@ -18,7 +18,7 @@
 <table class="table_liquid" cellspacing="0">
     <caption></caption>
 
-	<% @todos.select{|t| !t.contact.big_potential_deal? && t.next_action_id && t.contact_id && t.next_action.requires_phone_call && t.done != true }.sort{|x,y| x.followup_date <=> y.followup_date }.group_by{ |assignee| assignee.assigned_to }.each do |todo| %>
+	<% @todos.group_by{ |td| td.assigned_to }.each do |todo| %>
     <% if todo[1].first.assigned_to == current_user.id || [1,2,7].include?(current_user.id) %>
       <tr>
   			<%= render :partial => "todo_columns", :locals => {:assignee_name => "#{@users.select{|u| u.id == todo[1].first.assigned_to}.first.name}'s"} %>

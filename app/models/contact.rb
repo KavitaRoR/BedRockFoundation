@@ -44,10 +44,10 @@ class Contact < ActiveRecord::Base
       geo = Geocoder.search(self.address_oneline)
       base = Geocoder.search "461 Old Wilmington Rd, Coatesville, PA"
 
-      if geo.success
-        self.lat = geo.lat
-        self.lng = geo.lng
-        self.distance = geo.distance_from(base, :units => :miles)
+      if geo.first.data["geometry"]
+        self.lat = geo.first.data["geometry"]["location"]["lat"]
+        self.lng = geo.first.data["geometry"]["location"]["lng"]
+        self.distance = Geocoder::Calculations.distance_between([self.lat, self.lng], [base.first.data["geometry"]["location"]["lat"], base.first.data["geometry"]["location"]["lng"]])
       else
         errors.add(:address_1, "Could not Geocode CONTACT address")
       end

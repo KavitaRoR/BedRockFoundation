@@ -99,7 +99,7 @@ class ConcreteJobCalculator
 			(square_footage * (@concrete_thickness.to_f / 12)) / 27
     when @padkind.include?('piers')
       puts "*** PIERS"
-      cubic_area_per_pier = (@concrete_piers_depth_in_inches.to_f / 36) * (@concrete_piers_diameter_in_inches.to_f / 72) * Math::PI
+      cubic_area_per_pier = (@concrete_piers_depth_in_inches.to_f / 36) * ((@concrete_piers_diameter_in_inches.to_f * @concrete_piers_diameter_in_inches.to_f) / (36 * 36))
       total = cubic_area_per_pier * @concrete_number_of_piers
       puts "number of piers = #{@concrete_number_of_piers}"
       puts "per pier = #{cubic_area_per_pier}"

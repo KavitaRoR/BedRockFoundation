@@ -341,7 +341,7 @@ class Job < ActiveRecord::Base
   def geocode_address
     base = Geocoder.search(location_for_calculation.address_oneline)
       
-    if base.success
+    if base.first.data["geometry"]
       if !self.address_1.blank?
         addr = self.address_oneline
       else  
@@ -350,11 +350,11 @@ class Job < ActiveRecord::Base
         self.address_1, self.address_2, self.city, self.province, self.zip = cont.address_1, cont.address_2, cont.city, cont.province, cont.zip
       end 
       geo = Geocoder.search(address_oneline)
-      errors.add(:address_1, "Could not Geocode JOB address") if !geo.success
-      raise "Geocode Error" if !geo.success
-      if geo.success
-        self.lat, self.lng = geo.lat,geo.lng 
-        self.distance = geo.distance_from(base, :units=>:miles)
+      errors.add(:address_1, "Could not Geocode JOB address") if !geo.first.data["geometry"]
+      raise "Geocode Error" if !geo.first.data["geometry"]
+      if geo.first.data["geometry"]
+        self.lat, self.lng = geo..first.data["geometry"]["location"]["lat"],geo..first.data["geometry"]["location"]["lng"] 
+        self.distance = Geocoder::Calculations.distance_between([self.lat, self.lng], [base.first.data["geometry"]["location"]["lat"], base.first.data["geometry"]["location"]["lng"]])
         self.save
       end
     else
@@ -375,7 +375,7 @@ class Job < ActiveRecord::Base
     def geocode_address_for_create
       base = Geocoder.search(location_for_calculation.address_oneline)
         
-      if base.success
+      if base.first.data["geometry"]
         if !self.address_1.blank?
           addr = self.address_oneline
         else  
@@ -384,10 +384,10 @@ class Job < ActiveRecord::Base
           self.address_1, self.address_2, self.city, self.province, self.zip = cont.address_1, cont.address_2, cont.city, cont.province, cont.zip
         end 
         geo = Geocoder.search(address_oneline)
-        errors.add(:address_1, "Could not Geocode address") if !geo.success
-        if geo.success
-          self.lat, self.lng = geo.lat,geo.lng 
-          self.distance = geo.distance_from(base, :units=>:miles)
+        errors.add(:address_1, "Could not Geocode address") if !geo.first.data["geometry"]
+        if geo.first.data["geometry"]
+          self.lat, self.lng = geo.first.data["geometry"]["location"]["lat"],geo.first.data["geometry"]["location"]["lng"] 
+          self.distance = Geocoder::Calculations.distance_between([self.lat, self.lng], [base.first.data["geometry"]["location"]["lat"], base.first.data["geometry"]["location"]["lng"]])
         end
       else
         # reuse the contact's current geodata

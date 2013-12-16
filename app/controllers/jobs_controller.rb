@@ -75,9 +75,9 @@ class JobsController < ApplicationController
   
   def update
     @job = Job.find(params[:id])
-    geocode = params[:job][:distance].to_i == @job.distance.to_i # distance is unchanged
+    # geocode = params[:job][:distance].to_i == @job.distance.to_i # distance is unchanged
       if @job.update_attributes(params[:job])
-        if geocode
+        if params[:job][:distance].nil? || params[:job][:distance].blank?
           @job.geocode_address
         end
         flash[:notice] = "Successfully updated job."
