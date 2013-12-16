@@ -53,6 +53,11 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    draper (1.3.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0.3)
     el_finder (1.1.7)
       image_size (>= 1.0.0)
     ember-data-source (0.13)
@@ -82,11 +87,6 @@ GEM
       json
       typhoeus (>= 0.6.1)
     geocoder (1.1.9)
-    geokit (1.7.1)
-      multi_json (>= 1.3.2)
-    geokit-rails3 (0.1.5)
-      geokit (~> 1.5)
-      rails (~> 3.0)
     gmaps4rails (1.5.6)
     handlebars-source (1.0.12)
     heroku (2.39.2)
@@ -165,6 +165,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.4)
+    request_store (1.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     ruby-prof (0.13.0)
@@ -225,13 +226,13 @@ DEPENDENCIES
   angularjs-rails
   coffee-rails (~> 3.2.1)
   devise
+  draper
   el_finder
   ember-rails
   ember-source (= 1.0.0.rc6.4)
   exception_notification
   firebase
   geocoder
-  geokit-rails3
   gmaps4rails
   handlebars-source (~> 1.0.12)
   heroku

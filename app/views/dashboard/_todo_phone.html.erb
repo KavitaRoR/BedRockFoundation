@@ -19,9 +19,9 @@
     <caption></caption>
 
 	<% @todos.select{|t| !t.contact.big_potential_deal? && t.next_action_id && t.contact_id && t.next_action.requires_phone_call && t.done != true }.sort{|x,y| x.followup_date <=> y.followup_date }.group_by{ |assignee| assignee.assigned_to }.each do |todo| %>
-    <% if todo[1].first.assignee.name == current_user.name || [1,2,7].include?(current_user.id) %>
+    <% if todo[1].first.assigned_to == current_user.id || [1,2,7].include?(current_user.id) %>
       <tr>
-  			<%= render :partial => "todo_columns", :locals => {:assignee_name => "#{todo[1].first.assignee.name}'s"} %>
+  			<%= render :partial => "todo_columns", :locals => {:assignee_name => "#{@users.select{|u| u.id == todo[1].first.assigned_to}.first.name}'s"} %>
       </tr>	
   		<% todo[1].each_with_index do |t,i| %>
   			<%= render :partial => "todo_rows", :locals => {:todo => t} %>

@@ -14,12 +14,14 @@ class Status < ActiveRecord::Base
   def assignee
     @assignee ||= User.find(assigned_to)
   end
+
   
-  def self.todo(user_id)
-    logger.debug("USER ID: #{user_id}")
-    query = where(:done => nil).includes(:next_action).order("followup_date DESC")
-    # query = query.where(assigned_to: user_id) unless [1,2,7,nil].include?(user_id)
-    query
+  def self.todo_for(user_id)
+    where(:done => nil).where("next_action_id in (?)", NextAction.for_todo.pluck(:id)).includes(:next_action).order("followup_date DESC")
+  end
+
+  def self.todos
+    where(:done => nil).where("next_action_id in (?)", NextAction.for_todo.pluck(:id)).includes(:next_action).order("followup_date DESC")
   end
 
   def status_flag

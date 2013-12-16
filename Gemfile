@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.2'
-gem 'geokit-rails3'
 gem 'devise'
 gem 'mail'
 gem 'gmaps4rails'
@@ -15,6 +14,7 @@ gem 'el_finder'
 gem "squeel"
 gem 'firebase'
 gem 'geocoder'
+gem 'draper'
 
 group :development do
   gem 'heroku', :require => false

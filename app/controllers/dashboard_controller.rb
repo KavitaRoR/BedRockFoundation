@@ -7,7 +7,8 @@ class DashboardController < ApplicationController
   
   def index 
     # @all_todos = Status.find(:all, :conditions => {:assigned_to => current_user.id, :done => nil}, :include => [:contact, :job, :next_action, {:contact => :jobs}], :order => "followup_date DESC")
-    @all_todos = Status.todo(current_user.id)
+    @all_todos = Status.todos.includes(:contact => [:campaign, {:jobs => {:estimates => :contract}}]).includes(:job)
+    @users = User.all
     id_group = {}
     logger.info("AllTodos.count = #{@all_todos.count}")
     @all_todos.each do |t|
@@ -21,13 +22,13 @@ class DashboardController < ApplicationController
     end
     @todos = []
     id_group.each do |k, v|
-      @todos << Status.find(v, :include => [:job, :next_action, {:contact => :jobs}])
+      @todos << @all_todos.select{|t| t.id == v }.first
     end
     logger.info("Todos.count = #{@todos.count}")
   end
   
   def todos 
-    @all_todos = Status.todo(current_user.id)
+    @all_todos = Status.todo_for(current_user.id)
     id_group = {}
     @all_todos.each do |t|
       if t.contact

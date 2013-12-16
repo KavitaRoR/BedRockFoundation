@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131028041908) do
+ActiveRecord::Schema.define(:version => 20131215235545) do
 
   create_table "arrival_ranges", :force => true do |t|
     t.string   "early"
@@ -84,12 +84,13 @@ ActiveRecord::Schema.define(:version => 20131028041908) do
     t.integer  "crew_id"
     t.datetime "scheduled_date"
     t.integer  "position_in_day"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "arrival_range_id"
     t.datetime "marked_as_done_at"
     t.integer  "marked_as_done_by"
     t.integer  "rig_id"
+    t.boolean  "called_day_before", :default => false
   end
 
   add_index "contracts", ["arrival_range_id"], :name => "index_contracts_on_arrival_range_id"
@@ -246,6 +247,8 @@ ActiveRecord::Schema.define(:version => 20131028041908) do
     t.decimal  "material_markup",                     :precision => 10, :scale => 2, :default => 1.2,        :null => false
     t.string   "indicator"
     t.datetime "scheduled_to_end_at"
+    t.datetime "site_check_at"
+    t.boolean  "site_check_potentially_work",                                        :default => false
   end
 
   add_index "jobs", ["bundle_with_job_id"], :name => "index_jobs_on_bundle_with_job_id"
@@ -333,6 +336,7 @@ ActiveRecord::Schema.define(:version => 20131028041908) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
+    t.boolean  "shows_on_todo_list",  :default => true
   end
 
   create_table "pad_jobs", :force => true do |t|
