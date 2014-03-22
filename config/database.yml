@@ -3,7 +3,7 @@ development:
   database: bedrock
   host: localhost
   username: root
-  password: 
+  password: Dips
   # socket: /tmp/mysql.sock
 production:
   adapter: mysql2

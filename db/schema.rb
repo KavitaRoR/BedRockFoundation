@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
     t.string   "name"
     t.date     "started_on"
     t.integer  "cost_in_cents"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "check_payments", :force => true do |t|
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
 
   create_table "contact_statuses", :force => true do |t|
     t.string   "status_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "contacts", :force => true do |t|
@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
     t.string   "province"
     t.integer  "zip"
     t.integer  "campaign_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "lat"
     t.string   "lng"
     t.integer  "distance"
@@ -159,8 +159,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
 
   create_table "foundations", :force => true do |t|
     t.string   "kind"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "position"
   end
 
@@ -199,14 +199,14 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
     t.string   "province"
     t.integer  "zip"
     t.integer  "contact_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                                                 :null => false
+    t.datetime "updated_at",                                                                                 :null => false
     t.string   "lat"
     t.string   "lng"
     t.integer  "distance"
     t.integer  "width"
     t.integer  "length"
-    t.decimal  "additional_price",                    :precision => 10, :scale => 2, :default => 0.0,        :null => false
+    t.decimal  "additional_price",                    :precision => 10, :scale => 2, :default => 0.0
     t.decimal  "depth",                               :precision => 10, :scale => 0
     t.string   "shed_company"
     t.string   "accessible_with_machine"
@@ -215,7 +215,7 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
     t.string   "timber_wall"
     t.string   "economy_or_elite"
     t.boolean  "border_sixbysix",                                                    :default => false
-    t.decimal  "discount",                            :precision => 10, :scale => 2, :default => 0.0,        :null => false
+    t.decimal  "discount",                            :precision => 10, :scale => 2, :default => 0.0
     t.string   "crew_name"
     t.string   "rig_name"
     t.integer  "location_id"
@@ -278,8 +278,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
     t.string   "name"
     t.string   "phone"
     t.string   "abbreviation"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
     t.string   "address_1"
     t.string   "city"
     t.string   "province"
@@ -333,8 +333,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
     t.boolean  "on_hold"
     t.boolean  "requires_visit"
     t.boolean  "requires_research"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "position"
     t.boolean  "shows_on_todo_list",  :default => true
   end
@@ -345,8 +345,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
     t.integer  "pad_size_id"
     t.string   "door_placement"
     t.integer  "off_level_amount_in_inches"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "pad_sizes", :force => true do |t|
@@ -355,8 +355,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
     t.integer  "price_in_cents"
     t.integer  "material_cost_in_cents"
     t.integer  "labor_cost_in_cents"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.integer  "position"
   end
 
@@ -394,15 +394,9 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
   create_table "rock_pad_variables", :force => true do |t|
     t.string   "key"
     t.decimal  "value",       :precision => 10, :scale => 2
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "description"
-  end
-
-  create_table "shed_companies", :force => true do |t|
-    t.string   "company"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "square_payments", :force => true do |t|
@@ -419,8 +413,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
     t.text     "notes"
     t.integer  "assigned_by"
     t.integer  "assigned_to"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.boolean  "done"
     t.integer  "contact_id"
     t.datetime "followup_date"
@@ -441,8 +435,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
     t.string   "name"
     t.string   "phone"
     t.string   "color"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "crew_id"
   end
 
@@ -450,8 +444,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.string   "email",                                 :null => false
-    t.string   "encrypted_password",                    :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -460,8 +454,8 @@ ActiveRecord::Schema.define(:version => 20131215235545) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "permissions_levels"
     t.integer  "crew_id"
     t.text     "email_signature"

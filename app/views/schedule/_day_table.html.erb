@@ -1,5 +1,15 @@
+<head>
+ <script>
+ 
+  function init()
+ {
+$("#loading").show();
+ }
+  </script>
+</head>
+
 <% unless day.saturday? %>
-<div id="<%= day.to_s %>">
+<div id="<%= day.to_s %>" class="crew">
 	<h2>
 		<%= day.strftime("%A %B %d, %Y") %>
 	</h2>
@@ -10,12 +20,15 @@
 			<% @crews.each do |c| %>
 				<th class="crew_name">
 					<b><%= c.crew_name %></b>
-					<div class="daycrewblock">
+                                        <div id="loading" style="display:none; position:absolute; width:100%; text-align:center;
+ top:300px;">
+<%= image_tag "ajax-loading.gif" %></div>
+					<div class="daycrewblock" id="daycrewblock_<%= c.id%>">
 						<b class="note_toggle">Add a Note</b>
 						<% @day_crew_block = DayCrewBlock.new %>
 						<% @day_crew_block.crew_id = c.id %>
 						<% @day_crew_block.day = day.beginning_of_day %>
-						<%= form_for(@day_crew_block) do |f| %>
+						<%= form_for(@day_crew_block, :remote => true ,:html => {:onsubmit => "init();"}) do |f| %>
 					    	<%= f.hidden_field :crew_id %>
 						    <%= f.hidden_field :day %>
 						  <div class="field">
@@ -32,16 +45,16 @@
 						    <%= f.check_box :block_off %> <%= f.label :block_off, "Block off the day" %>						    
 						  </div>
 						  <div class="actions">
-						    <%= f.submit "Save this note", class:"button compact green-gradient", style:"width:auto;" %>
+						    <%= f.button "Save this note", id:"save_note", class:"button compact green-gradient note-toggel", style:"width:auto;"%>
 						  </div>
 						<% end %>
 					</div>
 				</th>
 			<% end %>
 		</tr>
-		<tr>
+		<tr class="all_crew">
 			<% @crews.each do |c| %>
-			<td class="crew_<%= c.ordering %>">
+			<td class="crew_<%= c.ordering %>" id="crew_<%= c.ordering %>">
 				<% block_it_off = false %>
 				<% block = DayCrewBlock.find_all_by_crew_id_and_day(c.id, day.beginning_of_day) %>
 				<% unless block.nil? %>

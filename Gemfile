@@ -24,6 +24,10 @@ group :development do
   gem 'thin'
   gem "letter_opener", :require => false
   gem 'taps', :require => false
+  gem 'quiet_assets'
+  gem 'debugger'
+
+
 end
 
 # Gems used only for assets and not required

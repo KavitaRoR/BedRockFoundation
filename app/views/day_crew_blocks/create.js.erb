@@ -1,0 +1,6 @@
+$('#crew_<%= @crew.ordering%>').prepend($('<div class="crew_block_button closable" id="crew_block_<%= @day_crew_block.id %>"><div class="close_btn" data-id="<%= @day_crew_block.id %>"></div><span class="schedule_button_heading"><%=raw "<small>day blocked off for:</small><br />" if @day_crew_block.block_off %><b class="note-reason" data-id="<%= @day_crew_block.id %>"><%= @day_crew_block.reason %></b></span></div>')); 
+$("#daycrewblock_<%=@crew.id%>").parent().find("form").slideToggle();
+$("#loading").hide();
+
+
+

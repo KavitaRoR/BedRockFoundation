@@ -51,14 +51,14 @@ class DayCrewBlocksController < ApplicationController
     else
       @day_crew_block.save
     end
-
+    @crew = Crew.find_by_id( params[:day_crew_block][:crew_id])
     respond_to do |format|
       if result
-        format.html { redirect_to :back, notice: 'Note was successfully created.' }
-        format.json { render json: @day_crew_block, status: :created, location: @day_crew_block }
+        format.js #{ render "create", :locals => {:day => params[:day_crew_block][:day].to_date, :c => crew} }
+        
       else
         format.html { render action: "new" }
-        format.json { render json: @day_crew_block.errors, status: :unprocessable_entity }
+        fformat.js { render js: @day_crew_block, status: :created, location: @day_crew_block }
       end
     end
   end
